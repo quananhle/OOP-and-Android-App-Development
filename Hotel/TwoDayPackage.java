@@ -1,0 +1,24 @@
+class TwoDayPackage extends Package{
+	TwoDayPackage(String fromAddress, String  toAddress, float wt){
+		this.setFromAddress(fromAddress);
+		this.setToAddress(toAddress);
+		this.setWt(wt);
+		this.setID();
+	}
+	public float calculateCharge(){
+		float charge = super.calculateCharge()+(this.getWt()*twoDayExtraCharge);
+		return charge;
+	}
+	public String  printReceipt(){
+		
+		String st="========================================\n";
+		st=st + "Receipt for Package ID: "+ this.getID()+"\n";
+		st=st + "Type: Two Day"+"\n";
+		st=st + "From Address: " + this.getFromAddress()+"\n";
+		st=st + "To Address: " + this.getToAddress()+"\n";
+		st=st + "Weight: " + this.getWt()+" oz.\n";
+		st=st + "Charge: $" + this.calculateCharge()+"\n";
+		st=st + "==========================================\n";
+		return st;
+	}
+}
