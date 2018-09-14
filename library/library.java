@@ -2,133 +2,50 @@ package library.client.classes;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 import library.service.classes.BookGenre;
 import library.service.classes.BookRecord;
-
+import java.util.Vector;
 class library{
-	ArrayList <BookRecord> books;
-	public void swap (ArrayList<BookRecord> books, int i, int j) {
-		BookRecord temp = books.get(i);
-		books.set(i, books.get(j));
-		books.set(j, temp);
-	}
-	
-	public ArrayList<BookRecord> sortString(ArrayList<BookRecord> myArray){//sort the array based on strings		
-		int insertPt;
-		int maxIndex;
-		for(int i = myArray.size() - 1; i >= 1; --i){
-			insertPt = i;
-			maxIndex = 0;
-			
-			for(int j = 1; j <= i; ++j){
-				//find the index with the max value in this sub array
-				if(myArray.get(maxIndex).getTag().compareTo(myArray.get(j).getTag())<0){
-					maxIndex = j;					
-				}
-			}
-			//swap values
-			swap(myArray, insertPt, maxIndex);
-		}
-		return myArray;
-	}
-	
-	public ArrayList<BookRecord> sortPages(ArrayList<BookRecord> myArray){//sort the array based on pages
-		int insertPt;
-		int maxIndex;
-		for(int i = myArray.size()-1; i>=1; --i){
-			insertPt = i;
-			maxIndex = 0;
-			
-			for(int j = 1; j <= i; ++j){
-				//find the index with the max value in this sub array
-				if(myArray.get(maxIndex).getPages() < myArray.get(j).getPages()){
-					maxIndex = j;					
-				}
-			}
-			//swap values
-			swap(myArray, insertPt, maxIndex);
-		}
-		return myArray;
-	}
-	
-	public void searchByGenre(BookGenre genre){
-		//loop through the book records and find the number of matches
-		ArrayList <BookRecord> matchingBook = new ArrayList<>();
-		for (BookRecord book : books ){
-			if(book.getGenre() == genre) {
-				matchingBook.add(book);
-				System.out.println(book);
-			}
-		}
-		if(matchingBook.size() == 0){
-			System.out.println("No books of this genre found");
-			return;
-		}
-		//sort the results according to the page length
-		this.sortPages(matchingBook);
-		//print out the results
-		ArrayList <BookRecord> searchResults = new ArrayList<>(matchingBook);
-		for(int i = 0; i < searchResults.size(); ++i){
-			System.out.println(searchResults.get(i).toString());
-		}
-	}
-	
-	public void searchTag(String tag){
-		//implement the binary search
-		if(books.size() == 0){
-			System.out.println("The library database is empty");
-			return;
-		}
-		
-		int first = 0;
-		int end = books.size() - 1;
-		int mid = (first + end) / 2;
-		while(first <= end){
-			if(books.get(mid).getTag().compareTo(tag) == 0){
-				System.out.println("Found a match");
-				System.out.println(books.get(mid).toString());
-				return;
-			} else if(books.get(mid).getTag().compareTo(tag) < 0){ //look at the right half
-				first = mid + 1;
-				mid = (first + end) / 2;
-			} else if(books.get(mid).getTag().compareTo(tag) > 0){ //look at the left half
-				end = mid - 1;
-				mid = (first + end) / 2;
-			}			
-		}
-		System.out.println("No match found");
-	}
-	
-	public boolean searchForDuplicate(BookRecord aRecord){
-		//loop through the library and find duplicates
-		//return true if duplicate found 
-		//else return false
-		if(books.size() == 0) { 
-			return false;
-		}
-		
-		for(int i = 0; i < books.size(); ++i){
-			if(books.get(i).equals(aRecord)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public void print(){//list the library
-		for(int i = 0; i < books.size(); ++i){
-			System.out.println(books.get(i).toString());
-		}	
-	}
-	
+	/*Task 1: Declare the vector of objects*/
+	Vector<BookRecord> books;
 	library(){
-		this.books=new ArrayList <BookRecord>();
+		/* Task 2: Initiliaze vector*/
+		books=new Vector<BookRecord>();
+		/* Task 3: Print out its capacity and its size*/
+		System.out.println("Size of vector: " + books.size());
+		System.out.println("Capacity of vector: " + books.capacity());
 	}
 	
+	public void searchByGenre(BookGenre genre){//search the vector for records of specific genre
+		/* Task 5: implement searchByGenre() to search for records of a particylar genre in the vector*/
+		for(int i=0;i<books.size();++i){
+			if(books.get(i).getGenre().equals(genre))
+			{
+				System.out.println(books.get(i).toString());
+			}
+		}
+	}
+	
+	public void print(){//list the records
+		/* Task 6: Implement the print() to list out the records*/
+		for(int i=0;i<books.size();++i){
+			System.out.println(books.get(i).toString());
+		}
+	}
+	public int findNumGenre(BookGenre genre){
+		/**/
+		int count=0;
+		for(int i=0;i<books.size();++i){
+			if(this.books.get(i).getGenre()==genre){
+				count++;
+			}				
+		}
+		return count;
+	}
+		
 	public static void main(String []args){//instantiate the library
-	//arg[0]: text file //arg[1]: resize factor
-		int resizeFactor = Integer.parseInt(args[1]);
+	//arg[0]: text file
+		
 		library myLib = new library();
 		//read the the files from text files
 		String []authors;
@@ -139,44 +56,27 @@ class library{
 			File myFile=new File(args[0]);
             scan=new Scanner(myFile);//each line has the format title:genre:author-name-1,author-name-2..authorname-m
 			while(scan.hasNextLine()){
-				str=scan.nextLine();			
+				str=scan.nextLine();				
 				String []tok=str.split(":");
 				authors=tok[2].split(",");
-				aRecord = new BookRecord(tok[0],tok[1],authors,tok[3],Integer.parseInt(tok[4]));
-				//check for duplicate records
-				if (!myLib.searchForDuplicate(aRecord)){
-					//create a BookRecord object and load it on the array
-					myLib.books.add(aRecord);
-					//System.out.println("No of records: " + myLib.noRecords);
-				}
-				else{
-					System.out.println("Found a duplicate");
-					String out="";
-					out = out + "===================================\n";
-					out = out + "Tag:" + aRecord.getTag() + "\n";
-					out = out + "Title:" + aRecord.getTitle() + "\n";
-					out = out + "Genre: " + aRecord.getGenre() + "\n";
-					out = out + "Authors: " + aRecord.getAuthorList() + "\n";
-					out = out + "No. of Pages: " + aRecord.getPages() + "\n";
-					out = out + "===================================\n";
-					System.out.println(out);
-				}
+				aRecord = new BookRecord(tok[0],tok[1],authors);
+				
+				/*Task 4: Add the objects to the vector*/
+				myLib.books.add(aRecord);
 			}
 			scan.close();
         }catch(IOException ioe){ 
 			System.out.println("The file can not be read");
 		}
-		//sort the array
-		myLib.sortString(myLib.books);
 		
 		//User interactive part
 		String option1, option2;
 		scan = new Scanner(System.in);
-		while(true){
+		option1="";
+		while(!option1.equals("Q")){
 			System.out.println("Select an option:");
 			System.out.println("Type \"S\" to list books of a genre");
-			System.out.println("Type \"P\" to print out all the book records");		
-			System.out.println("Type \"T\" to search for a record with a specific tag");
+			System.out.println("Type \"P\" to print out all the book recors");		
 			System.out.println("Type \"Q\" to Quit");
 			option1=scan.nextLine();
 			
@@ -185,28 +85,70 @@ class library{
 							for (BookGenre d : BookGenre.values()) {
 									System.out.println(d);
 							}
-							option2=scan.nextLine(); //assume the use will type in a valid genre
-							myLib.searchByGenre(BookGenre.valueOf(option2));
-							break;
-							 
-				case "P":   myLib.print();	 
+							option2=scan.nextLine(); //assume the user will type in a valid genre
+							myLib.searchByGenre(BookGenre.valueOf(option2));//implement this method
+							break;									
+				
+				case "P":   myLib.print();//print the array; implement this method	 
 							break;
 				
-				case "Q":   System.out.println("Quitting program");
-							System.exit(0);
-							
-				case "T":	System.out.println("Input the tag of the book you want to search for:");
-							option2=scan.nextLine(); //assume the use will type in a valid tag
-							myLib.searchTag(option2);
+				case "Q":   System.out.println("Quitting interactive part");
 							break;
 							
 				default:	System.out.println("Wrong option! Try again");
 							break;
 			
 			}
+		}
+			/*Task 7- Create 2 dimensional array using the records from the vector
+			The array has rows for GENRE_HISTORY, GENRE_SCIENCE, GENRE_ENGINEERING, GENRE_LITERATURE*/
+			BookRecord [][] libAr; //declaration of the 2D array
+			libAr = new BookRecord[4][];
+			int cnt=0;
+			int cnt1=0;
+			for (BookGenre d : BookGenre.values()) {//for each genre count the number of records belonging to it and then intantiate its row
+			/*add code here*/
+					libAr[cnt]=new BookRecord[myLib.findNumGenre(d)];
+					cnt1=0;
+					for(int i=0;i<myLib.books.size();++i){
+						if(myLib.books.get(i).getGenre()==d){
+							libAr[cnt][cnt1++]=myLib.books.get(i);
+						}
+					}
+					cnt++;					
+			}
+			System.out.println("Printing out the array. Type enter to proceed");
+			option1=scan.nextLine();
+			/*Task 8: Print out the array*/
+			for(int i=0;i<libAr.length;++i){
+				System.out.println("Printing Row: " + i);
+				for(int j=0;j<libAr[i].length;++j){
+					System.out.println(libAr[i][j].toString());
+				}
+			}
+			System.out.println("Removing the duplicates. Type enter to proceed");
+			option1=scan.nextLine();
+			/* Task 9: Identify and remove the duplicate records IN THE VECTOR (NOT THE ARRAY) and print out the removed records */
+			for(int i=0;i<myLib.books.size()-1;++i){
+				for(int j=i+1;j<myLib.books.size();++j){
+					if(myLib.books.get(i).equals(myLib.books.get(j))){
+						aRecord=myLib.books.remove(j);
+						System.out.println("Removing the record:");
+						System.out.println(aRecord.toString());
+					}
+				}
+			}
+			
+			System.out.println("Note the record nos. of the duplicated records");
+			
+			System.out.println("Printing out the array. Type enter to proceed");
+			option1=scan.nextLine();
+			/* Task 10: print out the array again; are the duplicated printed out again? */
+			for(int i=0;i<libAr.length;++i){
+				for(int j=0;j<libAr[i].length;++j){
+					System.out.println(libAr[i][j].toString());
+				}
+			}
 			
 		}
-			 
-	}
-	
 }
