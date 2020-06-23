@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name"                   >PopularMovies   </string>
+    <string name="top_rated"                  >Top Rated Movies</string>
+    <string name="most_watched"               >Most Watched    </string>
+    <string name="movie_poster"               >Poster          </string>
+    <string name="movie_text_hint"            >Hint            </string>
+    <string name="movie_release_date"         >Release Date    </string>
+    <string name="movie_popularity"           >Most Watched    </string>
+    <string name="plot_analysis"              >Plot Analysis : </string>
+    <string name="divider">|</string>
+</resources>
+

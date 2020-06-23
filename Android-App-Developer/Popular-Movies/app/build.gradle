@@ -1,0 +1,64 @@
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 1
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    defaultConfig {
+        applicationId "com.example.Quan_Le.popular_movies_android_app"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        def API_KEY = 'API_KEY'
+        def IMAGE_BASE_URL = 'IMAGE_BASE_URL'
+        def LANGUAGE = 'LANGUAGE'
+
+        flavorDimensions "default"
+        dev {
+            applicationIdSuffix '.dev'
+            dimension "default"
+            resValue 'string', API_KEY, '"4f0ae9c553ed9926663b8257101dce71"'
+            resValue 'string', IMAGE_BASE_URL, '"https://image.tmdb.org/t/p/w500/"'
+            resValue 'string', LANGUAGE, '"EN-US"'
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        //noinspection GradleCompatible
+        implementation 'com.android.support:appcompat-v7:28.0.0'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:animated-vector-drawable:28.0.0'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:exifinterface:28.0.0'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:recyclerview-v7:28.0.0'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:gridlayout-v7:28.0.0'
+        //noinspection GradleCompatible
+        implementation 'com.android.support:cardview-v7:28.0.0'
+        implementation 'com.squareup.picasso:picasso:2.71828'
+        implementation 'com.jakewharton:butterknife:8.8.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    }
+}
+
