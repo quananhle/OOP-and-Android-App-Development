@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
         android:onClick="doButton"
         android:text="CONVERT"
         android:textSize="18sp"
@@ -19,9 +19,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.474" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="185dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="45dp"
+        android:text="CLEAR"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
+
     <EditText
         android:id="@+id/editTextNumberDecimal"
-        android:layout_width="200"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
         android:background="?android:attr/statusBarColor"
@@ -36,13 +52,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
+    <RadioButton
+        android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="434dp" />
+        android:text="RadioButton"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="123dp" />
 
     <RadioButton
         android:id="@+id/radioButton"
@@ -52,34 +68,21 @@
         tools:layout_editor_absoluteX="151dp"
         tools:layout_editor_absoluteY="84dp" />
 
-    <RadioButton
-        android:id="@+id/radioButton2"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RadioButton"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="123dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="185dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="45dp"
-        android:text="CLEAR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:text="TextView"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="434dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Value"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNumberDecimal"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberDecimal" />
+        app:layout_constraintTop_toTopOf="@+id/editTextNumberDecimal"
+        tools:layout_editor_absoluteX="79dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
