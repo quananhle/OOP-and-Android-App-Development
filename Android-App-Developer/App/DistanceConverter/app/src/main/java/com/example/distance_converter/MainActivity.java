@@ -31,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
     private EditText inputValue;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inputValue = findViewById(R.id.myValue);
+        textView = findViewById(R.id.textView);
         Log.d(TAG, "onCreate: " + ms);
     }
     public void doPress(View v) {
@@ -44,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void doButton(View v) {
         String s = inputValue.getText().toString();
-        double d = Double.valueOf(s);
-        Log.d(TAG, "doButton: " + ms);
+        double d = Double.parseDouble(s);
+        d *= 2.0;
+        Log.d(TAG, "doButton: " + d);
     }
 }

@@ -42,7 +42,7 @@
         android:layout_marginTop="220dp"
         android:background="?android:attr/statusBarColor"
         android:ems="10"
-        android:hint="Enter a Value"
+        android:hint="Enter a value"
         android:inputType="numberDecimal"
         android:textSize="30sp"
         app:layout_constrainedHeight="false"
