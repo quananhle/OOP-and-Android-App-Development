@@ -10,7 +10,7 @@
         android:id="@+id/button"
         android:layout_width="160dp"
         android:layout_height="80dp"
-        android:onClick="doButton"
+        android:onClick="buttonClicked"
         android:text="CONVERT"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

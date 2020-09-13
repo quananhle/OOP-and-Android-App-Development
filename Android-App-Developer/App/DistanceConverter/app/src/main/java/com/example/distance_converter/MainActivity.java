@@ -31,23 +31,31 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
     private EditText inputValue;
-    private TextView textView;
+    private TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         inputValue = findViewById(R.id.myValue);
-        textView = findViewById(R.id.textView);
+        output = findViewById(R.id.textView);
         Log.d(TAG, "onCreate: " + ms);
     }
     public void doPress(View v) {
         Log.d(TAG, "onCreate: " + ms);
     }
-    public void doButton(View v) {
+    public void buttonClicked(View v) {
         String s = inputValue.getText().toString();
         double d = Double.parseDouble(s);
         d *= 2.0;
+        String sb = new StringBuilder().append(d).toString();
+        if(!sb.trim().isEmpty()) {
+            output.setText(sb + "\n");
+        }
+//        StringBuilder sb = new StringBuilder(s);
+//        if(!s.trim().isEmpty()) {
+//            output.setText(sb.reverse());
+//        }
         Log.d(TAG, "doButton: " + d);
     }
 }
