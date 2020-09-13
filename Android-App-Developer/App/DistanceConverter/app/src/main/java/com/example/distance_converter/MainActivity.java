@@ -36,15 +36,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        inputValue = findViewById(R.id.myValue);
         Log.d(TAG, "onCreate: " + ms);
-
-        inputValue = findViewById(myValue);
     }
     public void doPress(View v) {
         Log.d(TAG, "onCreate: " + ms);
     }
     public void doButton(View v) {
-        Log.d(TAG, "onCreate: " + ms);
+        String s = inputValue.getText().toString();
+        double d = Double.valueOf(s);
+        Log.d(TAG, "doButton: " + ms);
     }
 }
