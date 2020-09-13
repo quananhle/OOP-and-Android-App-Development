@@ -30,12 +30,16 @@ public class MainActivity extends AppCompatActivity {
 //    }
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
+    private EditText inputValue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "onCreate: " + ms);
+
+        inputValue = findViewById(myValue);
     }
     public void doPress(View v) {
         Log.d(TAG, "onCreate: " + ms);

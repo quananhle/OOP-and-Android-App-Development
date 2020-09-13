@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal"
+        android:id="@+id/myValue"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
@@ -80,9 +80,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="Value"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNumberDecimal"
-        app:layout_constraintTop_toTopOf="@+id/editTextNumberDecimal"
-        tools:layout_editor_absoluteX="79dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/myValue"
+        app:layout_constraintEnd_toStartOf="@+id/myValue"
+        app:layout_constraintTop_toTopOf="@+id/myValue" />
 </androidx.constraintlayout.widget.ConstraintLayout>
