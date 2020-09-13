@@ -3,6 +3,7 @@ package com.example.distance_converter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,4 +35,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate: " + ms);
+    }
+    public void doPress(View v) {
+        Log.d(TAG, "onCreate: " + ms);
+    }
+    public void doButton(View v) {
+        Log.d(TAG, "onCreate: " + ms);
+    }
 }
