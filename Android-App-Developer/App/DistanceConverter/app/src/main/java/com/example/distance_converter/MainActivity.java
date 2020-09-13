@@ -3,59 +3,54 @@ package com.example.distance_converter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
-//    private EditText userText;
-//    private TextView output;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        //Bind var's to the screen widgets
-//        userText = findViewById(R.id.editText);
-//        output = findViewById(R.id.textView);
-//    }
-//    public void buttonClicked(View v) {
-//        String text = userText.getText().toString();
-//        StringBuilder sb = new StringBuilder(text);
-//        if(!text.trim().isEmpty()) {
-//            output.setText(sb.reverse());
-//        }
-//    }
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
     private EditText inputValue;
-    private TextView output;
+    private TextView convertedValue;
+    private TextView conversionHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         inputValue = findViewById(R.id.myValue);
-        output = findViewById(R.id.textView);
+
+        convertedValue = findViewById(R.id.textView);
+
+        conversionHistory = findViewById(R.id.historyConversion);
+        conversionHistory.setMovementMethod(new ScrollingMovementMethod());
+
         Log.d(TAG, "onCreate: " + ms);
     }
     public void doPress(View v) {
         Log.d(TAG, "onCreate: " + ms);
     }
-    public void buttonClicked(View v) {
+    public void conversionClicked(View v) {
         String s = inputValue.getText().toString();
+        if (s.isEmpty()) {}
         double d = Double.parseDouble(s);
         d *= 2.0;
-        String sb = new StringBuilder().append(d).toString();
-        if(!sb.trim().isEmpty()) {
-            output.setText(sb + "\n");
+        String str = new StringBuilder().append(d).toString();
+        if(!str.trim().isEmpty()) {
+            convertedValue.setText(str);
         }
-//        StringBuilder sb = new StringBuilder(s);
-//        if(!s.trim().isEmpty()) {
-//            output.setText(sb.reverse());
-//        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 20; i++) {
+            sb.append(String.format(Locale.getDefault(), "Line #%d%n", i));
+        }
+        conversionHistory.setText(sb.toString());
+
         Log.d(TAG, "doButton: " + d);
     }
+
 }
