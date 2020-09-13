@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText userText;
-    private
+    private static final String TAG = "MainActivityTag";
+    private int count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
