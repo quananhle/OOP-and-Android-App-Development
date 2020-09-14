@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputValue;
     private TextView convertedValue;
     private TextView conversionHistory;
+    private TextView inputTypeDisplay, outputTypeDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         conversionHistory = findViewById(R.id.historyConversion);
         conversionHistory.setMovementMethod(new ScrollingMovementMethod());
+
+        inputTypeDisplay = findViewById(R.id.inputType);
+        outputTypeDisplay = findViewById(R.id.outputType);
 
         Log.d(TAG, "onCreate: " + ms);
     }
@@ -51,6 +55,20 @@ public class MainActivity extends AppCompatActivity {
         conversionHistory.setText(sb.toString());
 
         Log.d(TAG, "doButton: " + d);
+    }
+    public void radioClicked(View v) {
+        String milesValue = "Miles Value: ";
+        String kilosValue = "Kilometers Value: ";
+        switch (v.getId()) {
+            case R.id.kiloToMiles:
+                inputTypeDisplay.setText(kilosValue);
+                outputTypeDisplay.setText(milesValue);
+                break;
+            case R.id.milesToKilo:
+                inputTypeDisplay.setText(milesValue);
+                outputTypeDisplay.setText(kilosValue);
+                break;
+        }
     }
 
 }
