@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -36,12 +37,29 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: " + ms);
     }
-    public void doClear(View v) {
-        Log.d(TAG, "onCreate: " + ms);
+
+    public void radioClicked(View v) {
+        String milesValue = "Miles Value: ";
+        String kilosValue = "Kilometers Value: ";
+        switch (v.getId()) {
+            case R.id.kiloToMiles:
+                inputTypeDisplay.setText(kilosValue);
+                outputTypeDisplay.setText(milesValue);
+                break;
+            case R.id.milesToKilo:
+                inputTypeDisplay.setText(milesValue);
+                outputTypeDisplay.setText(kilosValue);
+                break;
+        }
     }
+
     public void conversionClicked(View v) {
         String s = inputValue.getText().toString();
-        if (s.isEmpty()) {}
+        if(s.matches("")) {
+            Toast.makeText(this, "Value has not been entered", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Value has not been entered");
+            return;
+        }
         double d = Double.parseDouble(s);
         d *= 2.0;
         String str = new StringBuilder().append(d).toString();
@@ -56,19 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "doButton: " + d);
     }
-    public void radioClicked(View v) {
-        String milesValue = "Miles Value: ";
-        String kilosValue = "Kilometers Value: ";
-        switch (v.getId()) {
-            case R.id.kiloToMiles:
-                inputTypeDisplay.setText(kilosValue);
-                outputTypeDisplay.setText(milesValue);
-                break;
-            case R.id.milesToKilo:
-                inputTypeDisplay.setText(milesValue);
-                outputTypeDisplay.setText(kilosValue);
-                break;
-        }
+
+    public void clearClicked(View v) {
+        Log.d(TAG, "onCreate: " + ms);
     }
 
 }
