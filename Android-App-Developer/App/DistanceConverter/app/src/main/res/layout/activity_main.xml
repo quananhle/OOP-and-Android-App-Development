@@ -42,7 +42,7 @@
         android:background="@android:color/darker_gray"
         android:ems="10"
         android:hint="Enter a value"
-        android:inputType="numberDecimal"
+        android:inputType="numberSigned|numberDecimal"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constrainedHeight="false"
