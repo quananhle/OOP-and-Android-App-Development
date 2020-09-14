@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: " + ms);
     }
-    public void doPress(View v) {
+    public void doClear(View v) {
         Log.d(TAG, "onCreate: " + ms);
     }
     public void conversionClicked(View v) {
