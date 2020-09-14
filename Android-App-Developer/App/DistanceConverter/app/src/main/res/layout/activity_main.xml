@@ -101,13 +101,13 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/conversionHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Conversion History"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/historyConversion"
+        app:layout_constraintBottom_toTopOf="@+id/historyConversions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent" />
@@ -146,12 +146,13 @@
         app:layout_constraintVertical_bias="0.437" />
 
     <TextView
-        android:id="@+id/historyConversion"
+        android:id="@+id/historyConversions"
         android:layout_width="368dp"
         android:layout_height="250dp"
         android:layout_marginBottom="16dp"
         android:background="?attr/colorButtonNormal"
         android:text="Conversion History"
+        android:textColorHighlight="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/clearButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"

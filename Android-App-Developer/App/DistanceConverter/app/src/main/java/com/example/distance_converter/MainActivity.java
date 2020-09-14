@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         convertedValue = findViewById(R.id.convertedValue);
 
-        conversionHistory = findViewById(R.id.historyConversion);
+        conversionHistory = findViewById(R.id.historyConversions);
         conversionHistory.setMovementMethod(new ScrollingMovementMethod());
 
         inputTypeDisplay = findViewById(R.id.inputType);
