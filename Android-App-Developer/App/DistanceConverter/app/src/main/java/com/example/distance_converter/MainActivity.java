@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView convertedValue;
     private TextView conversionHistory;
     private TextView inputTypeDisplay, outputTypeDisplay;
+    private boolean isMileToKilometer = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.milesToKilo:
                 inputTypeDisplay.setText(milesValue);
                 outputTypeDisplay.setText(kilosValue);
+                isMileToKilometer = true;
                 break;
         }
     }
 
     public void conversionClicked(View v) {
         String s = inputValue.getText().toString();
+        //check if user has not entered a valid input value
         if(s.matches("")) {
             Toast.makeText(this, "Value has not been entered",
                     Toast.LENGTH_SHORT).show();
@@ -62,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         double d = Double.parseDouble(s);
-        d *= 2.0;
+        if(!isMileToKilometer) {
+            d *= 2.0;
+        }
+        else if(isMileToKilometer) {
+            d *= 3.0;
+        }
         String str = new StringBuilder().append(d).toString();
         if(!str.trim().isEmpty()) {
             convertedValue.setText(str);

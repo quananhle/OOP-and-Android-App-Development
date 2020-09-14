@@ -58,6 +58,7 @@
         android:layout_height="40dp"
         android:background="@android:color/darker_gray"
         android:ems="10"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constrainedHeight="false"
         app:layout_constrainedWidth="false"
