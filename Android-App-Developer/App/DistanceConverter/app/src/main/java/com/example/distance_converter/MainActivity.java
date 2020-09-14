@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             sb.append(String.format(Locale.getDefault(),
                     "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
         }
-        conversionHistory.setText(sb.toString());
+        conversionHistory.append(sb.toString());
 
         Log.d(TAG, "doButton: " + inputVal);
     }

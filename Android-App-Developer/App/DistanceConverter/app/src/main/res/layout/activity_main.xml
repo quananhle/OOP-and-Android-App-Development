@@ -152,7 +152,6 @@
         android:layout_marginBottom="16dp"
         android:background="?attr/colorButtonNormal"
         android:backgroundTint="#000080"
-        android:text="Conversion History"
         android:textColor="@color/colorAccent"
         android:textColorHighlight="#FFFF9800"
         app:layout_constraintBottom_toTopOf="@+id/clearButton"
