@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void conversionClicked(View v) {
+        double convertedVal = 0;
         String s = inputValue.getText().toString();
         //check if user has not entered a valid input value
         if(s.matches("")) {
@@ -64,24 +65,31 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Value has not been entered");
             return;
         }
-        double d = Double.parseDouble(s);
+        double inputVal = Double.parseDouble(s);
+        //if kiloToMiles button is checked
         if(!isMileToKilometer) {
-            d *= 0.621371;
+            convertedVal = inputVal * 0.621371;
         }
+        //if milesToKilo button is checked
         else if(isMileToKilometer) {
-            d *= 1.60934;
+            convertedVal = inputVal * 1.60934;
         }
-        String str = new StringBuilder().append(DF.format(d)).toString();
+        String str = new StringBuilder().append(DF.format(convertedVal)).toString();
         if(!str.trim().isEmpty()) {
             convertedValue.setText(str);
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 20; i++) {
-            sb.append(String.format(Locale.getDefault(), "Line #%d%n", i));
+        if(!isMileToKilometer) {
+            sb.append(String.format(Locale.getDefault(),
+                    "%d Km ===> %d Mi %n", inputVal, convertedVal));
+        }
+        else if (isMileToKilometer) {
+            sb.append(String.format(Locale.getDefault(),
+                    "%d Mi ===> %d Km %n", inputVal, convertedVal));
         }
         conversionHistory.setText(sb.toString());
 
-        Log.d(TAG, "doButton: " + d);
+        Log.d(TAG, "doButton: " + inputVal);
     }
 
     public void clearClicked(View v) {
