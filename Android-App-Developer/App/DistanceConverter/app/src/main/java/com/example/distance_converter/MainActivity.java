@@ -81,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         if(!isMileToKilometer) {
             sb.append(String.format(Locale.getDefault(),
-                    "%d Km ===> %d Mi %n", inputVal, convertedVal));
+                    "%.1f Km ===> %.1f Mi %n", inputVal, convertedVal));
         }
         else if (isMileToKilometer) {
             sb.append(String.format(Locale.getDefault(),
-                    "%d Mi ===> %d Km %n", inputVal, convertedVal));
+                    "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
         }
         conversionHistory.setText(sb.toString());
 
