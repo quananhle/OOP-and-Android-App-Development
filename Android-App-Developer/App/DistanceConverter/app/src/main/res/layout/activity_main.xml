@@ -52,22 +52,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/convertedValue"
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:background="@android:color/darker_gray"
         android:ems="10"
-        android:inputType="numberDecimal"
         android:textSize="24sp"
         app:layout_constrainedHeight="false"
         app:layout_constrainedWidth="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.392" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

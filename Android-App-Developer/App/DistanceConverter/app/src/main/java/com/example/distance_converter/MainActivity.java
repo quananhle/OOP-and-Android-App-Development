@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     public void conversionClicked(View v) {
         String s = inputValue.getText().toString();
         if(s.matches("")) {
-            Toast.makeText(this, "Value has not been entered", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Value has not been entered",
+                    Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Value has not been entered");
             return;
         }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clearClicked(View v) {
-        Log.d(TAG, "onCreate: " + ms);
+        Log.d(TAG, "onClear: " + ms);
     }
 
 }
