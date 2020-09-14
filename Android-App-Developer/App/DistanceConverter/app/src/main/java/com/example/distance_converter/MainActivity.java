@@ -66,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
         }
         double d = Double.parseDouble(s);
         if(!isMileToKilometer) {
-            d *= 2.0;
+            d *= 0.621371;
         }
         else if(isMileToKilometer) {
-            d *= 3.0;
+            d *= 1.60934;
         }
         String str = new StringBuilder().append(d).toString();
         if(!str.trim().isEmpty()) {
