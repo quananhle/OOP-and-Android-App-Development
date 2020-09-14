@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         inputValue = findViewById(R.id.myValue);
 
-        convertedValue = findViewById(R.id.textView);
+        convertedValue = findViewById(R.id.convertedValue);
 
         conversionHistory = findViewById(R.id.historyConversion);
         conversionHistory.setMovementMethod(new ScrollingMovementMethod());
