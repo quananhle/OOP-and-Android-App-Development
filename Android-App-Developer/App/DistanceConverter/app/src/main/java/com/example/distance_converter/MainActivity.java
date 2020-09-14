@@ -10,16 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
     private EditText inputValue;
-    private TextView convertedValue;
-    private TextView conversionHistory;
-    private TextView inputTypeDisplay, outputTypeDisplay;
+    private TextView convertedValue, conversionHistory, inputTypeDisplay, outputTypeDisplay;
     private boolean isMileToKilometer = false;
+    private final DecimalFormat DF = new DecimalFormat("#,###,##0.0");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         else if(isMileToKilometer) {
             d *= 1.60934;
         }
-        String str = new StringBuilder().append(d).toString();
+        String str = new StringBuilder().append(DF.format(d)).toString();
         if(!str.trim().isEmpty()) {
             convertedValue.setText(str);
         }
