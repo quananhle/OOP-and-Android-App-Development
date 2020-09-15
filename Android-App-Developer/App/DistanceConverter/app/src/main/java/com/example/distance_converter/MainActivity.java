@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: " + ms);
     }
-
+    //radio buttons
     public void radioClicked(View v) {
         String milesValue = "Miles Value: ";
         String kilosValue = "Kilometers Value: ";
@@ -61,18 +61,20 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
+    //CONVERSION button
     public void conversionClicked(View v) {
         double convertedVal = 0;
         String s = inputValue.getText().toString();
         inputValue.getText().clear();
-        //check if user has not entered a valid input value
+
+        //Exception: check if user has not entered a valid input value
         if(s.matches("")) {
             Toast.makeText(this, "Value has not been entered",
                     Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Value has not been entered");
             return;
         }
+        //Calculations
         double inputVal = Double.parseDouble(s);
         //if kiloToMiles button is checked
         if(!isMileToKilometer) {
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "doButton: " + inputVal);
     }
-
+    //CLEAR button
     public void clearClicked(View v) {
         inputValue.getText().clear();
         conversionHistory.setText("");
