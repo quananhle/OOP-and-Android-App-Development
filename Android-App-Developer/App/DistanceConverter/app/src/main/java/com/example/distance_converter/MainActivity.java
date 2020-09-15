@@ -76,18 +76,25 @@ public class MainActivity extends AppCompatActivity {
             convertedVal = inputVal * 1.60934;
         }
         String str = new StringBuilder().append(DF.format(convertedVal)).toString();
+        //if input value is converted
         if(!str.trim().isEmpty()) {
+            //
             convertedValue.setText(str);
         }
         StringBuilder sb = new StringBuilder();
+        //if kilometer to mile radio button is checked
         if(!isMileToKilometer) {
+            //add to conversion history
             sb.append(String.format(Locale.getDefault(),
                     "%.1f Km ===> %.1f Mi %n", inputVal, convertedVal));
         }
+        //if mile to kilometer radio button is checked
         else if (isMileToKilometer) {
+            //add to conversion history
             sb.append(String.format(Locale.getDefault(),
                     "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
         }
+        //prepend
         conversionHistory.setText(sb.toString() + conversionHistory.getText());
 
         Log.d(TAG, "doButton: " + inputVal);
