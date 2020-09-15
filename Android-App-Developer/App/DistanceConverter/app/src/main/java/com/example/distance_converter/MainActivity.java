@@ -80,22 +80,22 @@ public class MainActivity extends AppCompatActivity {
         //if kiloToMiles button is checked
         if(!isMileToKilometer) {
             convertedVal = inputVal * 0.621371;
-//            if(inputVal > 1) {
-//                Toast.makeText(this, "You entered value: " + inputVal + " kilometers", Toast.LENGTH_SHORT).show();
-//            }
-//            else {
-//                Toast.makeText(this, "You entered value: " + inputVal + " kilometer", Toast.LENGTH_SHORT).show();
-//            }
+            if(inputVal > 1) {
+                Toast.makeText(this, "You entered value: " + inputVal + " kilometers", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "You entered value: " + inputVal + " kilometer", Toast.LENGTH_SHORT).show();
+            }
         }
         //if milesToKilo button is checked
         else if(isMileToKilometer) {
             convertedVal = inputVal * 1.60934;
-//            if(inputVal > 1) {
-//                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
-//            }
-//            else {
-//                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
-//            }
+            if(inputVal > 1) {
+                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
+            }
         }
         String str = new StringBuilder().append(DF.format(convertedVal)).toString();
         //if input value is converted
