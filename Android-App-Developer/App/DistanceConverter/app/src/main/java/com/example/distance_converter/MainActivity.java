@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isMileToKilometer = true;
     //set format of the decimal number
     private final DecimalFormat DF = new DecimalFormat("#,###,##0.0");
-
+    private double input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,9 +136,9 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-//        String input = inputValue.getText().toString();
-//        double d = Double.parseDouble(input);
-//        outState.putDouble("inputVALUE", d);
+        String str = inputValue.getText().toString();
+        input += Double.parseDouble(str);
+        outState.putDouble("inputVALUE", input);
         outState.putString("CONVERTED_VALUE", convertedValue.getText().toString());
         outState.putString("HISTORY", conversionHistory.getText().toString());
         //call super last
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         //call super first
         super.onRestoreInstanceState(savedInstanceState);
         conversionHistory.setText(savedInstanceState.getString("HISTORY"));
-//        inputValue.setText(savedInstanceState.getString("inputVALUE"));
+        input = savedInstanceState.getDouble("inputVALUE");
         convertedValue.setText(savedInstanceState.getString("CONVERTED_VALUE"));
     }
 
