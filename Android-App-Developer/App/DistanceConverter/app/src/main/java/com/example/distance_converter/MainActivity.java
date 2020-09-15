@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     public void conversionClicked(View v) {
         double convertedVal = 0;
         String s = inputValue.getText().toString();
-        input += Double.parseDouble(s);
+
         inputValue.getText().clear();
 
         //Exception: check if user has not entered a valid input value
@@ -85,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Value has not been entered");
             return;
         }
+        if(s.trim().isEmpty()) {
+            Toast.makeText(this, "Value has not been entered",
+                    Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Value has not been entered");
+            return;
+        }
+        input += Double.parseDouble(s);
         //Calculations
         double inputVal = Double.parseDouble(s);
         //if kiloToMiles button is checked
@@ -113,47 +120,65 @@ public class MainActivity extends AppCompatActivity {
             //print converted value
             convertedValue.setText(str);
         }
-        StringBuilder sb = new StringBuilder();
-        //if kilometer to mile radio button is checked
-        if(!isMileToKilometer) {
-            sb.append(String.format(Locale.getDefault(),
-                    "%.1f Km ===> %.1f Mi %n", inputVal, convertedVal));
-        }
-        //if mile to kilometer radio button is checked
-        else if (isMileToKilometer) {
-            sb.append(String.format(Locale.getDefault(),
-                    "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
-        }
-        //prepend the conversion to conversion history
-        conversionHistory.setText(sb.toString() + conversionHistory.getText());
-
-        Log.d(TAG, "doButton: " + inputVal);
-    }
-    //CLEAR button
-    public void clearClicked(View v) {
-        inputValue.getText().clear();
-        conversionHistory.setText("");
-        convertedValue.setText("");
-    }
+//        else {
+//            Toast.makeText(this, "Value has not been entered",
+//                    Toast.LENGTH_SHORT).show();
+//            Log.e(TAG, "Value has not been entered");
+//            return;
+//        }
+//        StringBuilder sb = new StringBuilder();
+//        //if kilometer to mile radio button is checked
+//        if(!isMileToKilometer) {
+//            sb.append(String.format(Locale.getDefault(),
+//                    "%.1f Km ===> %.1f Mi %n", inputVal, convertedVal));
+//        }
+//        //if mile to kilometer radio button is checked
+//        else if (isMileToKilometer) {
+//            sb.append(String.format(Locale.getDefault(),
+//                    "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
+//        }
+//        //prepend the conversion to conversion history
+//        conversionHistory.setText(sb.toString() + conversionHistory.getText());
+//
+//        Log.d(TAG, "doButton: " + inputVal);
+//    }
+//    //CLEAR button
+//    public void clearClicked(View v) {
+//        inputValue.getText().clear();
+//        conversionHistory.setText("");
+//        convertedValue.setText("");
+//    }
 
     /**
-     * Landscape layout
+     * Saving the state for changing layout
      */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putDouble("inputVALUE", input);
-        outState.putString("CONVERTED_VALUE", convertedValue.getText().toString());
-        outState.putString("HISTORY", conversionHistory.getText().toString());
-        //call super last
-        super.onSaveInstanceState(outState);
-    }
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        //call super first
-        super.onRestoreInstanceState(savedInstanceState);
-        conversionHistory.setText(savedInstanceState.getString("HISTORY"));
-        input = savedInstanceState.getDouble("inputVALUE");
-        convertedValue.setText(savedInstanceState.getString("CONVERTED_VALUE"));
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        exceptionCatching();
+//        outState.putDouble("inputVALUE", input);
+//        outState.putString("CONVERTED_VALUE", convertedValue.getText().toString());
+//        outState.putString("HISTORY", conversionHistory.getText().toString());
+//        //call super last
+//        super.onSaveInstanceState(outState);
+//    }
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+//        exceptionCatching();
+//        //call super first
+//        super.onRestoreInstanceState(savedInstanceState);
+//        conversionHistory.setText(savedInstanceState.getString("HISTORY"));
+//        input = savedInstanceState.getDouble("inputVALUE");
+//        convertedValue.setText(savedInstanceState.getString("CONVERTED_VALUE"));
+//    }
+//    protected void exceptionCatching() {
+//        String s = inputValue.getText().toString();
+//        //Exception: check if user has not entered a valid input value
+//        if(s.matches("")) {
+//            Toast.makeText(this, "Value has not been entered",
+//                    Toast.LENGTH_SHORT).show();
+//            Log.e(TAG, "Value has not been entered");
+//            return;
+//        }
     }
 
 }
