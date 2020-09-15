@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputValue;
     private TextView convertedValue, conversionHistory, inputTypeDisplay, outputTypeDisplay;
     //signal for different option
-    private boolean isMileToKilometer = false;
+    private boolean isMileToKilometer = true;
     //set format of the decimal number
     private final DecimalFormat DF = new DecimalFormat("#,###,##0.0");
 
@@ -45,12 +45,6 @@ public class MainActivity extends AppCompatActivity {
         String milesValue = "Miles Value: ";
         String kilosValue = "Kilometers Value: ";
         switch (v.getId()) {
-            //when kiloToMiles radio button is check
-            case R.id.kiloToMiles:
-                //change the text displays
-                inputTypeDisplay.setText(kilosValue);
-                outputTypeDisplay.setText(milesValue);
-                break;
             //when milesToKilo radio button is checked
             case R.id.milesToKilo:
                 //change the text displays
@@ -58,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 outputTypeDisplay.setText(kilosValue);
                 //change the signal
                 isMileToKilometer = true;
+                break;
+            //when kiloToMiles radio button is check
+            case R.id.kiloToMiles:
+                //change the text displays
+                inputTypeDisplay.setText(kilosValue);
+                outputTypeDisplay.setText(milesValue);
+                isMileToKilometer = false;
                 break;
         }
     }
@@ -79,10 +80,22 @@ public class MainActivity extends AppCompatActivity {
         //if kiloToMiles button is checked
         if(!isMileToKilometer) {
             convertedVal = inputVal * 0.621371;
+//            if(inputVal > 1) {
+//                Toast.makeText(this, "You entered value: " + inputVal + " kilometers", Toast.LENGTH_SHORT).show();
+//            }
+//            else {
+//                Toast.makeText(this, "You entered value: " + inputVal + " kilometer", Toast.LENGTH_SHORT).show();
+//            }
         }
         //if milesToKilo button is checked
         else if(isMileToKilometer) {
             convertedVal = inputVal * 1.60934;
+//            if(inputVal > 1) {
+//                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
+//            }
+//            else {
+//                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
+//            }
         }
         String str = new StringBuilder().append(DF.format(convertedVal)).toString();
         //if input value is converted
@@ -112,5 +125,13 @@ public class MainActivity extends AppCompatActivity {
         conversionHistory.setText("");
         convertedValue.setText("");
     }
+
+    /**
+     * Landscape layout
+     */
+//    @Override1.1
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putString(inputValue.getText());
+//    }
 
 }
