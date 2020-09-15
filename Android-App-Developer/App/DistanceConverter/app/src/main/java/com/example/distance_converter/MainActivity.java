@@ -1,5 +1,6 @@
 package com.example.distance_converter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -28,13 +29,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState == null) {
+            Toast.makeText(this, "savedInstanceState is NULL", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "savedInstanceState is NOT NULL", Toast.LENGTH_SHORT).show();
+        }
+
         inputValue = findViewById(R.id.myValue);
-
         convertedValue = findViewById(R.id.convertedValue);
-
         conversionHistory = findViewById(R.id.historyConversions);
         conversionHistory.setMovementMethod(new ScrollingMovementMethod());
-
         inputTypeDisplay = findViewById(R.id.inputType);
         outputTypeDisplay = findViewById(R.id.outputType);
 
@@ -129,9 +134,21 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Landscape layout
      */
-//    @Override1.1
+//    @Override
 //    protected void onSaveInstanceState(Bundle outState) {
-//        outState.putString(inputValue.getText());
+//        outState.putDouble("inputVALUE", Double.parseDouble(inputValue.getText().toString()));
+//        outState.putDouble("convertedVALUE", Double.parseDouble(convertedValue.getText().toString()));
+//        outState.putString("HISTORY", conversionHistory.getText().toString());
+//        //call super last
+//        super.onSaveInstanceState(outState);
+//    }
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+//        //call super first
+//        super.onRestoreInstanceState(savedInstanceState);
+//        conversionHistory.setText(savedInstanceState.getString("HISTORY"));
+//        inputValue.setText(savedInstanceState.getString("inputVALUE"));
+//        convertedValue.setText(savedInstanceState.getString("convertedVALUE"));
 //    }
 
 }
