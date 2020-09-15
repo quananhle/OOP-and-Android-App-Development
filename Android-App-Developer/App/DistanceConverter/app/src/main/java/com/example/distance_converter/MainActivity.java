@@ -88,13 +88,15 @@ public class MainActivity extends AppCompatActivity {
             sb.append(String.format(Locale.getDefault(),
                     "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
         }
-        conversionHistory.append(String.format(sb.toString()));
+        conversionHistory.setText(sb.toString() + conversionHistory.getText());
 
         Log.d(TAG, "doButton: " + inputVal);
     }
 
     public void clearClicked(View v) {
-        Log.d(TAG, "onClear: " + ms);
+        inputValue.getText().clear();
+        conversionHistory.setText("");
+        convertedValue.setText("");
     }
 
 }
