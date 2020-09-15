@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public void conversionClicked(View v) {
         double convertedVal = 0;
         String s = inputValue.getText().toString();
+        inputValue.getText().clear();
         //check if user has not entered a valid input value
         if(s.matches("")) {
             Toast.makeText(this, "Value has not been entered",
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             sb.append(String.format(Locale.getDefault(),
                     "%.1f Mi ===> %.1f Km %n", inputVal, convertedVal));
         }
-        conversionHistory.append(sb.toString());
+        conversionHistory.append(String.format(sb.toString()));
 
         Log.d(TAG, "doButton: " + inputVal);
     }
