@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         String s = inputValue.getText().toString();
 
         inputValue.getText().clear();
-
-        //Exception: check if user has not entered a valid input value
+        /*=========================* Exception *================================*/
+        //check if user has not entered a valid input value
         if(s.matches("")) {
             Toast.makeText(this, "Value has not been entered",
                     Toast.LENGTH_SHORT).show();
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Value has not been entered");
             return;
         }
+        /*========================* Calculations *=================================*/
         input += Double.parseDouble(s);
-        //Calculations
         double inputVal = Double.parseDouble(s);
         //if kiloToMiles button is checked
         if(!isMileToKilometer) {
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "You entered value: " + inputVal + " mile", Toast.LENGTH_SHORT).show();
             }
         }
+        /*========================* Display *=================================*/
         String str = new StringBuilder().append(DF.format(convertedVal)).toString();
         //if input value is converted
         if(!str.trim().isEmpty()) {
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Saving the state for changing layout
+     * Saving the state for layout changing
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
