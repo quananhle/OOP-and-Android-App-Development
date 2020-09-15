@@ -14,6 +14,10 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
+/**
+ * @author Quan Le (github/quananhle)
+ */
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private long ms = System.currentTimeMillis();
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     public void conversionClicked(View v) {
         double convertedVal = 0;
         String s = inputValue.getText().toString();
+        input += Double.parseDouble(s);
         inputValue.getText().clear();
 
         //Exception: check if user has not entered a valid input value
@@ -136,8 +141,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        String str = inputValue.getText().toString();
-        input += Double.parseDouble(str);
         outState.putDouble("inputVALUE", input);
         outState.putString("CONVERTED_VALUE", convertedValue.getText().toString());
         outState.putString("HISTORY", conversionHistory.getText().toString());
