@@ -134,21 +134,23 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Landscape layout
      */
-//    @Override
-//    protected void onSaveInstanceState(Bundle outState) {
-//        outState.putDouble("inputVALUE", Double.parseDouble(inputValue.getText().toString()));
-//        outState.putDouble("convertedVALUE", Double.parseDouble(convertedValue.getText().toString()));
-//        outState.putString("HISTORY", conversionHistory.getText().toString());
-//        //call super last
-//        super.onSaveInstanceState(outState);
-//    }
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        //call super first
-//        super.onRestoreInstanceState(savedInstanceState);
-//        conversionHistory.setText(savedInstanceState.getString("HISTORY"));
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        String input = inputValue.getText().toString();
+//        double d = Double.parseDouble(input);
+//        outState.putDouble("inputVALUE", d);
+        outState.putString("CONVERTED_VALUE", convertedValue.getText().toString());
+        outState.putString("HISTORY", conversionHistory.getText().toString());
+        //call super last
+        super.onSaveInstanceState(outState);
+    }
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        //call super first
+        super.onRestoreInstanceState(savedInstanceState);
+        conversionHistory.setText(savedInstanceState.getString("HISTORY"));
 //        inputValue.setText(savedInstanceState.getString("inputVALUE"));
-//        convertedValue.setText(savedInstanceState.getString("convertedVALUE"));
-//    }
+        convertedValue.setText(savedInstanceState.getString("CONVERTED_VALUE"));
+    }
 
 }
