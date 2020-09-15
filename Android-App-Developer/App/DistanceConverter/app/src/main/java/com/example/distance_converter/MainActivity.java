@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "You entered value: " + inputVal + " miles", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You entered value: " + inputVal + " mile", Toast.LENGTH_SHORT).show();
             }
         }
         String str = new StringBuilder().append(DF.format(convertedVal)).toString();
