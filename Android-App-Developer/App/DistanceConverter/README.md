@@ -11,7 +11,7 @@ The app allows the user to select either ```Miles-to-Kilometersor``` or ```Kilom
 Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default. The distance value (the value to be converted) is entered by the user. Values can be positive or negative and only numeric whole or decimal values are allowed. 
 
 Pressing the ```Convert``` button will clear the input field, generate the converted distance value and display it on the ```Conversion History``` text field. The history of converted values is scrollable and displayed with the most recent conversions at the top of the list. 
-
+<br />
 <a href="url"><img src="pic/Landscape-Layout.png" align="left" height="350" width="700" ></a>
 Landscape layout. Changing layout does not lost the data on any field.
 
