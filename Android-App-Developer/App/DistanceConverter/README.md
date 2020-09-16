@@ -1,13 +1,14 @@
 ## Distance Converter Android App
 
-User interface 
+The app allows the user to select either ```Miles-to-Kilometersor``` or ```Kilometers-to-Miles``` conversions.
+
+### User interface 
 
 ![Alt text](pic/User-Interface.png?raw=true "User Interface")
  
-![Alt text](pic/API.png?raw=true "API")
+![Alt text](pic/Main-Page.png?raw=true "Main Page")
 
-Dynamically generated documentation from a Swagger-compliant API is displayed in the ```Swagger UI```, which consists of 
-HTML, JavaScript, and CSS files. The documentation files are bundled by ```Swagger UI``` to display the API in 
-a web browser. 
+
+Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default.
  
 
