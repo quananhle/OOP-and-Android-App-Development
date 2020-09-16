@@ -6,9 +6,9 @@ The app allows the user to select either ```Miles-to-Kilometersor``` or ```Kilom
 
 ![Alt text](pic/User-Interface.png?raw=true "User Interface")
  
-![Alt text](pic/Main-Page.png?raw=true "Main Page" =100x20)
+![Alt text](pic/Main-Page.png?raw=true "Main Page" = 100x20)
 
-
+{width=40px height=400px}
 Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default.
  
 
