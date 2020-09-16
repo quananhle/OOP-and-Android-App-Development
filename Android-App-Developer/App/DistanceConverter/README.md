@@ -6,7 +6,7 @@ The app allows the user to select either ```Miles-to-Kilometersor``` or ```Kilom
 
 ![Alt text](pic/User-Interface.png?raw=true "User Interface")
  
-<a href="url"><img src="pic/Main-Page.png" align="left" height="750" width="400" ></a>
+<a href="url"><img src="pic/Main-Page.png" align="left" height="750" width="400" ></a>  
 
 Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default. The distance value (the value to be converted) is entered by the user. Values can be positive or negative and only numeric whole or decimal values are allowed. 
 
