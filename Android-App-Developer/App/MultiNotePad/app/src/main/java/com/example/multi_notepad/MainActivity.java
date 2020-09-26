@@ -12,8 +12,13 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+    private EditView myEdits;
+    private EditText title;
+    private EditText body;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
