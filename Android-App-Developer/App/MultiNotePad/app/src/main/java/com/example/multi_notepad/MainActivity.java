@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -24,17 +25,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Log.d(TAG, "onCreate: ");
+        title = findViewById(R.id.title);
+        body = findViewById(R.id.body);
+
+        myEdits = new EditView(this);
+        title.setText(myEdits.getValue("TITLE_KEY"));
+        body.setText(myEdits.getValue("BODY"));
+    }
+    public void saveAll(View v) {
+        Log.d(TAG, "saveAll: ");
+        saveTitle(v);
+        saveBody(v);
+    }
+
+    private void saveTitle(View v) {
+        Log.d(TAG, "saveTitle");
+        String titleString = title.getText().toString();
+        myEdits.save("TITLE_KEY", titleString);
+    }
+    private void saveBody(View v) {
+        Log.d(TAG, "saveBody");
+        String bodyString = body.getText().toString();
+        myEdits.save("BODY_KEY", bodyString);
     }
 
     @Override

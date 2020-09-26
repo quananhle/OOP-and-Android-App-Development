@@ -11,6 +11,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 public class EditView extends Fragment {
 
+    public EditView(MainActivity mainActivity) {
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -30,5 +33,8 @@ public class EditView extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
+    }
+
+    public int getValue(String title) {
     }
 }
