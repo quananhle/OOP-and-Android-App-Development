@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.Toast;
 
 import com.example.multi_notespad.R;
@@ -38,10 +39,20 @@ public class MainActivity extends AppCompatActivity
         NoteList note = noteList.get(pos);
         Toast.makeText(v.getContext(), "SHORT" + note.toString(), Toast.LENGTH_SHORT).show();
     }
+    // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
+        NoteList note = noteList.get(pos);
+        Toast.makeText(v.getContext(), "LONG " + note.toString(), Toast.LENGTH_SHORT).show();
+        return false;
     }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "The back button was pressed - Bye!", Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        return super.onCreateOptionsMenu(menu);
@@ -63,3 +74,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 }
+
+
+
+

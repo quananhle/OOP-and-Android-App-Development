@@ -9,4 +9,5 @@
     <string name="createButton">CREATE</string>
     <string name="aboutButton">ABOUT</string>
     <string name="saveButton">SAVE</string>
+    <string name="DateTime">dateTime</string>
 </resources>

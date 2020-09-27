@@ -38,8 +38,8 @@ public class EditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        title = findViewById(R.id.noteTitle);
-        description = findViewById(R.id.noteDescription);
+        title = findViewById(R.id.editTitle);
+        description = findViewById(R.id.editTitle);
         description.setMovementMethod(new ScrollingMovementMethod());
         description.setTextIsSelectable(true);
     }

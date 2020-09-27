@@ -7,7 +7,7 @@
     tools:context=".Edit.EditActivity">
 
     <EditText
-        android:id="@+id/noteTitle"
+        android:id="@+id/editDescription"
         android:layout_width="372dp"
         android:layout_height="559dp"
         android:layout_marginStart="16dp"
@@ -17,7 +17,7 @@
         android:enabled="true"
         android:gravity="start|top"
         android:hint="@string/enter_note_description"
-        android:inputType="textPersonName"
+        android:inputType="textLongMessage|textPersonName"
         android:lineSpacingExtra="6sp"
         android:longClickable="true"
         android:scrollIndicators="end|right"
@@ -30,7 +30,7 @@
         tools:inputType="textMultiLine" />
 
     <EditText
-        android:id="@+id/noteDescription"
+        android:id="@+id/editTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
