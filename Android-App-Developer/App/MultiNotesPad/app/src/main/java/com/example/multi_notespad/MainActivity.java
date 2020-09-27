@@ -2,8 +2,10 @@ package com.example.multi_notespad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,8 +14,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,5 +68,29 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return notes;
+    }
+    @Override
+    protected void onPause() {
+        notes.setTitle(title.getText().toString());
+        notes.setDescription(description.getText().toString());
+        saveNote();
+        super.onPause();
+    }
+    private void saveNote() {
+        Log.d(TAG, "saveNote: Saving Note");
+        try {
+            FileOutputStream fos = getApplicationContext().openFileOutput("Multi-Note.json", Context.MODE_PRIVATE);
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, "UTF-8"));
+            writer.setIndent(" ");
+            writer.beginObject();
+            writer.name("title").value(notes.getTitle());
+            writer.name("descrition").value(notes.getDescription());
+            writer.endObject();
+            writer.close();
+        } catch (FileNotFoundException fnfe) {
+            Toast.makeText(this, "No Multi-Note File Present", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
