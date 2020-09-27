@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.multi_notespad.Edit.Notes;
 import com.example.multi_notespad.R;
 
 import org.json.JSONObject;
