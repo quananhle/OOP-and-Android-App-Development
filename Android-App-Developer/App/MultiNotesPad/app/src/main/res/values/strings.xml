@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Multi Notes</string>
+    <string name="enter_note_description">Enter Note Descriptions</string>
+    <string name="enter_note_title">Enter Note Title</string>
 </resources>

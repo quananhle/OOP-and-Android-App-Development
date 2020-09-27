@@ -22,4 +22,16 @@ public class MainActivity extends AppCompatActivity {
         description.setMovementMethod(new ScrollingMovementMethod());
         description.setTextIsSelectable(true);
     }
+    @Override
+    protected void onResume() {
+        notes = loadFile();
+        if (notes != null) {
+            title.setText(notes.getTitle());
+            description.setText(notes.getDescription());
+        }
+        super.onResume();
+    }
+    private Notes loadFile() {
+        return null;
+    }
 }
