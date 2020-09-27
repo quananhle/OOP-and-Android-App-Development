@@ -130,7 +130,8 @@ public class EditActivity extends AppCompatActivity {
             case R.id.saveButton:
                 Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }

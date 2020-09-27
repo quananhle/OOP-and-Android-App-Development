@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.aboutButton:
                 Toast.makeText(this, "You want to select about", Toast.LENGTH_SHORT).show();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
