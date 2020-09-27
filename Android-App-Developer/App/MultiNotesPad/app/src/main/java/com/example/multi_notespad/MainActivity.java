@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onResume() {
+        //Load the file containing the file data - if exists
         notes = loadFile();
+        //check if file is loaded
         if (notes != null) {
             title.setText(notes.getTitle());
             description.setText(notes.getDescription());
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = readerReadLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -89,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
             writer.endObject();
             writer.close();
 
-            // Print out JSON
+            /**
+             * Print out JSON
+              */
             StringWriter sw = new StringWriter();
             writer = new JsonWriter(sw);
             writer.setIndent(" ");
