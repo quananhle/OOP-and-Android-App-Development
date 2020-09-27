@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "loadFile: Loading Multi-Note File");
         notes = new Notes();
         try {
-            InputStream is = getApplicationContext().openFileInput("Multi-Note.json");
+            InputStream is = getApplicationContext().openFileInput(getString(R.string.file_name));
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             String line;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             notes.setTitle(titleStr);
             notes.setDescription(descrStr);
         } catch (FileNotFoundException fnfe) {
-            Toast.makeText(this, "No Multi-Note File Present", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.no_file), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,18 +80,29 @@ public class MainActivity extends AppCompatActivity {
     private void saveNote() {
         Log.d(TAG, "saveNote: Saving Note");
         try {
-            FileOutputStream fos = getApplicationContext().openFileOutput("Multi-Note.json", Context.MODE_PRIVATE);
-            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, "UTF-8"));
+            FileOutputStream fos = getApplicationContext().openFileOutput(getString(R.string.file_name), Context.MODE_PRIVATE);
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, getString(R.string.encoding)));
             writer.setIndent(" ");
             writer.beginObject();
             writer.name("title").value(notes.getTitle());
             writer.name("descrition").value(notes.getDescription());
             writer.endObject();
             writer.close();
-        } catch (FileNotFoundException fnfe) {
-            Toast.makeText(this, "No Multi-Note File Present", Toast.LENGTH_SHORT).show();
+
+            // Print out JSON
+            StringWriter sw = new StringWriter();
+            writer = new JsonWriter(sw);
+            writer.setIndent(" ");
+            writer.beginObject();
+            writer.name("title").value(notes.getTitle());
+            writer.name("descrition").value(notes.getDescription());
+            writer.endObject();
+            writer.close();
+            Log.d(TAG, "saveNote: Note:\n" + sw.toString());
+
+            Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
 }
