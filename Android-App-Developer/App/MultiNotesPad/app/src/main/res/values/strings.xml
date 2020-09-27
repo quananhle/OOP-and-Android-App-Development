@@ -6,4 +6,7 @@
     <string name="file_name">Multi-Note.json</string>
     <string name="saved">File Saved!</string>
     <string name="no_file">No Multi-Note File Present</string>
+    <string name="createButton">CREATE</string>
+    <string name="aboutButton">ABOUT</string>
+    <string name="saveButton">SAVE</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.multi_notespad;
+package com.example.multi_notespad.Edit;
 
 import androidx.annotation.NonNull;
 
