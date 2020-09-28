@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.Toast;
 
 import com.example.multi_notespad.R;
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity
-        implements View.OnClickListener, View.onLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 //    private TextView textView;
     private RecyclerView recyclerView;
     private final List<NoteList> noteList = new ArrayList<>();
