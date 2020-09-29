@@ -1,16 +1,19 @@
 package com.example.multi_notespad.Main;
 
+import java.util.Date;
+
 import androidx.annotation.NonNull;
 
 public class NoteList {
     private String name;
+    private Date dateTime;
     private String body;
 
     private static int ctr = 1;
 
     NoteList() {
         this.name = ctr + name;
-        this.body = body;
+        this.body = body + ctr;
         ctr++;
     }
 

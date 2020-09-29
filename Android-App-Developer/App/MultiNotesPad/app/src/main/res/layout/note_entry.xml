@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#FFEEEEEE"
     android:clickable="true"
@@ -30,13 +30,13 @@
 
     <TextView
         android:id="@+id/noteDescription"
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="8dp"
         android:background="@color/noteBackground"
-        android:text="123456789"
+        android:text="Description"
         android:textAlignment="textStart"
         android:textColor="@color/noteTextColor"
         android:textColorHighlight="@color/noteTextHighlight"
@@ -47,7 +47,7 @@
 
     <TextView
         android:id="@+id/dateTime"
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -60,6 +60,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteTitle"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
