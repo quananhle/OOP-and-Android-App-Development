@@ -18,7 +18,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:background="#122591"
+        android:background="@color/noteBackground"
         android:text="Title"
         android:textColor="@color/noteTextColor"
         android:textColorHighlight="@color/noteTextHighlight"
@@ -35,7 +35,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="60dp"
         android:layout_marginRight="8dp"
-        android:background="#091B83"
+        android:background="@color/noteBackground"
         android:text="123456789"
         android:textAlignment="textStart"
         android:textColor="@color/noteTextColor"
@@ -51,7 +51,7 @@
         android:layout_height="30dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="#0A1B7C"
+        android:background="@color/noteBackground"
         android:text="@string/DateTime"
         android:textAlignment="textEnd"
         android:textColor="@color/noteTextColor"
@@ -60,5 +60,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteTitle"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
