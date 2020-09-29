@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.multi_notespad.About.AboutActivity;
 import com.example.multi_notespad.Edit.EditActivity;
 import com.example.multi_notespad.R;
 
@@ -69,9 +70,13 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.createButton:
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
+                Intent intentEdit = new Intent(MainActivity.this, EditActivity.class);
+                startActivity(intentEdit);
                 return true;
             case R.id.aboutButton:
                 Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
+                Intent intentAbout = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intentAbout);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -81,9 +86,8 @@ public class MainActivity extends AppCompatActivity
         noteList.add(0, new NoteList());
         noteListAdapter.notifyDataSetChanged();
     }
-    public void openNewActivity(View v){
-        Intent intent = new Intent(this, EditActivity.class);
-        startActivity(intent);
-
-    }
+//    public void openEditActivity(View v){
+//        Intent intent = new Intent(this, EditActivity.class);
+//        startActivity(intent);
+//    }
 }

@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 
 public class NoteList {
     private String name;
-    private Date dateTime;
     private String body;
 
     private static int ctr = 1;
