@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class noteViewHolder extends RecyclerView.ViewHolder {
-    public TextView title;
+    TextView title;
     TextView dateTime;
     TextView description;
     public noteViewHolder(@NonNull View itemView) {

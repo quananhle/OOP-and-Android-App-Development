@@ -75,6 +75,10 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+    public void createNew(View v) {
+        noteList.add(0, new NoteList());
+        NoteListAdapter.
+    }
 }
 
 
