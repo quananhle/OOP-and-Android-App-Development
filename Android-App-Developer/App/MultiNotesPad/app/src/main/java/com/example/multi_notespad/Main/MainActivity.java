@@ -88,6 +88,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: " + requestCode);
+        if (requestCode == REQ_ID){
+            if (resultCode == RESULT_OK){
+                String s = data.getStringExtra("USER_STRING");
+                Log.d(TAG, "onActivityResult: ");
+            }
+            else {
+                Log.d(TAG, "onActivityResult: Result NOT OK: " + resultCode);
+            }
+        }
+        else {
+
+        }
+        Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
     }
 }
