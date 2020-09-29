@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
         NoteList note = noteList.get(pos);
-        Toast.makeText(v.getContext(), "SHORT" + note.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), "onClick" + note.toString(), Toast.LENGTH_SHORT).show();
     }
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
         NoteList note = noteList.get(pos);
-        Toast.makeText(v.getContext(), "LONG " + note.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), "onLongClick " + note.toString(), Toast.LENGTH_SHORT).show();
         return false;
     }
     @Override
