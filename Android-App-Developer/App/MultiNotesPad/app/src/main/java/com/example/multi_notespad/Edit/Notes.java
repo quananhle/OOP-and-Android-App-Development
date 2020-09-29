@@ -3,6 +3,9 @@ package com.example.multi_notespad.Edit;
 import androidx.annotation.NonNull;
 
 public class Notes{
+    private String title;
+    private String description;
+
     public String getTitle() {
         return title;
     }
@@ -18,9 +21,6 @@ public class Notes{
     public void setDescription(String description) {
         this.description = description;
     }
-
-    private String title;
-    private String description;
 
     @NonNull
     public String toString() {

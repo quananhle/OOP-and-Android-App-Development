@@ -3,6 +3,7 @@ package com.example.multi_notespad.Edit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.JsonWriter;
@@ -31,7 +32,6 @@ public class EditActivity extends AppCompatActivity {
     private EditText title;
     private EditText description;
     private Notes notes;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,5 +132,16 @@ public class EditActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        EditText et = findViewById(R.id.editTitle);
+        String s = et.getText().toString();
+        et = findViewById(R.id.editDescription);
+        s = et.getText().toString();
+        Intent dataToReturn = new Intent();
+        dataToReturn.putExtra("USER_STRING", s);
+        setResult(RESULT_OK, dataToReturn);
+        super.onBackPressed();
     }
 }

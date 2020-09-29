@@ -14,6 +14,7 @@ import com.example.multi_notespad.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,12 +83,8 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void createNew(View v) {
-        noteList.add(0, new NoteList());
-        noteListAdapter.notifyDataSetChanged();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
-//    public void openEditActivity(View v){
-//        Intent intent = new Intent(this, EditActivity.class);
-//        startActivity(intent);
-//    }
 }
