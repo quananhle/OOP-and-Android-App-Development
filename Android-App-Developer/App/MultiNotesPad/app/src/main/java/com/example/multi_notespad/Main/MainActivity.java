@@ -2,6 +2,7 @@ package com.example.multi_notespad.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnLongClickListener {
-//    private TextView textView;
+    private static final String TAG = "MainActivity";
+    private static final int REQ_ID = 1;
     private RecyclerView recyclerView;
     private final List<NoteList> noteList = new ArrayList<>();
     private NoteListAdapter noteListAdapter;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.createButton:
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 Intent intentEdit = new Intent(MainActivity.this, EditActivity.class);
-                startActivity(intentEdit);
+                startActivityForResult(intentEdit, REQ_ID);
                 return true;
             case R.id.aboutButton:
                 Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
@@ -86,5 +88,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: " + requestCode);
     }
 }

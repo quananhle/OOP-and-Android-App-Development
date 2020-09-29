@@ -137,11 +137,13 @@ public class EditActivity extends AppCompatActivity {
     public void onBackPressed() {
         EditText et = findViewById(R.id.editTitle);
         String s = et.getText().toString();
-        et = findViewById(R.id.editDescription);
-        s = et.getText().toString();
-        Intent dataToReturn = new Intent();
-        dataToReturn.putExtra("USER_STRING", s);
-        setResult(RESULT_OK, dataToReturn);
+//        et = findViewById(R.id.editDescription);
+//        s = et.getText().toString();
+        if(!s.trim().isEmpty()){
+            Intent dataToReturn = new Intent();
+            dataToReturn.putExtra("USER_STRING", s);
+            setResult(RESULT_OK, dataToReturn);
+        }
         super.onBackPressed();
     }
 }
