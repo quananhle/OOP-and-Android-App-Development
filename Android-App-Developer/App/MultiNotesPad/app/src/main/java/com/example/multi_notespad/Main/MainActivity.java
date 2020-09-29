@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        for (int i=0; i<10;i++){
+            noteList.add(new NoteList());
+        }
 //        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recycler);
         //Data to recyclerview adapter
@@ -63,10 +66,10 @@ public class MainActivity extends AppCompatActivity
 //        textView.setText(String.format("You selected: %s", item.getTitle()));
         switch (item.getItemId()) {
             case R.id.createButton:
-                Toast.makeText(this, "You want to create new note", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.aboutButton:
-                Toast.makeText(this, "You want to select about", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
