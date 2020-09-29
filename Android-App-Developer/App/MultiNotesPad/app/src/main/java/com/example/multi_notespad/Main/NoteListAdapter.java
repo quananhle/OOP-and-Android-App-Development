@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.example.multi_notespad.R;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +38,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<noteViewHolder> {
         Log.d(TAG, "onBindViewHolder: FILLING VIEW HOLDER Note" + position);
         NoteList nl = noteList.get(position);
         holder.title.setText(nl.getName());
+        holder.dateTime.setText(new Date().toString());
         holder.description.setText(nl.getBody());
     }
 

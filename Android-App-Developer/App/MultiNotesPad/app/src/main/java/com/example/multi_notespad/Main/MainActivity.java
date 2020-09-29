@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity
 //        textView.setText(String.format("You selected: %s", item.getTitle()));
         switch (item.getItemId()) {
             case R.id.createButton:
+                createNew(v);
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.aboutButton:
@@ -78,6 +79,6 @@ public class MainActivity extends AppCompatActivity
     }
     public void createNew(View v) {
         noteList.add(0, new NoteList());
-        NoteListAdapter.NotifyDatasetChanged();
+        noteListAdapter.notifyDataSetChanged();
     }
 }
