@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 //    private TextView textView;
     private RecyclerView recyclerView;
     private final List<NoteList> noteList = new ArrayList<>();
+    private NoteListAdapter noteListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -77,10 +78,6 @@ public class MainActivity extends AppCompatActivity
     }
     public void createNew(View v) {
         noteList.add(0, new NoteList());
-        NoteListAdapter.
+        NoteListAdapter.NotifyDatasetChanged();
     }
 }
-
-
-
-
