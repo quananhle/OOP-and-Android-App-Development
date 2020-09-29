@@ -1,11 +1,13 @@
 package com.example.multi_notespad.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.multi_notespad.Edit.EditActivity;
 import com.example.multi_notespad.R;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 //        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recycler);
         //Data to recyclerview adapter
-        NoteListAdapter noteListAdapter = new NoteListAdapter(noteList, this);
+        noteListAdapter = new NoteListAdapter(noteList, this);
         recyclerView.setAdapter(noteListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -40,14 +42,13 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
         NoteList note = noteList.get(pos);
-        Toast.makeText(v.getContext(), "onClick" + note.toString(), Toast.LENGTH_SHORT).show();
     }
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        NoteList note = noteList.get(pos);
-        Toast.makeText(v.getContext(), "onLongClick " + note.toString(), Toast.LENGTH_SHORT).show();
+        noteList.remove(pos);
+        noteListAdapter.notifyDataSetChanged();
         return false;
     }
     @Override
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity
 //        textView.setText(String.format("You selected: %s", item.getTitle()));
         switch (item.getItemId()) {
             case R.id.createButton:
-                createNew(v);
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.aboutButton:
@@ -80,5 +80,10 @@ public class MainActivity extends AppCompatActivity
     public void createNew(View v) {
         noteList.add(0, new NoteList());
         noteListAdapter.notifyDataSetChanged();
+    }
+    public void openNewActivity(View v){
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
+
     }
 }
