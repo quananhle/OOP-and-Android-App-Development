@@ -30,10 +30,10 @@
 
     <TextView
         android:id="@+id/noteDescription"
-        android:layout_width="394dp"
+        android:layout_width="395dp"
         android:layout_height="80dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="8dp"
         android:background="#091B83"
         android:text="123456789"
@@ -42,14 +42,13 @@
         android:textColorHighlight="@color/noteTextHighlight"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dateTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="395dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="#0A1B7C"
@@ -61,5 +60,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteTitle"
-        app:layout_constraintVertical_bias="0.333" />
+        tools:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
