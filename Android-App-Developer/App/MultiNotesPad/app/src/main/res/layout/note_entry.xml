@@ -4,73 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFEEEEEE"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
 
-<!--    <TextView-->
-<!--        android:id="@+id/noteTitle"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="8dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginRight="8dp"-->
-<!--        android:background="@color/noteBackgroundMain"-->
-<!--        android:text="Title"-->
-<!--        android:textColor="@color/noteTextMain"-->
-<!--        android:textColorHighlight="@color/noteTextHighlight"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:textStyle="bold" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/noteDescription"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="80dp"-->
-<!--        android:layout_marginLeft="8dp"-->
-<!--        android:layout_marginTop="60dp"-->
-<!--        android:layout_marginRight="8dp"-->
-<!--        android:background="@color/noteBackgroundMain"-->
-<!--        android:text="Description"-->
-<!--        android:textAlignment="textStart"-->
-<!--        android:textColor="@color/noteTextMain"-->
-<!--        android:textColorHighlight="@color/noteTextHighlight"-->
-<!--        android:textSize="14sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/noteDateTime"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_marginLeft="8dp"-->
-<!--        android:layout_marginRight="8dp"-->
-<!--        android:background="@color/noteBackgroundMain"-->
-<!--        android:text="@string/DateTime"-->
-<!--        android:textAlignment="textEnd"-->
-<!--        android:textColor="@color/noteTextMain"-->
-<!--        android:textColorHighlight="@color/noteTextHighlight"-->
-<!--        android:textSize="14sp"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/noteDescription"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/noteTitle"-->
-<!--        tools:layout_constraintEnd_toEndOf="parent" />-->
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="8dp"
         app:cardBackgroundColor="@color/noteBackgroundMain"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintHorizontal_bias="0.33"
+        app:cardCornerRadius="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -117,7 +64,6 @@
                 android:id="@+id/noteDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
@@ -125,6 +71,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="16dp"
                 android:maxLength="83"
+                android:maxLines="1"
                 android:textColor="@color/noteTextMain"
                 android:textColorHighlight="@color/noteTextHighlight"
                 android:textSize="14sp"

@@ -41,20 +41,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         holder.title.setText(note.getName());
         holder.description.setText(note.getBody());
         holder.lastModified.setText(note.getTime());
-
-        String abstractDisplay;
-        //Check if notes titles or note text with more than 80 characters
-        if(note.getBody().length() > 80){
-            //display “...” after the first 80 characters are displayed.
-            abstractDisplay = note.getBody().substring(0, 79) + "...";
-        }
-        else {
-            //otherwise, if note has less than 80 characters
-            abstractDisplay = note.getBody();
-        }
-        holder.description.setText(abstractDisplay);
     }
-
     @Override
     public int getItemCount() {
         return this.noteList.size();

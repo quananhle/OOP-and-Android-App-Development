@@ -30,6 +30,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class EditActivity extends AppCompatActivity {
@@ -137,19 +138,8 @@ public class EditActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED, dataToReturn);
                     finish();
                 }
-//                //check if no changes has been made in an existing note
-//                else if (titleStr.equals(note.getName()) && descrStr.equals(note.getBody())){
-//                    Intent dataToReturn = new Intent();
-//                    setResult(RESULT_CANCELED, dataToReturn);
-//                    finish();
-//                }
                 //otherwise, creating a new note or updating an existing note
                 else{
-//                    Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
-//                    //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
-//                    dataToReturn.putExtra(note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE", savedNote);
-//                    setResult(RESULT_OK, dataToReturn);
-//                    finish();
                     Intent dataToReturn = new Intent();
                     Intent intent = getIntent();
                     //editing an existing note
@@ -239,7 +229,9 @@ public class EditActivity extends AppCompatActivity {
         return note;
     }
     public String getCurrentTime() {
-         DateFormat df = DateFormat.getDateInstance();
-        return df.format(new Date()).toString();
+        Date D = Calendar.getInstance().getTime();
+        SimpleDateFormat SDF = new SimpleDateFormat("E MMM d, h:mm a");
+        String lastSaveDate = SDF.format(D).toString();
+        return lastSaveDate;
     }
 }

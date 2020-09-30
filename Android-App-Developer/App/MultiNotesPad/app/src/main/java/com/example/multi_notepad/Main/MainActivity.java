@@ -36,15 +36,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.*;
+import java.util.*;
+
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
     private static final int ADD_REQUEST_CODE = 1;
-    private static final int EDIT_REQUEST_CODE = 1;
+    private static final int EDIT_REQUEST_CODE = 2;
     private RecyclerView recyclerView;
     private final List<Notes> notesList = new ArrayList<>();
     private NoteAdapter noteAdapter;
     private Notes note;
+    private int currentNote = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -69,8 +73,10 @@ public class MainActivity extends AppCompatActivity
         int pos = recyclerView.getChildLayoutPosition(v);
         Notes note = notesList.get(pos);
         Intent editIntent = new Intent(MainActivity.this, EditActivity.class);
-        editIntent.putExtra("NOTE", note);
+        editIntent.putExtra("NOTE", note.getName());
+        editIntent.putExtra("DESCRIPTION", note.getBody());
         startActivityForResult(editIntent, EDIT_REQUEST_CODE);
+        noteAdapter.notifyDataSetChanged();
     }
     // From OnLongClickListener
     @Override
@@ -107,8 +113,8 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onPause(){
-        this.writeFile();
         super.onPause();
+        this.writeFile();
     }
     @Override
     public void onStop(){
@@ -138,26 +144,35 @@ public class MainActivity extends AppCompatActivity
         }
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_REQUEST_CODE){
-            if (resultCode == RESULT_OK) {
-                Notes updatedNote = (Notes) data.getSerializableExtra("UPDATED_NOTE");
-                notesList.remove(note);
-                note = updatedNote;
-                notesList.add(0, note);
-                noteAdapter.notifyDataSetChanged();
-                Toast.makeText(this, "NOTE UPDATED SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
-            }
-        }
-        if (requestCode == ADD_REQUEST_CODE){
-            if (resultCode == RESULT_OK) {
-                Notes newNote = (Notes) data.getSerializableExtra("NEW_NOTE");
-                note = newNote;
-                notesList.add(0, note);
-                noteAdapter.notifyDataSetChanged();
-                Toast.makeText(this, "NOTE ADDED SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
-            }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent receivedData){
+        super.onActivityResult(requestCode, resultCode, receivedData);
+
+        switch(requestCode){
+            //create a new note
+            case ADD_REQUEST_CODE:
+                if(resultCode==RESULT_CANCELED){
+                    String newTitle = receivedData.getStringExtra("NEW_TITLE");
+                    String newDescription = receivedData.getStringExtra("NEW_DESCRIPTION");
+                    notesList.add(0, new Notes(newTitle, newDescription, getCurrentTime()));
+                    getSupportActionBar().setTitle(getString(R.string.app_name) + "(" + notesList.size() + ")");
+                    noteAdapter.notifyDataSetChanged();
+                }
+                break;
+            //edit an existing note
+            case EDIT_REQUEST_CODE:
+                if(resultCode==RESULT_CANCELED){
+                    String updatedTitle = receivedData.getStringExtra("UPDATED_TITLE");
+                    String updatedDescription = receivedData.getStringExtra("UPDATED_DESCRIPTION");
+                    notesList.remove(currentNote);
+                    notesList.add(0, new Notes(updatedTitle, updatedDescription, getCurrentTime()));
+                    getSupportActionBar().setTitle(getString(R.string.app_name) + "(" + notesList.size() + ")");
+                    noteAdapter.notifyDataSetChanged();
+                }
+                //otherwise, no changes have been made
+                else if(resultCode==RESULT_OK){
+                    currentNote = RESULT_OK;
+                }
+                break;
         }
     }
     //====================== *** Helper methods *** ======================//
@@ -218,5 +233,10 @@ public class MainActivity extends AppCompatActivity
             ioe.printStackTrace();
         }
     }
-
+    public static String getCurrentTime(){
+        Date D = Calendar.getInstance().getTime();
+        SimpleDateFormat SDF = new SimpleDateFormat("EEE MMM d, h:mm a");
+        String lastSaveDate = SDF.format(D).toString();
+        return lastSaveDate;
+    }
 }
