@@ -10,6 +10,7 @@ import android.util.JsonWriter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,11 @@ public class EditActivity extends AppCompatActivity {
         description = findViewById(R.id.editTitle);
         description.setMovementMethod(new ScrollingMovementMethod());
         description.setTextIsSelectable(true);
+
+        Intent i = getIntent();
+        if (i.hasExtra("DATE_TIME")){
+            Log.d(TAG, "onCreate: " + i.getStringExtra("DATE_TIME"));
+        }
     }
     @Override
     protected void onResume() {
@@ -53,6 +59,67 @@ public class EditActivity extends AppCompatActivity {
             description.setText(notes.getDescription());
         }
         super.onResume();
+    }
+    @Override
+    public void onBackPressed() {
+        doReturn(null);
+        super.onBackPressed();
+    }
+    @Override
+    protected void onPause() {
+        notes.setTitle(title.getText().toString());
+        notes.setDescription(description.getText().toString());
+        saveNote();
+        super.onPause();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.saveButton:
+                Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    //====================== *** Helper methods *** ======================//
+    private void saveNote() {
+        Log.d(TAG, "saveNote: Saving Note");
+        try {
+            FileOutputStream fos = getApplicationContext().openFileOutput(getString(R.string.file_name), Context.MODE_PRIVATE);
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, getString(R.string.encoding)));
+            writer.setIndent(" ");
+            writer.beginObject();
+            writer.name("title").value(notes.getTitle());
+            writer.name("descrition").value(notes.getDescription());
+            writer.endObject();
+            writer.close();
+
+            /**
+             * Print out JSON
+             */
+            StringWriter sw = new StringWriter();
+            writer = new JsonWriter(sw);
+            writer.setIndent(" ");
+            writer.beginObject();
+            writer.name("title").value(notes.getTitle());
+            writer.name("descrition").value(notes.getDescription());
+            writer.endObject();
+            writer.close();
+            Log.d(TAG, "saveNote: Note:\n" + sw.toString());
+            //==== End of print ===//
+
+            Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
     private Notes loadFile() {
         Log.d(TAG, "loadFile: Loading Multi-Note File");
@@ -78,63 +145,7 @@ public class EditActivity extends AppCompatActivity {
         }
         return notes;
     }
-    @Override
-    protected void onPause() {
-        notes.setTitle(title.getText().toString());
-        notes.setDescription(description.getText().toString());
-        saveNote();
-        super.onPause();
-    }
-    private void saveNote() {
-        Log.d(TAG, "saveNote: Saving Note");
-        try {
-            FileOutputStream fos = getApplicationContext().openFileOutput(getString(R.string.file_name), Context.MODE_PRIVATE);
-            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, getString(R.string.encoding)));
-            writer.setIndent(" ");
-            writer.beginObject();
-            writer.name("title").value(notes.getTitle());
-            writer.name("descrition").value(notes.getDescription());
-            writer.endObject();
-            writer.close();
-
-            /**
-             * Print out JSON
-              */
-            StringWriter sw = new StringWriter();
-            writer = new JsonWriter(sw);
-            writer.setIndent(" ");
-            writer.beginObject();
-            writer.name("title").value(notes.getTitle());
-            writer.name("descrition").value(notes.getDescription());
-            writer.endObject();
-            writer.close();
-            Log.d(TAG, "saveNote: Note:\n" + sw.toString());
-            //==== End of print ===//
-
-            Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.saveButton:
-                Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    @Override
-    public void onBackPressed() {
+    private void doReturn(View v) {
         EditText et = findViewById(R.id.editTitle);
         String s = et.getText().toString();
 //        et = findViewById(R.id.editDescription);
@@ -144,6 +155,19 @@ public class EditActivity extends AppCompatActivity {
             dataToReturn.putExtra("USER_STRING", s);
             setResult(RESULT_OK, dataToReturn);
         }
-        super.onBackPressed();
+        finish();
+    }
+    public void doSave(View v){
+        EditText et = findViewById(R.id.editTitle);
+        EditText ed = findViewById(R.id.editDescription);
+        String titleStr = et.getText().toString();
+        String descrStr = ed.getText().toString();
+        if (!titleStr.trim().isEmpty() || !descrStr.trim().isEmpty()){
+            Intent dataToReturn = new Intent();
+            dataToReturn.putExtra("USER_STRING", titleStr);
+            dataToReturn.putExtra("USER_STRING", descrStr);
+            setResult(RESULT_OK, dataToReturn);
+
+        }
     }
 }

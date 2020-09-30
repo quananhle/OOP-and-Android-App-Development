@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.multi_notespad.About.AboutActivity;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
-    private static final int REQ_ID = 1;
+    private static final int REQUEST_CODE = 1;
     private RecyclerView recyclerView;
     private final List<NoteList> noteList = new ArrayList<>();
     private NoteListAdapter noteListAdapter;
@@ -88,18 +89,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ_ID){
+        if (requestCode == REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 String s = data.getStringExtra("USER_STRING");
-                Log.d(TAG, "onActivityResult: ");
+                if(s == null){
+                    Toast.makeText(this, "Null text value returned", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(s.isEmpty()){
+                    Toast.makeText(this, "Empty text returned", Toast.LENGTH_SHORT).show();
+                }
+                ((TextView) findViewById(R.id.editTitle)).setText(s);
+                Log.d(TAG, "onActivityResult: User Text: " + s);
             }
             else {
                 Log.d(TAG, "onActivityResult: Result NOT OK: " + resultCode);
             }
         }
         else {
-
+            Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
         }
-        Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
     }
 }
