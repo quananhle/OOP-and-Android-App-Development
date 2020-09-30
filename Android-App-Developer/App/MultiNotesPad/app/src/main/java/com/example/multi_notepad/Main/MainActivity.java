@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity
         int pos = recyclerView.getChildLayoutPosition(v);
         Notes note = notesList.get(pos);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("DELETE NOTE \'" + note.getName() + "\'?");
         notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
