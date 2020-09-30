@@ -4,6 +4,7 @@
     <string name="enter_note_title">Enter Note Title</string>
     <string name="encoding">UTF-8</string>
     <string name="file_name">Multi-Note.json</string>
+    <string name="notes_file">notesFile</string>
     <string name="saved">File Saved!</string>
     <string name="no_file">No Multi-Note File Present</string>
     <string name="createButton">CREATE</string>

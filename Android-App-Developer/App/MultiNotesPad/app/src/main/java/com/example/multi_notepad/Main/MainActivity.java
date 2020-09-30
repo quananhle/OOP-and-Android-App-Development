@@ -14,6 +14,11 @@ import com.example.multi_notepad.Edit.EditActivity;
 import com.example.multi_notepad.Edit.Notes;
 import com.example.multi_notepad.R;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,30 +33,36 @@ public class MainActivity extends AppCompatActivity
     private static final int ADD_REQUEST_CODE = 1;
     private static final int EDIT_REQUEST_CODE = 1;
     private RecyclerView recyclerView;
-    private final List<Notes> notes = new ArrayList<>();
+    private final List<Notes> notesList = new ArrayList<>();
     private NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         recyclerView = findViewById(R.id.recycler);
         //Data to recyclerview adapter
-        noteAdapter = new NoteAdapter(notes, this);
+        noteAdapter = new NoteAdapter(notesList, this);
         recyclerView.setAdapter(noteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        this.loadFile();
+        if(notesList.size()>0){
+            getSupportActionBar().setTitle(getString(R.string.file_name)
+                    + "(" + notesList.size() + ")");
+        }
+        noteAdapter.notifyDataSetChanged();
     }
     @Override
     public void onClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        Notes note = notes.get(pos);
+        Notes note = notesList.get(pos);
     }
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        notes.remove(pos);
+        notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
     }
@@ -109,6 +120,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
         }
     }
+    //
     public void openNewActivity(View v){
         Notes newNoteList = new Notes();
         Intent intent = new Intent(this, EditActivity.class);
@@ -116,5 +128,21 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, ADD_REQUEST_CODE);
 
 
+    }
+    private void loadFile() {
+        try {
+            InputStream inputStream = getApplicationContext().openFileInput(getString(R.string.notes_file));
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, getString(R.string.encoding)));
+            String line;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line);
+            }
+            JSONArray jsonArray = new JSONArray(stringBuilder.toString());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                
+            }
+        }
     }
 }
