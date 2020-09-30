@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,7 +77,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onLongClick(View v) {
         //Long press a note trigger a Delete dialog
         int pos = recyclerView.getChildLayoutPosition(v);
-
+        Notes note = notesList.get(pos);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
