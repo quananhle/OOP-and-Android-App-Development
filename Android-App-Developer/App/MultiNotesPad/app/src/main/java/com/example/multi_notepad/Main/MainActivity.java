@@ -64,32 +64,46 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onClick(View v) {
+        //Tap on a note to edit
         int pos = recyclerView.getChildLayoutPosition(v);
         Notes note = notesList.get(pos);
+        Intent editIntent = new Intent(MainActivity.this, EditActivity.class);
+        editIntent.putExtra("NOTE", note);
+        startActivityForResult(editIntent, EDIT_REQUEST_CODE);
     }
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
+        //Long press a note trigger a Delete dialog
         int pos = recyclerView.getChildLayoutPosition(v);
+
         notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
     }
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "The back button was pressed - Bye!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "HAVE A GOOD DAY!", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
     }
+    @Override
+    public void onPause(){
+        this.writeFile();
+        super.onPause();
 
+    }
+    @Override
+    public void onStop(){
+        this.writeFile();
+        super.onStop();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
+        super.getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        textView.setText(String.format("You selected: %s", item.getTitle()));
         switch (item.getItemId()) {
             case R.id.createButton:
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
@@ -174,6 +188,25 @@ public class MainActivity extends AppCompatActivity
             JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(
                     outputStream, getString(R.string.encoding)));
             jsonWriter.setIndent(" ");
+            jsonWriter.beginArray();
+            for (int i = 0; i<notesList.size(); i++){
+                jsonWriter.beginObject();
+                jsonWriter.name("noteTitle").value(notesList.get(i).getName());
+                jsonWriter.name("noteDescription").value(notesList.get(i).getBody());
+                jsonWriter.name("noteLastModified").value(notesList.get(i).getTime());
+                jsonWriter.endObject();
+            }
+            jsonWriter.endArray();
+            jsonWriter.close();
+        }
+        catch (UnsupportedEncodingException uee){
+            uee.printStackTrace();
+        }
+        catch (FileNotFoundException fnfe){
+            fnfe.printStackTrace();
+        }
+        catch (IOException ioe){
+            ioe.printStackTrace();
         }
     }
 
