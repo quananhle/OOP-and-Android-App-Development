@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Multi Notes</string>
+    <string name="app_name">Multi-Note Pad</string>
     <string name="enter_note_description">Enter Note Descriptions</string>
     <string name="enter_note_title">Enter Note Title</string>
     <string name="encoding">UTF-8</string>
-    <string name="file_name">Multi-Note.json</string>
+    <string name="file_name">Multi-Note Pad</string>
     <string name="notes_file">notesFile</string>
     <string name="saved">File Saved!</string>
     <string name="no_file">No Multi-Note File Present</string>

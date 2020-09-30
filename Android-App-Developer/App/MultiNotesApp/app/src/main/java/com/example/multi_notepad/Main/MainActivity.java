@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         this.readFile();
         if (notesList.size() > 0) {
             getSupportActionBar().setTitle(getString(R.string.file_name)
-                    + "(" + notesList.size() + ")");
+                    + " (" + notesList.size() + ")");
         }
         noteAdapter.notifyDataSetChanged();
     }
@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity
                 note = null;
                 noteAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, "NOTE REMOVED", Toast.LENGTH_SHORT).show();
+                if (notesList.size() >= 0) {
+                    getSupportActionBar().setTitle(getString(R.string.file_name)
+                            + " (" + (notesList.size()) + ")");
+                }
             }
         });
         //if user selected 'No', do nothing

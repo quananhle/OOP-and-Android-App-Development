@@ -69,18 +69,13 @@ public class EditActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        EditText editTitle = findViewById(R.id.editTitle);
-        final String titleStr = editTitle.getText().toString();
-        EditText editDescription = findViewById(R.id.editDescription);
-        final String descrStr = editDescription.getText().toString();
+        final String titleStr = editName.getText().toString();
+        final String descrStr = editBody.getText().toString();
         //check if title is missing
         if(titleStr.trim().isEmpty()){
             Intent dataToReturn = new Intent();
-            if(titleStr.trim().equals(note.getName()) && descrStr.trim().equals(note.getBody())){
-                //if no changes have been made to the current note, the Edit Activity simply exits
-                setResult(RESULT_CANCELED, dataToReturn);
-                finish();
-            }
+            setResult(RESULT_OK, dataToReturn);
+            finish();
         }
         //otherwise, if a title has been given
         else{
