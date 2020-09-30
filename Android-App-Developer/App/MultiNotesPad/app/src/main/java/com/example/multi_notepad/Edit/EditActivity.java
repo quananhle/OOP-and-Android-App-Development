@@ -62,8 +62,8 @@ public class EditActivity extends AppCompatActivity {
         note = loadFile();
         //check if file is loaded
         if (note != null) {
-            title.setText(note.getName());
-            description.setText(note.getBody());
+            editName.setText(note.getName());
+            editBody.setText(note.getBody());
         }
         super.onResume();
     }
@@ -74,8 +74,8 @@ public class EditActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        note.setName(title.getText().toString());
-        note.setBody(description.getText().toString());
+        note.setName(editName.getText().toString());
+        note.setBody(editBody.getText().toString());
         saveNote();
         super.onPause();
     }
@@ -179,6 +179,7 @@ public class EditActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
                     Intent dataToReturn = new Intent();
+                    //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
                     dataToReturn.putExtra((note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE"),
                             savedNote);
                     setResult(RESULT_OK, dataToReturn);
