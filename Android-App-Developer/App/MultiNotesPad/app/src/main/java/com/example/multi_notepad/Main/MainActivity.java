@@ -89,6 +89,12 @@ public class MainActivity extends AppCompatActivity
             }
         })
         //if user selected 'No'
+        builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        })
         notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
