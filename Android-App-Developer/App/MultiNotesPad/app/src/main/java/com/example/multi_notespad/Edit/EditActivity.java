@@ -47,8 +47,9 @@ public class EditActivity extends AppCompatActivity {
         description.setTextIsSelectable(true);
 
         Intent i = getIntent();
-        if(i.hasExtra("EMP_OBJECT")){
-            Log.d(TAG, "onCreate: " + i.getStringExtra("EMP_OBJECT"));
+        if(i.hasExtra("NOTE_OBJECT")){
+            notes = (Notes) i.getSerializableExtra("NOTE_OBJECT");
+            Log.d(TAG, "onCreate: " + i.getSerializableExtra("NOTE_OBJECT"));
         }
     }
     @Override
