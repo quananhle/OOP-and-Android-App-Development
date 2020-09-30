@@ -6,15 +6,11 @@
         android:id="@+id/createButton"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/createButton"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/aboutButton"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/aboutButton"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/saveButton"
-        android:icon="@android:drawable/ic_menu_save"
-        android:title="@string/saveButton"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
 </menu>
