@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private int currentNote = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -61,23 +61,25 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(noteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         this.readFile();
-        if(notesList.size()>0){
+        if (notesList.size() > 0) {
             getSupportActionBar().setTitle(getString(R.string.file_name)
                     + "(" + notesList.size() + ")");
         }
         noteAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void onClick(View v) {
         //Tap on a note to edit
-        int pos = recyclerView.getChildLayoutPosition(v);
-        Notes note = notesList.get(pos);
+        currentNote = recyclerView.getChildLayoutPosition(v);
+        Notes note = notesList.get(currentNote);
         Intent editIntent = new Intent(MainActivity.this, EditActivity.class);
-        editIntent.putExtra("NOTE", note.getName());
-        editIntent.putExtra("DESCRIPTION", note.getBody());
+        editIntent.putExtra("UPDATED_TITLE", note.getName());
+        editIntent.putExtra("UPDATED_DESCRIPTION", note.getBody());
         startActivityForResult(editIntent, EDIT_REQUEST_CODE);
         noteAdapter.notifyDataSetChanged();
     }
+
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
@@ -100,32 +102,39 @@ public class MainActivity extends AppCompatActivity
         //if user selected 'No', do nothing
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {;}
+            public void onClick(DialogInterface dialog, int which) {
+                ;
+            }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
         return false;
     }
+
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "HAVE A GOOD DAY!", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
     }
+
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         this.writeFile();
     }
+
     @Override
-    public void onStop(){
+    public void onStop() {
         this.writeFile();
         super.onStop();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -143,14 +152,15 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent receivedData){
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent receivedData) {
         super.onActivityResult(requestCode, resultCode, receivedData);
 
-        switch(requestCode){
+        switch (requestCode) {
             //create a new note
             case ADD_REQUEST_CODE:
-                if(resultCode==RESULT_CANCELED){
+                if (resultCode == RESULT_CANCELED) {
                     String newTitle = receivedData.getStringExtra("NEW_TITLE");
                     String newDescription = receivedData.getStringExtra("NEW_DESCRIPTION");
                     notesList.add(0, new Notes(newTitle, newDescription, getCurrentTime()));
@@ -160,7 +170,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             //edit an existing note
             case EDIT_REQUEST_CODE:
-                if(resultCode==RESULT_CANCELED){
+                if (resultCode == RESULT_CANCELED) {
                     String updatedTitle = receivedData.getStringExtra("UPDATED_TITLE");
                     String updatedDescription = receivedData.getStringExtra("UPDATED_DESCRIPTION");
                     notesList.remove(currentNote);
@@ -169,7 +179,7 @@ public class MainActivity extends AppCompatActivity
                     noteAdapter.notifyDataSetChanged();
                 }
                 //otherwise, no changes have been made
-                else if(resultCode==RESULT_OK){
+                else if (resultCode == RESULT_OK) {
                     currentNote = RESULT_OK;
                 }
                 break;
@@ -183,7 +193,7 @@ public class MainActivity extends AppCompatActivity
                     new InputStreamReader(inputStream, getString(R.string.encoding)));
             String line;
             StringBuilder stringBuilder = new StringBuilder();
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
             }
             JSONArray jsonArray = new JSONArray(stringBuilder.toString());
@@ -195,25 +205,26 @@ public class MainActivity extends AppCompatActivity
                 notesList.add(new Notes(noteTitle, noteDescription, noteLastModified));
             }
             noteAdapter.notifyDataSetChanged();
-        } catch (FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
         } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
-        } catch (IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
-        } catch (JSONException jsone){
+        } catch (JSONException jsone) {
             jsone.printStackTrace();
         }
     }
-    private void writeFile(){
-        try{
+
+    private void writeFile() {
+        try {
             FileOutputStream outputStream = getApplicationContext().openFileOutput(
                     getString(R.string.notes_file), Context.MODE_PRIVATE);
             JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(
                     outputStream, getString(R.string.encoding)));
             jsonWriter.setIndent(" ");
             jsonWriter.beginArray();
-            for (int i = 0; i<notesList.size(); i++){
+            for (int i = 0; i < notesList.size(); i++) {
                 jsonWriter.beginObject();
                 jsonWriter.name("noteTitle").value(notesList.get(i).getName());
                 jsonWriter.name("noteDescription").value(notesList.get(i).getBody());
@@ -222,14 +233,11 @@ public class MainActivity extends AppCompatActivity
             }
             jsonWriter.endArray();
             jsonWriter.close();
-        }
-        catch (UnsupportedEncodingException uee){
+        } catch (UnsupportedEncodingException uee) {
             uee.printStackTrace();
-        }
-        catch (FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
