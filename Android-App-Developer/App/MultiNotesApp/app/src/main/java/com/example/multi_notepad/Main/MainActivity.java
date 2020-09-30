@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity
                     String newTitle = receivedData.getStringExtra("NEW_TITLE");
                     String newDescription = receivedData.getStringExtra("NEW_DESCRIPTION");
                     notesList.add(0, new Notes(newTitle, newDescription, getCurrentTime()));
-                    getSupportActionBar().setTitle(getString(R.string.app_name) + "(" + notesList.size() + ")");
+                    getSupportActionBar().setTitle(getString(R.string.app_name) + " (" + notesList.size() + ")");
                     noteAdapter.notifyDataSetChanged();
                 }
                 break;
