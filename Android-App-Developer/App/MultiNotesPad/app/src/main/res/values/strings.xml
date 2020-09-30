@@ -11,4 +11,7 @@
     <string name="aboutButton">ABOUT</string>
     <string name="saveButton">SAVE</string>
     <string name="DateTime">dateTime</string>
+    <string name="infoAppName">Multi Notes</string>
+    <string name="infoDeveloperName">© 2020, Quan Le</string>
+    <string name="infoVersion">Version 1.0</string>
 </resources>
