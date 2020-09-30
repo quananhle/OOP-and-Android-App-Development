@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.multi_notespad.About.AboutActivity;
 import com.example.multi_notespad.Edit.EditActivity;
-import com.example.multi_notespad.Edit.Notes;
+import com.example.multi_notespad.Main.Notes;
 import com.example.multi_notespad.R;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private static final int REQUEST_CODE = 1;
     private RecyclerView recyclerView;
-    private final List<NoteList> noteList = new ArrayList<>();
+    private final List<Notes> noteList = new ArrayList<>();
     private NoteListAdapter noteListAdapter;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         for (int i=0; i<10;i++){
-            noteList.add(new NoteList());
+            noteList.add(new Notes());
         }
 //        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recycler);
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        NoteList note = noteList.get(pos);
+        Notes note = noteList.get(pos);
     }
     // From OnLongClickListener
     @Override
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
     public void openNewActivity(View v){
-        NoteList newNoteList = new NoteList();
+        Notes newNoteList = new Notes();
         Intent intent = new Intent(this, EditActivity.class);
         intent.putExtra("NOTE_OBJECT", newNoteList);
         startActivityForResult(intent, REQUEST_CODE);

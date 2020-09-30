@@ -8,11 +8,11 @@ import com.example.multi_notespad.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class noteViewHolder extends RecyclerView.ViewHolder {
+public class NoteViewHolder extends RecyclerView.ViewHolder {
     TextView title;
     TextView dateTime;
     TextView description;
-    public noteViewHolder(@NonNull View itemView) {
+    public NoteViewHolder(@NonNull View itemView) {
         super(itemView);
         this.title = itemView.findViewById(R.id.noteTitle);
         this.dateTime = itemView.findViewById(R.id.dateTime);
