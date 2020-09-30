@@ -1,6 +1,7 @@
 package com.example.multi_notepad.Main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.JsonWriter;
@@ -80,6 +81,14 @@ public class MainActivity extends AppCompatActivity
         Notes note = notesList.get(pos);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("DELETE NOTE \'" + note.getName() + "\'?");
+        //if user selected 'Yes'
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        })
+        //if user selected 'No'
         notesList.remove(pos);
         noteAdapter.notifyDataSetChanged();
         return false;
