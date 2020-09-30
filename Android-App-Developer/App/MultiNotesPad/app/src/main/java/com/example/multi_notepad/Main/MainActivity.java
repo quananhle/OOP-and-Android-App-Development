@@ -1,7 +1,9 @@
 package com.example.multi_notepad.Main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +17,17 @@ import com.example.multi_notepad.Edit.Notes;
 import com.example.multi_notepad.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         noteAdapter = new NoteAdapter(notesList, this);
         recyclerView.setAdapter(noteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        this.loadFile();
+        this.readFile();
         if(notesList.size()>0){
             getSupportActionBar().setTitle(getString(R.string.file_name)
                     + "(" + notesList.size() + ")");
@@ -120,7 +129,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
         }
     }
-    //
+    //====================== *** Helper methods *** ======================//
     public void openNewActivity(View v){
         Notes newNoteList = new Notes();
         Intent intent = new Intent(this, EditActivity.class);
@@ -129,7 +138,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-    private void loadFile() {
+    private void readFile() {
         try {
             InputStream inputStream = getApplicationContext().openFileInput(getString(R.string.notes_file));
             BufferedReader bufferedReader = new BufferedReader(
@@ -141,8 +150,31 @@ public class MainActivity extends AppCompatActivity
             }
             JSONArray jsonArray = new JSONArray(stringBuilder.toString());
             for (int i = 0; i < jsonArray.length(); i++) {
-                
+                JSONObject noteObject = jsonArray.getJSONObject(i);
+                String noteTitle = noteObject.getString("noteTitle");
+                String noteDescription = noteObject.getString("noteDescription");
+                String noteLastModified = noteObject.getString("noteLastModified");
+                notesList.add(new Notes(noteTitle, noteDescription, noteLastModified));
             }
+            noteAdapter.notifyDataSetChanged();
+        } catch (FileNotFoundException fnfe){
+            fnfe.printStackTrace();
+        } catch (UnsupportedEncodingException uee) {
+            uee.printStackTrace();
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        } catch (JSONException jsone){
+            jsone.printStackTrace();
         }
     }
+    private void writeFile(){
+        try{
+            FileOutputStream outputStream = getApplicationContext().openFileOutput(
+                    getString(R.string.notes_file), Context.MODE_PRIVATE);
+            JsonWriter jsonWriter = new JsonWriter(new OutputStreamWriter(
+                    outputStream, getString(R.string.encoding)));
+            jsonWriter.setIndent(" ");
+        }
+    }
+
 }
