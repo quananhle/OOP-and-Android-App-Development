@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dateTime"
+        android:id="@+id/noteDateTime"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginLeft="8dp"
