@@ -117,7 +117,7 @@ public class EditActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.getMenuInflater().inflate(R.menu.menu_edit, menu);
         return true;
     }
     @Override
