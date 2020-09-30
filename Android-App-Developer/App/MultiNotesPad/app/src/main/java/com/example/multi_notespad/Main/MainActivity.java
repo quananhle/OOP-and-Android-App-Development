@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.multi_notespad.About.AboutActivity;
 import com.example.multi_notespad.Edit.EditActivity;
+import com.example.multi_notespad.Edit.Notes;
 import com.example.multi_notespad.R;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.createButton:
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 Intent intentEdit = new Intent(MainActivity.this, EditActivity.class);
-                startActivityForResult(intentEdit, REQ_ID);
+                startActivityForResult(intentEdit, REQUEST_CODE);
                 return true;
             case R.id.aboutButton:
                 Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
@@ -109,5 +110,13 @@ public class MainActivity extends AppCompatActivity
         else {
             Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
         }
+    }
+    public void openNewActivity(View v){
+        NoteList newNoteList = new NoteList();
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("NOTE_OBJECT", newNoteList);
+        startActivityForResult(intent, REQUEST_CODE);
+
+
     }
 }

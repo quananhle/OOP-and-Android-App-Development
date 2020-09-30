@@ -1,10 +1,11 @@
 package com.example.multi_notespad.Main;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
 
-public class NoteList {
+public class NoteList implements Serializable {
     private String name;
     private String body;
 

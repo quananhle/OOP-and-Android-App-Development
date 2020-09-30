@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.method.ScrollingMovementMethod;
 import android.util.JsonWriter;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.multi_notespad.Main.NoteList;
 import com.example.multi_notespad.R;
 
 import org.json.JSONObject;
@@ -45,8 +47,8 @@ public class EditActivity extends AppCompatActivity {
         description.setTextIsSelectable(true);
 
         Intent i = getIntent();
-        if (i.hasExtra("DATE_TIME")){
-            Log.d(TAG, "onCreate: " + i.getStringExtra("DATE_TIME"));
+        if(i.hasExtra("EMP_OBJECT")){
+            Log.d(TAG, "onCreate: " + i.getStringExtra("EMP_OBJECT"));
         }
     }
     @Override
@@ -84,6 +86,7 @@ public class EditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.saveButton:
                 Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
+                doSave(null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,7 +170,10 @@ public class EditActivity extends AppCompatActivity {
             dataToReturn.putExtra("USER_STRING", titleStr);
             dataToReturn.putExtra("USER_STRING", descrStr);
             setResult(RESULT_OK, dataToReturn);
-
         }
     }
+//    Intent i = getIntent();
+//        if (i.hasExtra("DATE_TIME")){
+//        Log.d(TAG, "onCreate: " + i.getStringExtra("DATE_TIME"));
+//    }
 }
