@@ -10,6 +10,3 @@ Uses: ```RecyclerView```, ```Multi-Activity```, ```JSON File```, ```Option-Menus
 
 This app allows the creation and maintenance of multiple notes. Any number of notes are allowed (including no notes at all). Notes are made up of a title, a note text, and a last-update time.
 
-3. [Multi-Note Pad](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/MultiNotesApp)        
-
-This app allows the creation and maintenance of multiple notes. Any number of notes are allowed (including no notes at all). Notes are made up of a title, a note text, and a last-update time.
