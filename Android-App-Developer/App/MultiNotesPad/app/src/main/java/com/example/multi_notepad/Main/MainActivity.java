@@ -25,36 +25,34 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
-    private static final int REQUEST_CODE = 1;
+    private static final int ADD_REQUEST_CODE = 1;
+    private static final int EDIT_REQUEST_CODE = 1;
     private RecyclerView recyclerView;
-    private final List<Notes> noteList = new ArrayList<>();
-    private NoteAdapter noteListAdapter;
+    private final List<Notes> notes = new ArrayList<>();
+    private NoteAdapter noteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        for (int i=0; i<10;i++){
-            noteList.add(new Notes());
-        }
-//        textView = findViewById(R.id.textView);
+        
         recyclerView = findViewById(R.id.recycler);
         //Data to recyclerview adapter
-        noteListAdapter = new NoteAdapter(noteList, this);
-        recyclerView.setAdapter(noteListAdapter);
+        noteAdapter = new NoteAdapter(notes, this);
+        recyclerView.setAdapter(noteAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     @Override
     public void onClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        Notes note = noteList.get(pos);
+        Notes note = notes.get(pos);
     }
     // From OnLongClickListener
     @Override
     public boolean onLongClick(View v) {
         int pos = recyclerView.getChildLayoutPosition(v);
-        noteList.remove(pos);
-        noteListAdapter.notifyDataSetChanged();
+        notes.remove(pos);
+        noteAdapter.notifyDataSetChanged();
         return false;
     }
     @Override
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.createButton:
                 Toast.makeText(this, "NEW", Toast.LENGTH_SHORT).show();
                 Intent intentEdit = new Intent(MainActivity.this, EditActivity.class);
-                startActivityForResult(intentEdit, REQUEST_CODE);
+                startActivityForResult(intentEdit, ADD_REQUEST_CODE);
                 return true;
             case R.id.aboutButton:
                 Toast.makeText(this, "INFO", Toast.LENGTH_SHORT).show();
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE){
+        if (requestCode == ADD_REQUEST_CODE){
             if (resultCode == RESULT_OK){
                 String s = data.getStringExtra("USER_STRING");
                 if(s == null){
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity
         Notes newNoteList = new Notes();
         Intent intent = new Intent(this, EditActivity.class);
         intent.putExtra("NOTE_OBJECT", newNoteList);
-        startActivityForResult(intent, REQUEST_CODE);
+        startActivityForResult(intent, ADD_REQUEST_CODE);
 
 
     }
