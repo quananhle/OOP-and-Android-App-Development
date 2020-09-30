@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Multi-Notes Pad"
+rootProject.name = "Multi-Note Pad"
