@@ -171,10 +171,10 @@ public class EditActivity extends AppCompatActivity {
             (if changes have been made) before exiting the activity.
             */
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Your note is not saved!");
-            builder.setMessage("Save note \'" + titleStr + "\'?");
+            builder.setTitle("YOUR NOTE IS NOT SAVED!");
+            builder.setMessage("SAVE NOTE \'" + titleStr + "\'?");
             //if user selected 'Yes'
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
@@ -187,7 +187,7 @@ public class EditActivity extends AppCompatActivity {
                 }
             });
             //if user selected 'No'
-            builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent dataToReturn = new Intent();

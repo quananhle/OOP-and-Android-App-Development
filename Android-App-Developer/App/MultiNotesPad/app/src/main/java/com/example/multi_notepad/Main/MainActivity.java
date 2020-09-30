@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private final List<Notes> notesList = new ArrayList<>();
     private NoteAdapter noteAdapter;
+    private Notes note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -78,25 +79,27 @@ public class MainActivity extends AppCompatActivity
     public boolean onLongClick(View v) {
         //Long press a note trigger a Delete dialog
         int pos = recyclerView.getChildLayoutPosition(v);
-        Notes note = notesList.get(pos);
+        note = notesList.get(pos);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("DELETE NOTE \'" + note.getName() + "\'?");
         //if user selected 'Yes'
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                notesList.remove(note);
+                //set note to null
+                note = null;
+                noteAdapter.notifyDataSetChanged();
+                Toast.makeText(MainActivity.this, "NOTE REMOVED", Toast.LENGTH_SHORT).show();
             }
-        })
-        //if user selected 'No'
-        builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+        });
+        //if user selected 'No', do nothing
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        })
-        notesList.remove(pos);
-        noteAdapter.notifyDataSetChanged();
+            public void onClick(DialogInterface dialog, int which) {;}
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
         return false;
     }
     @Override
@@ -108,7 +111,6 @@ public class MainActivity extends AppCompatActivity
     public void onPause(){
         this.writeFile();
         super.onPause();
-
     }
     @Override
     public void onStop(){
@@ -140,36 +142,27 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_REQUEST_CODE){
-            if (resultCode == RESULT_OK){
-                String s = data.getStringExtra("USER_STRING");
-                if(s == null){
-                    Toast.makeText(this, "Null text value returned", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(s.isEmpty()){
-                    Toast.makeText(this, "Empty text returned", Toast.LENGTH_SHORT).show();
-                }
-                ((TextView) findViewById(R.id.editTitle)).setText(s);
-                Log.d(TAG, "onActivityResult: User Text: " + s);
-            }
-            else {
-                Log.d(TAG, "onActivityResult: Result NOT OK: " + resultCode);
+        if (requestCode == EDIT_REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                Notes updatedNote = (Notes) data.getSerializableExtra("UPDATED_NOTE");
+                notesList.remove(note);
+                note = updatedNote;
+                notesList.add(0, note);
+                noteAdapter.notifyDataSetChanged();
+                Toast.makeText(this, "NOTE UPDATED SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
             }
         }
-        else {
-            Log.d(TAG, "onActivityResult: Unexpected request code: " + requestCode);
+        if (requestCode == ADD_REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                Notes newNote = (Notes) data.getSerializableExtra("NEW_NOTE");
+                note = newNote;
+                notesList.add(0, note);
+                noteAdapter.notifyDataSetChanged();
+                Toast.makeText(this, "NOTE ADDED SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     //====================== *** Helper methods *** ======================//
-    public void openNewActivity(View v){
-        Notes newNoteList = new Notes();
-        Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra("NOTE_OBJECT", newNoteList);
-        startActivityForResult(intent, ADD_REQUEST_CODE);
-
-
-    }
     private void readFile() {
         try {
             InputStream inputStream = getApplicationContext().openFileInput(getString(R.string.notes_file));
