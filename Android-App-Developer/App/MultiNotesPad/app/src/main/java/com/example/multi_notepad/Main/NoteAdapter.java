@@ -39,6 +39,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         Log.d(TAG, "onBindViewHolder: FILLING VIEW HOLDER Note" + position);
         Notes note = noteList.get(position);
         holder.title.setText(note.getName());
+        holder.description.setText(note.getBody());
         holder.lastModified.setText(note.getTime());
 
         String abstractDisplay;

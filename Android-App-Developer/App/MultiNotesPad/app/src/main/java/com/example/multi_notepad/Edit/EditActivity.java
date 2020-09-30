@@ -124,8 +124,58 @@ public class EditActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveButton:
-                Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
-                doSaveButton(null);
+                Toast.makeText(this, "SAVING", Toast.LENGTH_SHORT).show();
+                EditText editTitle = findViewById(R.id.editTitle);
+                String titleStr = editTitle.getText().toString();
+                EditText editDescription = findViewById(R.id.editDescription);
+                String descrStr = editDescription.getText().toString();
+                //check if title field is empty, a note without a title is not allowed to be saved
+                if (titleStr.trim().isEmpty()){
+                    Toast.makeText(this, "MISING TITLE",
+                            Toast.LENGTH_SHORT).show();
+                    Intent dataToReturn = new Intent();
+                    setResult(RESULT_CANCELED, dataToReturn);
+                    finish();
+                }
+//                //check if no changes has been made in an existing note
+//                else if (titleStr.equals(note.getName()) && descrStr.equals(note.getBody())){
+//                    Intent dataToReturn = new Intent();
+//                    setResult(RESULT_CANCELED, dataToReturn);
+//                    finish();
+//                }
+                //otherwise, creating a new note or updating an existing note
+                else{
+//                    Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
+//                    //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
+//                    dataToReturn.putExtra(note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE", savedNote);
+//                    setResult(RESULT_OK, dataToReturn);
+//                    finish();
+                    Intent dataToReturn = new Intent();
+                    Intent intent = getIntent();
+                    //editing an existing note
+                    if(intent.getExtras() != null){
+                        //if no changes are made
+                        if(descrStr.equals(intent.getStringExtra("DESCRIPTION")) &&
+                                titleStr.equals(intent.getStringExtra("TITLE"))){
+                            setResult(-1, dataToReturn);
+                            finish();
+                        }
+                        //make changes to an existing note
+                        else{
+                            dataToReturn.putExtra("TITLE", titleStr);
+                            dataToReturn.putExtra("DESCRIPTION", descrStr);
+                            setResult(0, dataToReturn);
+                            finish();
+                        }
+                    }
+                    //otherwise, create a new note
+                    else{
+                        dataToReturn.putExtra("NEW_TITLE", titleStr);
+                        dataToReturn.putExtra("NEW_DESCRIPTION", descrStr);
+                        setResult(0, dataToReturn);
+                        finish();
+                    }
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -188,40 +238,8 @@ public class EditActivity extends AppCompatActivity {
         }
         return note;
     }
-    private void doReturn(View v) {
-
-    }
-    public void doSaveButton(View v){
-        EditText editTitle = findViewById(R.id.editTitle);
-        String titleStr = editTitle.getText().toString();
-        EditText editDescription = findViewById(R.id.editDescription);
-        String descrStr = editDescription.getText().toString();
-        //check if title field is empty
-        if (titleStr.trim().isEmpty()){
-            Toast.makeText(this, "A note without a title is not allowed to be saved",
-                    Toast.LENGTH_SHORT).show();
-            Intent dataToReturn = new Intent();
-            setResult(RESULT_CANCELED, dataToReturn);
-            finish();
-        }
-        //check if no changes has been made in an existing note
-        else if (titleStr.equals(note.getName()) && descrStr.equals(note.getBody())){
-            Intent dataToReturn = new Intent();
-            setResult(RESULT_CANCELED, dataToReturn);
-            finish();
-        }
-        //otherwise, creating a new note or updating an existing note
-        else{
-            Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
-            Intent dataToReturn = new Intent();
-            //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
-            dataToReturn.putExtra(note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE", savedNote);
-            setResult(RESULT_OK, dataToReturn);
-            finish();
-        }
-    }
-    public String getCurrentTime(){
-        DateFormat df = new SimpleDateFormat("E MM d, h:m s");
-        return df.format(new Date().toString());
+    public String getCurrentTime() {
+         DateFormat df = DateFormat.getDateInstance();
+        return df.format(new Date()).toString();
     }
 }
