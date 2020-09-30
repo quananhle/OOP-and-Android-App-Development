@@ -50,16 +50,15 @@ public class EditActivity extends AppCompatActivity {
         editBody.setTextIsSelectable(true);
 
         Intent i = getIntent();
-        if(i.hasExtra("NOTE")){
-            note = (Notes) i.getSerializableExtra("NOTE");
-            editName.setText(note.getName());
-            editBody.setText(note.getBody());
+        if(i.getExtras() != null){
+            editName.setText(i.getStringExtra("UPDATED_TITLE"));
+            editBody.setText(i.getStringExtra("UPDATED_DESCRIPTION"));
             Log.d(TAG, "onCreate: " + i.getSerializableExtra("NOTE"));
         }
     }
     @Override
     protected void onResume() {
-        //Load the file containing the file data - if exists
+        //load the file containing the file data - if exists
         note = loadFile();
         //check if file is loaded
         if (note != null) {
@@ -69,52 +68,111 @@ public class EditActivity extends AppCompatActivity {
         super.onResume();
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed(){
         EditText editTitle = findViewById(R.id.editTitle);
         final String titleStr = editTitle.getText().toString();
         EditText editDescription = findViewById(R.id.editDescription);
         final String descrStr = editDescription.getText().toString();
-        //check if title field is empty or no changes has been made in an existing note
-        if(titleStr.trim().isEmpty() ||
-                (titleStr.trim().equals(note.getName()) && descrStr.trim().equals(note.getBody()))){
+        //check if title is missing
+        if(titleStr.trim().isEmpty()){
             Intent dataToReturn = new Intent();
-            //if no changes have been made to the current note, the Edit Activity simply exits
-            setResult(RESULT_CANCELED, dataToReturn);
-            finish();
+            if(titleStr.trim().equals(note.getName()) && descrStr.trim().equals(note.getBody())){
+                //if no changes have been made to the current note, the Edit Activity simply exits
+                setResult(RESULT_CANCELED, dataToReturn);
+                finish();
+            }
         }
+        //otherwise, if a title has been given
         else{
-            /*
-            display a confirmation dialog where the user can opt to save the note
-            (if changes have been made) before exiting the activity.
-            */
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("YOUR NOTE IS NOT SAVED!");
-            builder.setMessage("SAVE NOTE \'" + titleStr + "\'?");
-            //if user selected 'Yes'
-            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
-                    Intent dataToReturn = new Intent();
-                    //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
-                    dataToReturn.putExtra((note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE"),
-                            savedNote);
+            Intent dataToReturn = new Intent();
+            if(getIntent().getExtras() != null) {
+                //if the note with the same title and description is existing
+                if (descrStr.equals(getIntent().getStringExtra("UPDATED_DESCRIPTION"))
+                        && titleStr.equals(getIntent().getStringExtra("UPDATED_TITLE"))) {
                     setResult(RESULT_OK, dataToReturn);
                     finish();
                 }
-            });
-            //if user selected 'No'
-            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent dataToReturn = new Intent();
-                    setResult(RESULT_CANCELED, dataToReturn);
-                    finish();
+                //show dialog box if changes have been made
+                else {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    //if user selected 'YES'
+                    alertDialogBuilder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent dataToReturn = new Intent();
+                            //edit an existing note
+                            if(getIntent().getExtras() != null){
+                                //if no changes have been made to an existing note
+                                if(descrStr.equals(getIntent().getStringExtra("UPDATED_DESCRIPTION"))
+                                        && titleStr.equals(getIntent().getStringExtra("UPDATED_TITLE"))){
+                                    setResult(RESULT_OK, dataToReturn);
+                                    finish();
+                                }
+                                //otherwise, if changes have been made
+                                else{
+                                    dataToReturn.putExtra("UPDATED_TITLE", titleStr);
+                                    dataToReturn.putExtra("UPDATED_DESCRIPTION", descrStr);
+                                    setResult(RESULT_CANCELED, dataToReturn);
+                                    finish();
+                                }
+                            }
+                            //creat a new note
+                            else{
+                                dataToReturn.putExtra("NEW_TITLE", titleStr);
+                                dataToReturn.putExtra("NEW_DESCRIPTION", descrStr);
+                                setResult(0, dataToReturn);
+                                finish();
+                            }
+                        }
+                    });
+                    //if user selected 'No'
+                    alertDialogBuilder.setNegativeButton("NO!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent dataToReturn = new Intent();
+                            setResult(RESULT_OK, dataToReturn);
+                            finish();
+                        }
+                    });
+                    //dialog Box
+                    alertDialogBuilder.setTitle("YOUR NOTE IS NOT SAVED!");
+                    alertDialogBuilder.setMessage("SAVE NOTE \'" + titleStr + "\'?");
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            }
+            //otherwise, create a new note
+            else{
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                //if user selected 'YES'
+                alertDialogBuilder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent dataToReturn = new Intent();
+                        dataToReturn.putExtra("NEW_TITLE", titleStr);
+                        dataToReturn.putExtra("NEW_DESCRIPTION", descrStr);
+                        setResult(RESULT_CANCELED, dataToReturn);
+                        finish();
+                    }
+                });
+                //if user selected 'NO'
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent dataToReturn = new Intent();
+                        setResult(RESULT_OK, dataToReturn);
+                        finish();
+                    }
+                });
+                //dialog Box
+                alertDialogBuilder.setTitle("YOUR NOTE IS NOT SAVED!");
+                alertDialogBuilder.setMessage("SAVE NOTE \'" + titleStr + "\'?");
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
         }
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,15 +203,15 @@ public class EditActivity extends AppCompatActivity {
                     //editing an existing note
                     if(intent.getExtras() != null){
                         //if no changes are made
-                        if(descrStr.equals(intent.getStringExtra("DESCRIPTION")) &&
-                                titleStr.equals(intent.getStringExtra("TITLE"))){
+                        if(descrStr.equals(intent.getStringExtra("UPDATED_DESCRIPTION")) &&
+                                titleStr.equals(intent.getStringExtra("UPDATED_TITLE"))){
                             setResult(-1, dataToReturn);
                             finish();
                         }
                         //make changes to an existing note
                         else{
-                            dataToReturn.putExtra("TITLE", titleStr);
-                            dataToReturn.putExtra("DESCRIPTION", descrStr);
+                            dataToReturn.putExtra("UPDATED_TITLE", titleStr);
+                            dataToReturn.putExtra("UPDATED_DESCRIPTION", descrStr);
                             setResult(0, dataToReturn);
                             finish();
                         }
