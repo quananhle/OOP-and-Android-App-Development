@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NoteViewHolder extends RecyclerView.ViewHolder {
     TextView title;
-    TextView dateTime;
+    TextView lastModified;
     TextView description;
     public NoteViewHolder(@NonNull View itemView) {
         super(itemView);
         this.title = (TextView) itemView.findViewById(R.id.noteTitle);
-        this.dateTime = (TextView) itemView.findViewById(R.id.noteDateTime);
+        this.lastModified = (TextView) itemView.findViewById(R.id.noteDateTime);
         this.description = (TextView) itemView.findViewById(R.id.noteDescription);
     }
 }

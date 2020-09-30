@@ -1,11 +1,12 @@
 package com.example.multi_notepad.Edit;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.method.ScrollingMovementMethod;
 import android.util.JsonWriter;
 import android.util.Log;
@@ -13,10 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.multi_notepad.Edit.Notes;
+import com.example.multi_notepad.R;
 
 import org.json.JSONObject;
 
@@ -28,37 +28,42 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EditActivity extends AppCompatActivity {
     private static final String TAG = "EditActivity";
-    private EditText title;
-    private EditText description;
-    private Notes notes;
+    private EditText editName;
+    private EditText editBody;
+    private Notes note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        title = findViewById(R.id.editTitle);
-        description = findViewById(R.id.editTitle);
-        description.setMovementMethod(new ScrollingMovementMethod());
-        description.setTextIsSelectable(true);
+        editName = findViewById(R.id.editTitle);
+        editBody = findViewById(R.id.editDescription);
+        editBody.setMovementMethod(new ScrollingMovementMethod());
+        editBody.setTextIsSelectable(true);
 
         Intent i = getIntent();
-        if(i.hasExtra("NOTE_OBJECT")){
-            notes = (Notes) i.getSerializableExtra("NOTE_OBJECT");
-            Log.d(TAG, "onCreate: " + i.getSerializableExtra("NOTE_OBJECT"));
+        if(i.hasExtra("NOTE")){
+            note = (Notes) i.getSerializableExtra("NOTE");
+            editName.setText(note.getName());
+            editBody.setText(note.getBody());
+            Log.d(TAG, "onCreate: " + i.getSerializableExtra("NOTE"));
         }
     }
     @Override
     protected void onResume() {
         //Load the file containing the file data - if exists
-        notes = loadFile();
+        note = loadFile();
         //check if file is loaded
-        if (notes != null) {
-            title.setText(notes.getTitle());
-            description.setText(notes.getDescription());
+        if (note != null) {
+            title.setText(note.getName());
+            description.setText(note.getBody());
         }
         super.onResume();
     }
@@ -69,24 +74,22 @@ public class EditActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
-        notes.setTitle(title.getText().toString());
-        notes.setDescription(description.getText().toString());
+        note.setName(title.getText().toString());
+        note.setBody(description.getText().toString());
         saveNote();
         super.onPause();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
+        super.getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.saveButton:
                 Toast.makeText(this, "You want to save", Toast.LENGTH_SHORT).show();
-                doSave(null);
+                doSaveButton(null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -96,12 +99,14 @@ public class EditActivity extends AppCompatActivity {
     private void saveNote() {
         Log.d(TAG, "saveNote: Saving Note");
         try {
-            FileOutputStream fos = getApplicationContext().openFileOutput(getString(R.string.file_name), Context.MODE_PRIVATE);
-            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos, getString(R.string.encoding)));
+            FileOutputStream fos = getApplicationContext().openFileOutput(
+                    getString(R.string.file_name), Context.MODE_PRIVATE);
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(fos,
+                    getString(R.string.encoding)));
             writer.setIndent(" ");
             writer.beginObject();
-            writer.name("title").value(notes.getTitle());
-            writer.name("descrition").value(notes.getDescription());
+            writer.name("title").value(note.getName());
+            writer.name("descrition").value(note.getBody());
             writer.endObject();
             writer.close();
 
@@ -112,8 +117,8 @@ public class EditActivity extends AppCompatActivity {
             writer = new JsonWriter(sw);
             writer.setIndent(" ");
             writer.beginObject();
-            writer.name("title").value(notes.getTitle());
-            writer.name("descrition").value(notes.getDescription());
+            writer.name("title").value(note.getName());
+            writer.name("descrition").value(note.getBody());
             writer.endObject();
             writer.close();
             Log.d(TAG, "saveNote: Note:\n" + sw.toString());
@@ -126,7 +131,6 @@ public class EditActivity extends AppCompatActivity {
     }
     private Notes loadFile() {
         Log.d(TAG, "loadFile: Loading Multi-Note File");
-        notes = new Notes();
         try {
             InputStream is = getApplicationContext().openFileInput(getString(R.string.file_name));
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
@@ -139,41 +143,92 @@ public class EditActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(sb.toString());
             String titleStr = jsonObject.getString("title");
             String descrStr = jsonObject.getString("description");
-            notes.setTitle(titleStr);
-            notes.setDescription(descrStr);
+            note.setName(titleStr);
+            note.setBody(descrStr);
         } catch (FileNotFoundException fnfe) {
             Toast.makeText(this, getString(R.string.no_file), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return notes;
+        return note;
     }
     private void doReturn(View v) {
-        EditText et = findViewById(R.id.editTitle);
-        String s = et.getText().toString();
-//        et = findViewById(R.id.editDescription);
-//        s = et.getText().toString();
-        if(!s.trim().isEmpty()){
+        EditText editTitle = findViewById(R.id.editTitle);
+        final String titleStr = editTitle.getText().toString();
+        EditText editDescription = findViewById(R.id.editDescription);
+        final String descrStr = editDescription.getText().toString();
+        //check if title field is empty or no changes has been made in an existing note
+        if(titleStr.trim().isEmpty() ||
+                (titleStr.trim().equals(note.getName()) && descrStr.trim().equals(note.getBody()))){
             Intent dataToReturn = new Intent();
-            dataToReturn.putExtra("USER_STRING", s);
-            setResult(RESULT_OK, dataToReturn);
+            //if no changes have been made to the current note, the Edit Activity simply exits
+            setResult(RESULT_CANCELED, dataToReturn);
+            finish();
         }
-        finish();
+        else{
+            /*
+            display a confirmation dialog where the user can opt to save the note
+            (if changes have been made) before exiting the activity.
+            */
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Your note is not saved!");
+            builder.setMessage("Save note \'" + titleStr + "\'?");
+            //if user selected 'Yes'
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
+                    Intent dataToReturn = new Intent();
+                    dataToReturn.putExtra((note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE"),
+                            savedNote);
+                    setResult(RESULT_OK, dataToReturn);
+                    finish();
+                }
+            });
+            //if user selected 'No'
+            builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent dataToReturn = new Intent();
+                    setResult(RESULT_CANCELED, dataToReturn);
+                    finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
-    public void doSave(View v){
-        EditText et = findViewById(R.id.editTitle);
-        EditText ed = findViewById(R.id.editDescription);
-        String titleStr = et.getText().toString();
-        String descrStr = ed.getText().toString();
-        if (!titleStr.trim().isEmpty() || !descrStr.trim().isEmpty()){
+    public void doSaveButton(View v){
+        EditText editTitle = findViewById(R.id.editTitle);
+        String titleStr = editTitle.getText().toString();
+        EditText editDescription = findViewById(R.id.editDescription);
+        String descrStr = editDescription.getText().toString();
+        //check if title field is empty
+        if (titleStr.trim().isEmpty()){
+            Toast.makeText(this, "A note without a title is not allowed to be saved",
+                    Toast.LENGTH_SHORT).show();
             Intent dataToReturn = new Intent();
-            dataToReturn.putExtra("USER_STRING", titleStr);
-            dataToReturn.putExtra("USER_STRING", descrStr);
+            setResult(RESULT_CANCELED, dataToReturn);
+            finish();
+        }
+        //check if no changes has been made in an existing note
+        else if (titleStr.equals(note.getName()) && descrStr.equals(note.getBody())){
+            Intent dataToReturn = new Intent();
+            setResult(RESULT_CANCELED, dataToReturn);
+            finish();
+        }
+        //otherwise, creating a new note or updating an existing note
+        else{
+            Notes savedNote = new Notes(titleStr, descrStr, getCurrentTime());
+            Intent dataToReturn = new Intent();
+            //if note title is new, return NEW_NOTE, otherwise return UPDATED_NOTE
+            dataToReturn.putExtra(note.getName()==null ? "NEW_NOTE" : "UPDATED_NOTE", savedNote);
             setResult(RESULT_OK, dataToReturn);
+            finish();
         }
     }
-//    Intent i = getIntent();
-//        if (i.hasExtra("DATE_TIME")){
-//        Log.d(TAG, "onCreate: " + i.getStringExtra("DATE_TIME"));
-//    }
+    public String getCurrentTime(){
+        DateFormat df = new SimpleDateFormat("E MM d, h:m s");
+        return df.format(new Date().toString());
+    }
 }

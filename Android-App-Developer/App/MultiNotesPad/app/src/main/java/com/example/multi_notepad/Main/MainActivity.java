@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.multi_notepad.About.AboutActivity;
 import com.example.multi_notepad.Edit.EditActivity;
 import com.example.multi_notepad.Edit.Notes;
+import com.example.multi_notepad.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     private static final int REQUEST_CODE = 1;
     private RecyclerView recyclerView;
     private final List<Notes> noteList = new ArrayList<>();
-    private NoteListAdapter noteListAdapter;
+    private NoteAdapter noteListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 //        textView = findViewById(R.id.textView);
         recyclerView = findViewById(R.id.recycler);
         //Data to recyclerview adapter
-        noteListAdapter = new NoteListAdapter(noteList, this);
+        noteListAdapter = new NoteAdapter(noteList, this);
         recyclerView.setAdapter(noteListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
