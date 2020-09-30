@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/saveButton"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/baseline_save_white_18dp"
         android:title="@string/saveButton"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>
