@@ -67,3 +67,5 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 #### 3) About Activity
 
 <a href="url"><img src="pic/AboutActivity.png" align="left" height="750" width="400" ></a> 
+
+* There is no functionality present on this activity. The only action a user can take is to press the Back arrow to exit the activity.
