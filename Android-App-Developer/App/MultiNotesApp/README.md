@@ -1,8 +1,8 @@
 ## Multi-Note Pad
 
-### User interface 
+### Application Flow Diagrams
 
-![Alt text](pic/User-Interface.png?raw=true "User Interface")
+![Alt text](pic/Application-Flow-Diagrams_1.png?raw=true "1")
  
 ### How-to-use
 <a href="url"><img src="pic/Main-Page.png" align="left" height="750" width="400" ></a>  
