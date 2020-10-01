@@ -8,7 +8,7 @@
 
 ### How-to-use
 
-##### 1) Main Activity
+#### 1) Main Activity
 
 <a href="url"><img src="pic/MainActivity.png" align="left" height="750" width="400" ></a>  
 
@@ -36,5 +36,27 @@
 <br>
 <br>
 <br>
+
+#### 2) Edit Activity
+
+<a href="url"><img src="pic/EditActivity.png" align="left" height="750" width="400" ></a>  
+
+* The ```Edit Activity``` allows the note title & text to be saved by either:
+
+     1. Pressing the ```Save``` options-menu item. This will return the new note to the ```Main Activity```, and then exit the ```Edit Activity```. ```Main Activity``` will then add the note to the ```Main Activity```’s list of notes. Note that if no changes have been made to the current note, the ```Edit Activity``` simply exits.
+
+     2. Pressing the Back arrow to exit the activity. This will first display a confirmation dialog where the user can opt to save the note (if changes have been made) before exiting the activity. If saved, the new noteis returned to the ```Main Activity```, and then exit the ```Edit Activity```. ```Main Activity``` will then add the note to the ```Main Activity```’s list of notes. Note that if no changes have been made to the current note, the ```Edit Activity``` simply exits.
+     
+* A note without a title is not allowed to be saved(even if there is note text). If such an attempt is made simply exit the activity without saving and show a Toast message indicating that the un-titled activity was not saved.
+
+__Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
+
 <br>
-##### 2) Edit Activity
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+#### 3) About Activity
