@@ -7,13 +7,20 @@
 ![Alt text](pic/Application-Flow-Diagrams_2.png?raw=true "1")
 
 ### How-to-use
+
+##### 1) Main Activity
+
 <a href="url"><img src="pic/MainActivity.png" align="left" height="750" width="400" ></a>  
 
-Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default. The distance value (the value to be converted) is entered by the user. Values can be positive or negative and only numeric whole or decimal values are allowed. 
+* Notes are displayed in a list, in time order (latest-update-first, oldest-update-last).
 
-Pressing the ```Convert``` button will clear the input field, generate the converted distance value and display it on the ```Conversion History``` text field. The history of converted values is scrollable and displayed with the most recent conversions at the top of the list. 
-<br>
-<a href="url"><img src="pic/Landscape-Layout.png" align="left" height="350" width="700" ></a>
-Landscape layout. Changing layout does not lost the data on any field.
+* The ```Main Activity``` allows the user to create a new note via an Addoptions-menu item . Pressing this button will open the ```Edit Activity```(described next) with empty ```Title``` and ```Note Text``` areas.
 
-Pressing the “Clear” button will clear the conversion history.
+* The main activity will allow the user to edit an existing note by tapping on an existing note in the displayed list of notes. Doing so will open the ```Edit Activity```, displaying the note’s ```Title``` and ```Note Text``` – both available for editing.
+
+* The main activity will also have an ```Info``` options-menu item that will open the ```About Activity```(described later) when pressed. The ```About Activity``` indicates the application’s name, the date & author, and the version number.
+
+* Notes can be deleted from the ```Main Activity``` by long-pressing on a note entry. Upon doing so, a confirmation dialog will be opened where the user can confirm (or cancel) the delete operation.
+
+* The current number of notes is displayed in the title-bar.
+
