@@ -24,3 +24,4 @@
 
 * The current number of notes is displayed in the title-bar.
 
+##### 2) Edit Activity
