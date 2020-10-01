@@ -12,6 +12,7 @@
 
 <a href="url"><img src="pic/MainActivity.png" align="left" height="750" width="400" ></a>  
 
+<p>
 * Notes are displayed in a list, in time order (latest-update-first, oldest-update-last).
 
 * The ```Main Activity``` allows the user to create a new note via an Addoptions-menu item . Pressing this button will open the ```Edit Activity```(described next) with empty ```Title``` and ```Note Text``` areas.
@@ -23,5 +24,6 @@
 * Notes can be deleted from the ```Main Activity``` by long-pressing on a note entry. Upon doing so, a confirmation dialog will be opened where the user can confirm (or cancel) the delete operation.
 
 * The current number of notes is displayed in the title-bar.
+</p>
 
 ##### 2) Edit Activity
