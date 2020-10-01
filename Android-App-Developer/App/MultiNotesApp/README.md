@@ -7,7 +7,7 @@
 ![Alt text](pic/Application-Flow-Diagrams_2.png?raw=true "1")
 
 ### How-to-use
-<a href="url"><img src="pic/AboutActivity.png" align="left" height="750" width="400" ></a>  
+<a href="url"><img src="pic/MainActivity.png" align="left" height="750" width="400" ></a>  
 
 Type of conversion is selected using ```Radio Buttons``` which are grouped in a ```Radio Group```. ```Miles-to-Kilometers``` radio button is selected by default. The distance value (the value to be converted) is entered by the user. Values can be positive or negative and only numeric whole or decimal values are allowed. 
 
