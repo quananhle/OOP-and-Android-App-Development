@@ -184,11 +184,11 @@ public class EditActivity extends AppCompatActivity {
                 EditText editDescription = findViewById(R.id.editDescription);
                 String descrStr = editDescription.getText().toString();
                 //check if title field is empty, a note without a title is not allowed to be saved
-                if (titleStr.trim().isEmpty()){
+                if (titleStr.isEmpty()){
                     Toast.makeText(this, "MISING TITLE",
                             Toast.LENGTH_SHORT).show();
                     Intent dataToReturn = new Intent();
-                    setResult(RESULT_CANCELED, dataToReturn);
+                    setResult(RESULT_OK, dataToReturn);
                     finish();
                 }
                 //otherwise, creating a new note or updating an existing note

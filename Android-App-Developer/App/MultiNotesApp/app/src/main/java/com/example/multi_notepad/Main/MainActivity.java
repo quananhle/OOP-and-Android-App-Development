@@ -156,7 +156,40 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent receivedData){
+//        super.onActivityResult(requestCode, resultCode, receivedData);
+//
+//        switch(requestCode){
+//            //New Note Created
+//            case 1:
+//                if(resultCode==0){
+//                    String noteTitle = receivedData.getStringExtra("NEW_TITLE");
+//                    String noteText = receivedData.getStringExtra("NEW_DESCRIPTION");
+//                    notesList.add(0, new Notes(noteTitle, noteText, getCurrentTime()));
+//                    getSupportActionBar().setTitle(getString(R.string.app_name) + "(" + notesList.size() + ")");
+//                    noteAdapter.notifyDataSetChanged();
+//                }
+//                break;
+//
+//            //Existing Note Edited
+//            case 2:
+//                if(resultCode==0){
+//                    String noteTitle = receivedData.getStringExtra("UPDATED_TITLE");
+//                    String noteText = receivedData.getStringExtra("UPDATED_DESCRIPTION");
+//                    notesList.remove(currentNote);
+//                    notesList.add(0, new Notes(noteTitle, noteText, getCurrentTime()));
+//                    getSupportActionBar().setTitle(getString(R.string.app_name) + "(" + notesList.size() + ")");
+//                    noteAdapter.notifyDataSetChanged();
+//                }
+//
+//                //Note Wasn't Edited
+//                else if(resultCode==-1){
+//                    currentNote = -1;
+//                }
+//                break;
+//        }
+//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent receivedData) {
         super.onActivityResult(requestCode, resultCode, receivedData);
