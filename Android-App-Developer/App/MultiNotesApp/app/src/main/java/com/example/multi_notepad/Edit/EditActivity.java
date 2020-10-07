@@ -73,9 +73,27 @@ public class EditActivity extends AppCompatActivity {
         final String descrStr = editBody.getText().toString();
         //check if title is missing
         if(titleStr.trim().isEmpty()){
-            Intent dataToReturn = new Intent();
-            setResult(RESULT_OK, dataToReturn);
-            finish();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            //if user selected 'YES'
+            alertDialogBuilder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent dataToReturn = new Intent();
+                    setResult(RESULT_OK, dataToReturn);
+                    finish();
+                }
+            });
+            //if user selected 'NO'
+            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {;}
+            });
+            //dialog Box
+            alertDialogBuilder.setTitle("NOTE TITLE IS MISSING");
+            alertDialogBuilder.setMessage("YOUR NOTE WILL NOT BE SAVED WITHOUT A TITLE.\n\n"
+                    + "STILL PROCEED?");            
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
         //otherwise, if a title has been given
         else{
@@ -187,9 +205,30 @@ public class EditActivity extends AppCompatActivity {
                 if (titleStr.isEmpty()){
                     Toast.makeText(this, "MISING TITLE",
                             Toast.LENGTH_SHORT).show();
-                    Intent dataToReturn = new Intent();
-                    setResult(RESULT_OK, dataToReturn);
-                    finish();
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    //if user selected 'YES'
+                    alertDialogBuilder.setPositiveButton("YES!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent dataToReturn = new Intent();
+                            setResult(RESULT_OK, dataToReturn);
+                            finish();
+                        }
+                    });
+                    //if user selected 'NO'
+                    alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {;}
+                    });
+                    //dialog Box
+                    alertDialogBuilder.setTitle("NOTE TITLE IS MISSING");
+                    alertDialogBuilder.setMessage("YOUR NOTE WILL NOT BE SAVED WITHOUT A TITLE.\n\n"
+                            + "STILL PROCEED?");
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+//                    Intent dataToReturn = new Intent();
+//                    setResult(RESULT_OK, dataToReturn);
+//                    finish();
                 }
                 //otherwise, creating a new note or updating an existing note
                 else{
