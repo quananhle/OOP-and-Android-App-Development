@@ -91,7 +91,7 @@ public class EditActivity extends AppCompatActivity {
             //dialog Box
             alertDialogBuilder.setTitle("NOTE TITLE IS MISSING");
             alertDialogBuilder.setMessage("YOUR NOTE WILL NOT BE SAVED WITHOUT A TITLE.\n\n"
-                    + "STILL PROCEED?");            
+                    + "STILL PROCEED?");
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
