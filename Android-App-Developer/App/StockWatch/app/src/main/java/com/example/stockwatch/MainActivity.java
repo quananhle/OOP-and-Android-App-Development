@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * @author Quan Le
+ */
+
 public class MainActivity extends AppCompatActivity
         implements View.OnLongClickListener, View.OnLongClickListener{
     private final List<Companies> companiesList = new ArrayList<>();
