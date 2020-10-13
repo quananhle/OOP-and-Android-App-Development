@@ -20,4 +20,7 @@ public class MainActivity extends AppCompatActivity {
     public void getData(View v){
 
     }
+    public void receiveData(View v){
+
+    }
 }
