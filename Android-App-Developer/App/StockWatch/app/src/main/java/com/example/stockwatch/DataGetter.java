@@ -22,13 +22,7 @@ public class DataGetter implements Runnable{
                 ie.printStackTrace();
             }
         }
-
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mainActivity.receiveData(new Date().toString());
-            }
-        });
+        mainActivity.receiveData(new Date().toString());
         Log.d(TAG, "run: DONE");
     }
     

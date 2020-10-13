@@ -22,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
         Thread t = new Thread(dataGetter);
         t.start();
     }
-    public void receiveData(String s){
-        stockData.setText(s);
+    public void receiveData(final String s){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stockData.setText(s);
+            }
+        });
     }
 }
