@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         stockData = findViewById(R.id.displayStockData);
-
     }
     public void getData(View v){
         DataGetter dataGetter = new DataGetter(this);
