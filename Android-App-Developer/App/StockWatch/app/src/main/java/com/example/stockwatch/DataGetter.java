@@ -11,6 +11,10 @@ public class DataGetter implements Runnable{
     public DataGetter(MainActivity mainActivity){
         this.mainActivity = mainActivity;
     }
+
+    public DataGetter(MainActivity mainActivity, String stockData) {
+    }
+
     @Override
     public void run(){
         for (int i = 0; i < 5; ++i){
