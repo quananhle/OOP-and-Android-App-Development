@@ -9,6 +9,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private TextView stockData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public void getData(View v){
         DataGetter dataGetter = new DataGetter(this);
         Thread t = new Thread(dataGetter);
+        t.start();
     }
     public void receiveData(String s){
 
