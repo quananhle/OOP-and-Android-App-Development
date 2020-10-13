@@ -3,25 +3,25 @@ package com.example.stockwatch;
 import java.io.Serializable;
 
 public class Stock implements Serializable {
-    private String name;
+    private String company;
     private String symbol;
     private double currentPrice;
     private double todayPriceChange;
     private double todayPercentChange;
 
-    public Stock(String name, String symbol, double currentPrice,
+    public Stock(String company, String symbol, double currentPrice,
                  double todayPriceChange, double todayPercentChange) {
-        this.name = name;
+        this.company = company;
         this.symbol = symbol;
         this.currentPrice = currentPrice;
         this.todayPriceChange = todayPriceChange;
         this.todayPercentChange = todayPercentChange;
     }
-    public String getName() {
-        return name;
+    public String getCompany() {
+        return company;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setCompany(String name) {
+        this.company = name;
     }
 
     public String getSymbol() {

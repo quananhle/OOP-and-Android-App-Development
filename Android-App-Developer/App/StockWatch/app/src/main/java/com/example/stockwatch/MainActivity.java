@@ -1,6 +1,7 @@
 package com.example.stockwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Quan Le
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnLongClickListener, View.OnLongClickListener{
-    private final List<Companies> companiesList = new ArrayList<>();
+    private final List<Stock> companiesList = new ArrayList<>();
     private RecyclerView recyclerView;
     private static final String TAG = "MainActivity";
     private StockAdapter stockAdapter;
@@ -27,12 +29,21 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler);
         stockAdapter = new StockAdapter(companiesList, this);
+        recyclerView.setAdapter(stockAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Load the data
+        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
+        new Thread(stockLoaderRunnable).start();
     }
     public void execRunnable(View v){
         String stockData = editText.getText().toString();
         StockDataGetter dataGetter = new StockDataGetter(this, stockData);
         new Thread(dataGetter).start();
         Log.d(TAG, "run: Pretending");
+    }
+    @Override
+    public void onClick(View v){
+        
     }
     public void getStockData(View v){
         String stockData = editText.getText().toString();
