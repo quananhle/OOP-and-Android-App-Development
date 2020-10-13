@@ -28,7 +28,7 @@ public class StockDataGetter implements Runnable{
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mainActivity.receiveData(new Date().toString());
+                mainActivity.receiveStockData(new Date().toString());
             }
         });
         Log.d(TAG, "run: DONE");

@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void getStockData(View v){
         String stockData = editText.getText().toString();
-        StockDataGetter stockDataGetter = new StockDataGetter(this, stockData);
-        new Thread(stockDataGetter).start();
+        new Thread(new StockDataGetter(this, stockData)).start();
     }
     public void receiveStockData(final String s){
         Log.d(TAG, "run: Pretending");
