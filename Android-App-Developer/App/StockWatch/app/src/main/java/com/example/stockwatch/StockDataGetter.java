@@ -4,15 +4,14 @@ import android.util.Log;
 
 import java.util.Date;
 
-public class DataGetter implements Runnable{
+public class StockDataGetter implements Runnable{
     private static final String TAG = "DataGetter";
     public MainActivity mainActivity;
-    
-    public DataGetter(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
-    }
+    private String data;
 
-    public DataGetter(MainActivity mainActivity, String stockData) {
+    public StockDataGetter(MainActivity mainActivity, String data) {
+        this.mainActivity = mainActivity;
+        this.data = data;
     }
 
     @Override

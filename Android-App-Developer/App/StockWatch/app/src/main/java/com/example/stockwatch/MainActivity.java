@@ -19,11 +19,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void execRunnable(View v){
         String stockData = editText.getText().toString();
-        DataGetter dataGetter = new DataGetter(this, stockData);
+        StockDataGetter dataGetter = new StockDataGetter(this, stockData);
         new Thread(dataGetter).start();
         Log.d(TAG, "run: Pretending");
     }
-    public void receiveData(final String s){
+    public void getStockData(View v){
+        String stockData = editText.getText().toString();
+        StockDataGetter stockDataGetter = new StockDataGetter(this, stockData);
+        new Thread(stockDataGetter).start();
+    }
+    public void receiveStockData(final String s){
         Log.d(TAG, "run: Pretending");
         runOnUiThread(new Runnable() {
             @Override
