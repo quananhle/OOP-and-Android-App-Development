@@ -16,15 +16,19 @@ public class DataGetter implements Runnable{
         for (int i = 0; i < 5; ++i){
             Log.d(TAG, "run: Pretending" + i);
             try{
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             }
             catch (InterruptedException ie){
                 ie.printStackTrace();
             }
         }
 
-        
-        mainActivity.receiveData(new Date().toString());
+        mainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivity.receiveData(new Date().toString());
+            }
+        });
         Log.d(TAG, "run: DONE");
     }
     
