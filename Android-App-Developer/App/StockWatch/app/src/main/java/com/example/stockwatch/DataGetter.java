@@ -25,6 +25,7 @@ public class DataGetter implements Runnable{
 
         
         mainActivity.receiveData(new Date().toString());
+        Log.d(TAG, "run: DONE");
     }
     
 }

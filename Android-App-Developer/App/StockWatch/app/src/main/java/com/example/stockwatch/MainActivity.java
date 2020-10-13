@@ -23,6 +23,6 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     }
     public void receiveData(String s){
-        Log.d(TAG, "receiveData: " + s);
+        stockData.setText(s);
     }
 }
