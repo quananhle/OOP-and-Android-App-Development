@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements View.OnLongClickListener, View.OnLongClickListener{
+    private final List<Compani>
     private static final String TAG = "MainActivity";
     private TextView editText;
     @Override
