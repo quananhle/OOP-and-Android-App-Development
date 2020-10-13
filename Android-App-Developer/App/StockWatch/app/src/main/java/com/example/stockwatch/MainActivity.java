@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getData(View v){
-
+        DataGetter dataGetter = new DataGetter(this);
+        Thread t = new Thread(dataGetter);
     }
-    public void receiveData(View v){
+    public void receiveData(String s){
 
     }
 }
