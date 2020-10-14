@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onRefresh() {
                 Log.d(TAG, "onRefresh: ");
+                doRefresh();
             }
         });
 
@@ -73,5 +74,12 @@ public class MainActivity extends AppCompatActivity
     public void downloadFailed(){
         this.stockList.clear();
         this.stockAdapter.notifyDataSetChanged();
+    }
+    public void doRefresh(){
+        Log.d(TAG, "onRefresh: ");
+        new Thread(new ThreadedClass(this)).start();
+    }
+    public void doneRefresh(){
+        swipeRefresh.setRefreshing(false);
     }
 }
