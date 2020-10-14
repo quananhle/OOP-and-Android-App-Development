@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler);
+
         swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener();
+
         stockAdapter = new StockAdapter(stockList, this);
         recyclerView.setAdapter(stockAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
