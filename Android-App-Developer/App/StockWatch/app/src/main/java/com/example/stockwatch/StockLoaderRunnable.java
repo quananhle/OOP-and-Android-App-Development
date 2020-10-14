@@ -78,19 +78,7 @@ public class StockLoaderRunnable {
             }
         });
     }
-    public void getStockData(View v){
-        String stockData = editText.getText().toString();
-        new Thread(new StockDataGetter(this, stockData)).start();
-    }
-    public void receiveStockData(final String s){
-        Log.d(TAG, "run: Pretending");
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                editText.setText(s);
-            }
-        });
-    }
+
     private ArrayList<Stock> parseJSON(String str) {
         ArrayList<Stock> stockArrayList = new ArrayList<>();
         try{
@@ -108,15 +96,17 @@ public class StockLoaderRunnable {
                 String change = jStock.getString("change");
                 double priceChange = 0.0;
                 if (!change.trim().isEmpty() && !change.trim().equals("null")){
-                    
+                    priceChange = Double.parseDouble(change);
                 }
                 String changePercent = jStock.getString("changePercent");
-
+                double percentChange = 0.0;
+                if (!changePercent.trim().isEmpty() && !changePercent.trim().equals("null")){
+                    percentChange = Double.parseDouble(changePercent);
+                }
                 stockArrayList.add(
-                        new Stock(companyName, symbol, price, change, changePercent);
+                        new Stock(companyName, symbol, price, priceChange, percentChange);
             }
-
-            )
+            return stockArrayList;
         }
         catch (Exception e){
 
