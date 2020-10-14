@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         stockAdapter = new StockAdapter(stockList, this);
         recyclerView.setAdapter(stockAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        databaseHandler = new DatabaseHandler(this);
         //Load the data
         StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
         new Thread(stockLoaderRunnable).start();
