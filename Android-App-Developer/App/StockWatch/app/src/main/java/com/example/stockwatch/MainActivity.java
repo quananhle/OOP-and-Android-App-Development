@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +49,17 @@ public class MainActivity extends AppCompatActivity
         intent.putExtra(Stock.class.getName(), s);
         startActivity(intent);
     }
-    public void getStockData(View v){
-        String stockData = editText.getText().toString();
-        new Thread(new StockDataGetter(this, stockData)).start();
+    @Override
+    public boolean onLongClick(View v){
+        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        return true;
     }
-    public void receiveStockData(final String s){
-        Log.d(TAG, "run: Pretending");
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                editText.setText(s);
-            }
-        });
+    public void updateStockData(ArrayList<Stock> stockList){
+        this.stockList.addAll(stockList);
+        this.stockAdapter.notifyDataSetChanged();
+    }
+    public void downloadFailed(){
+        this.stockList.clear();
+        this.stockAdapter.notifyDataSetChanged();
     }
 }

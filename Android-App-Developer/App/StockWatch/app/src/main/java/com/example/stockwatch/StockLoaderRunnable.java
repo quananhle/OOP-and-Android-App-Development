@@ -2,9 +2,11 @@ package com.example.stockwatch;
 
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -76,14 +78,62 @@ public class StockLoaderRunnable {
             }
         });
     }
+    public void getStockData(View v){
+        String stockData = editText.getText().toString();
+        new Thread(new StockDataGetter(this, stockData)).start();
+    }
+    public void receiveStockData(final String s){
+        Log.d(TAG, "run: Pretending");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                editText.setText(s);
+            }
+        });
+    }
     private ArrayList<Stock> parseJSON(String str) {
         ArrayList<Stock> stockArrayList = new ArrayList<>();
         try{
             JSONArray jobjMain = new JSONArray(s);
+            for (int i = 0; i < jobjMain.length(); ++i) {
+                JSONObject jStock = (JSONObject) jobjMain.get(i);
+                String companyName = jStock.getString("companyName");
+                String symbol = jStock.getString("symbol");
+
+                String latestPrice = jStock.getString("latestPrice");
+                double price = 0.0;
+                if(!latestPrice.trim().isEmpty()){
+                    price = Double.parseDouble(latestPrice);
+                }
+                String change = jStock.getString("change");
+                double priceChange = 0.0;
+                if (!change.trim().isEmpty() && !change.trim().equals("null")){
+                    
+                }
+                String changePercent = jStock.getString("changePercent");
+
+                stockArrayList.add(
+                        new Stock(companyName, symbol, price, change, changePercent);
+            }
+
+            )
         }
         catch (Exception e){
 
         }
+        return 0;
     }
-        private ArrayList<Stock >
+//    public void getStockData(View v){
+//        String stockData = editText.getText().toString();
+//        new Thread(new StockDataGetter(this, stockData)).start();
+//    }
+//    public void receiveStockData(final String s){
+//        Log.d(TAG, "run: Pretending");
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                editText.setText(s);
+//            }
+//        });
+//    }
 }
