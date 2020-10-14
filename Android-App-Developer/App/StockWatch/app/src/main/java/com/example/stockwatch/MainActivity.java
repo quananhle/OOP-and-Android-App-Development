@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.d()
+                Log.d(TAG, "onRefresh: ");
             }
         });
 
