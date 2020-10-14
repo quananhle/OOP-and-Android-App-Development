@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity
     public void doRefresh(){
         Log.d(TAG, "onRefresh: ");
         new Thread(new ThreadedClass(this)).start();
+        stockAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
     public void doneRefresh(){
         swipeRefresh.setRefreshing(false);
