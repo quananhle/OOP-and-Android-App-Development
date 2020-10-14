@@ -30,3 +30,5 @@
         app:layout_constraintVertical_bias="0.304" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout></androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
