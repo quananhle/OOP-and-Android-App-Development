@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private StockAdapter stockAdapter;
     private SwipeRefreshLayout swipeRefresh;
+
+    private static final int ADD_CODE = 1;
+    private static final int UPDATE_CODE = 2;
+
+    private DatabaseHandler databaseHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
