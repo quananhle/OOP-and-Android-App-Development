@@ -72,6 +72,30 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         return true;
     }
+    @Override
+    public void onBackPressed(){
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult");
+        if (requestCode != ADD_CODE && requestCode != UPDATE_CODE){
+            Log.d(TAG, "onActivityResult: Unknown Request Code: " + requestCode);
+            return;
+        }
+        if (resultCode != RESULT_OK){
+            Toast.makeText(this, "ERROR ADDING NEW STOCK", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
+    }
+    //========================HELPER===================================\\
+    public void doAdd(View v){
+        Intent intent = new Intent(this, dialog.class);
+        startActivityForResult(int, ADD_CODE);
+    }
+
     public void updateStockData(ArrayList<Stock> stockList){
         this.stockList.addAll(stockList);
         this.stockAdapter.notifyDataSetChanged();
