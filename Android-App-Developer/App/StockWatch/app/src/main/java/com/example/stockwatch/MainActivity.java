@@ -88,7 +88,23 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "ERROR ADDING NEW STOCK", Toast.LENGTH_SHORT).show();
             return;
         }
-        
+        Stock stock = null;
+        if (data.hasExtra("COMPANY")){
+            stock = (Stock) data.getSerializableExtra("COMPANY");
+        }
+        if (stock == null){
+            Toast.makeText(this, "COMPANY DATA NOT FOUND", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //Make database request
+        switch (requestCode){
+            case ADD_CODE:
+                databaseHandler.addStock(stock);
+                break;
+            case UPDATE_CODE:
+                databaseHandler.updateList(stock);
+                break;
+        }
     }
     //========================HELPER===================================\\
     public void doAdd(View v){

@@ -1,6 +1,7 @@
 package com.example.stockwatch;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -45,6 +46,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
     ArrayList<Stock> loadStocks(){
-
+        //load stocks and return a watch list of loaded stocks
+        Log.d(TAG, "loadStocks: START");
+        ArrayList<Stock> stocks = new ArrayList<>();
+        Cursor cursor = database.query(TABLE_NAME,
+                new String[]{COMPANY, SYMBOL, PRICE, CHANGE, PERCENT_CHANGE},
+                null,
+                null,
+                null,
+                null,
+                null);
+        if (cursor != null){
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); ++i){
+                String company = cursor.getString(0);
+                String symbol = cursor.getString(1);
+                Double price = cursor.getDouble(2);
+                Double change = cursor.getDouble(3);
+                Double percentChange = cursor.getDouble(4);
+                Stock s = new Stock(company, symbol, price, change, percentChange);
+                stocks.add(s);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
     }
 }
