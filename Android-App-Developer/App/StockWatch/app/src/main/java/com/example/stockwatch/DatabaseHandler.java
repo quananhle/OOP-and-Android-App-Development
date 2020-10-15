@@ -87,12 +87,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public void updateList(Stock stock){
         ContentValues contentValues = new ContentValues();
-        contentValues.
+        contentValues.put(COMPANY, stock.getCompany());
+        contentValues.put(SYMBOL, stock.getSymbol());
+        contentValues.put(PRICE, stock.getCurrentPrice());
+        contentValues.put(CHANGE, stock.getTodayPriceChange());
+        contentValues.put(PERCENT_CHANGE, stock.getTodayPercentChange());
+        TODO:
+        long numRows = database.update(TABLE_NAME, contentValues, COMPANY + " = ?",
+                new String[]{stock.toString()});
+        Log.d(TAG, "updateWatchList: " + numRows);
+    }
+    public void deleteStock(String name){
+        Log.d(TAG, "deleteStock: " + name);
+        int cnt = database.delete(TABLE_NAME, COMPANY + " ?", new String[]{name});
+        Log.d(TAG, "deleteStock: " + cnt);
     }
     public void dumpDbToLog(){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        if (cursor != null){
+            cursor.moveToFirst();
 
+            Log.d(TAG, "dumpDatabaseToLog: v");
+            for (int i=0; i < cursor.getCount(); ++i){
+                String company = cursor.getString(0);
+                String symbol = cursor.getString(1);
+                Double price = cursor.getDouble(2);
+                Double priceChange = cursor.getDouble(3);
+                Double percentChange = cursor.getDouble(4);
+                Log.d(TAG, "dumpDatabaseToLog: " +
+                        String.format("%s %-18s", COMPANY + ": ", company) +
+                        String.format("%s %-18s", SYMBOL + ": ", symbol) +
+                        String.format("%s %-18s", PRICE + ": ", price) +
+                        String.format("%s %-18s", CHANGE + ": ", priceChange) +
+                        String.format("%s %-18s", PERCENT_CHANGE + ": ", percentChange));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
     }
     public void shutDown(){
-        
+
     }
 }
