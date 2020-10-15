@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements View.OnLongClickListener, View.OnLongClickListener{
+        implements View.OnClickListener, View.OnLongClickListener{
     private final List<Stock> stockList = new ArrayList<>();
     private RecyclerView recyclerView;
     private static final String TAG = "MainActivity";
