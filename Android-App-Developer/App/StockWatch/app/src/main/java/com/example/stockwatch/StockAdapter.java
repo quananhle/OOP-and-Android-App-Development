@@ -26,7 +26,7 @@ public class StockAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType){
         Log.d(TAG, "onCreateViewHolder: MAKING NEW");
-        View itemView = LayoutInflater.from(parent, getContext())
+        View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stock_entry, parent, false);
         itemView.setOnClickListener(mainActivity);
         itemView.setOnLongClickListener(mainActivity);
@@ -38,8 +38,17 @@ public class StockAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.company.setText(stock.getCompany());
         holder.symbol.setText(stock.getSymbol());
         holder.price.setText(String.format(Locale.US, "$%.2f", stock.getCurrentPrice()));
-        holder.todayPriceChange.setText(String.format(Locale.getDefault(), ));
-        holder.todayPercentChange.setText(stock.getTodayPercentChange());
+        holder.todayPriceChange.setText
+                (String.format(Locale.US, "$%.2f", stock.getTodayPriceChange()));
+        holder.todayPercentChange.setText(toPercentage(stock.getTodayPercentChange(), 2));
+    }
+    @Override
+    public int getItemCount(){
+        return stockList.size();
+    }
+    //=========================HELPER METHODS=================================//
+    public static String toPercentage(double n, int digits){
+        return String.format("%."+ digits +"f", n)+"%";
     }
 
 }

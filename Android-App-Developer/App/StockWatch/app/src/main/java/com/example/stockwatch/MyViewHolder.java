@@ -3,7 +3,9 @@ package com.example.stockwatch;
 import android.view.View;
 import android.widget.TextView;
 
-public class MyViewHolder {
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MyViewHolder extends RecyclerView.ViewHolder {
     TextView symbol;
     TextView company;
     TextView price;
