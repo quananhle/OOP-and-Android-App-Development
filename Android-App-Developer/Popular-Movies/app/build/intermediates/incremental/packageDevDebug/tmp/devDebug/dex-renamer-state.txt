@@ -1,0 +1,7 @@
+#Thu Oct 15 02:11:30 CDT 2020
+base.0=/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/dex/devDebug/mergeExtDexDevDebug/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/dex/devDebug/mergeProjectDexDevDebug/classes.dex

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "applicationId": "com.example.Quan_Le.popular_movies_android_app.dev",
+  "variantType": "BASE_APK",
+  "elements": [
+    {
+      "outputType": {
+        "type": "BUNDLE_MANIFEST"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 1,
+        "versionName": "0.0.1",
+        "outputFile": "app-dev-debug.apk",
+        "fullName": "devDebug",
+        "baseName": "dev-debug",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.example.Quan_Le.popular_movies_android_app.dev",
+        "split": "",
+        "minSdkVersion": "23"
+      }
+    }
+  ]
+}

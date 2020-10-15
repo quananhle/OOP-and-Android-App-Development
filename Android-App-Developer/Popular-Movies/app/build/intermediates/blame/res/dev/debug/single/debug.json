@@ -1,0 +1,94 @@
+[
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/menu_menu.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/menu/menu.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/drawable_ic_launcher_background.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/layout_activity_mainscreen.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/layout/activity_mainscreen.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/font_kautivacyrillicblack.otf.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/font/kautivacyrillicblack.otf"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/layout_activity_details.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/layout/activity_details.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/font_itcavantgardestd_bk.otf.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/font/itcavantgardestd_bk.otf"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/font_itcavantgardestd_bold.otf.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/font/itcavantgardestd_bold.otf"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/layout_activity_main.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/drawable_gradient_background.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/drawable/gradient_background.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/font_itcavantgardestd_demi.otf.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/font/itcavantgardestd_demi.otf"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/build/intermediates/res/merged/dev/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/ashleyle/Github Repository/Object-Oriented-Programming-and-Android-App-Developer/Android-App-Developer/Popular-Movies/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    }
+]
