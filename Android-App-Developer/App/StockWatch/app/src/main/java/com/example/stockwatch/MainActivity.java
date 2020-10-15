@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity
                 }
         }
     }
-    //========================HELPER===================================\\
+    //========================HELPER•METHOD===================================\\
     public void doAdd(View v){
         Intent intent = new Intent(this, dialog.class);
         startActivityForResult(int, ADD_CODE);
