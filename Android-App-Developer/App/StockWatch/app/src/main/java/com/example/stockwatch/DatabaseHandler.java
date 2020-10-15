@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHandler";
@@ -127,5 +128,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public void shutDown(){
         database.close();
+    }
+    public void findStock(HashMap<String, String> params){
+        Log.d(TAG, "findBook: ");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String key : params.keySet()){
+            stringBuilder.append(key).append(" = '").append(params.get(key)).append("' AND ");
+        }
+        String clause = stringBuilder.substring(0, stringBuilder.lastIndexOf("AND"));
     }
 }

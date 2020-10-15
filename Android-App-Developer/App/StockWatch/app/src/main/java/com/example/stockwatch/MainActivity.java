@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity
                         showWarning("MISSING STOCK SYMBOL");
                     }
                     else{
-                        databaseHandler.findBooks(params);
+                        databaseHandler.findStock(params);
                     }
                 }
                 else {
