@@ -10,7 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stockwatch.database.DatabaseHandler;
@@ -172,8 +174,8 @@ public class MainActivity extends AppCompatActivity
     }
     //========================HELPER•METHOD===================================\\
     public void doAdd(View v){
-        Intent intent = new Intent(this, dialog.class);
-        startActivityForResult(int, ADD_CODE);
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivityForResult(intent, ADD_CODE);
     }
 
     public void updateStockData(ArrayList<Stock> stockList){
@@ -198,6 +200,25 @@ public class MainActivity extends AppCompatActivity
         builder.setIcon(R.drawable.warning);
         builder.setMessage(message);
         builder.setTitle("SEARCH FAILED");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public void showFindResults(Stock stock){
+        //if no stock found
+        if (stock == null){
+            showWarning("NO STOCKS MATCHED SEARCH CRITERIA");
+            return;
+        }
+        //dialog with a layout
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        final View view = layoutInflater.inflate(R.layout.stock_entry, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("FIND RESULTS: ");
+        builder.setIcon(R.drawable.search);
+        ((TextView) view.findViewById(R.id.company)).setText(stock.getCompany());
+        ((TextView) view.findViewById(R.id.symbol)).setText(stock.getSymbol());
+        builder.setView(view);
+
         AlertDialog dialog = builder.create();
         dialog.show();
     }

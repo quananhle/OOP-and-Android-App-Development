@@ -49,7 +49,7 @@ public class StockAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public int getItemCount(){
         return stockList.size();
     }
-    //=========================HELPER METHODS=================================//
+    //=========================HELPER•METHODS=================================//
     public static String toPercentage(double n, int digits){
         return String.format("%."+ digits +"f", n)+"%";
     }
