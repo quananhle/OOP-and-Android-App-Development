@@ -1,4 +1,4 @@
-package com.example.stockwatch;
+package com.example.stockwatch.helper;
 
 import java.io.Serializable;
 

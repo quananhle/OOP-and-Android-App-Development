@@ -1,4 +1,4 @@
-package com.example.stockwatch.main;
+package com.example.stockwatch.helper;
 
 import android.view.View;
 import android.widget.TextView;

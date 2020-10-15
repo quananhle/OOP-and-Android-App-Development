@@ -5,12 +5,13 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class StockFindActivity extends AppCompatActivity {
+public class FindActivity extends AppCompatActivity {
     private EditText company;
     private EditText symbol;
-    private EditText lowerThanPrice;
-    private static boolean isTopGainer = true;
-    private EditText
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        
+    }
 
 
 

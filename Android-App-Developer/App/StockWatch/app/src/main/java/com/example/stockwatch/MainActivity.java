@@ -1,4 +1,4 @@
-package com.example.stockwatch.main;
+package com.example.stockwatch;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +14,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.stockwatch.database.DatabaseHandler;
-import com.example.stockwatch.R;
-import com.example.stockwatch.Stock;
-import com.example.stockwatch.StockDetailActivity;
-import com.example.stockwatch.ThreadedClass;
+import com.example.stockwatch.helper.Stock;
+import com.example.stockwatch.helper.StockAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v){
         int pos = recyclerView.getChildLayoutPosition(v);
         Stock s = stockList.get(pos);
-        Intent intent = new Intent(MainActivity.this, StockDetailActivity.class);
+        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra(Stock.class.getName(), s);
         startActivityForResult(intent, UPDATE_CODE);
     }

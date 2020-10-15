@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.stockwatch.Stock;
+import com.example.stockwatch.helper.Stock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private SQLiteDatabase database;
 
-    DatabaseHandler(Context context){
+    public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         database = getWritableDatabase();
         Log.d(TAG, "DatabaseHandler: DONE");
