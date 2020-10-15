@@ -126,6 +126,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
     public void shutDown(){
-
+        database.close();
     }
 }

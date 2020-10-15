@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity
         Collections.sort(stockList);
         stockAdapter.notifyDataSetChanged();
         //Load the data
-        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
-        new Thread(stockLoaderRunnable).start();
+//        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
+//        new Thread(stockLoaderRunnable).start();
     }
     @Override
     public void onClick(View v){
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        databaseHandler.deleteStock(stockList.get(pos).getCompany());
+                        databaseHandler.deleteStock(stockList.get(pos).getSymbol());
                         stockList.remove(pos);
                         stockAdapter.notifyDataSetChanged();
                     }
@@ -146,6 +147,20 @@ public class MainActivity extends AppCompatActivity
             case UPDATE_CODE:
                 databaseHandler.updateList(stock);
                 break;
+            case FIND_CODE:
+                HashMap<String, String> params;
+                if (data.hasExtra("FIND")){
+                    params = (HashMap<String, String>) data.getSerializableExtra("FIND");
+                    if (params == null || params.isEmpty()){
+                        showWarning("MISSING STOCK SYMBOL");
+                    }
+                    else{
+                        databaseHandler.findBooks(params);
+                    }
+                }
+                else {
+                    showWarning("SEARCH FAILED!");
+                }
         }
     }
     //========================HELPER===================================\\
