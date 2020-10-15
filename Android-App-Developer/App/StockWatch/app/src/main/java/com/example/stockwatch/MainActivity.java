@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,8 +31,10 @@ public class MainActivity extends AppCompatActivity
 
     private static final int ADD_CODE = 1;
     private static final int UPDATE_CODE = 2;
+    private static final int FIND_CODE = 3;
 
     private DatabaseHandler databaseHandler;
+    //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +49,20 @@ public class MainActivity extends AppCompatActivity
                 doRefresh();
             }
         });
-
         stockAdapter = new StockAdapter(stockList, this);
         recyclerView.setAdapter(stockAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         databaseHandler = new DatabaseHandler(this);
+
+        databaseHandler.dumpDbToLog();
+        ArrayList<Stock> watchList = databaseHandler.loadStocks();
+        stockList.addAll(watchList);
+        Collections.sort(stockList);
+        stockAdapter.notifyDataSetChanged();
         //Load the data
         StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
         new Thread(stockLoaderRunnable).start();
     }
-//    public void execRunnable(View v){
-//        String stockData = editText.getText().toString();
-//        StockDataGetter dataGetter = new StockDataGetter(this, stockData);
-//        new Thread(dataGetter).start();
-//        Log.d(TAG, "run: Pretending");
-//    }
     @Override
     public void onClick(View v){
         int pos = recyclerView.getChildLayoutPosition(v);
