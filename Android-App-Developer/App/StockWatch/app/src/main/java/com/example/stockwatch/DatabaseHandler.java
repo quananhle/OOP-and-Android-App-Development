@@ -94,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(PERCENT_CHANGE, stock.getTodayPercentChange());
 
         long numRows = database.update(TABLE_NAME, contentValues, COMPANY + " = ?",
-                new String[]{stock.getCompany()});
+                new String[]{stock.getSymbol()});
         Log.d(TAG, "updateWatchList: " + numRows);
     }
     public void deleteStock(String name){
