@@ -77,6 +77,20 @@ public class MainActivity extends AppCompatActivity
 
     }
     @Override
+    public void onResume(){
+        databaseHandler.dumpDbToLog();
+        ArrayList<Stock> watchList = databaseHandler.loadStocks();
+        stockList.clear();
+        stockList.addAll(watchList);
+        Log.d(TAG, "onResume: " + watchList);
+        stockAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
+    public void onDestroy(){
+        databaseHandler.shutDown();
+        super.onDestroy();
+    }
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult");

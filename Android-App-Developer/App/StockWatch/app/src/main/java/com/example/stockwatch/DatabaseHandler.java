@@ -1,5 +1,6 @@
 package com.example.stockwatch;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     ArrayList<Stock> loadStocks(){
         //load stocks and return a watch list of loaded stocks
         Log.d(TAG, "loadStocks: START");
-        ArrayList<Stock> stocks = new ArrayList<>();
+        ArrayList<Stock> watchList = new ArrayList<>();
         Cursor cursor = database.query(TABLE_NAME,
                 new String[]{COMPANY, SYMBOL, PRICE, CHANGE, PERCENT_CHANGE},
                 null,
@@ -65,10 +66,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Double change = cursor.getDouble(3);
                 Double percentChange = cursor.getDouble(4);
                 Stock s = new Stock(company, symbol, price, change, percentChange);
-                stocks.add(s);
+                watchList.add(s);
                 cursor.moveToNext();
             }
             cursor.close();
         }
+        Log.d(TAG, "loadWatchList: DONE");
+        return watchList;
+    }
+    public void addStock(Stock stock){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COMPANY, stock.getCompany());
+        contentValues.put(SYMBOL, stock.getSymbol());
+        contentValues.put(PRICE, stock.getCurrentPrice());
+        contentValues.put(CHANGE, stock.getTodayPriceChange());
+        contentValues.put(PERCENT_CHANGE, stock.getTodayPercentChange());
+
+        long key = database.insert(TABLE_NAME, null, contentValues);
+        Log.d(TAG, "addStock: " + key);
+    }
+    public void updateList(Stock stock){
+        ContentValues contentValues = new ContentValues();
+        contentValues.
+    }
+    public void dumpDbToLog(){
+
+    }
+    public void shutDown(){
+        
     }
 }
