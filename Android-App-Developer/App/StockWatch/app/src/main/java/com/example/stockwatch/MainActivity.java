@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public boolean onLongClick(View v){
+        //get the position of item that is long clicked
         final int pos = recyclerView.getChildLayoutPosition(v);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
@@ -88,7 +89,13 @@ public class MainActivity extends AppCompatActivity
                 ;
             }
         });
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tDELETE STOCK");
+        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
+                + stockList.get(pos).getCompany()
+                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        Toast.makeText(this, "DELETE", Toast.LENGTH_SHORT).show();
         return true;
     }
     @Override
