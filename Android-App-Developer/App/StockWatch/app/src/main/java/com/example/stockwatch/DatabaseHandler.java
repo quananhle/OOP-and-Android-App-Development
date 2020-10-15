@@ -92,9 +92,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(PRICE, stock.getCurrentPrice());
         contentValues.put(CHANGE, stock.getTodayPriceChange());
         contentValues.put(PERCENT_CHANGE, stock.getTodayPercentChange());
-        //FIXME: fix me before release :)
+
         long numRows = database.update(TABLE_NAME, contentValues, COMPANY + " = ?",
-                new String[]{stock.toString()});
+                new String[]{stock.getCompany()});
         Log.d(TAG, "updateWatchList: " + numRows);
     }
     public void deleteStock(String name){

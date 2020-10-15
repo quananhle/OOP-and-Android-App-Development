@@ -1,10 +1,12 @@
 package com.example.stockwatch;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +72,22 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onLongClick(View v){
         final int pos = recyclerView.getChildLayoutPosition(v);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        databaseHandler.deleteStock(stockList.get(pos).getCompany());
+                        stockList.remove(pos);
+                        stockAdapter.notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+                ;
+            }
+        });
         Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         return true;
     }
