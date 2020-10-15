@@ -186,4 +186,12 @@ public class MainActivity extends AppCompatActivity
     public void doneRefresh(){
         swipeRefresh.setRefreshing(false);
     }
+    private void showWarning(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.warning);
+        builder.setMessage(message);
+        builder.setTitle("SEARCH FAILED");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
