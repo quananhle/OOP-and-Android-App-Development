@@ -1,4 +1,4 @@
-package com.example.stockwatch;
+package com.example.stockwatch.main;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.stockwatch.database.DatabaseHandler;
+import com.example.stockwatch.R;
+import com.example.stockwatch.Stock;
+import com.example.stockwatch.StockDetailActivity;
+import com.example.stockwatch.ThreadedClass;
 
 import java.util.ArrayList;
 import java.util.Collections;

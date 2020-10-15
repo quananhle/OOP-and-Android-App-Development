@@ -1,9 +1,12 @@
-package com.example.stockwatch;
+package com.example.stockwatch.main;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.stockwatch.R;
+import com.example.stockwatch.Stock;
 
 import java.util.List;
 import java.util.Locale;

@@ -1,7 +1,9 @@
-package com.example.stockwatch;
+package com.example.stockwatch.main;
 
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.stockwatch.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 

@@ -1,9 +1,11 @@
-package com.example.stockwatch;
+package com.example.stockwatch.main;
 
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
+
+import com.example.stockwatch.Stock;
+import com.example.stockwatch.main.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

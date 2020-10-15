@@ -1,4 +1,4 @@
-package com.example.stockwatch;
+package com.example.stockwatch.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.stockwatch.Stock;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     }
-    ArrayList<Stock> loadStocks(){
+    public ArrayList<Stock> loadStocks(){
         //load stocks and return a watch list of loaded stocks
         Log.d(TAG, "loadStocks: START");
         ArrayList<Stock> watchList = new ArrayList<>();
