@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity
                 else {
                     showWarning("SEARCH FAILED!");
                 }
+                break;
         }
     }
     //========================HELPER•METHOD===================================\\

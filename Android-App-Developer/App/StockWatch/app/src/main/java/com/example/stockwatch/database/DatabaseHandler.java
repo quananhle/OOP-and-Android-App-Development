@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.stockwatch.MainActivity;
 import com.example.stockwatch.helper.Stock;
 
 import java.util.ArrayList;
@@ -25,14 +26,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CHANGE = "PriceChange";
     private static final String PERCENT_CHANGE = "PercentChange";
 
-    private static final String SQL_CREATE_TABLE = "CREATE_TABLE " + TABLE_NAME + " (" +
-            COMPANY + " TEXT " +
-            SYMBOL + " TEXT " +
-            PRICE + " TEXT " +
-            CHANGE + " DOUBLE " +
-            PERCENT_CHANGE + " DOUBLE)";
+    private static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" +
+            COMPANY + " TEXT not null, " +
+            SYMBOL + " TEXT not null unique, " +
+            PRICE + " TEXT not null, " +
+            CHANGE + " TEXT not null, " +
+            PERCENT_CHANGE + " TEXT not null)";
 
     private SQLiteDatabase database;
+
+    private MainActivity mainActivity;
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,10 +48,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE);
     }
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){}
 
-
-    }
     public ArrayList<Stock> loadStocks(){
         //load stocks and return a watch list of loaded stocks
         Log.d(TAG, "loadStocks: START");
@@ -65,10 +66,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             for (int i = 0; i < cursor.getCount(); ++i){
                 String company = cursor.getString(0);
                 String symbol = cursor.getString(1);
-                Double price = cursor.getDouble(2);
-                Double change = cursor.getDouble(3);
-                Double percentChange = cursor.getDouble(4);
-                Stock s = new Stock(company, symbol, price, change, percentChange);
+                String price = cursor.getString(2);
+                String change = cursor.getString(3);
+                String percentChange = cursor.getString(4);
+                Stock s = new Stock(company, symbol, Double.parseDouble(price),
+                        Double.parseDouble(change), Double.parseDouble(percentChange));
                 watchList.add(s);
                 cursor.moveToNext();
             }
@@ -138,5 +140,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stringBuilder.append(key).append(" = '").append(params.get(key)).append("' AND ");
         }
         String clause = stringBuilder.substring(0, stringBuilder.lastIndexOf("AND"));
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+                clause, null);
+        if (cursor != null){
+            cursor.moveToFirst();
+            if (cursor.getCount() > 0){
+                String company = cursor.getString(0);
+                String symbol = cursor.getString(1);
+                String currPrice = cursor.getString(2);
+                String priceChange = cursor.getString(3);
+                String percentChange = cursor.getString(4);
+                Stock s = new Stock(company, symbol, Double.parseDouble(currPrice),
+                        Double.parseDouble(priceChange), Double.parseDouble(percentChange));
+                mainActivity.showFindResults(s);
+            }
+            else {
+                mainActivity.showFindResults(null);
+            }
+            cursor.close();
+        }
     }
 }
