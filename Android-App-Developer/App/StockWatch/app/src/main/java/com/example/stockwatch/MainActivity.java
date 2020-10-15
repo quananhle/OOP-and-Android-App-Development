@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
     private static final int FIND_CODE = 3;
 
     private DatabaseHandler databaseHandler;
+
+    private static final String market_watchURL = "http://www.marketwatch.com/investing/stock/";
     //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,31 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, DetailActivity.class);
         intent.putExtra(Stock.class.getName(), s);
         startActivityForResult(intent, UPDATE_CODE);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                databaseHandler.deleteStock(stockList.get(pos).getSymbol());
+                stockList.remove(pos);
+                stockAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+                ;
+            }
+        });
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tDELETE STOCK");
+        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
+                + stockList.get(pos).getCompany()
+                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        
     }
     @Override
     public boolean onLongClick(View v){
@@ -173,10 +200,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
     //========================HELPER•METHOD===================================\\
-    public void doAdd(View v){
-        Intent intent = new Intent(this, DetailActivity.class);
-        startActivityForResult(intent, ADD_CODE);
-    }
+//    public void doAdd(View v){
+//        Intent intent = new Intent(this, DetailActivity.class);
+//        startActivityForResult(intent, ADD_CODE);
+//    }
 
     public void updateStockData(ArrayList<Stock> stockList){
         this.stockList.addAll(stockList);
