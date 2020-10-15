@@ -226,9 +226,6 @@ public class EditActivity extends AppCompatActivity {
                             + "STILL PROCEED?");
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-//                    Intent dataToReturn = new Intent();
-//                    setResult(RESULT_OK, dataToReturn);
-//                    finish();
                 }
                 //otherwise, creating a new note or updating an existing note
                 else{
@@ -263,7 +260,7 @@ public class EditActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    //====================== *** Helper methods *** ======================//
+    //====================== *** Helper•methods *** ======================//
     private void saveNote() {
         Log.d(TAG, "saveNote: Saving Note");
         try {
