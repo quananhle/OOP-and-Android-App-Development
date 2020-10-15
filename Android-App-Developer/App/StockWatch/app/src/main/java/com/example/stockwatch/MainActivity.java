@@ -147,9 +147,11 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode){
             case ADD_CODE:
                 databaseHandler.addStock(stock);
+                stockList.add(stock);
                 break;
             case UPDATE_CODE:
                 databaseHandler.updateList(stock);
+                stockList.add(stock);
                 break;
             case FIND_CODE:
                 HashMap<String, String> params;
