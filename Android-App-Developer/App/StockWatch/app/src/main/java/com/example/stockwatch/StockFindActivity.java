@@ -9,7 +9,7 @@ public class StockFindActivity extends AppCompatActivity {
     private EditText company;
     private EditText symbol;
     private EditText lowerThanPrice;
-
+    private static boolean isTopGainer = true;
     private EditText
 
 
