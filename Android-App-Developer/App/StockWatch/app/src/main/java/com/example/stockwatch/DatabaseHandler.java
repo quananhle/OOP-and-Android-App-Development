@@ -92,7 +92,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(PRICE, stock.getCurrentPrice());
         contentValues.put(CHANGE, stock.getTodayPriceChange());
         contentValues.put(PERCENT_CHANGE, stock.getTodayPercentChange());
-        TODO:
+        //FIXME: fix me before release :)
         long numRows = database.update(TABLE_NAME, contentValues, COMPANY + " = ?",
                 new String[]{stock.toString()});
         Log.d(TAG, "updateWatchList: " + numRows);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <!-- TODO! Hey I am here down in XML -->
     <TextView
         android:id="@+id/displayStockData"
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- TODO! Hey I am here down in XML -->
     <TextView
         android:id="@+id/editText"
         android:layout_width="match_parent"

@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity
         Stock s = stockList.get(pos);
         Intent intent = new Intent(MainActivity.this, StockDetailActivity.class);
         intent.putExtra(Stock.class.getName(), s);
-        startActivity(intent);
+        startActivityForResult(intent, UPDATE_CODE);
     }
     @Override
     public boolean onLongClick(View v){
+        final int pos = recyclerView.getChildLayoutPosition(v);
         Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         return true;
     }
