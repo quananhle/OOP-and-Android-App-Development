@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.stockwatch.database.DatabaseHandler;
 import com.example.stockwatch.helper.Stock;
 import com.example.stockwatch.helper.StockAdapter;
+import com.example.stockwatch.helper.StockLoaderRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity
     private DatabaseHandler databaseHandler;
 
     private static final String webURL = "http://www.marketwatch.com/investing/stock/";
+
+    //load the data
+    StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
+    new Thread(stockLoaderRunnable).start();
     //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,5 +261,9 @@ public class MainActivity extends AppCompatActivity
                 + "(" + stockList.get(pos).getSymbol() + ")" + "?");
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public void updateData(ArrayList<Stock> watchList){
+        stockList.addAll(watchList);
+        stockAdapter.notifyDataSetChanged();
     }
 }

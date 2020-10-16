@@ -21,7 +21,7 @@ public class StockLoaderRunnable implements Runnable{
     private MainActivity mainActivity;
     private static final String DATA_URL = "https://api.iextrading.com/1.0/ref-data/symbols";
 
-    StockLoaderRunnable (MainActivity mainActivity){
+    public StockLoaderRunnable (MainActivity mainActivity){
         this.mainActivity = mainActivity;
     }
 
@@ -105,14 +105,14 @@ public class StockLoaderRunnable implements Runnable{
                     percentChange = Double.parseDouble(changePercent);
                 }
                 stockArrayList.add(
-                        new Stock(companyName, symbol, price, priceChange, percentChange);
+                        new Stock(companyName, symbol, price, priceChange, percentChange));
             }
             return stockArrayList;
         }
         catch (Exception e){
 
         }
-        return 0;
+        return null;
     }
 //    public void getStockData(View v){
 //        String stockData = editText.getText().toString();
