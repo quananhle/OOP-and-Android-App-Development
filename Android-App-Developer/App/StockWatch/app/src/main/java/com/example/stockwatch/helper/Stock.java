@@ -2,7 +2,7 @@ package com.example.stockwatch.helper;
 
 import java.io.Serializable;
 
-public class Stock implements Serializable {
+public class Stock implements Serializable, Comparable<Stock> {
     private String company;
     private String symbol;
     private double currentPrice;

@@ -25,6 +25,7 @@ import com.example.stockwatch.helper.StockLoaderRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Collections.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +35,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnLongClickListener{
-    private final List<Stock> stockList = new ArrayList<>();
+    private List<Stock> stockList = new ArrayList<>();
     private RecyclerView recyclerView;
     private static final String TAG = "MainActivity";
     private StockAdapter stockAdapter;
@@ -181,6 +182,9 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
         }
+        Collections.sort(stockList);
+//        Collections.sort(stockList);
+        stockAdapter.notifyDataSetChanged();
     }
     //========================HELPER•METHOD===================================\\
 //    public void doAdd(View v){
@@ -255,10 +259,8 @@ public class MainActivity extends AppCompatActivity
                 ;
             }
         });
-        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
-        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
-                + stockList.get(pos).getCompany()
-                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
+//        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setMessage("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
