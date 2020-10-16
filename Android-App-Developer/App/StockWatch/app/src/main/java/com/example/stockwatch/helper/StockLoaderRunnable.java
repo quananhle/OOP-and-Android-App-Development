@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class StockLoaderRunnable {
+public class StockLoaderRunnable implements Runnable{
     private static final String TAG = "StockLoaderRunnable";
     private MainActivity mainActivity;
     private static final String DATA_URL = "https://api.iextrading.com/1.0/ref-data/symbols";
