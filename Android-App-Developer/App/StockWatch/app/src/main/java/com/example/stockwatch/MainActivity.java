@@ -199,10 +199,9 @@ public class MainActivity extends AppCompatActivity
     }
     //========================HELPER•METHOD===================================\\
     public void doAdd(Stock stock){
-        if (stock != null){
-            stockList.add(stock);
-
-        }
+        stockList.add(stock);
+        databaseHandler.addStock(stock);
+        stockAdapter.notifyDataSetChanged();
     }
 
     public void updateStockData(ArrayList<Stock> stockList){
