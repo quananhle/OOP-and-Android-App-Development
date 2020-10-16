@@ -2,6 +2,8 @@ package com.example.stockwatch.helper;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
+
 public class Stock implements Serializable, Comparable<Stock> {
     private String company;
     private String symbol;
@@ -50,12 +52,7 @@ public class Stock implements Serializable, Comparable<Stock> {
     }
 
     @Override
-    public int compareTo(Stock o) {
-        return 0;
+    public int compareTo(@NonNull Stock o) {
+        return getSymbol().compareTo(o.getSymbol());
     }
-
-    @Override
-    public boolean
-
-
 }
