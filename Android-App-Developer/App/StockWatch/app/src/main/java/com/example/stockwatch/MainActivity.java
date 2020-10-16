@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity
 //        Collections.sort(stockList);
         stockAdapter.notifyDataSetChanged();
     }
-    //========================HELPER•METHOD===================================\\
+    //========================HELPER•METHODS===================================\\
     public void doAdd(Stock stock){
         stockList.add(stock);
         databaseHandler.addStock(stock);
