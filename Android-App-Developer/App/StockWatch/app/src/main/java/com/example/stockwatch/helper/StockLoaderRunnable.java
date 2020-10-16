@@ -68,7 +68,7 @@ public class StockLoaderRunnable {
             });
             return;
         }
-        final ArrayList<Stock> stockList = parseJSON(s);
+        final ArrayList<Stock> stockList = parseJSON(str);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -83,7 +83,7 @@ public class StockLoaderRunnable {
     private ArrayList<Stock> parseJSON(String str) {
         ArrayList<Stock> stockArrayList = new ArrayList<>();
         try{
-            JSONArray jobjMain = new JSONArray(s);
+            JSONArray jobjMain = new JSONArray(str);
             for (int i = 0; i < jobjMain.length(); ++i) {
                 JSONObject jStock = (JSONObject) jobjMain.get(i);
                 String companyName = jStock.getString("companyName");

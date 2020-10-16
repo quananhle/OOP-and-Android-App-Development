@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     private DatabaseHandler databaseHandler;
 
-    private static final String market_watchURL = "http://www.marketwatch.com/investing/stock/";
+    private static final String webURL = "http://www.marketwatch.com/investing/stock/";
     //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,34 +79,9 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v){
         int pos = recyclerView.getChildLayoutPosition(v);
         Stock s = stockList.get(pos);
-        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+        Intent intent = new Intent(MainActivity.this, null);
         intent.putExtra(Stock.class.getName(), s);
         startActivityForResult(intent, UPDATE_CODE);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                databaseHandler.deleteStock(stockList.get(pos).getSymbol());
-                stockList.remove(pos);
-                stockAdapter.notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //do nothing
-                ;
-            }
-        });
-        builder.setTitle("\t\t\t\t\t\t\t\t\t\tDELETE STOCK");
-        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
-                + stockList.get(pos).getCompany()
-                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        
     }
     @Override
     public boolean onLongClick(View v){
@@ -246,6 +224,36 @@ public class MainActivity extends AppCompatActivity
         ((TextView) view.findViewById(R.id.symbol)).setText(stock.getSymbol());
         builder.setView(view);
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    @SuppressLint("SetJavaScriptEnabled")
+    public void readStock(View v){
+        String symbol = ((TextView) findViewById(R.id.symbol)).getText().toString();
+        if (symbol.trim().isEmpty()){
+            return;
+        }
+        final String URL = webURL + symbol;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(URL));
+                stockAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+                ;
+            }
+        });
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
+                + stockList.get(pos).getCompany()
+                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
