@@ -49,9 +49,6 @@ public class MainActivity extends AppCompatActivity
 
     private static final String webURL = "http://www.marketwatch.com/investing/stock/";
 
-    //load the data
-    StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
-    new Thread(stockLoaderRunnable).start();
     //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +74,9 @@ public class MainActivity extends AppCompatActivity
         stockList.addAll(watchList);
         Collections.sort(stockList);
         stockAdapter.notifyDataSetChanged();
-        //Load the data
-//        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
-//        new Thread(stockLoaderRunnable).start();
+        //load the data
+        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
+        new Thread(stockLoaderRunnable).start();
     }
     @Override
     public void onClick(View v){

@@ -49,5 +49,13 @@ public class Stock implements Serializable, Comparable<Stock> {
         this.todayPercentChange = todayPercentChange;
     }
 
+    @Override
+    public int compareTo(Stock o) {
+        return 0;
+    }
+
+    @Override
+    public boolean
+
 
 }
