@@ -73,21 +73,32 @@ public class MainActivity extends AppCompatActivity
         databaseHandler = new DatabaseHandler(this);
 
         databaseHandler.dumpDbToLog();
+
+        //load the data
+        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
+        new Thread(stockLoaderRunnable).start();
+
         ArrayList<Stock> watchList = databaseHandler.loadStocks();
         stockList.addAll(watchList);
         Collections.sort(stockList);
         stockAdapter.notifyDataSetChanged();
-        //load the data
-        StockLoaderRunnable stockLoaderRunnable = new StockLoaderRunnable(this);
-        new Thread(stockLoaderRunnable).start();
+
+        //check the network
+        if (!isConnected()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("NETWORK ERROR");
+            builder.setMessage("NO INTERNET CONNECTIONS FOUND!");
+            builder.show();
+        }
     }
     @Override
     public void onClick(View v){
         int pos = recyclerView.getChildLayoutPosition(v);
         Stock s = stockList.get(pos);
-        Intent intent = new Intent(MainActivity.this, null);
-        intent.putExtra(Stock.class.getName(), s);
-        startActivityForResult(intent, UPDATE_CODE);
+        String URL = webURL + s.getSymbol();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(URL));
+        startActivity(intent);
     }
     @Override
     public boolean onLongClick(View v){
@@ -109,10 +120,10 @@ public class MainActivity extends AppCompatActivity
                 ;
             }
         });
-        builder.setTitle("\t\t\t\t\t\t\t\t\t\tDELETE STOCK");
-        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tDELETE STOCK "
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tREMOVE STOCK FROM WATCHLIST");
+        builder.setMessage("\t\t\t\t\t\t\t\tARE YOU SURE YOU WANT TO \n \t\t\tREMOVE STOCK "
                 + stockList.get(pos).getCompany()
-                + "(" + stockList.get(pos).getSymbol() + ")" + "?");
+                + "(" + stockList.get(pos).getSymbol().toUpperCase() + ")" + " FROM YOUR WATCHLIST?");
         AlertDialog dialog = builder.create();
         dialog.show();
         Toast.makeText(this, "DELETE", Toast.LENGTH_SHORT).show();
@@ -187,10 +198,12 @@ public class MainActivity extends AppCompatActivity
         stockAdapter.notifyDataSetChanged();
     }
     //========================HELPER•METHOD===================================\\
-//    public void doAdd(View v){
-//        Intent intent = new Intent(this, DetailActivity.class);
-//        startActivityForResult(intent, ADD_CODE);
-//    }
+    public void doAdd(Stock stock){
+        if (stock != null){
+            stockList.add(stock);
+
+        }
+    }
 
     public void updateStockData(ArrayList<Stock> stockList){
         this.stockList.addAll(stockList);
@@ -202,9 +215,7 @@ public class MainActivity extends AppCompatActivity
     }
     public void doRefresh(){
         Log.d(TAG, "onRefresh: ");
-        new Thread(new ThreadedClass(this)).start();
-        stockAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+
     }
     public void doneRefresh(){
         swipeRefresh.setRefreshing(false);
