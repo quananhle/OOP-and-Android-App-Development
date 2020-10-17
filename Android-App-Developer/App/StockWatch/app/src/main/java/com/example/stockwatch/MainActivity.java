@@ -223,12 +223,8 @@ public class MainActivity extends AppCompatActivity
     }
     //========================HELPER•METHODS===================================\\
     public boolean addButtonSelected(){
-        if (!isConnected()){
-            return true;
-        }
-        else{
-
-        }
+        checkNetwork();
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
     }
     public void doAdd(Stock stock){
         stockList.add(stock);
