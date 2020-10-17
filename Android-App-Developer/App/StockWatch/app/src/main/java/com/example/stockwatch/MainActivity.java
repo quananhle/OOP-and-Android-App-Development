@@ -168,7 +168,10 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
-
+        switch (item.getItemId()){
+            case R.id.addStock:
+                Toast.makeText(this, "NEW STOCK", Toast.LENGTH_SHORT).show();
+        }
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
