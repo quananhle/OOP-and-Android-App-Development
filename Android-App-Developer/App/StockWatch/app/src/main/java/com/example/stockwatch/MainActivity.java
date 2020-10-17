@@ -1,5 +1,6 @@
 package com.example.stockwatch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -163,6 +165,10 @@ public class MainActivity extends AppCompatActivity
     public void onDestroy(){
         databaseHandler.shutDown();
         super.onDestroy();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
