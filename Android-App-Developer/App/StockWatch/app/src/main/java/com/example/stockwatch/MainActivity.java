@@ -96,9 +96,8 @@ public class MainActivity extends AppCompatActivity
         int pos = recyclerView.getChildLayoutPosition(v);
         Stock s = stockList.get(pos);
         final String URL = webURL + s.getSymbol();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -106,15 +105,15 @@ public class MainActivity extends AppCompatActivity
                 stockAdapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do nothing
                 ;
             }
         });
-//        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
-        builder.setMessage("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setMessage("\t\t\t\t\t\t\t\t\t\tYOU WILL BE REDIRECTED TO DIFERENT APP");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         //get the position of item that is long clicked
         final int pos = recyclerView.getChildLayoutPosition(v);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         databaseHandler.deleteStock(stockList.get(pos).getSymbol());
