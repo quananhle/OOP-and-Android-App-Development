@@ -171,6 +171,10 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.addStock:
                 Toast.makeText(this, "NEW STOCK", Toast.LENGTH_SHORT).show();
+                addButtonSelected();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item)
         }
     }
     @Override
@@ -223,6 +227,9 @@ public class MainActivity extends AppCompatActivity
         stockAdapter.notifyDataSetChanged();
     }
     //========================HELPER•METHODS===================================\\
+    public boolean addButtonSelected(){
+        return true;
+    }
     public void doAdd(Stock stock){
         stockList.add(stock);
         databaseHandler.addStock(stock);
