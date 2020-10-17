@@ -211,7 +211,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         Collections.sort(stockList);
-//        Collections.sort(stockList);
         stockAdapter.notifyDataSetChanged();
     }
     //========================HELPER•METHODS===================================\\
@@ -241,6 +240,7 @@ public class MainActivity extends AppCompatActivity
         builder.setIcon(R.drawable.warning);
         builder.setMessage(message);
         builder.setTitle("SEARCH FAILED");
+        builder.setMessage("NO STOCKS MATCHED SEARCH CRITERIA");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
