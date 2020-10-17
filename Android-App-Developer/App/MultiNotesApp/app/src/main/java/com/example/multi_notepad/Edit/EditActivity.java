@@ -260,7 +260,7 @@ public class EditActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    //====================== *** Helper•methods *** ======================//
+    //====================== *** HELPER•METHODS *** ======================//
     private void saveNote() {
         Log.d(TAG, "saveNote: Saving Note");
         try {
