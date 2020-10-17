@@ -86,12 +86,7 @@ public class MainActivity extends AppCompatActivity
         stockAdapter.notifyDataSetChanged();
 
         //check the network
-        if (!isConnected()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("NETWORK ERROR");
-            builder.setMessage("NO INTERNET CONNECTIONS FOUND!");
-            builder.show();
-        }
+        checkNetwork();
     }
     @Override
     public void onClick(View v){
@@ -228,7 +223,12 @@ public class MainActivity extends AppCompatActivity
     }
     //========================HELPER•METHODS===================================\\
     public boolean addButtonSelected(){
-        return true;
+        if (!isConnected()){
+            return true;
+        }
+        else{
+
+        }
     }
     public void doAdd(Stock stock){
         stockList.add(stock);
@@ -321,5 +321,13 @@ public class MainActivity extends AppCompatActivity
         else {
             return false;
         }
+    }
+    public void checkNetwork(){
+        if (!isConnected()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("NETWORK ERROR");
+            builder.setMessage("NO INTERNET CONNECTIONS FOUND!");
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
     }
 }
