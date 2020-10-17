@@ -95,10 +95,28 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View v){
         int pos = recyclerView.getChildLayoutPosition(v);
         Stock s = stockList.get(pos);
-        String URL = webURL + s.getSymbol();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(URL));
-        startActivity(intent);
+        final String URL = webURL + s.getSymbol();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(URL));
+                stockAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+                ;
+            }
+        });
+//        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setMessage("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     @Override
     public boolean onLongClick(View v){
