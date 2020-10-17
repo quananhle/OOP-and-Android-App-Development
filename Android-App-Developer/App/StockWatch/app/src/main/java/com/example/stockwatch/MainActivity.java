@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+    /*
     @SuppressLint("SetJavaScriptEnabled")
     public void readStock(View v){
         String symbol = ((TextView) findViewById(R.id.symbol)).getText().toString();
@@ -286,15 +287,12 @@ public class MainActivity extends AppCompatActivity
                 ;
             }
         });
-//        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
-        builder.setMessage("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
+        builder.setMessage("\t\t\t\t\t\t\t\t\t\tYOU WILL BE REDIRECTED TO DIFERENT APP");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    public void updateData(ArrayList<Stock> watchList){
-        stockList.addAll(watchList);
-        stockAdapter.notifyDataSetChanged();
-    }
+     */
     public boolean isConnected(){
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
