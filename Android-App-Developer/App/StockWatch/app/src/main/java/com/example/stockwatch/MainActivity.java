@@ -219,7 +219,6 @@ public class MainActivity extends AppCompatActivity
         databaseHandler.addStock(stock);
         stockAdapter.notifyDataSetChanged();
     }
-
     public void updateStockData(ArrayList<Stock> stockList){
         this.stockList.addAll(stockList);
         this.stockAdapter.notifyDataSetChanged();
