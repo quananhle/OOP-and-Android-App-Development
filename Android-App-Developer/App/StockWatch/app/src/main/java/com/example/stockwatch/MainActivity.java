@@ -15,10 +15,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +37,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Collections.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Quan Le
@@ -53,7 +61,6 @@ public class MainActivity extends AppCompatActivity
     private DatabaseHandler databaseHandler;
 
     private static final String webURL = "http://www.marketwatch.com/investing/stock/";
-
     //********************************************************//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,9 @@ public class MainActivity extends AppCompatActivity
         stockAdapter.notifyDataSetChanged();
 
         //check the network
-        checkNetwork();
+        if (!isConnected()){
+            showMessage(R.drawable.error, "NETWORK ERROR", "No Internet Connection Found!");
+        }
     }
     @Override
     public void onClick(View v){
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         builder.setTitle("\t\t\t\t\t\t\t\t\t\tPROCEED TO WEB BROWSER?");
-        builder.setMessage("\t\t\t\t\t\t\t\t\t\tYOU WILL BE REDIRECTED TO DIFERENT APP");
+        builder.setMessage("\t\t\t\t\t\t\t\t\t\tYOU WILL BE REDIRECTED TO ANOTHER APP");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -207,14 +216,14 @@ public class MainActivity extends AppCompatActivity
                 if (data.hasExtra("FIND")){
                     params = (HashMap<String, String>) data.getSerializableExtra("FIND");
                     if (params == null || params.isEmpty()){
-                        showWarning("MISSING STOCK SYMBOL");
+                        showMessage(R.drawable.warning, "WARNING", "Missing Stock Symbol");
                     }
                     else{
                         databaseHandler.findStock(params);
                     }
                 }
                 else {
-                    showWarning("SEARCH FAILED!");
+                    showMessage(R.drawable.warning, "WARNING", "Search Failed!");
                 }
                 break;
         }
@@ -223,8 +232,65 @@ public class MainActivity extends AppCompatActivity
     }
     //========================HELPER•METHODS===================================\\
     public boolean addButtonSelected(){
-        checkNetwork();
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        if (!isConnected()){
+            showMessage(R.drawable.error, "NETWORK ERROR", "No Internet Connection Found");
+        }
+        else {
+            final MainActivity mainActivity = this;
+            final EditText editText = new EditText(this);
+            editText.setInputType(InputType.TYPE_CLASS_TEXT);
+            editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+            editText.setGravity(Gravity.CENTER_HORIZONTAL);
+
+            final String symbol = editText.getText().toString();
+            //check if user has entered a stock symbol into the field
+            if (symbol.trim().isEmpty()){
+                Toast.makeText(this, "INPUT MISSING", Toast.LENGTH_SHORT).show();
+                showMessage(R.drawable.warning, "STOCK SYMBOL MISSING", "You Have Not Entered A Valid Stock Symbol");
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(editText);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showOptionsDialog(symbol);
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //do nothing
+                }
+            });
+            builder.setTitle("ADD NEW STOCK");
+            builder.setMessage("Enter A Stock Symbol");
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+        return true;
+    }
+    public void showOptionsDialog(String userInput){
+        final Set<Stock> items = new HashSet<>();
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.select_dialog_singlechoice);
+        //check if stock is already in the watchlist
+        for (int i=0; i < stockList.size(); ++i){
+            if (stockList.get(i).getSymbol().equals(userInput)){
+                showMessage(R.drawable.warning, "DUPLICATE FOUND!", "The Stock Is Already In Your Watchlist!");
+            }
+        }
+        //search all stocks that matches user input
+        for(int i=0; i<stockList.size(); ++i){
+            if (stockList.get(i).getSymbol().contains(userInput)){
+                items.add(stockList.get(i));
+            }
+        }
+        // TODO: COMPLETE THIS
+
+        for(int i=0; i<items.size(); ++i){
+            arrayAdapter.add(items..getName());
+        }
+
     }
     public void doAdd(Stock stock){
         stockList.add(stock);
@@ -246,19 +312,18 @@ public class MainActivity extends AppCompatActivity
     public void doneRefresh(){
         swipeRefresh.setRefreshing(false);
     }
-    private void showWarning(String message){
+    private void showMessage(int iconId, String title, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.drawable.warning);
+        builder.setIcon(iconId);
+        builder.setTitle(title);
         builder.setMessage(message);
-        builder.setTitle("SEARCH FAILED");
-        builder.setMessage("NO STOCKS MATCHED SEARCH CRITERIA");
         AlertDialog dialog = builder.create();
         dialog.show();
     }
     public void showFindResults(Stock stock){
         //if no stock found
         if (stock == null){
-            showWarning("NO STOCKS MATCHED SEARCH CRITERIA");
+            showMessage(R.drawable.error, "STOCK NOT FOUND", "No Stocks Matched Search Criteria");
             return;
         }
         //dialog with a layout
@@ -270,7 +335,6 @@ public class MainActivity extends AppCompatActivity
         ((TextView) view.findViewById(R.id.company)).setText(stock.getCompany());
         ((TextView) view.findViewById(R.id.symbol)).setText(stock.getSymbol());
         builder.setView(view);
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -318,12 +382,5 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
     }
-    public void checkNetwork(){
-        if (!isConnected()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("NETWORK ERROR");
-            builder.setMessage("NO INTERNET CONNECTIONS FOUND!");
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-    }
 }
+
