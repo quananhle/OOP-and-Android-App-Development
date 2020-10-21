@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Stock Watch</string>\
     <string name="add_button">Add Button</string>
+    <string name="company_name_field">Company</string>
+    <string name="stock_symbol_field">Symbol</string>
+    <string name="price_field">Price</string>
+    <string name="price_change_field">Change</string>
+    <string name="percent_change_field">Percent</string>
 </resources>
