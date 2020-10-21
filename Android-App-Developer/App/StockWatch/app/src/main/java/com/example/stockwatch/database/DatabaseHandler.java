@@ -11,7 +11,6 @@ import com.example.stockwatch.MainActivity;
 import com.example.stockwatch.helper.Stock;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHandler";
@@ -34,8 +33,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             PERCENT_CHANGE + " TEXT not null)";
 
     private SQLiteDatabase database;
-
-    private MainActivity mainActivity;
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -102,16 +99,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{stock.getSymbol()});
         Log.d(TAG, "updateWatchList: " + numRows);
     }
-    public void deleteStock(String name){
-        Log.d(TAG, "deleteStock: " + name);
-        int cnt = database.delete(TABLE_NAME, COMPANY + " ?", new String[]{name});
-        Log.d(TAG, "deleteStock: " + cnt);
-    }
     public void dumpDbToLog(){
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         if (cursor != null){
             cursor.moveToFirst();
-
             Log.d(TAG, "dumpDatabaseToLog: v");
             for (int i=0; i < cursor.getCount(); ++i){
                 String company = cursor.getString(0);
@@ -129,6 +120,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
             cursor.close();
         }
+    }
+    public void deleteStock(String symbol){
+        Log.d(TAG, "deleteStock: Deleting Stock " + symbol);
+        int cnt = database.delete(TABLE_NAME, SYMBOL + " = ?", new String[]{symbol});
+        Log.d(TAG, "deleteStock: " + cnt);
     }
     public void shutDown(){
         database.close();
