@@ -264,40 +264,40 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
-//    public void showOptionsDialog(String userInput){
-//        final List<Stock> items = new ArrayList<>();
-//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-//                (this, android.R.layout.select_dialog_singlechoice);
-//        //check if stock is already in the watchlist
-//        for (int i=0; i < stockList.size(); ++i){
-//            if (stockList.get(i).getSymbol().equals(userInput)){
-//                showMessage(R.drawable.warning,
-//                        "DUPLICATE STOCK!",
-//                        "Stock Symbol" + userInput + " is already displayed!");
-//            }
-//        }
-//        //search all stocks that matches user input
-//        for(int i=0; i<stockList.size(); ++i){
-//            if (stockList.get(i).getSymbol().contains(userInput)){
-//                items.add(stockList.get(i));
-//            }
-//        }
-//        for(int i=0; i<items.size(); ++i){
-//            arrayAdapter.add(items.get(i).getCompany());
-//        }
+    public void showOptionsDialog(String userInput){
+        final List<Stock> items = new ArrayList<>();
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.select_dialog_singlechoice);
+        //check if stock is already in the watchlist
+        for (int i=0; i < stockList.size(); ++i){
+            if (stockList.get(i).getSymbol().equals(userInput)){
+                showMessage(R.drawable.warning,
+                        "DUPLICATE STOCK!",
+                        "Stock Symbol" + userInput + " is already displayed!");
+            }
+        }
+        //search all stocks that matches user input
+        for(int i=0; i<stockList.size(); ++i){
+            if (stockList.get(i).getSymbol().contains(userInput)){
+                items.add(stockList.get(i));
+            }
+        }
+        for(int i=0; i<items.size(); ++i){
+            arrayAdapter.add(items.get(i).getCompany());
+        }
 //        if (items.size()>0){
 //            final CharSequence[] listCompany = new CharSequence[items.size()];
 //            for (int i=0; i < items.size(); ++i){
 //                listCompany[i] = items.get(i) + " - " + StockMap
 //            }
 //        }
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setNegativeButton("NEVERMIND", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton("NEVERMIND", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
 //        builder.setTitle("Make a Selection");
 //        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
 //            @Override
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity
 //                databaseHandler.
 //            }
 //        });
-//    }
+    }
     public void doAdd(Stock stock){
         stockList.add(stock);
         databaseHandler.addStock(stock);
