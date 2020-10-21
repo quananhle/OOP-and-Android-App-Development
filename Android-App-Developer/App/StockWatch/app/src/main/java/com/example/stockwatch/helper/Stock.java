@@ -19,6 +19,10 @@ public class Stock implements Serializable, Comparable<Stock> {
         this.todayPriceChange = todayPriceChange;
         this.todayPercentChange = todayPercentChange;
     }
+    public Stock (String name, String symbol){
+        this.company = name;
+        this.symbol = symbol;
+    }
     public String getCompany() {
         return company;
     }
