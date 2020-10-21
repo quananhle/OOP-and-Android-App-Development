@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <!-- TODO! Hey I am here down in XML -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiper"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
     <TextView
         android:id="@+id/displayStockData"
         android:layout_width="wrap_content"
@@ -28,7 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.304" />
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout></androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
