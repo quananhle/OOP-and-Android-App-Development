@@ -19,6 +19,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -148,8 +149,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     @Override
-    public void onBackPressed(){
-
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.add_stock_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
     @Override
     public void onResume(){
