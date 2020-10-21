@@ -17,7 +17,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,11 +34,9 @@ import com.example.stockwatch.helper.StockLoaderRunnable;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Collections.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -262,8 +259,8 @@ public class MainActivity extends AppCompatActivity
                     //do nothing
                 }
             });
-            builder.setTitle("ADD NEW STOCK");
-            builder.setMessage("Enter A Stock Symbol");
+            builder.setTitle("Stock Selection");
+            builder.setMessage("Please enter a Stock Symbol");
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
@@ -276,7 +273,9 @@ public class MainActivity extends AppCompatActivity
         //check if stock is already in the watchlist
         for (int i=0; i < stockList.size(); ++i){
             if (stockList.get(i).getSymbol().equals(userInput)){
-                showMessage(R.drawable.warning, "DUPLICATE FOUND!", "The Stock Is Already In Your Watchlist!");
+                showMessage(R.drawable.warning,
+                        "DUPLICATE STOCK!",
+                        "Stock Symbol" + userInput + " is already displayed!");
             }
         }
         //search all stocks that matches user input
@@ -285,11 +284,30 @@ public class MainActivity extends AppCompatActivity
                 items.add(stockList.get(i));
             }
         }
-        // TODO: COMPLETE THIS
-
         for(int i=0; i<items.size(); ++i){
-            arrayAdapter.add(items..getName());
+            arrayAdapter.add(items.get(i).getName());
         }
+        if (items.size()>0){
+            final CharSequence[] listCompany = new CharSequence[items.size()];
+            for (int i=0; i < items.size(); ++i){
+                listCompany[i] = items.get(i) + " - " + StockMap
+            }
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton("NEVERMIND", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setTitle("Make a Selection");
+        builder.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Stock stock = new Stock(items.get(which).getName(), items.get(which).getSymbol());
+                databaseHandler.
+            }
+        })
 
     }
     public void doAdd(Stock stock){
@@ -320,24 +338,24 @@ public class MainActivity extends AppCompatActivity
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    public void showFindResults(Stock stock){
-        //if no stock found
-        if (stock == null){
-            showMessage(R.drawable.error, "STOCK NOT FOUND", "No Stocks Matched Search Criteria");
-            return;
-        }
-        //dialog with a layout
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        final View view = layoutInflater.inflate(R.layout.stock_entry, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("FIND RESULTS: ");
-        builder.setIcon(R.drawable.search);
-        ((TextView) view.findViewById(R.id.company)).setText(stock.getCompany());
-        ((TextView) view.findViewById(R.id.symbol)).setText(stock.getSymbol());
-        builder.setView(view);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
+//    public void showFindResults(Stock stock){
+//        //if no stock found
+//        if (stock == null){
+//            showMessage(R.drawable.error, "STOCK NOT FOUND", "No Stocks Matched Search Criteria");
+//            return;
+//        }
+//        //dialog with a layout
+//        LayoutInflater layoutInflater = LayoutInflater.from(this);
+//        final View view = layoutInflater.inflate(R.layout.stock_entry, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("FIND RESULTS: ");
+//        builder.setIcon(R.drawable.search);
+//        ((TextView) view.findViewById(R.id.company)).setText(stock.getCompany());
+//        ((TextView) view.findViewById(R.id.symbol)).setText(stock.getSymbol());
+//        builder.setView(view);
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
     /*
     @SuppressLint("SetJavaScriptEnabled")
     public void readStock(View v){
@@ -374,7 +392,7 @@ public class MainActivity extends AppCompatActivity
         if (connectivityManager == null) {
             return false;
         }
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        @SuppressLint("MissingPermission") NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()){
             return true;
         }

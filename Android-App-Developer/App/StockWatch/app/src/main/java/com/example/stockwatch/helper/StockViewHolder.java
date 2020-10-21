@@ -7,14 +7,14 @@ import com.example.stockwatch.R;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class StockViewHolder extends RecyclerView.ViewHolder {
     TextView symbol;
     TextView company;
     TextView price;
     TextView todayPriceChange;
     TextView todayPercentChange;
 
-    MyViewHolder(View view){
+    StockViewHolder(View view){
         super(view);
         symbol = view.findViewById(R.id.symbol);
         company = view.findViewById(R.id.company);

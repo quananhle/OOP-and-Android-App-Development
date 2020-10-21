@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class StockLoaderRunnable implements Runnable{
     private static final String TAG = "StockLoaderRunnable";
+    private static final String REQUEST_METHOD = "GET";
     private MainActivity mainActivity;
     private static final String DATA_URL = "https://api.iextrading.com/1.0/ref-data/symbols";
 
@@ -34,7 +35,7 @@ public class StockLoaderRunnable implements Runnable{
         try {
             URL url = new URL(urlToUse);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestMethod(REQUEST_METHOD);
             httpURLConnection.connect();
             if (httpURLConnection.getResponseCode() != HttpURLConnection.HTTP_OK){
                 Log.d(TAG, "RUN: HTTP ResponseCode NOT OK: " + httpURLConnection.getResponseCode());
@@ -74,7 +75,7 @@ public class StockLoaderRunnable implements Runnable{
             public void run() {
                 if (stockList != null) {
                     Toast.makeText(mainActivity, "Loaded" + stockList.size() + " stock.", Toast.LENGTH_SHORT).show();
-                    mainActivity.updateData(stockList);
+                    mainActivity.updateStockData(stockList);
                 }
             }
         });
@@ -114,17 +115,4 @@ public class StockLoaderRunnable implements Runnable{
         }
         return null;
     }
-//    public void getStockData(View v){
-//        String stockData = editText.getText().toString();
-//        new Thread(new StockDataGetter(this, stockData)).start();
-//    }
-//    public void receiveStockData(final String s){
-//        Log.d(TAG, "run: Pretending");
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                editText.setText(s);
-//            }
-//        });
-//    }
 }

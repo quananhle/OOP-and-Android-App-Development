@@ -14,7 +14,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class StockAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
     private static final String TAG = "StockAdapter";
 
     private List<Stock> stockList;
@@ -27,16 +27,16 @@ public class StockAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType){
+    public StockViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType){
         Log.d(TAG, "onCreateViewHolder: MAKING NEW");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.stock_entry, parent, false);
         itemView.setOnClickListener(mainActivity);
         itemView.setOnLongClickListener(mainActivity);
-        return new MyViewHolder(itemView);
+        return new StockViewHolder(itemView);
     }
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull StockViewHolder holder, int position){
         Stock stock = stockList.get(position);
         holder.company.setText(stock.getCompany());
         holder.symbol.setText(stock.getSymbol());
