@@ -2,9 +2,9 @@
 
 ### Application Flow Diagrams
 
-![Alt text](pic/Application-Flow-Diagrams_1.png?raw=true "1")
+![Alt text](pic/Screenshot_1.png?raw=true "main")
  
-![Alt text](pic/Application-Flow-Diagrams_2.png?raw=true "1")
+![Alt text](pic/main.png?raw=true "main")
 
 ### How-to-use
 
