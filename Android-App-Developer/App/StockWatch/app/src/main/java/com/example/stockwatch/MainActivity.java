@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
                 addButtonSelected();
                 return true;
             default:
-                return super.onOptionsItemSelected(item)
+                return super.onOptionsItemSelected(item);
         }
     }
     @Override
@@ -213,9 +213,9 @@ public class MainActivity extends AppCompatActivity
                     if (params == null || params.isEmpty()){
                         showMessage(R.drawable.warning, "WARNING", "Missing Stock Symbol");
                     }
-                    else{
-                        databaseHandler.findStock(params);
-                    }
+//                    else{
+//                        databaseHandler.findStock(params);
+//                    }
                 }
                 else {
                     showMessage(R.drawable.warning, "WARNING", "Search Failed!");

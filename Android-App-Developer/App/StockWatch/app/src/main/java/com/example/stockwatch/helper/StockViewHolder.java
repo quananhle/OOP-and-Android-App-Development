@@ -20,6 +20,6 @@ public class StockViewHolder extends RecyclerView.ViewHolder {
         company = view.findViewById(R.id.company);
         price = view.findViewById(R.id.price);
         todayPriceChange = view.findViewById(R.id.priceChange);
-        todayPercentChange = view.findViewById(percentChange);
+        todayPercentChange = view.findViewById(R.id.percentChange);
     }
 }

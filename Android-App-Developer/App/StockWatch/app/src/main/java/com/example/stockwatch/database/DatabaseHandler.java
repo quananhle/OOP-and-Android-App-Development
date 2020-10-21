@@ -133,31 +133,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void shutDown(){
         database.close();
     }
-    public void findStock(HashMap<String, String> params){
-        Log.d(TAG, "findBook: ");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String key : params.keySet()){
-            stringBuilder.append(key).append(" = '").append(params.get(key)).append("' AND ");
-        }
-        String clause = stringBuilder.substring(0, stringBuilder.lastIndexOf("AND"));
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
-                clause, null);
-        if (cursor != null){
-            cursor.moveToFirst();
-            if (cursor.getCount() > 0){
-                String company = cursor.getString(0);
-                String symbol = cursor.getString(1);
-                String currPrice = cursor.getString(2);
-                String priceChange = cursor.getString(3);
-                String percentChange = cursor.getString(4);
-                Stock s = new Stock(company, symbol, Double.parseDouble(currPrice),
-                        Double.parseDouble(priceChange), Double.parseDouble(percentChange));
-                mainActivity.showFindResults(s);
-            }
-            else {
-                mainActivity.showFindResults(null);
-            }
-            cursor.close();
-        }
-    }
+//    public void findStock(HashMap<String, String> params){
+//        Log.d(TAG, "findBook: ");
+//        StringBuilder stringBuilder = new StringBuilder();
+//        for (String key : params.keySet()){
+//            stringBuilder.append(key).append(" = '").append(params.get(key)).append("' AND ");
+//        }
+//        String clause = stringBuilder.substring(0, stringBuilder.lastIndexOf("AND"));
+//        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " +
+//                clause, null);
+//        if (cursor != null){
+//            cursor.moveToFirst();
+//            if (cursor.getCount() > 0){
+//                String company = cursor.getString(0);
+//                String symbol = cursor.getString(1);
+//                String currPrice = cursor.getString(2);
+//                String priceChange = cursor.getString(3);
+//                String percentChange = cursor.getString(4);
+//                Stock s = new Stock(company, symbol, Double.parseDouble(currPrice),
+//                        Double.parseDouble(priceChange), Double.parseDouble(percentChange));
+//                mainActivity.showFindResults(s);
+//            }
+//            else {
+//                mainActivity.showFindResults(null);
+//            }
+//            cursor.close();
+//        }
+//    }
 }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">StockWatch</string>
+    <string name="app_name">Stock Watch</string>\
+    <string name="add_button">Add Button</string>
 </resources>
