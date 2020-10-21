@@ -1,5 +1,6 @@
 package com.example.stockwatch.helper;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.stockwatch.MainActivity;
 import com.example.stockwatch.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
+    private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    DecimalFormat formatter = new DecimalFormat("#,###,###.##");
     private static final String TAG = "StockAdapter";
 
     private List<Stock> stockList;
@@ -43,7 +47,25 @@ public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
         holder.price.setText(String.format(Locale.US, "$%.2f", stock.getCurrentPrice()));
         holder.todayPriceChange.setText
                 (String.format(Locale.US, "$%.2f", stock.getTodayPriceChange()));
-        holder.todayPercentChange.setText(toPercentage(stock.getTodayPercentChange(), 2));
+        if(stock.getTodayPriceChange() > 0){
+            holder.price.setText("$" + formatter.format(stock.getCurrentPrice()));
+            holder.price.setTextColor(Color.GREEN);
+            holder.todayPriceChange.setText("▲ +" + String.valueOf
+                    (decimalFormat.format(stock.getTodayPriceChange())));
+            holder.todayPriceChange.setTextColor(Color.GREEN);
+            holder.todayPercentChange.setText(" (+" + String.valueOf
+                    (decimalFormat.format(stock.getTodayPercentChange() * 100))+"%)");
+            holder.todayPercentChange.setTextColor(Color.GREEN);
+        } else {
+            holder.price.setText("$" + formatter.format(stock.getCurrentPrice()));
+            holder.price.setTextColor(Color.RED);
+            holder.todayPriceChange.setText("▼ -" + String.valueOf
+                    (decimalFormat.format(stock.getTodayPriceChange())));
+            holder.todayPriceChange.setTextColor(Color.RED);
+            holder.todayPercentChange.setText(" (-" + String.valueOf
+                    (decimalFormat.format(stock.getTodayPercentChange() * 100))+"%)");
+            holder.todayPercentChange.setTextColor(Color.RED);
+        }
     }
     @Override
     public int getItemCount(){
@@ -53,5 +75,4 @@ public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
     public static String toPercentage(double n, int digits){
         return String.format("%."+ digits +"f", n)+"%";
     }
-
 }
