@@ -1,16 +1,14 @@
-## Multi-Note Pad
+## Stock Watch
 
 ### Application Flow Diagrams
 
 ![Alt text](pic/Screenshot_1.png?raw=true "main")
  
-![Alt text](pic/main.png?raw=true "main")
-
 ### How-to-use
 
 #### 1) Main Activity
 
-<a href="url"><img src="pic/MainActivity.png" align="left" height="750" width="400" ></a>  
+<a href="url"><img src="pic/main.png" align="left" height="750" width="400" ></a>  
 
 * Notes are displayed in a list, in time order (latest-update-first, oldest-update-last).
 
