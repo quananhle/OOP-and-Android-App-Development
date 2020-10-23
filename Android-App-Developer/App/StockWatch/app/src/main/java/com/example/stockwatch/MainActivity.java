@@ -178,30 +178,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onClick(View view) {
-        int pos = recyclerView.getChildLayoutPosition(view);
-        Stock s = stockList.get(pos);
-        final String URL = webURL + s.getSymbol();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(URL));
-                stockAdapter.notifyDataSetChanged();
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //do nothing
-                ;
-            }
-        });
-        builder.setTitle("PROCEED TO WEB BROWSER?");
-        builder.setMessage("You will be redirected to another app if proceed");
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if(!isConnected()){
+            showMessage(WARNING_ICON, "NETWORK ERROR",
+                    "No network connection found. Failed to redirect to web browser");
+        }
+        else{
+            int pos = recyclerView.getChildLayoutPosition(view);
+            Stock s = stockList.get(pos);
+            final String URL = webURL + s.getSymbol();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(URL));
+                    stockAdapter.notifyDataSetChanged();
+                    startActivity(intent);
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //do nothing
+                    ;
+                }
+            });
+            builder.setTitle("PROCEED TO WEB BROWSER?");
+            builder.setMessage("You will be redirected to another app if proceed");
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
     @Override
     public boolean onLongClick(View view) {
@@ -232,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 +
                 " \n from your watchlist?");
         AlertDialog dialog = builder.create();
+        dialog.setIcon(android.R.drawable.ic_menu_delete);
         dialog.show();
         Toast.makeText(this, "REMOVE " + stockList.get(position).getSymbol() + "?",
                 Toast.LENGTH_SHORT).show();
@@ -379,6 +386,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             adb.setTitle("Stock Selection");
             adb.setMessage("Enter a Stock Symbol:");
             AlertDialog dialog = adb.create();
+            dialog.setIcon(R.drawable.create);
             dialog.show();
         } else{
             showMessage(ERROR_ICON, "NETWORK ERROR",
