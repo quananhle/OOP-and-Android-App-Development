@@ -11,7 +11,7 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:onClick="conversionClicked"
-        android:text="CONVERT"
+        android:text="@string/convert_button"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="36dp"
         android:onClick="clearClicked"
-        android:text="CLEAR"
+        android:text="@string/clear_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
@@ -42,7 +42,7 @@
         android:background="@android:color/darker_gray"
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Enter a value"
+        android:hint="@string/input_hint"
         android:inputType="numberSigned|numberDecimal"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
@@ -53,7 +53,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/convertedValue"
@@ -93,16 +94,15 @@
             android:layout_marginBottom="5dp"
             android:checked="true"
             android:onClick="radioClicked"
-            android:text="Miles to Kilometers"
-             />
+            android:text="@string/miles_to_kilos" />
 
         <RadioButton
             android:id="@+id/kiloToMiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:text="Kilometers to Miles"
             android:onClick="radioClicked"
+            android:text="@string/kilos_to_miles"
             android:textSize="14sp" />
     </RadioGroup>
 
@@ -110,7 +110,7 @@
         android:id="@+id/conversionHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Conversion History"
+        android:text="@string/conversion_history"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/historyConversions"
@@ -168,7 +168,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Conversions:"
+        android:text="@string/conversion_radio"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
