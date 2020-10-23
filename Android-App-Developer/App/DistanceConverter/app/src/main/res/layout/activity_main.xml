@@ -140,6 +140,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/input_value"
+        android:autofillHints="@string/auto_fill_input"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/myValue"

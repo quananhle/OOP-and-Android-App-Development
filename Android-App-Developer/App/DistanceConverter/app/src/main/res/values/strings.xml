@@ -6,6 +6,7 @@
     <string name="miles_to_kilos">Miles to Kilometers</string>
     <string name="kilos_to_miles">Kilometers to Miles</string>
     <string name="conversion_history">Conversion History</string>
+    <string name="auto_fill_input">1.0</string>
     <string name="output_value">Kilometer Value</string>
     <string name="input_value">Miles Value</string>
     <string name="conversion_radio">Conversions: </string>
