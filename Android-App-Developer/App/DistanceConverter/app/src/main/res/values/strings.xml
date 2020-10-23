@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Distance-Converter</string>
+    <string name="convert_button">CONVERT</string>
+    <string name="clear_button">CLEAR</string>
+    <string name="input_hint">Enter A Value</string>
+    <string name="miles_to_kilos">Miles to Kilometers</string>
+    <string name="kilos_to_miles">Kilometers to Miles</string>
+    <string name="conversion_history">Conversion History</string>
+    <string name="output_value">Kilometer Value</string>
+    <string name="input_value">Miles Value</string>
+    <string name="conversion_button">Conversions: </string>
 </resources>
