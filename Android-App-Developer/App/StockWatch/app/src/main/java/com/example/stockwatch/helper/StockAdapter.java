@@ -48,6 +48,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
         holder.todayPriceChange.setText
                 (String.format(Locale.US, "$%.2f", stock.getTodayPriceChange()));
         if(stock.getTodayPriceChange() > 0){
+            holder.symbol.setTextColor(Color.GREEN);
             holder.price.setText("$" + formatter.format(stock.getCurrentPrice()));
             holder.price.setTextColor(Color.GREEN);
             holder.todayPriceChange.setText("▲ +" + String.valueOf
@@ -57,6 +58,7 @@ public class StockAdapter extends RecyclerView.Adapter<StockViewHolder> {
                     (decimalFormat.format(stock.getTodayPercentChange() * 100))+"%)");
             holder.todayPercentChange.setTextColor(Color.GREEN);
         } else {
+            holder.symbol.setTextColor(Color.RED);
             holder.price.setText("$" + formatter.format(stock.getCurrentPrice()));
             holder.price.setTextColor(Color.RED);
             holder.todayPriceChange.setText("▼ -" + String.valueOf
