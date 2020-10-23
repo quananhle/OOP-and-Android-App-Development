@@ -61,13 +61,18 @@ public class MainActivity extends AppCompatActivity {
                 outputTypeDisplay.setText(kilosValue);
                 //change the signal
                 isMileToKilometer = true;
+                //clear the output field
+                convertedValue.setText("");
                 break;
             //when kiloToMiles radio button is check
             case R.id.kiloToMiles:
                 //change the text displays
                 inputTypeDisplay.setText(kilosValue);
                 outputTypeDisplay.setText(milesValue);
+                //change the signal
                 isMileToKilometer = false;
+                //clear the output field
+                convertedValue.setText("");
                 break;
         }
     }
