@@ -19,6 +19,7 @@ This app allows the user to display a sorted list of selected stocks. List entri
 
 4. [Know Your Government](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/knowyourgovernment)   
 
-Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ``JSON Data```
+Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```JSON Data```
 
-This app will acquire and display an interactive list of political officials that representthe current location (or aspecified location)at each level of government. The app is completely developed on 2020 after the Election Day 11/03/2020
+This app will acquire and display an interactive list of political officials that representthe current location (or aspecified location)at each level of government. 
+__Note__: The app is completely developed on 2020 after the Election Day 11/03/2020
