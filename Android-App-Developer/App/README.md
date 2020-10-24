@@ -17,7 +17,7 @@ Uses: ```Internet API```, ```RecyclerView```, ```Option-Menus```, ```Multi-threa
 This app allows the user to display a sorted list of selected stocks. List entries include the stock symbol (and company name), the current price, the daily price change amount and price percent change.
 
 
-4. [Know Your Government](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Development/tree/master/Android-App-Developer/App/StockWatch)   
+4. [Know Your Government](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/knowyourgovernment)   
 
 Uses: ```Internet API```, ```RecyclerView```, ```Option-Menus```, ```Multi-threads```, ```JSON Data```, ```Swipe-Refresh```, ```Dialogs```, ```SQLite Database```
 
