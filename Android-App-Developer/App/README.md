@@ -22,4 +22,5 @@ This app allows the user to display a sorted list of selected stocks. List entri
 Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```JSON Data```
 
 This app will acquire and display an interactive list of political officials that representthe current location (or aspecified location)at each level of government. 
+
 __Note__: The app is completely developed on 2020 after the Election Day 11/03/2020
