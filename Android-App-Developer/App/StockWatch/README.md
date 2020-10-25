@@ -3,10 +3,6 @@
 ### Application Flow Diagrams
 
 ![Alt text](pic/Screenshot_1.png?raw=true "main")
- 
-### How-to-use
-
-#### 1) Main Activity
 
 <a href="url"><img src="pic/main.png" align="left" height="750" width="400" ></a>  
 
@@ -21,6 +17,19 @@
 * Clicking on a stock opens a browser displaying the Marketwatch webpage for that stock
 
 * ```Swipe-Refresh``` (pull-down) refreshes stock data.
+ 
+### Application Behavior Diagrams:
+
+#### 1) Main Activity
+
+* Each stock entry contains the Stock Symbol (i.e., AAPL), the company name (i.e., Apple Inc.), the Last Trade Price (135.72), the price change direction (▲for positivePrice Change Amount, ▼for negativePrice Change Amount), the Price Change Amount (0.38), and the Price Change Percentage (0.28%) in parentheses.
+
+      If the stock’s Price Change Amount is a positive value, then entire entry should use a green font. 
+      If the Price Change Amount is a negative value, then entire entry should use a red font.
+
+* Long-Click on a Stock entry to delete (with delete confirmation)
+
+* Clicking on a Stock entry opens a web browser to the Marketwatch website site for the selected stock
 
 <br>
 <br>
