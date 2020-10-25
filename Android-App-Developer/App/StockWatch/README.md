@@ -47,7 +47,7 @@
 
 * Clicking on a Stock entry opens a web browser to the Marketwatch website site for the selected stock
 
-<a href="url"><img src="pic/Screenshot_marketwatch.png" align="left" height="750" width="600" ></a>  
+<a href="url"><img src="pic/Screenshot_marketwatch.png" align="left" height="750" width="900" ></a>  
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
