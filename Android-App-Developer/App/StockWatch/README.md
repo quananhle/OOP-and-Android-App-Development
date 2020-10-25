@@ -28,6 +28,9 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
  
 ### Application Behavior Diagrams:
 
@@ -41,10 +44,6 @@
 * Long-Click on a Stock entry to delete (with delete confirmation)
 
 * Clicking on a Stock entry opens a web browser to the Marketwatch website site for the selected stock
-
-<br>
-<br>
-<br>
 
 <a href="url"><img src="pic/EditActivity.png" align="left" height="750" width="400" ></a>  
 
