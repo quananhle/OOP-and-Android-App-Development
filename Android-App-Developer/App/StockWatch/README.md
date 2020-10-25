@@ -17,6 +17,17 @@
 * Clicking on a stock opens a browser displaying the Marketwatch webpage for that stock
 
 * ```Swipe-Refresh``` (pull-down) refreshes stock data.
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
  
 ### Application Behavior Diagrams:
 
