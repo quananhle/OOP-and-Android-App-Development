@@ -65,7 +65,7 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 3. Adding a stock with no Network Connection – test using “Airplane Mode”(No buttons on the error dialog):
 <a href="url">
-<div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="400" ></div>
+<div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="1100" ></div>
 </a>
 
 
