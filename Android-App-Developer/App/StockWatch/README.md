@@ -51,6 +51,11 @@
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
+1. Adding a stock – when only one stock matches the search symbol/name search string (__NOTE__: The Stock Selection dialog only allow capital letters):
+
+
+<a href="url"><img src="pic/addStockDialog.png" align="center" height="750" width="400" ></a>  
+
 <br>
 <br>
 <br>
