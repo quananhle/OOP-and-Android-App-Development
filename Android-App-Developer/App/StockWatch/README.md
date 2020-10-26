@@ -56,26 +56,16 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/addStockDialog.png" height="750" width="400" ></div>
 </a>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+2. Adding a stock – when multiple stocks matched the search string:
+<a href="url">
+<div align="center"><img src="pic/stockSelectionDialog.png" height="750" width="400" ></div>
+</a>
+
+
+3. Adding a stock with no Network Connection – test using “Airplane Mode”(No buttons on the error dialog):
+<a href="url">
+<div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="400" ></div>
+</a>
 
 
