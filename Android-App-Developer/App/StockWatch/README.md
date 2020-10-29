@@ -52,19 +52,19 @@
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
 1. Adding a stock – when only one stock matches the search symbol/name search string (__NOTE__: The Stock Selection dialog only allow capital letters):
-<a href="url">
+<a href="pic/addStockDialog.png">
 <div align="center"><img src="pic/addStockDialog.png" height="750" width="400" ></div>
 </a>
 
 
 2. Adding a stock – when multiple stocks matched the search string:
-<a href="url">
+<a href="pic/stockSelectionDialog.png">
 <div align="center"><img src="pic/stockSelectionDialog.png" height="750" width="400" ></div>
 </a>
 
 
 3. Adding a stock with no Network Connection – test using “Airplane Mode”(No buttons on the error dialog):
-<a href="url">
+<a href="pic/Screenshot_airplane_1.png">
 <div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="1100" ></div>
 </a>
 
