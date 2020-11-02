@@ -3,8 +3,10 @@ package com.quananhle.knowyourgovernment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private TextView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
