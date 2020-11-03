@@ -2,4 +2,6 @@
     <string name="app_name">KnowYourGovernment</string>
     <string name="about">About</string>
     <string name="about_icon">aboutIcon</string>
+    <string name="search">Search</string>
+    <string name="search_icon">searchIcon</string>
 </resources>
