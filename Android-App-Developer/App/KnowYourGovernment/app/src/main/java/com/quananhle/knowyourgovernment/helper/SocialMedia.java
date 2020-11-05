@@ -1,4 +1,4 @@
 package com.quananhle.knowyourgovernment.helper;
 
-public class OfficialsList {
+public class SocialMedia {
 }

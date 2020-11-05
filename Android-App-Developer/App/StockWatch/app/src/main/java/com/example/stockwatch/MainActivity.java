@@ -84,9 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         databaseHandler = new DatabaseHandler(this);
         if(!isConnected()){
-            AlertDialog.Builder noNet = new AlertDialog.Builder(this);
-            noNet.setTitle("Not connected to network");
-            noNet.show();
+            AlertDialog.Builder connectionFailed = new AlertDialog.Builder(this);
+            connectionFailed.setTitle("NOT CONNECTED TO THE INTERNET");
+            connectionFailed.setMessage("Please check the network!");
+            connectionFailed.show();
         }
 
         databaseHandler.dumpDbToLog();
