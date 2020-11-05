@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Know Your Government</string>
     <string name="about">About</string>
+    <string name="about_button">aboutButton</string>
     <string name="search">Search</string>
+    <string name="search_button">searchButton</string>
     <string name="location_id">CITY, STATE ZIP</string>
 </resources>
