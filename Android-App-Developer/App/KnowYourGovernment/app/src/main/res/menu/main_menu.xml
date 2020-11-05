@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@string/aboutIcon"
+        android:id="aboutIcon"
         android:checkable="false"
         android:enabled="true"
         android:icon="@drawable/baseline_about_24dp"
@@ -10,7 +10,7 @@
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@string/searchIcon"
+        android:id="searchIcon"
         android:icon="@drawable/baseline_search_24dp"
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"

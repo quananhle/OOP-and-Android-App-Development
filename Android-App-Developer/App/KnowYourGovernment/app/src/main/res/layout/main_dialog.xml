@@ -16,7 +16,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="8dp"
-        app:cardBackgroundColor="@color/noteBackgroundMain"
+        app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
