@@ -1,4 +1,4 @@
 package com.quananhle.knowyourgovernment.helper;
 
-public class OfficialsAdapter {
+public class OfficialAdapter extends {
 }
