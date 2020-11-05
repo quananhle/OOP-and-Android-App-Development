@@ -4,5 +4,7 @@
     <string name="about_button">aboutButton</string>
     <string name="search">Search</string>
     <string name="search_button">searchButton</string>
+    <string name="dialog_office">dialogOffice</string>
+    <string name="dialog_name_party">dialogNameParty</string>
     <string name="location_id">CITY, STATE ZIP</string>
 </resources>
