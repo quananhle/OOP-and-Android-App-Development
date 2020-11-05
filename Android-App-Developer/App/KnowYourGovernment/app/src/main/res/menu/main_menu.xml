@@ -13,6 +13,5 @@
         android:id="@+id/search_button"
         android:icon="@drawable/search_36dp"
         android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom" />
 </menu>
