@@ -52,9 +52,9 @@ public class Locator {
                 Toast.makeText(owner, "Update from " + location.getProvider(), Toast.LENGTH_SHORT).show();
                 Log.d("Get position", "" + location.getLatitude() + location.getLongitude());
                 owner.setLocation(location.getLatitude(), location.getLongitude());
-                owner.warningClose();
             }
-        }
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
     }
 
 }

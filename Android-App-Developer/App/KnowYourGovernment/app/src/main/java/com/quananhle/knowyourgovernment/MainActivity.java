@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +22,15 @@ import com.quananhle.knowyourgovernment.details.OfficialActivity;
 import com.quananhle.knowyourgovernment.helper.Locator;
 import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
+import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
+
     private RecyclerView recyclerView;
     private List<Officials> officialsList;
     private OfficialAdapter officialsAdapter;
@@ -88,13 +96,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void setLocation(double lattitude, double longtitude) {
+    public void setLocation(double latitude, double longtitude) {
+        Log.d(TAG, "doAddress: Lat " + latitude + ", Lon " + longtitude);
+        List<Address> addressList = null;
+        Geocoder geocoder = new Geocoder(this , Locale.getDefault());
+        try {
+            Log.d(TAG, "doAddress: Retrieving address");
+            addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+        }
+        catch (IOException ioe){
+            ioe.printStackTrace();
+        }
+        if (addressList == null){
+            Log.d("Address", "Not Found!");
+        }
+        else {
+            locationView.setText(addressList.get(0).getAddressLine(1));
+        }
+        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
+        officialLoaderRunnable.run();
     }
 
-    public void warningClose() {
-    }
 
-    private void showMessage(int icon, String title, String message){
+    public void showMessage(int icon, String title, String message){
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle(title);
         dialog.setMessage(message);
