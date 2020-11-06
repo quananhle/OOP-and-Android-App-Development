@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class Locator {
             determineLocation();
         }
     }
+
     public boolean checkPermission(){
         if (ContextCompat.checkSelfPermission(owner, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
@@ -53,8 +55,51 @@ public class Locator {
                 Log.d("Get position", "" + location.getLatitude() + location.getLongitude());
                 owner.setLocation(location.getLatitude(), location.getLongitude());
             }
+            public void onStatusChanged(String provider, int status, Bundle extras) {;}
+            public void onProviderEnabled(String provider) {;}
+            public void onProviderDisabled(String provider) {;}
         };
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+    }
+    public void determineLocation(){
+        if (!checkPermission()){
+            return;
+        }
+        if (locationManager == null){
+            setUpLocationManager();
+        }
+        if (locationManager != null){
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (location != null){
+                owner.setLocation(location.getLatitude(), location.getLongitude());
+                Toast.makeText(owner, "Using " + LocationManager.NETWORK_PROVIDER +
+                        " Location Provider", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        if (locationManager != null){
+            Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            if (location != null){
+                owner.setLocation(location.getLatitude(), location.getLongitude());
+                Toast.makeText(owner, "Using " + LocationManager.PASSIVE_PROVIDER +
+                        " Location Provider", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        if (locationManager != null){
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null){
+                owner.setLocation(location.getLatitude(), location.getLongitude());
+                Toast.makeText(owner, "Using " + LocationManager.GPS_PROVIDER +
+                        " Location Provider", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        return;
+    }
+    public void shutDown(){
+        locationManager.removeUpdates(locationListener);
+        locationListener = null;
     }
 
 }
