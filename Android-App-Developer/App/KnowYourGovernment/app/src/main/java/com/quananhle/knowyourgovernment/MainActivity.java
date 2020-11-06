@@ -28,6 +28,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author Quan Le
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
 
