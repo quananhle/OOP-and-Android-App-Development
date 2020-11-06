@@ -26,6 +26,7 @@ public class OfficialLoaderRunnable implements Runnable {
     private static final String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
             + API_KEY + "&address=";
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
+    private static final String UNKNOWN_PARTY = "Unknown";
 
     private String city;
     private String state;
@@ -108,6 +109,7 @@ public class OfficialLoaderRunnable implements Runnable {
             state = normalizedInput.getString("state");
             zip = normalizedInput.getString("zip");
             String location = city + ", " + state + " " + zip;
+            mainActivity.setLocationView(location);
             /**
              * 2) The “offices” JSONArray contains the following:
              * "offices": [
@@ -151,12 +153,6 @@ public class OfficialLoaderRunnable implements Runnable {
                 for (int j=0; j < array.length; ++j){
                     indices[j] = Integer.parseInt(array[j]);
                 }
-                //access the elements of officials
-                for (int j=0; j < indices.length; ++j){
-
-                }
-            }
-
             /**
              * 3) The “officials” JSONArray contains the following:
              * "officials": [
@@ -203,7 +199,23 @@ public class OfficialLoaderRunnable implements Runnable {
              * },
              *]
              */
-            JSONArray officialsArray = object.getJSONArray("officials");
+                JSONArray officialsArray = object.getJSONArray("officials");
+                //access the elements of officials
+                for (int j=0; j < indices.length; ++j){
+                    JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
+                    String officialsName = jsonOfficialsObject.getString("name");
+                    String address = "";
+                    if (!jsonOfficialsObject.has("address")){
+                        address = DEFAULT_DISPLAY;
+                    }
+                    if (jAddress.has("line1")) address+=jAddress.getString("line1")+'\n';
+                    if (jAddress.has("line2")) address+=jAddress.getString("line2")+'\n';
+                    if (jAddress.has("line3")) address+=jAddress.getString("line3")+'\n';
+                    if (jAddress.has("city")) address+=jAddress.getString("city")+", ";
+                    if (jAddress.has("state")) address+=jAddress.getString("state")+' ';
+                    if (jAddress.has("zip")) address+=jAddress.getString("zip");
+                }
+            }
         }
     }
 }

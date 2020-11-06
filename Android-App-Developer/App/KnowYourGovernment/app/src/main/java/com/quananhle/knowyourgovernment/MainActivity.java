@@ -145,4 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void updateList(ArrayList<Officials> officialsArrayList) {
         officialsList.addAll(officialsArrayList);
     }
+    public void setLocationView(String location){
+        locationView.setText(location);
+    }
 }

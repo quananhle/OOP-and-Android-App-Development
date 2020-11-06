@@ -39,7 +39,7 @@ public class OfficialAdapter extends RecyclerView.Adapter<OfficialViewHolder> {
                     officials.getName(), officials.getParty()));
         }
         else {
-            officialViewHolder.officialNameParty.setText(String.format("%s (Independent)", officials.getName()));
+            officialViewHolder.officialNameParty.setText(String.format("%s (Unknown)", officials.getName()));
         }
     }
     @Override
