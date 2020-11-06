@@ -208,12 +208,13 @@ public class OfficialLoaderRunnable implements Runnable {
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
                     }
-                    if (jAddress.has("line1")) address+=jAddress.getString("line1")+'\n';
-                    if (jAddress.has("line2")) address+=jAddress.getString("line2")+'\n';
-                    if (jAddress.has("line3")) address+=jAddress.getString("line3")+'\n';
-                    if (jAddress.has("city")) address+=jAddress.getString("city")+", ";
-                    if (jAddress.has("state")) address+=jAddress.getString("state")+' ';
-                    if (jAddress.has("zip")) address+=jAddress.getString("zip");
+                    JSONObject jsonAddressObject = jsonOfficialsObject.getJSONArray("address").getJSONObject(0);
+                    if (jsonAddressObject.has("line1")) address+=jsonAddressObject.getString("line1")+'\n';
+                    if (jsonAddressObject.has("line2")) address+=jsonAddressObject.getString("line2")+'\n';
+                    if (jsonAddressObject.has("line3")) address+=jsonAddressObject.getString("line3")+'\n';
+                    if (jsonAddressObject.has("city")) address+=jsonAddressObject.getString("city")+", ";
+                    if (jsonAddressObject.has("state")) address+=jsonAddressObject.getString("state")+' ';
+                    if (jsonAddressObject.has("zip")) address+=jsonAddressObject.getString("zip");
                 }
             }
         }
