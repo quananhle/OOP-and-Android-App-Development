@@ -137,4 +137,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         dialog.show();
     }
+    //=====* OfficialLoaderRunnable *====//
+    public void downloadFailed() {
+        officialsList.clear();
+    }
 }
