@@ -146,8 +146,11 @@ public class OfficialLoaderRunnable implements Runnable {
                 String officialIndices = jsonObject.getString("officialIndices");
                 String [] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
                 int [] indices = new int[array.length];
-                for (int j=0; j < indices.length; ++j){
+                for (int j=0; j < array.length; ++j){
                     indices[j] = Integer.parseInt(array[j]);
+                }
+                for (int j=0; j < indices.length; ++j){
+                    
                 }
             }
 
