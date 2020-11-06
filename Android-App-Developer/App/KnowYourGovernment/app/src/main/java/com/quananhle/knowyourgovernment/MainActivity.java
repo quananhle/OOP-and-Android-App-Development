@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView locationView;
     private Locator locator;
 
-    private final int REQUEST_CODE = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onClick(View view){
-        int postion = recyclerView.getChildAdapterPosition(view);
+        int position = recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, OfficialActivity.class);
         intent.putExtra("location", locationView.getText().toString());
         Bundle bundle = new Bundle();
-        bundle.putSerializable("official", officialsList.get(postion));
+        bundle.putSerializable("official", officialsList.get(position));
         startActivity(intent);
     }
     //====================== *** HELPER•METHODS *** ======================//
