@@ -107,6 +107,7 @@ public class OfficialLoaderRunnable implements Runnable {
             city = normalizedInput.getString("city");
             state = normalizedInput.getString("state");
             zip = normalizedInput.getString("zip");
+            String location = city + ", " + state + " " + zip;
             /**
              * 2) The “offices” JSONArray contains the following:
              * "offices": [
