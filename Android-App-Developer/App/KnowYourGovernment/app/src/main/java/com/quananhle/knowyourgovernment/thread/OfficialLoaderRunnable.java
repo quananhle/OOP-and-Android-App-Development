@@ -181,7 +181,26 @@ public class OfficialLoaderRunnable implements Runnable {
              *      "email@address.com"
              * ]
              * "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/PE%20Color.jpg",
-             * "channels": [{"type": "GooglePlus","id": "+whitehouse"},{"type": "Facebook","id": "whitehouse"},{"type": "Twitter","id": "whitehouse"},{"type": "YouTube","id": "whitehouse"}]},{... The above section repeats many times,once per government official. Remember –the first official in the JSONArray is index 0. The second official in this JSONArray is index 1, the third second official in this JSONArray is index 2, and so on.}]
+             * "channels": [
+             *  {
+             *      "type": "GooglePlus",
+             *      "id": "+whitehouse"
+             *  },
+             *  {
+             *      "type": "Facebook",
+             *      "id": "whitehouse"
+             *  },
+             *  {
+             *      "type": "Twitter",
+             *      "id": "whitehouse"
+             *  },
+             *  {
+             *      "type": "YouTube",
+             *      "id": "whitehouse"
+             *  }
+             * ]
+             * },
+             *]
              */
             JSONArray officialsArray = object.getJSONArray("officials");
         }
