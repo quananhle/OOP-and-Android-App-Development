@@ -8,8 +8,8 @@ import com.quananhle.knowyourgovernment.R;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class OfficialViewHolder extends RecyclerView.ViewHolder {
-    private TextView office;
-    private TextView officialNameParty;
+    public TextView office;
+    public TextView officialNameParty;
     public OfficialViewHolder (View view){
         super(view);
         office = (TextView) view.findViewById(R.id.dialog_office);

@@ -12,18 +12,26 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-import com.quananhle.knowyourgovernment.helper.OfficialsAdapter;
+import com.quananhle.knowyourgovernment.details.OfficialActivity;
+import com.quananhle.knowyourgovernment.helper.Locator;
+import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private List<Officials> officialsList;
-    private OfficialsAdapter officialsAdapter;
+    private OfficialAdapter officialsAdapter;
     private static MainActivity mainActivity;
     private ConnectivityManager connectivityManager;
+    private TextView locationView;
+    private Locator locator;
+
+    private final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(menuItem);
         }
+    }
+    @Override
+    public void onClick(View view){
+        int postion = recyclerView.getChildAdapterPosition(view);
+        Intent intent = new Intent(this, OfficialActivity.class);
+        intent.putExtra("location", locationView.getText().toString());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("official", officialsList.get(postion));
+        startActivity(intent);
     }
     //====================== *** HELPER•METHODS *** ======================//
     public boolean isConnected(){
