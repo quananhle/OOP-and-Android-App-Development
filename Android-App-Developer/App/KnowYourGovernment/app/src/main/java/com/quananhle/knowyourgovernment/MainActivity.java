@@ -25,6 +25,7 @@ import com.quananhle.knowyourgovernment.helper.Officials;
 import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -140,5 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* OfficialLoaderRunnable *====//
     public void downloadFailed() {
         officialsList.clear();
+    }
+    public void updateList(ArrayList<Officials> officialsArrayList) {
+        officialsList.addAll(officialsArrayList);
     }
 }
