@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView locationView;
     private Locator locator;
 
+    final int WARNING_ICON = 1;
+    final int ERROR_ICON = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,5 +86,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else{
             return false;
         }
+    }
+
+    public void setLocation(double lattitude, double longtitude) {
+    }
+
+    public void warningClose() {
+    }
+
+    private void showMessage(int icon, String title, String message){
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON){
+            dialog.setIcon(R.drawable.warning);
+        }
+        else if (icon == ERROR_ICON){
+            dialog.setIcon(R.drawable.error);
+        }
+        else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
     }
 }

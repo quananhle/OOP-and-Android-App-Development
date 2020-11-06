@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
 
@@ -48,7 +49,10 @@ public class Locator {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                
+                Toast.makeText(owner, "Update from " + location.getProvider(), Toast.LENGTH_SHORT).show();
+                Log.d("Get position", "" + location.getLatitude() + location.getLongitude());
+                owner.setLocation(location.getLatitude(), location.getLongitude());
+                owner.warningClose();
             }
         }
     }
