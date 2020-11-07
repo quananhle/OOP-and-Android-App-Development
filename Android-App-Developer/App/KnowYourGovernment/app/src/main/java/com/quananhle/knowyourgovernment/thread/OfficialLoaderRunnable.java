@@ -232,17 +232,25 @@ public class OfficialLoaderRunnable implements Runnable {
 
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
+                    String googleAccount = "", facebookAccount = "", twitterAccount = "", youtubeAccount = "";
                     if (jsonArrayChannels != null){
                         for (int k=0; k < jsonArrayChannels.length(); ++k) {
                             JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
                             String type = jsonChannelObject.getString("type");
                             String id = jsonChannelObject.getString("id");
-                            if (type.equals("GooglePlus")) socialMedia.setGoogleAccount(id);
-                            if (type.equals("Facebook")) socialMedia.setFacebookAccount(id);
-                            if (type.equals("Twitter")) socialMedia.setTwitterAccount(id);
-                            if (type.equals("Youtube")) socialMedia.setYoutubeChannel(id);
+                            googleAccount = type.equals("GooglePlus") ? id : "";
+                            facebookAccount = type.equals("Facebook") ? id : "";
+                            twitterAccount = type.equals("Twitter")   ? id : "";
+                            youtubeAccount = type.equals("Youtube")   ? id : "";
                         }
+                        socialMedia = new SocialMedia(googleAccount, facebookAccount, twitterAccount, youtubeAccount);
                         official.setSocialMedia(socialMedia);
+                    }
+                    else {
+                        googleAccount   = DEFAULT_DISPLAY;
+                        facebookAccount = DEFAULT_DISPLAY;
+                        twitterAccount  = DEFAULT_DISPLAY;
+                        youtubeAccount  = DEFAULT_DISPLAY;
                     }
                     official = new Officials(officeName, officialName, party, address, phones, urls, emails, photoURL, socialMedia);
                     officialsArrayList.add(official);
