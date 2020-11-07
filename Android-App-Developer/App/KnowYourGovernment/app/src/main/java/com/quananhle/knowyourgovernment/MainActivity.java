@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private RecyclerView recyclerView;
-    private List<Officials> officialsList;
+    private List<Officials> officialsList = new ArrayList<>();
     private OfficialAdapter officialAdapter;
     private static MainActivity mainActivity;
     private ConnectivityManager connectivityManager;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
-        
+
         // Load the data
         OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
         new Thread(officialLoaderRunnable).start();
