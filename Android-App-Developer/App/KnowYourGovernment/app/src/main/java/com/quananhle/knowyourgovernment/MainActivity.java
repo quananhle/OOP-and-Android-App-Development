@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // Load the data
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
+        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
         new Thread(officialLoaderRunnable).start();
     }
     @Override
