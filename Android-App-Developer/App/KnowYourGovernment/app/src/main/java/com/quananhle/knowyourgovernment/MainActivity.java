@@ -135,6 +135,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void showMessage(int icon, String title, String message){
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON){
+            dialog.setIcon(R.drawable.warning);
+        }
+        else if (icon == ERROR_ICON){
+            dialog.setIcon(R.drawable.error);
+        }
+        else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
+    }
+    //=====* OfficialAdapter *====//
+
+
+
+
     public void setLocation(double latitude, double longtitude) {
         Log.d(TAG, "doAddress: Lat " + latitude + ", Lon " + longtitude);
         List<Address> addressList = null;
@@ -156,21 +176,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        officialLoaderRunnable.run();
     }
 
-    public void showMessage(int icon, String title, String message){
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-        if (icon == WARNING_ICON){
-            dialog.setIcon(R.drawable.warning);
-        }
-        else if (icon == ERROR_ICON){
-            dialog.setIcon(R.drawable.error);
-        }
-        else {
-            dialog.setIcon(null);
-        }
-        dialog.show();
-    }
     //=====* OfficialLoaderRunnable *====//
 //    public void doRunnable(View v){
 //        if ()
