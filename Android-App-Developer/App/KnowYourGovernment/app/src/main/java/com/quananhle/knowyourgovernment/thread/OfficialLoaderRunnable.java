@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -234,14 +235,12 @@ public class OfficialLoaderRunnable implements Runnable {
                     if (jsonArrayChannels != null){
                         for (int k=0; k < jsonArrayChannels.length(); ++k) {
                             JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
-                            jsonChannelObject.getString("type").equals("GooglePlus")
-                                    ? socialMedia.setGoogleAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
-                            jsonChannelObject.getString("type").equals("Facebook")
-                                    ? socialMedia.setFacebookAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
-                            jsonChannelObject.getString("type").equals("Twitter")
-                                    ? socialMedia.setTwitterAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
-                            jsonChannelObject.getString("type").equals("Youtube")
-                                    ? socialMedia.setYoutubeChannel(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
+                            String type = jsonChannelObject.getString("type");
+                            String id = jsonChannelObject.getString("id");
+                            if (type.equals("GooglePlus")) socialMedia.setGoogleAccount(id);
+                            if (type.equals("Facebook")) socialMedia.setFacebookAccount(id);
+                            if (type.equals("Twitter")) socialMedia.setTwitterAccount(id);
+                            if (type.equals("Youtube")) socialMedia.setYoutubeChannel(id);
                         }
                     }
                     official = new Officials(officeName, officialName, party, address, phones, urls, emails, photoURL, socialMedia);
@@ -250,5 +249,10 @@ public class OfficialLoaderRunnable implements Runnable {
             }
             return officialsArrayList;
         }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: Exception " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }
