@@ -92,6 +92,7 @@ public class OfficialLoaderRunnable implements Runnable {
     }
     private ArrayList<Officials> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
+        Officials officials = new Officials();
         ArrayList<Officials> officialsArrayList = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(str);
@@ -231,6 +232,15 @@ public class OfficialLoaderRunnable implements Runnable {
                     if (jsonArrayChannels != null){
                         for (int k=0; k < jsonArrayChannels.length(); ++k){
                             JSONObject jsonChannelsObject = jsonArrayChannels.getJSONObject(k);
+                            String googleAccount = jsonChannelsObject.getString("type").equals("GooglePlus")
+                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
+                            String facebookAccount = jsonChannelsObject.getString("type").equals("Facebook")
+                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
+                            String twitterAccount = jsonChannelsObject.getString("type").equals("Twitter")
+                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
+                            String youtubeAccount = jsonChannelsObject.getString("type").equals("Youtube")
+                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
+                            }
                         }
                     }
                 }
