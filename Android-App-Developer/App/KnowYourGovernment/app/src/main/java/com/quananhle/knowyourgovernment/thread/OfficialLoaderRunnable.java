@@ -209,12 +209,17 @@ public class OfficialLoaderRunnable implements Runnable {
                         address = DEFAULT_DISPLAY;
                     }
                     JSONObject jsonAddressObject = jsonOfficialsObject.getJSONArray("address").getJSONObject(0);
-                    if (jsonAddressObject.has("line1")) address+=jsonAddressObject.getString("line1")+'\n';
-                    if (jsonAddressObject.has("line2")) address+=jsonAddressObject.getString("line2")+'\n';
-                    if (jsonAddressObject.has("line3")) address+=jsonAddressObject.getString("line3")+'\n';
-                    if (jsonAddressObject.has("city")) address+=jsonAddressObject.getString("city")+", ";
-                    if (jsonAddressObject.has("state")) address+=jsonAddressObject.getString("state")+' ';
-                    if (jsonAddressObject.has("zip")) address+=jsonAddressObject.getString("zip");
+                    if (jsonAddressObject.has("line1")) address += jsonAddressObject.getString("line1") +'\n';
+                    if (jsonAddressObject.has("line2")) address += jsonAddressObject.getString("line2") +'\n';
+                    if (jsonAddressObject.has("city"))  address += jsonAddressObject.getString("city")  +", ";
+                    if (jsonAddressObject.has("state")) address += jsonAddressObject.getString("state") +' ';
+                    if (jsonAddressObject.has("zip"))   address += jsonAddressObject.getString("zip");
+
+                    String party = (!jsonOfficialsObject.has("party")
+                            ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
+                    String phones = (!jsonOfficialsObject.has("phones")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("phones"));
+                    String urls
                 }
             }
         }
