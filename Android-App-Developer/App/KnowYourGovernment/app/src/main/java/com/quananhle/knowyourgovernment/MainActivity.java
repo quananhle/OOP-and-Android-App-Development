@@ -150,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             locationView.setText(addressList.get(0).getAddressLine(1));
         }
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
-        officialLoaderRunnable.run();
+//        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
+//        officialLoaderRunnable.run();
     }
 
     public void showMessage(int icon, String title, String message){
