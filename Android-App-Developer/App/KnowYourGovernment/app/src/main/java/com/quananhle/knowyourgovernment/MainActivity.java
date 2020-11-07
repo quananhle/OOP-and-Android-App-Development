@@ -151,7 +151,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
     //=====* OfficialAdapter *====//
-
+    public void setOfficialsList(Object[] list){
+        if (list == null){
+            locationView.setText("No Data For Location");
+            officialsList.clear();
+        }
+        else {
+            locationView.setText(list[0].toString());
+            officialsList.clear();
+            ArrayList<Officials> officialsArrayList = (ArrayList<Officials>) list[1];
+            for (int i=0; i<officialsArrayList.size(); ++i){
+                officialsList.add(officialsArrayList.get(i));
+            }
+        }
+        officialAdapter.notifyDataSetChanged();
+    }
 
 
 
