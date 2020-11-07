@@ -242,6 +242,7 @@ public class OfficialLoaderRunnable implements Runnable {
                             if (type.equals("Twitter")) socialMedia.setTwitterAccount(id);
                             if (type.equals("Youtube")) socialMedia.setYoutubeChannel(id);
                         }
+                        official.setSocialMedia(socialMedia);
                     }
                     official = new Officials(officeName, officialName, party, address, phones, urls, emails, photoURL, socialMedia);
                     officialsArrayList.add(official);
