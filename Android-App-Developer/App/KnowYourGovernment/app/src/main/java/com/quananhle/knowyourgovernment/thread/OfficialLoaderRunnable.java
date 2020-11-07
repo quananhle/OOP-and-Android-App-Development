@@ -228,6 +228,10 @@ public class OfficialLoaderRunnable implements Runnable {
 
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
+                    if (jsonArrayChannels != null){
+                        for (int k=0; k < jsonArrayChannels.length(); ++k){
+                            JSONObject jsonChannelsObject = jsonArrayChannels.getJSONObject(k);
+                        }
                     }
                 }
             }
