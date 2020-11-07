@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
 import com.quananhle.knowyourgovernment.helper.Officials;
+import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -92,7 +93,7 @@ public class OfficialLoaderRunnable implements Runnable {
     }
     private ArrayList<Officials> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
-        Officials officials = new Officials();
+        Officials official = new Officials();
         ArrayList<Officials> officialsArrayList = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(str);
@@ -206,6 +207,7 @@ public class OfficialLoaderRunnable implements Runnable {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
+                    SocialMedia socialMedia = new SocialMedia();
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
                     }
@@ -231,20 +233,22 @@ public class OfficialLoaderRunnable implements Runnable {
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
                     if (jsonArrayChannels != null){
                         for (int k=0; k < jsonArrayChannels.length(); ++k) {
-                            JSONObject jsonChannelsObject = jsonArrayChannels.getJSONObject(k);
-                            String googleAccount = jsonChannelsObject.getString("type").equals("GooglePlus")
-                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
-                            String facebookAccount = jsonChannelsObject.getString("type").equals("Facebook")
-                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
-                            String twitterAccount = jsonChannelsObject.getString("type").equals("Twitter")
-                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
-                            String youtubeAccount = jsonChannelsObject.getString("type").equals("Youtube")
-                                    ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
+                            JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
+                            jsonChannelObject.getString("type").equals("GooglePlus")
+                                    ? socialMedia.setGoogleAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
+                            jsonChannelObject.getString("type").equals("Facebook")
+                                    ? socialMedia.setFacebookAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
+                            jsonChannelObject.getString("type").equals("Twitter")
+                                    ? socialMedia.setTwitterAccount(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
+                            jsonChannelObject.getString("type").equals("Youtube")
+                                    ? socialMedia.setYoutubeChannel(jsonChannelObject.getString("id")) : DEFAULT_DISPLAY;
                         }
                     }
-                    officials = new Officials(officeName, officialName, )
+                    official = new Officials(officeName, officialName, party, address, phones, urls, emails, photoURL, socialMedia);
+                    officialsArrayList.add(official);
                 }
             }
+            return officialsArrayList;
         }
     }
 }
