@@ -34,13 +34,8 @@ public class OfficialAdapter extends RecyclerView.Adapter<OfficialViewHolder> {
     public void onBindViewHolder(OfficialViewHolder officialViewHolder, int position){
         Officials officials = officialsList.get(position);
         officialViewHolder.office.setText(officials.getOffice());
-        if (!officials.getParty().isEmpty()) {
-            officialViewHolder.officialNameParty.setText(String.format("%s (%s)",
-                    officials.getName(), officials.getParty()));
-        }
-        else {
-            officialViewHolder.officialNameParty.setText(String.format("%s (Unknown)", officials.getName()));
-        }
+        officialViewHolder.officialNameParty
+                .setText(String.format("%s (%s)", officials.getName(), officials.getParty()));
     }
     @Override
     public int getItemCount(){
