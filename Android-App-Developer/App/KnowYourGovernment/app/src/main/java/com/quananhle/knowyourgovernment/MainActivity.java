@@ -57,14 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         officialAdapter = new OfficialAdapter(officialsList, this);
         recyclerView.setAdapter(officialAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         //check if connected to the network at start
         if (!isConnected()){
             showMessage(ERROR_ICON,
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
+        
         // Load the data
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
+        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
         new Thread(officialLoaderRunnable).start();
     }
     @Override

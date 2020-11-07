@@ -280,7 +280,6 @@ public class OfficialLoaderRunnable implements Runnable {
             state = normalizedInput.getString("state");
             zip = normalizedInput.getString("zip");
 
-
             for(int i = 0;i < offices.length(); i++){
                 JSONObject obj = offices.getJSONObject(i);
                 String officeName = obj.getString("name");
