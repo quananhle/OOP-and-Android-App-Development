@@ -144,9 +144,9 @@ public class OfficialLoaderRunnable implements Runnable {
              * ],
              */
             JSONArray officesArray = object.getJSONArray("offices");
-            for (int i=0; i<officesArray.length(); ++i){
+            for (int i=0; i < officesArray.length(); ++i){
                 JSONObject jsonObject = officesArray.getJSONObject(i);
-                String name = jsonObject.getString("name");
+                String officeName = jsonObject.getString("name");
                 String officialIndices = jsonObject.getString("officialIndices");
                 String [] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
                 int [] indices = new int[array.length];
@@ -204,7 +204,7 @@ public class OfficialLoaderRunnable implements Runnable {
                 //access the elements of officials
                 for (int j=0; j < indices.length; ++j){
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
-                    String officialsName = jsonOfficialsObject.getString("name");
+                    String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
@@ -230,7 +230,7 @@ public class OfficialLoaderRunnable implements Runnable {
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
                     if (jsonArrayChannels != null){
-                        for (int k=0; k < jsonArrayChannels.length(); ++k){
+                        for (int k=0; k < jsonArrayChannels.length(); ++k) {
                             JSONObject jsonChannelsObject = jsonArrayChannels.getJSONObject(k);
                             String googleAccount = jsonChannelsObject.getString("type").equals("GooglePlus")
                                     ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
@@ -240,9 +240,9 @@ public class OfficialLoaderRunnable implements Runnable {
                                     ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
                             String youtubeAccount = jsonChannelsObject.getString("type").equals("Youtube")
                                     ? jsonArrayChannels.getJSONObject(k).getString("id") : DEFAULT_DISPLAY;
-                            }
                         }
                     }
+                    officials = new Officials(officeName, officialName, )
                 }
             }
         }
