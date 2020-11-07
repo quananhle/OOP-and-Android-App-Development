@@ -219,7 +219,16 @@ public class OfficialLoaderRunnable implements Runnable {
                             ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
                     String phones = (!jsonOfficialsObject.has("phones")
                             ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("phones"));
-                    String urls
+                    String urls = (!jsonOfficialsObject.has("phones")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("urls"));
+                    String emails = (!jsonOfficialsObject.has("emails")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("emails"));
+                    String photoURL = (!jsonOfficialsObject.has("photoURL")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("photoURL"));
+
+                    JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
+                            ? null : jsonOfficialsObject.getJSONArray("channels"));
+                    }
                 }
             }
         }
