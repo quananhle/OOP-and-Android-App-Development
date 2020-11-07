@@ -34,9 +34,9 @@ public class OfficialLoaderRunnable implements Runnable {
     private String state;
     private String zip;
 
-    public OfficialLoaderRunnable(MainActivity mainActivity){
+    public OfficialLoaderRunnable(MainActivity mainActivity, String zipCode){
         this.mainActivity = mainActivity;
-//        this.zip = zip;
+        this.zip = zipCode;
     }
     @Override
     public void run(){
