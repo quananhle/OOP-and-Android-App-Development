@@ -3,6 +3,7 @@ package com.quananhle.knowyourgovernment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private RecyclerView recyclerView;
     private List<Officials> officialsList;
-    private OfficialAdapter officialsAdapter;
+    private OfficialAdapter officialAdapter;
     private static MainActivity mainActivity;
     private ConnectivityManager connectivityManager;
     private TextView locationView;
@@ -51,14 +52,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        officialAdapter = new OfficialAdapter(officialsList, this);
+        recyclerView.setAdapter(officialAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         //check if connected to the network at start
         if (!isConnected()){
-            AlertDialog.Builder connectionFailed = new AlertDialog.Builder(this);
-            connectionFailed.setTitle("NETWORK CONNECTION FAILED");
-            connectionFailed.setMessage("Not connected to the Internet. Please check the network!");
-            connectionFailed.show();
+            showMessage(ERROR_ICON,
+                    "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
         }
     }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -85,6 +108,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putSerializable("official", officialsList.get(position));
         startActivity(intent);
     }
+
+
+
+
+
+
+
     //====================== *** HELPER•METHODS *** ======================//
     public boolean isConnected(){
         ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -121,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
         officialLoaderRunnable.run();
     }
-
 
     public void showMessage(int icon, String title, String message){
         AlertDialog dialog = new AlertDialog.Builder(this).create();
