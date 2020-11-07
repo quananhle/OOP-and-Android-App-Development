@@ -64,30 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Data cannot be accessed/loaded without an Internet connection");
         }
         // Load the data
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, );
+        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
         new Thread(officialLoaderRunnable).start();
     }
-
-    public void doLocationWork(double latitude, double longitude) {
-        Log.d(TAG, "doAddress: Lat: " + latitude + ", Lon: " + longitude);
-        List<Address> addresses = null;
-        //for (int times = 0; times < 3; times++) {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            Log.d(TAG, "doAddress: Getting address now");
-            addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            // Get the zip code from the first returned address
-            Address ad = addresses.get(0);
-            String zip = ad.getPostalCode();
-            // Use that zip code to create & execute the Civic Info Downloader
-            new AsyncOfficialLoader(mainActivity).execute(zip);
-        } catch (IOException e) {
-            Log.d(TAG, "doAddress: " + e.getMessage());
-        }
-    }
-
-
-
     @Override
     protected void onDestroy(){
         super.onDestroy();
