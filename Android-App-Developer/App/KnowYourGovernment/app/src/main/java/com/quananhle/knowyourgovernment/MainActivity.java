@@ -178,6 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Data cannot be accessed/loaded without an Internet connection");
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final MainActivity main = this;
+
     }
 
     public void setLocation(double latitude, double longtitude) {
