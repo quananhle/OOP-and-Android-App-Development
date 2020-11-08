@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.details.OfficialActivity;
 import com.quananhle.knowyourgovernment.helper.Locator;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (menuItem.getItemId()){
             case R.id.search_button:
                 Log.d(TAG, "onOptionsItemSelected: Start searching for location");
+                Toast.makeText(this, "NEW LOCATION", Toast.LENGTH_SHORT).show();
                 searchButtonPressed();
             case R.id.about_button:
                 return true;
