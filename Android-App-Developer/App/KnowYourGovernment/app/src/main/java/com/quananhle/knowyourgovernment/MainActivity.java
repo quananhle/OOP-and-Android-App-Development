@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (menuItem.getItemId()){
             case R.id.search_button:
                 Log.d(TAG, "onOptionsItemSelected: Start searching for location");
+                searchButtonPressed();
             case R.id.about_button:
                 return true;
             default:
@@ -168,7 +169,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         officialAdapter.notifyDataSetChanged();
     }
 
-
+    public void searchButtonPressed(){
+        if (!isConnected()){
+            showMessage(ERROR_ICON,
+                    "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
+        }
+    }
 
     public void setLocation(double latitude, double longtitude) {
         Log.d(TAG, "doAddress: Lat " + latitude + ", Lon " + longtitude);
