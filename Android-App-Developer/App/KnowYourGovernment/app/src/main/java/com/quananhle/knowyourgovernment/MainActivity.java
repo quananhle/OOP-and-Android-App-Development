@@ -220,7 +220,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         catch (IOException ioe){
             ioe.printStackTrace();
-            Toast.makeText()
+            Log.d(TAG, "doAddress: " + ioe.getMessage());
+            Toast.makeText(this, "Address Not Found", Toast.LENGTH_SHORT).show();
         }
     }
 
