@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText editText = new EditText(this);
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
 
     }
