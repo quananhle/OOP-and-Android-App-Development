@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Data cannot be accessed/loaded without an Internet connection");
         }
         final MainActivity main = this;
-        final EditText editText = new EditText(this);
+        editText = new EditText(this);
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {
 
             }
-        })
+        });
 
 
     }
