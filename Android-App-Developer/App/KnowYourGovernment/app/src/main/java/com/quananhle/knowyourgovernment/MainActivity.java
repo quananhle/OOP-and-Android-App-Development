@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (menuItem.getItemId()){
             case R.id.search_button:
-                return true;
+                Log.d()
             case R.id.about_button:
                 return true;
             default:
