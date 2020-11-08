@@ -214,19 +214,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             Log.d(TAG, "doAddress: Retrieving address");
             addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
+                    addressList.get(0).getPostalCode());
+            officialLoaderRunnable.run();
         }
         catch (IOException ioe){
             ioe.printStackTrace();
         }
-        if (addressList == null){
-            Log.d("Address", "Not Found!");
-        }
-        else {
-            locationView.setText(addressList.get(0).getAddressLine(1));
-        }
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
-                addressList.get(0).getPostalCode());
-        officialLoaderRunnable.run();
+//        if (addressList == null){
+//            Log.d("Address", "Not Found!");
+//        }
+//        else {
+//            locationView.setText(addressList.get(0).getAddressLine(1));
+//        }
     }
 
     //=====* OfficialLoaderRunnable *====//
