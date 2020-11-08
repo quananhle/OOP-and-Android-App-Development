@@ -191,9 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String location = editText.getText().toString();
-                //Load the data
-                OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
-                new Thread(officialLoaderRunnable).start();
+                doRunnable(location);
             }
         })
 
@@ -223,9 +221,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* OfficialLoaderRunnable *====//
-//    public void doRunnable(View v){
-//        if ()
-//    }
+    public void doRunnable(String location){
+        if (isConnected()){
+            //Load the data
+            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+            new Thread(officialLoaderRunnable).start();
+        }
+    }
     public void downloadFailed() {
         officialsList.clear();
     }
