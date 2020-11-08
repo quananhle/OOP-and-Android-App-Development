@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ConnectivityManager connectivityManager;
     private TextView locationView;
     private Locator locator;
+    private EditText editText;
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                
+
             }
         })
 
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* OfficialLoaderRunnable *====//
     public void doRunnable(String location){
         if (isConnected()){
+            if (edi)
             //Load the data
             OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
             new Thread(officialLoaderRunnable).start();
