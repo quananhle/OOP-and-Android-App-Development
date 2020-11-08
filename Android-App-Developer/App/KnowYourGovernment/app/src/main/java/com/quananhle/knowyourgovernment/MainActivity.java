@@ -188,10 +188,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editText.setGravity(Gravity.CENTER_HORIZONTAL);
         adb.setView(editText);
+        final String location = editText.getText().toString();
+        Toast.makeText(this, "Entered" + location, Toast.LENGTH_SHORT).show();
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String location = editText.getText().toString();
                 doRunnable(location);
             }
         });
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void doRunnable(String location){
         if (isConnected()){
             if (editText.getText().toString().isEmpty()){
-                
+                Toast.makeText(this, "Please provide a seconds-to-delay value", Toast.LENGTH_SHORT).show();
             }
             //Load the data
             OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
