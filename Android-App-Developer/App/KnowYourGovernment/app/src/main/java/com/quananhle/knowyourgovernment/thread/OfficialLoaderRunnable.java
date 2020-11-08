@@ -40,7 +40,8 @@ public class OfficialLoaderRunnable implements Runnable {
     }
     @Override
     public void run(){
-        String urlToUse = Uri.parse(DATA_URL).toString();
+        String dataURL = DATA_URL + zip;
+        String urlToUse = Uri.parse(dataURL).toString();
         Log.d(TAG, "run: " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
