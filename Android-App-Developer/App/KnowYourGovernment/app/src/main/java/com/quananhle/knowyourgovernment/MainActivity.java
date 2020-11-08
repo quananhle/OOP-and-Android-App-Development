@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String location = editText.getText().toString();
                 doRunnable(location);
             }
-        });
+        });;;;;
 
 
     }
