@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editText.setGravity(Gravity.CENTER_HORIZONTAL);
+        adb.setView(editText);
 
 
     }
