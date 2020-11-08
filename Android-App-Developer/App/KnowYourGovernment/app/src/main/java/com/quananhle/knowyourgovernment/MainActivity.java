@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -185,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        editText.setGravity(Gravity.CENTER_HORIZONTAL);
 
 
     }
