@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
-
+        locator = new Locator(this);
+        locator.shutDown();
         // Load the data
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
-        new Thread(officialLoaderRunnable).start();
+//        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
+//        new Thread(officialLoaderRunnable).start();
     }
     @Override
     protected void onDestroy(){
@@ -186,8 +187,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             locationView.setText(addressList.get(0).getAddressLine(1));
         }
-//        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this);
-//        officialLoaderRunnable.run();
+        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
+                addressList.get(0).getPostalCode());
+        officialLoaderRunnable.run();
     }
 
     //=====* OfficialLoaderRunnable *====//
