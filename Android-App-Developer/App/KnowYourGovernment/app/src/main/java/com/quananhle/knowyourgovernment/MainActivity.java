@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -188,6 +189,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editText.setGravity(Gravity.CENTER_HORIZONTAL);
         adb.setView(editText);
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                
+            }
+        })
 
 
     }
