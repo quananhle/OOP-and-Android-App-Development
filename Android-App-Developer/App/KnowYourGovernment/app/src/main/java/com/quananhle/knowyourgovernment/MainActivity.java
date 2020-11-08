@@ -170,13 +170,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         officialAdapter.notifyDataSetChanged();
     }
-
+    //=====* Menu onOptionsItemSelected *====//
     public void searchButtonPressed(){
         if (!isConnected()){
             showMessage(ERROR_ICON,
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
+        
     }
 
     public void setLocation(double latitude, double longtitude) {
