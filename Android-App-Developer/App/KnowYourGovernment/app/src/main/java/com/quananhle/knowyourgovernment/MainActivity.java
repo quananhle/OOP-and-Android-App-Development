@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {}
         });
 
-        adb.setMessage()
+        adb.setMessage("Enter a City, State, or Zip Code:");
 
 
     }
