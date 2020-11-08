@@ -178,9 +178,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final MainActivity main = this;
         final EditText editText = new EditText(this);
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+
 
     }
 
