@@ -183,12 +183,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         final MainActivity main = this;
         editText = new EditText(this);
+        final String location = editText.getText().toString();
+
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editText.setGravity(Gravity.CENTER_HORIZONTAL);
         adb.setView(editText);
-        final String location = editText.getText().toString();
+
         Toast.makeText(this, "Entered" + location, Toast.LENGTH_SHORT).show();
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
