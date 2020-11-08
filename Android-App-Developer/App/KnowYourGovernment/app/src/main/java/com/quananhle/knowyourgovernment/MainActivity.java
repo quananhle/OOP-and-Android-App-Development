@@ -234,7 +234,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void doRunnable(String location){
         if (isConnected()){
             if (editText.getText().toString().isEmpty()){
-                Toast.makeText(this, "Please provide a seconds-to-delay value", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+                return;
             }
             //Load the data
             OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
