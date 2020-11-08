@@ -230,7 +230,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* OfficialLoaderRunnable *====//
     public void doRunnable(String location){
         if (isConnected()){
-            if (edi)
+            if (editText.getText().toString().isEmpty()){
+                
+            }
             //Load the data
             OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
             new Thread(officialLoaderRunnable).start();
