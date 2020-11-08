@@ -191,9 +191,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String location = editText.getText().toString();
-                 Load the data
-        OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
-        new Thread(officialLoaderRunnable).start();
+                //Load the data
+                OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, "60608");
+                new Thread(officialLoaderRunnable).start();
             }
         })
 
