@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final MainActivity main = this;
+        final EditText editText = new EditText(this);
 
     }
 
