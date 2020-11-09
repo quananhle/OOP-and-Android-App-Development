@@ -1,5 +1,4 @@
 package com.quananhle.knowyourgovernment.about;
-import android.app.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
