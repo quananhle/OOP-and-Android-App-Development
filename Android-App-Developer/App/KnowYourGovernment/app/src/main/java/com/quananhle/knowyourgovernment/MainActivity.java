@@ -10,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
@@ -129,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onRequestPermissionResult: Permission length" + permission.length);
             for (int i=0; i < permission.length; ++i){
                 if (permission[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
-                    
+                    if (resultCodes[i] == PackageManager.PERMISSION_GRANTED){
+                        
+                    }
                 }
             }
         }
