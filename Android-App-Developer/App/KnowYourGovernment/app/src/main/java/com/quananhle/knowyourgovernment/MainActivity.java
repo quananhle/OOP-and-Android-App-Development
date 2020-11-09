@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                     }
                     else {
-                        
+                        Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
