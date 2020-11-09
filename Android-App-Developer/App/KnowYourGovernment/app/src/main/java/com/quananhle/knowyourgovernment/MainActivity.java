@@ -125,13 +125,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
     @Override
-    public void onRequestPermissionResult(int requestCode, int[] resultCodes, String[] permission){
+    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         if (requestCode == REQUEST_CODE){
-            Log.d(TAG, "onRequestPermissionResult: Permission length" + permission.length);
-            for (int i=0; i < permission.length; ++i){
-                if (permission[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
-                    if (resultCodes[i] == PackageManager.PERMISSION_GRANTED){
+            Log.d(TAG, "onRequestPermissionResult: Permission length" + permissions.length);
+            for (int i=0; i < permissions.length; ++i){
+                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED){
                         locator.setUpLocationManager();
+                        locator.determineLocation();
+                        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                     }
                 }
             }
