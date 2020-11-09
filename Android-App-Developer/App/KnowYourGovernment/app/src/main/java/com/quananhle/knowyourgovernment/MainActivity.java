@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
+    final int REQUEST_CODE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onRequestPermissionResult(int requestCode, int[] resultCodes, String[] permission){
-
+        if (requestCode == REQUEST_CODE){
+            
+        }
     }
 
 
