@@ -5,4 +5,6 @@
     <color name="colorAccent">#0ABAB5</color>
     <color name="noteTextMain">#FF00FF</color>
     <color name="noteTextHighlight">#2F4F4F</color>
+<!--    Color -->
+    <color name="pearl_white">#F5F7E3</color>
 </resources>

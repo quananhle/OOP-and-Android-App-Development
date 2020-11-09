@@ -4,83 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abt_bg"
-    tools:context=".AboutActivity">
+    android:background="@drawable/about"
+    tools:context=".about.AboutActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideline1_hor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
+        android:id="@+id/guideline1_ver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/guideline2_ver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline6"
+        android:id="@+id/guideline2_hor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="300dp"
         android:text="@string/app_name"
-        android:textSize="24sp"
+        android:textColor="@color/pearl_white"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1_hor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/devNote"
+        android:id="@+id/dev_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/product_sans_regular"
-        android:text="@string/dev_note"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appName" />
+        android:layout_marginStart="63dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/developer_info"
+        android:textColor="@color/pearl_white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/version"
+        app:layout_constraintEnd_toEndOf="@+id/guideline2_ver"
+        app:layout_constraintStart_toEndOf="@+id/year"
+        app:layout_constraintStart_toStartOf="@+id/guideline1_ver" />
 
     <TextView
         android:id="@+id/version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:fontFamily="@font/roboto_regular"
         android:text="@string/version"
+        android:textColor="@color/pearl_white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <TextView
         android:id="@+id/poweredby"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="168dp"
         android:fontFamily="@font/product_sans_regular"
         android:text="@string/powered_by"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/devNote" />
-
+        app:layout_constraintTop_toBottomOf="@+id/dev_info" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -91,20 +97,11 @@
         app:cardElevation="4dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
+        app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
+        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_hor">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/details_bg"
-            android:contentDescription="@string/app_name"
-            android:cropToPadding="false"
-            app:srcCompat="@drawable/logo" />
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,28 +115,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/poweredby">
 
-        <TextView
-            android:id="@+id/google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/google"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/cia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:fontFamily="@font/product_sans_regular"
-            android:text="@string/cia"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/google"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/powered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/powered_by"
+        android:textColor="@color/pearl_white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/dev_info"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
+        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
+        app:layout_constraintTop_toTopOf="@+id/guideline2_hor" />
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/developed_year"
+        android:textColor="@color/pearl_white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/version"
+        app:layout_constraintEnd_toStartOf="@id/dev_info"
+        app:layout_constraintStart_toEndOf="@id/guideline1_ver" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/app_name"
+        android:cropToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
+        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_hor"
+        app:srcCompat="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:onClick="apiClicked"
+        android:text="@string/API"
+        android:textColor="@color/pearl_white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/year"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/powered" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
