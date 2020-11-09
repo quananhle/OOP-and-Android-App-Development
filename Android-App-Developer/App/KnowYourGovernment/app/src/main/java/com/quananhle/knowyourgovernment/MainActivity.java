@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onRequestPermissionResult(int requestCode, int[] resultCodes, String[] permission){
         if (requestCode == REQUEST_CODE){
-            
+            Log.d(TAG, "onRequestPermissionResult: Permission length" + permission.length);
         }
     }
 
