@@ -24,17 +24,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.quananhle.knowyourgovernment.details.OfficialActivity;
-import com.quananhle.knowyourgovernment.helper.Locator;
-import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
-import com.quananhle.knowyourgovernment.helper.Officials;
-import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.quananhle.knowyourgovernment.about.AboutActivity;
+import com.quananhle.knowyourgovernment.details.OfficialActivity;
+import com.quananhle.knowyourgovernment.helper.Locator;
+import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
+import com.quananhle.knowyourgovernment.helper.Officials;
+import com.quananhle.knowyourgovernment.thread.AsyncOfficial;
+//import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
 /**
  * @author Quan Le
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putSerializable("official", officialsList.get(position));
         startActivity(intent);
     }
+    
 
 
 
@@ -195,7 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                doRunnable(location);
+//                doRunnable(location);
+                new AsyncOfficial(mainActivity).execute(location);
             }
         });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -214,9 +217,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             Log.d(TAG, "doAddress: Retrieving address");
             addressList = geocoder.getFromLocation(latitude, longtitude, 1);
-            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
-                    addressList.get(0).getPostalCode());
-            officialLoaderRunnable.run();
+//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
+//                    addressList.get(0).getPostalCode());
+            Log.d(TAG, "doAddress: " + addressList.get(0).getPostalCode());
+//            officialLoaderRunnable.run();
+            new AsyncOfficial(mainActivity).execute(addressList.get(0).getPostalCode());
         }
         catch (IOException ioe){
             ioe.printStackTrace();
@@ -226,17 +231,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* OfficialLoaderRunnable *====//
-    public void doRunnable(String location){
-        if (isConnected()){
-            if (editText.getText().toString().isEmpty()){
-                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            //Load the data
-            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
-            new Thread(officialLoaderRunnable).start();
-        }
-    }
+//    public void doRunnable(String location){
+//        if (isConnected()){
+//            if (editText.getText().toString().isEmpty()){
+//                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            //Load the data
+//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+//            new Thread(officialLoaderRunnable).start();
+//        }
+//    }
     public void downloadFailed() {
         officialsList.clear();
     }
