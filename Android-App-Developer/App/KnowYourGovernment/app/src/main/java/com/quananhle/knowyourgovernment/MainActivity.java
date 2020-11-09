@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -127,7 +128,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == REQUEST_CODE){
             Log.d(TAG, "onRequestPermissionResult: Permission length" + permission.length);
             for (int i=0; i < permission.length; ++i){
-                
+                if (permission[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
+                    
+                }
             }
         }
     }
