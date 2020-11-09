@@ -135,6 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         locator.determineLocation();
                         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                     }
+                    else {
+                        
+                    }
                 }
             }
         }
