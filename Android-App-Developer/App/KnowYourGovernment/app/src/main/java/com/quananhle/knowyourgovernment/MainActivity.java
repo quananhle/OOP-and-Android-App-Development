@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (int i=0; i < permission.length; ++i){
                 if (permission[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
                     if (resultCodes[i] == PackageManager.PERMISSION_GRANTED){
-                        
+                        locator.setUpLocationManager();
                     }
                 }
             }
