@@ -124,8 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bundle.putSerializable("official", officialsList.get(position));
         startActivity(intent);
     }
+
     @Override
-    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         if (requestCode == REQUEST_CODE){
             Log.d(TAG, "onRequestPermissionResult: Permission length" + permissions.length);
             for (int i=0; i < permissions.length; ++i){
@@ -141,14 +142,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+        Log.d(TAG, "onRequestPermissionsResult: Exiting");
     }
-
-
-
-
-
-
-
 
     //====================== *** HELPER•METHODS *** ======================//
     public boolean isConnected(){
