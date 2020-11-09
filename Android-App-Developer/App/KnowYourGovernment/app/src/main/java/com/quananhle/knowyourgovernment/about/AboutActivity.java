@@ -1,4 +1,4 @@
 package com.quananhle.knowyourgovernment.about;
-
-public class AboutActivity {
+import android.app.Activity;
+public class AboutActivity extends Activity{
 }
