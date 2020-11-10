@@ -25,7 +25,7 @@ public class OfficialLoaderRunnable implements Runnable {
     private MainActivity mainActivity;
 
     private static final String API_KEY = "AIzaSyDBDktFKTYIN3gfxkLWzdhkafxtRVM6W0w";
-    private static final String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
+    private static String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
             + API_KEY + "&address=";
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
     private static final String UNKNOWN_PARTY = "Unknown";
@@ -240,16 +240,14 @@ public class OfficialLoaderRunnable implements Runnable {
                             JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
                             String type = jsonChannelObject.getString("type");
                             String id = jsonChannelObject.getString("id");
-                            googleAccount = type.equals("GooglePlus") ? id : "";
                             facebookAccount = type.equals("Facebook") ? id : "";
                             twitterAccount = type.equals("Twitter")   ? id : "";
                             youtubeAccount = type.equals("Youtube")   ? id : "";
                         }
-                        socialMedia = new SocialMedia(googleAccount, facebookAccount, twitterAccount, youtubeAccount);
+                        socialMedia = new SocialMedia(facebookAccount, twitterAccount, youtubeAccount);
                         official.setSocialMedia(socialMedia);
                     }
                     else {
-                        googleAccount   = DEFAULT_DISPLAY;
                         facebookAccount = DEFAULT_DISPLAY;
                         twitterAccount  = DEFAULT_DISPLAY;
                         youtubeAccount  = DEFAULT_DISPLAY;
