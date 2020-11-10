@@ -19,9 +19,21 @@ public class OfficialActivity extends AppCompatActivity {
     private TextView office, name, party, address, email, url, phone, website, location;
     private ImageView profilePhoto, partyLogo, facebook, twitter, youtube;
     private SocialMedia facebookHandle, twitterHandle, youtubeHandle;
-    private Officials officials;
-    private ConstraintLayout constraintLayout, dc;
-    
+    private Officials official;
+    private ConstraintLayout constraintLayout, information;
+
+    private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
+    private static final String UNKNOWN_PARTY = "Unknown";
+    public static final String DEM = "Democrat";
+    public static final String REP = "Republican";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_officials);
+
+
+    }
 
 
     public void photoClicked(View view){

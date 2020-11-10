@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ConnectivityManager connectivityManager;
     private TextView locationView;
     private Locator locator;
-    private EditText editText;
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
@@ -64,11 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        officialAdapter = new OfficialAdapter(officialsList, this);
-        recyclerView.setAdapter(officialAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        locationView = findViewById(R.id.location);
+        setupComponents();
 
         //check if connected to the network at start
         if (!isConnected()) {
@@ -160,31 +155,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //====================== *** HELPER•METHODS *** ======================//
-    public boolean isConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (connectivityManager == null) {
-            return false;
-        } else if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    public void showMessage(int icon, String title, String message) {
-        AlertDialog dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle(title);
-        dialog.setMessage(message);
-        if (icon == WARNING_ICON) {
-            dialog.setIcon(R.drawable.warning);
-        } else if (icon == ERROR_ICON) {
-            dialog.setIcon(R.drawable.error);
-        } else {
-            dialog.setIcon(null);
-        }
-        dialog.show();
+    //=====* onCreate *====//
+    private void setupComponents(){
+        recyclerView = findViewById(R.id.recyclerView);
+        officialAdapter = new OfficialAdapter(officialsList, this);
+        recyclerView.setAdapter(officialAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationView = findViewById(R.id.location);
     }
 
     //=====* OfficialAdapter *====//
@@ -278,6 +256,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setLocationView(String location) {
         locationView.setText(location);
+    }
+
+    //=====* Logistic methods *====//
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (connectivityManager == null) {
+            return false;
+        } else if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void showMessage(int icon, String title, String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON) {
+            dialog.setIcon(R.drawable.warning);
+        } else if (icon == ERROR_ICON) {
+            dialog.setIcon(R.drawable.error);
+        } else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
     }
 }
 
