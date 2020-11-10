@@ -96,6 +96,7 @@ public class OfficialLoaderRunnable implements Runnable {
     }
     private ArrayList<Officials> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
+        SocialMedia socialMedia = new SocialMedia();
         ArrayList<Officials> officialsArrayList = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(str);
@@ -208,7 +209,6 @@ public class OfficialLoaderRunnable implements Runnable {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
-                    SocialMedia socialMedia = new SocialMedia();
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
                     }
@@ -230,11 +230,11 @@ public class OfficialLoaderRunnable implements Runnable {
                     String party = (!jsonOfficialsObject.has("party")
                             ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
                     String phones = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("phones"));
-                    String urls = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("urls"));
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("phones").getString(0));
+                    String urls = (!jsonOfficialsObject.has("urls")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("urls").getString(0));
                     String emails = (!jsonOfficialsObject.has("emails")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("emails"));
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("emails").getString(0));
                     String photoURL = (!jsonOfficialsObject.has("photoURL")
                             ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("photoURL"));
 
