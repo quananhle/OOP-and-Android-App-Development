@@ -1,7 +1,6 @@
 package com.quananhle.knowyourgovernment.details;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -18,7 +17,8 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
+
+import com.squareup.picasso.Picasso;
 
 public class OfficialActivity extends AppCompatActivity {
     private static final String TAG = "OfficialActivity";
@@ -90,9 +90,9 @@ public class OfficialActivity extends AppCompatActivity {
             official = (Official) bundle.getSerializable("official");
             ArrayList<SocialMedia> socialMedia = new ArrayList<>();
 
-            if (!official.getOffice().equals("")){office.setText(official.getOffice());}
-            if (!official.getName().equals("")){name.setText(official.getName());}
-            if (!official.getParty().equals("")){party.setText(official.getParty());}
+            if (!official.getOffice().equals(DEFAULT_DISPLAY)){office.setText(official.getOffice());}
+            if (!official.getName().equals(DEFAULT_DISPLAY)){name.setText(official.getName());}
+            if (!official.getParty().equals(DEFAULT_DISPLAY)){party.setText(official.getParty());}
 
             if(official.getParty().trim().toLowerCase().contains(DEM)){
                 aDonkey();
@@ -104,7 +104,7 @@ public class OfficialActivity extends AppCompatActivity {
                 anIndependent();
             }
 
-            if (!official.getAddress().equals("")){
+            if (!official.getAddress().equals(DEFAULT_DISPLAY)){
                 String[] address = official.getAddress().split("\r\n");
                 if (address.length == 3){
                     addressLine1.setText(address[0]);
@@ -126,7 +126,7 @@ public class OfficialActivity extends AppCompatActivity {
                 phoneLabel.setLayoutParams(layoutParams);
             }
 
-            if (!official.getPhoneNumber().equals("")){
+            if (!official.getPhoneNumber().equals(DEFAULT_DISPLAY)){
                 phone.setText(official.getPhoneNumber());
                 phone.setLinkTextColor(getColor(R.color.americanWhite));
             }
@@ -135,7 +135,7 @@ public class OfficialActivity extends AppCompatActivity {
                 hideView(phone);
             }
 
-            if (!official.getEmailAddress().equals("")){
+            if (!official.getEmailAddress().equals(DEFAULT_DISPLAY)){
                 email.setText(official.getEmailAddress());
                 email.setLinkTextColor(getColor(R.color.americanWhite));
             }
@@ -144,13 +144,24 @@ public class OfficialActivity extends AppCompatActivity {
                 hideView(email);
             }
 
-            if (!official.getUrl().equals("")){
+            if (!official.getUrl().equals(DEFAULT_DISPLAY)){
                 website.setText(official.getUrl());
                 website.setLinkTextColor(getColor(R.color.americanWhite));
             }
             else {
                 hideView(websiteLabel);
                 hideView(website);
+            }
+
+            if (isConnected()){
+                profilePhoto.setImageResource(R.drawable.placeholder);
+                if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
+                    profilePhoto.setImageResource(R.drawable.missing);
+                }
+                else {
+                    final String photoUrl = official.getPhotoUrl();
+                    Picasso picasso = 
+                }
             }
         }
     }
