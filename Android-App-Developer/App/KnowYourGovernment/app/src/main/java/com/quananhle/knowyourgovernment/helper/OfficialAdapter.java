@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class OfficialAdapter extends RecyclerView.Adapter<OfficialViewHolder> {
     private static final String TAG = "OfficialAdapter";
-    private List<Officials> officialsList;
+    private List<Official> officialList;
     private MainActivity mainActivity;
 
-    public OfficialAdapter(List<Officials> officialsList, MainActivity mainActivity) {
-        this.officialsList = officialsList;
+    public OfficialAdapter(List<Official> officialList, MainActivity mainActivity) {
+        this.officialList = officialList;
         this.mainActivity = mainActivity;
     }
 
@@ -34,14 +34,14 @@ public class OfficialAdapter extends RecyclerView.Adapter<OfficialViewHolder> {
 
     @Override
     public void onBindViewHolder(OfficialViewHolder officialViewHolder, int position) {
-        Officials officials = officialsList.get(position);
-        officialViewHolder.office.setText(officials.getOffice());
+        Official official = officialList.get(position);
+        officialViewHolder.office.setText(official.getOffice());
         officialViewHolder.officialNameParty
-                .setText(String.format("%s (%s)", officials.getName(), officials.getParty()));
+                .setText(String.format("%s (%s)", official.getName(), official.getParty()));
     }
 
     @Override
     public int getItemCount() {
-        return officialsList.size();
+        return officialList.size();
     }
 }
