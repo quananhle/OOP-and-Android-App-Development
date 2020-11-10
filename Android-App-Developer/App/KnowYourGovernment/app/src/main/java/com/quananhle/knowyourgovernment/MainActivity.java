@@ -36,7 +36,7 @@ import com.quananhle.knowyourgovernment.details.OfficialActivity;
 import com.quananhle.knowyourgovernment.helper.Locator;
 import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
-import com.quananhle.knowyourgovernment.thread.AsyncOfficial;
+import com.quananhle.knowyourgovernment.helper.AsyncOfficial;
 import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
 /**
@@ -264,8 +264,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
             //Load the data
-//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
-//            new Thread(officialLoaderRunnable).start();
+            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+            new Thread(officialLoaderRunnable).start();
         }
     }
     public void downloadFailed() {

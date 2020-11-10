@@ -1,4 +1,4 @@
-package com.quananhle.knowyourgovernment.thread;
+package com.quananhle.knowyourgovernment.helper;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class AsyncOfficial extends AsyncTask<String, Void, String> {
     private MainActivity mainActivity;
-    private static final String TAG = "AsyncOfficialLoader";
+    private static final String TAG = "OfficialLoader";
     private static final String API_KEY = "AIzaSyDBDktFKTYIN3gfxkLWzdhkafxtRVM6W0w";
     private static String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
             + API_KEY + "&address=";
@@ -47,7 +47,7 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String str) {
-        Log.d(TAG, "onPostExecute: in post execute");
+//        Log.d(TAG, "onPostExecute: in post execute");
         if (str == null) {
             Toast.makeText(mainActivity, "Civic Info Service API is unavailable", Toast.LENGTH_LONG).show();
             mainActivity.setOfficialsList(null);
@@ -68,9 +68,9 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         String dataURL = DATA_URL + strings[0];
-        Log.d(TAG, "doInBackground: URL is " + dataURL);
+//        Log.d(TAG, "doInBackground: URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
-        Log.d(TAG, "doInBackground: " + urlToUse);
+//        Log.d(TAG, "doInBackground: " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
@@ -89,18 +89,18 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
             pe.printStackTrace();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
-            Log.e(TAG, "doBackground: File not found " + fnfe);
+//            Log.e(TAG, "doBackground: File not found " + fnfe);
             return null;
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            Log.e(TAG, "doBackground: IOExecption " + ioe);
+//            Log.e(TAG, "doBackground: IOExecption " + ioe);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "doInBackground: Exception", e);
+//            Log.e(TAG, "doInBackground: Exception", e);
             return null;
         }
-        Log.d(TAG, "doInBackground: returning");
+//        Log.d(TAG, "doInBackground: returning");
         return stringBuilder.toString();
     }
 
