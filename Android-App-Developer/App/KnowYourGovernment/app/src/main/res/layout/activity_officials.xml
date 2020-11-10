@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constrainedLayout"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".details.OfficialActivity">
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Chicago, IL, 60616" />
+        tools:text="@string/default_location" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,6 +50,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
+                    android:text="@string/official_email"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
@@ -63,6 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
+                    android:text="@string/official_website"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
@@ -103,7 +105,7 @@
                     android:textIsSelectable="false"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
+                    app:layout_constraintStart_toEndOf="@+id/address_label"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/official_address_line1" />
 
@@ -112,6 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
+                    android:text="@string/official_phone"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
@@ -132,7 +135,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/phone_label" />
 
                 <TextView
-                    android:id="@+id/addrress_label"
+                    android:id="@+id/address_label"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
@@ -154,7 +157,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/phone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
+                    app:layout_constraintStart_toEndOf="@+id/address_label"
                     app:layout_constraintTop_toBottomOf="@+id/address_line1"
                     tools:text="@string/official_address_line2" />
 
@@ -170,7 +173,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/phone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
+                    app:layout_constraintStart_toEndOf="@+id/address_label"
                     app:layout_constraintTop_toBottomOf="@+id/address_line2"
                     tools:text="@string/official_address_line3" />
 
@@ -241,7 +244,7 @@
                 app:layout_constraintGuide_percent="0.6019152" />
 
             <ImageView
-                android:id="@+id/dp"
+                android:id="@+id/photo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"

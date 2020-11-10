@@ -7,6 +7,7 @@
     <string name="dialog_office">dialogOffice</string>
     <string name="dialog_name_party">dialogNameParty</string>
     <string name="location_id">CITY, STATE ZIP</string>
+    <string name="default_location">Chicago, IL 60616</string>
 <!--    About Activity -->
     <string name="developer_info">Quan Le</string>
     <string name="developed_year">© 2020,</string>
@@ -29,4 +30,8 @@
     <string name="official_address_line1">White House</string>
     <string name="official_address_line2">1600 Pennsylvania Avenue NW</string>
     <string name="official_address_line3">Washington, D.C. 20500, U.S.</string>
+    <string name="official_phone">+1-888-US-POTUS</string>
+    <string name="official_email">abelincoln@POTUS.gov</string>
+    <string name="official_website">https://www.whitehouse.gov/</string>
+
 </resources>
