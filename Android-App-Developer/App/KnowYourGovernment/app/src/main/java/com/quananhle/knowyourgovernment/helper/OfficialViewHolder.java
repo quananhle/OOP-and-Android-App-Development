@@ -12,7 +12,7 @@ public class OfficialViewHolder extends RecyclerView.ViewHolder {
     public TextView officialNameParty;
     public OfficialViewHolder (View view){
         super(view);
-        office = (TextView) view.findViewById(R.id.dialog_office);
-        officialNameParty = (TextView) view.findViewById(R.id.dialog_name_party);
+        office = view.findViewById(R.id.dialog_office);
+        officialNameParty = view.findViewById(R.id.dialog_name_party);
     }
 }
