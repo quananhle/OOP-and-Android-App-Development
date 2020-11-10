@@ -245,15 +245,13 @@
 
             <ImageView
                 android:id="@+id/party_logo"
-                android:layout_width="105dp"
-                android:layout_height="105dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:contentDescription="@string/party_logo"
                 android:cropToPadding="true"
                 android:elevation="6dp"
                 android:onClick="logoClicked"
                 android:scaleType="centerInside"
-                android:scaleX="0.7"
-                android:scaleY="0.7"
                 app:layout_constraintBottom_toBottomOf="@+id/photo"
                 app:layout_constraintEnd_toEndOf="@+id/photo"
                 app:layout_constraintStart_toStartOf="@+id/photo"
