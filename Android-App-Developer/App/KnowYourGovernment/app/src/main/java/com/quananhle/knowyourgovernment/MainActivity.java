@@ -35,8 +35,8 @@ import com.quananhle.knowyourgovernment.about.AboutActivity;
 import com.quananhle.knowyourgovernment.details.OfficialActivity;
 import com.quananhle.knowyourgovernment.helper.Locator;
 import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
-import com.quananhle.knowyourgovernment.helper.Officials;
-import com.quananhle.knowyourgovernment.helper.AsyncOfficial;
+import com.quananhle.knowyourgovernment.helper.Official;
+import com.quananhle.knowyourgovernment.helper.OfficialLoader;
 import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
 /**
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private RecyclerView recyclerView;
-    private List<Officials> officialsList = new ArrayList<>();
+    private List<Official> officialList = new ArrayList<>();
     private OfficialAdapter officialAdapter;
     private MainActivity mainActivity = this;
     private ConnectivityManager connectivityManager;
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, OfficialActivity.class);
         intent.putExtra("location", locationView.getText().toString());
         Bundle bundle = new Bundle();
-        bundle.putSerializable("official", officialsList.get(position));
+        bundle.putSerializable("official", officialList.get(position));
         startActivity(intent);
     }
 
@@ -159,23 +159,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* onCreate *====//
     private void setupComponents(){
         recyclerView = findViewById(R.id.recyclerView);
-        officialAdapter = new OfficialAdapter(officialsList, this);
+        officialAdapter = new OfficialAdapter(officialList, this);
         recyclerView.setAdapter(officialAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationView = findViewById(R.id.location);
     }
 
     //=====* OfficialAdapter *====//
-    public void setOfficialsList(Object[] list) {
+    public void setOfficialList(Object[] list) {
         if (list == null) {
             locationView.setText("No Data For Location");
-            officialsList.clear();
+            officialList.clear();
         } else {
             locationView.setText(list[0].toString());
-            officialsList.clear();
-            ArrayList<Officials> officialsArrayList = (ArrayList<Officials>) list[1];
-            for (int i = 0; i < officialsArrayList.size(); ++i) {
-                officialsList.add(officialsArrayList.get(i));
+            officialList.clear();
+            ArrayList<Official> officialArrayList = (ArrayList<Official>) list[1];
+            for (int i = 0; i < officialArrayList.size(); ++i) {
+                officialList.add(officialArrayList.get(i));
             }
         }
         officialAdapter.notifyDataSetChanged();
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialog, int which) {
                 String location = editText.getText().toString();
 //                doRunnable(location);
-                 new AsyncOfficial(mainActivity).execute(location);
+                 new OfficialLoader(mainActivity).execute(location);
             }
         });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    addressList.get(0).getPostalCode());
             Log.d(TAG, "doAddress: " + addressList.get(0).getPostalCode());
 //            officialLoaderRunnable.run();
-            new AsyncOfficial(mainActivity).execute(addressList.get(0).getPostalCode());
+            new OfficialLoader(mainActivity).execute(addressList.get(0).getPostalCode());
         } catch (IOException ioe) {
             ioe.printStackTrace();
             Log.d(TAG, "doAddress: " + ioe.getMessage());
@@ -247,11 +247,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void downloadFailed() {
-        officialsList.clear();
+        officialList.clear();
     }
 
-    public void updateList(ArrayList<Officials> officialsArrayList) {
-        officialsList.addAll(officialsArrayList);
+    public void updateList(ArrayList<Official> officialArrayList) {
+        officialList.addAll(officialArrayList);
     }
 
     public void setLocationView(String location) {
