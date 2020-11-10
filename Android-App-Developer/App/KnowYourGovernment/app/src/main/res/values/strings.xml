@@ -8,6 +8,7 @@
     <string name="dialog_name_party">dialogNameParty</string>
     <string name="location_id">CITY, STATE ZIP</string>
     <string name="default_location">Chicago, IL 60616</string>
+    <string name="separator">Separator</string>
 <!--    About Activity -->
     <string name="developer_info">Quan Le</string>
     <string name="developed_year">© 2020,</string>

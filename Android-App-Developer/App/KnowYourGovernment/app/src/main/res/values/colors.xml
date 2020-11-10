@@ -3,11 +3,12 @@
     <color name="colorPrimary">#FFD700</color>
     <color name="colorPrimaryDark">#000080</color>
     <color name="colorAccent">#0ABAB5</color>
-    <color name="noteTextMain">#FF00FF</color>
-    <color name="noteTextHighlight">#2F4F4F</color>
 <!--    Color -->
     <color name="pearlWhite">#F5F7E3</color>
     <color name="americanWhite">#FFFFFF</color>
     <color name="americanBlue">#041E42</color>
     <color name="americanRed">#BF0D3E</color>
+    <color name="noteTextMain">#FF00FF</color>
+    <color name="noteTextHighlight">#2F4F4F</color>
+    <color name="golden_rod">#F6D13A</color>
 </resources>
