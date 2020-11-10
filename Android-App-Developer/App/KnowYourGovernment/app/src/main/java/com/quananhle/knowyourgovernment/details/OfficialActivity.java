@@ -1,5 +1,6 @@
 package com.quananhle.knowyourgovernment.details;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,8 @@ import com.quananhle.knowyourgovernment.R;
 import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,6 +36,23 @@ public class OfficialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_officials);
         setupComponents();
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (intent.hasExtra("location")){
+            location.setText(getIntent().getStringExtra("location"));
+        }
+        else {
+            location.setText("");
+        }
+
+        if (intent.hasExtra("official")){
+            official = (Officials) bundle.getSerializable("official");
+            ArrayList<SocialMedia> socialMedia = new ArrayList<>();
+            
+        }
+
 
     }
 
