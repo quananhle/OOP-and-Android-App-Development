@@ -22,4 +22,14 @@ public class AboutActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(API_URL));
         startActivity(intent);
     }
+    public void appNameClicked(View view){
+        final String APP_SOURCE_URL = "https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/KnowYourGovernment";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_SOURCE_URL));
+        startActivity(intent);
+    }
+    public void iconClicked(View view){
+        final String APP_SOURCE_URL = "https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/KnowYourGovernment";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_SOURCE_URL));
+        startActivity(intent);
+    }
 }
