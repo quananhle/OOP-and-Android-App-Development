@@ -1,28 +1,29 @@
-package com.quananhle.knowyourgovernment.thread;
+package com.quananhle.knowyourgovernment.helper;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
-import com.quananhle.knowyourgovernment.helper.Official;
-import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class OfficialLoaderRunnable implements Runnable {
-    private static final String TAG = "OfficialLoaderRunnable";
-    private static final String REQUEST_METHOD = "GET";
+public class OfficialLoader extends AsyncTask<String, Void, String> {
     private MainActivity mainActivity;
-
+    private static final String TAG = "OfficialLoader";
     private static final String API_KEY = "AIzaSyDBDktFKTYIN3gfxkLWzdhkafxtRVM6W0w";
     private static String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
             + API_KEY + "&address=";
@@ -33,66 +34,74 @@ public class OfficialLoaderRunnable implements Runnable {
     private String state;
     private String zip;
 
-    public OfficialLoaderRunnable(MainActivity mainActivity, String zipCode){
+    public OfficialLoader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.zip = zipCode;
     }
+
     @Override
-    public void run(){
-        String dataURL = DATA_URL + zip;
+    protected void onPreExecute() {
+        Log.d(TAG, "onPreExecute: in pre execute");
+    }
+
+    @Override
+    protected void onPostExecute(String str) {
+//        Log.d(TAG, "onPostExecute: in post execute");
+        if (str == null) {
+            Toast.makeText(mainActivity, "Civic Info Service API is unavailable", Toast.LENGTH_LONG).show();
+            mainActivity.setOfficialList(null);
+            return;
+        } else if (str.isEmpty()) {
+            Toast.makeText(mainActivity, "Location not found", Toast.LENGTH_SHORT).show();
+            mainActivity.setOfficialList(null);
+            return;
+        }
+        ArrayList<Official> officialArrayList = parseJSON(str);
+        Object[] objects = new Object[2];
+        objects[0] = city + ", " + state + " " + zip;
+        objects[1] = officialArrayList;
+        mainActivity.setOfficialList(objects);
+        return;
+    }
+
+    @Override
+    protected String doInBackground(String... strings) {
+        String dataURL = DATA_URL + strings[0];
+//        Log.d(TAG, "doInBackground: URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
-        Log.d(TAG, "run: " + urlToUse);
+//        Log.d(TAG, "doInBackground: " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.connect();
-
-            if (httpURLConnection.getResponseCode() != HttpURLConnection.HTTP_OK){
-                Log.d(TAG, "run: HTTP ResponseCode NOT OK: " + httpURLConnection.getResponseCode());
-                handleResults(null);
-                return;
-            }
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(inputStream)));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream is = conn.getInputStream();
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line).append('\n');
             }
-            Log.d(TAG, "run: " + stringBuilder.toString());
+            Log.d(TAG, "doInBackground: " + stringBuilder.toString());
+        } catch (MalformedURLException mURLe) {
+            mURLe.printStackTrace();
+        } catch (ProtocolException pe) {
+            pe.printStackTrace();
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+//            Log.e(TAG, "doBackground: File not found " + fnfe);
+            return null;
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+//            Log.e(TAG, "doBackground: IOExecption " + ioe);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+//            Log.e(TAG, "doInBackground: Exception", e);
+            return null;
         }
-        catch (Exception e){
-            Log.e(TAG, "run: " + e);
-            handleResults(null);
-            return;
-        }
-        handleResults(stringBuilder.toString());
+//        Log.d(TAG, "doInBackground: returning");
+        return stringBuilder.toString();
     }
-    //====================== *** HELPER•METHODS *** ======================//
-    public void handleResults(String str){
-        if (str == null){
-            Log.d(TAG, "handleResults: Failure in data downloading");
-            mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mainActivity.downloadFailed();
-                }
-            });
-            return;
-        }
-        final ArrayList<Official> officialArrayList = parseJSON(str);
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (officialArrayList != null){
-                    Toast.makeText(mainActivity, "Loaded " + officialArrayList.size()
-                            + " officials.", Toast.LENGTH_SHORT).show();
-                    mainActivity.updateList(officialArrayList);
-                }
-            }
-        });
-    }
+
     private ArrayList<Official> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
         SocialMedia socialMedia = new SocialMedia();
