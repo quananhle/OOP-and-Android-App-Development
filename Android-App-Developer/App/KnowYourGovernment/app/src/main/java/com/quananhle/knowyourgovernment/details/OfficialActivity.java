@@ -8,11 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quananhle.knowyourgovernment.R;
+import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class OfficialActivity extends AppCompatActivity {
     private static final String TAG = "OfficialActivity";
@@ -32,7 +34,7 @@ public class OfficialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_officials);
 
-
+        setupComponents();
     }
 
 
@@ -52,6 +54,18 @@ public class OfficialActivity extends AppCompatActivity {
 
     }
 
+    //====================== *** HELPER•METHODS *** ======================//
 
+    //=====* onCreate *====//
+    private void setupComponents(){
+//        private TextView location, office, name, party, addressLine1, addressLine2, addressLine3, email, url, phone, website;
+        
+
+        recyclerView = findViewById(R.id.recyclerView);
+        officialAdapter = new OfficialAdapter(officialsList, this);
+        recyclerView.setAdapter(officialAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationView = findViewById(R.id.location);
+    }
 
 }
