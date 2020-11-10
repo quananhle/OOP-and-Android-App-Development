@@ -22,23 +22,26 @@ public class OfficialAdapter extends RecyclerView.Adapter<OfficialViewHolder> {
         this.officialsList = officialsList;
         this.mainActivity = mainActivity;
     }
+
     @Override
-    public OfficialViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType){
+    public OfficialViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: Making New");
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_dialog, parent, false);
         itemView.setOnClickListener(mainActivity);
         return new OfficialViewHolder(itemView);
     }
+
     @Override
-    public void onBindViewHolder(OfficialViewHolder officialViewHolder, int position){
+    public void onBindViewHolder(OfficialViewHolder officialViewHolder, int position) {
         Officials officials = officialsList.get(position);
         officialViewHolder.office.setText(officials.getOffice());
         officialViewHolder.officialNameParty
                 .setText(String.format("%s (%s)", officials.getName(), officials.getParty()));
     }
+
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return officialsList.size();
     }
 }
