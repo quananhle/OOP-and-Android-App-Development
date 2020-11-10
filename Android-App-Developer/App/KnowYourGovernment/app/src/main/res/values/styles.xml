@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/americanBlue</item>
-        <item name="colorPrimaryDark">@color/americanWhite</item>
+        <item name="colorPrimaryDark">@color/americanRed</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
