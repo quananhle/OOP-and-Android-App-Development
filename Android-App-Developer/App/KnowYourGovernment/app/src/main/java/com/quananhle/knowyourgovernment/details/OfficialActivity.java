@@ -1,34 +1,37 @@
 package com.quananhle.knowyourgovernment.details;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quananhle.knowyourgovernment.R;
-import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
-import com.quananhle.knowyourgovernment.helper.Officials;
+import com.quananhle.knowyourgovernment.helper.Official;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.core.content.ContextCompat;
 
 public class OfficialActivity extends AppCompatActivity {
     private static final String TAG = "OfficialActivity";
-    private TextView office, name, party, addressLine1, addressLine2, addressLine3, email, url, phone, website, location;
+    private TextView location, office, name, party, addressLine1, addressLine2, addressLine3, phone, email, website;
     private TextView addressLabel, phoneLabel, emailLabel, websiteLabel;
     private ImageView profilePhoto, partyLogo, facebookButton, twitterButton, youtubeButton;
     private SocialMedia facebook, twitter, youtube;
-    private Officials official;
+    private Official official;
     private ConstraintLayout constraintLayout, information;
 
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
     private static final String UNKNOWN_PARTY = "Unknown";
-    public static final String DEM = "Democrat";
+    public static final String DEM = "Democratic";
     public static final String REP = "Republican";
 
     @Override
@@ -59,7 +62,6 @@ public class OfficialActivity extends AppCompatActivity {
         this.addressLine2   = findViewById(R.id.address_line2);
         this.addressLine3   = findViewById(R.id.address_line3);
         this.email          = findViewById(R.id.email);
-        this.url            = findViewById(R.id.url);
         this.phone          = findViewById(R.id.phone);
         this.website        = findViewById(R.id.website);
 
@@ -85,9 +87,71 @@ public class OfficialActivity extends AppCompatActivity {
     protected void populateData(){
         Bundle bundle = this.getIntent().getExtras();
         if (this.getIntent().hasExtra("official")){
-            official = (Officials) bundle.getSerializable("official");
+            official = (Official) bundle.getSerializable("official");
             ArrayList<SocialMedia> socialMedia = new ArrayList<>();
-            if (official.getOffice().equals(DEFAULT_DISPLAY))
+
+            if (!official.getOffice().equals("")){office.setText(official.getOffice());}
+            if (!official.getName().equals("")){name.setText(official.getName());}
+            if (!official.getParty().equals("")){party.setText(official.getParty());}
+
+            if(official.getParty().trim().toLowerCase().contains(DEM)){
+                aDonkey();
+            }
+            else if(official.getParty().trim().toLowerCase().contains(REP)){
+                anElephant();
+            }
+            else{
+                anIndependent();
+            }
+
+            if (!official.getAddress().equals("")){
+                String[] address = official.getAddress().split("\r\n");
+                if (address.length == 3){
+                    addressLine1.setText(address[0]);
+                    addressLine1.setLinkTextColor(getColor(R.color.americanWhite));
+                    addressLine2.setText(address[1]);
+                    addressLine2.setLinkTextColor(getColor(R.color.americanWhite));
+                    addressLine3.setText(address[2]);
+                    addressLine3.setLinkTextColor(getColor(R.color.americanWhite));
+                }
+            }
+            else {
+                hideView(addressLabel);
+                hideView(addressLine1);
+                hideView(addressLine2);
+                hideView(addressLine3);
+                ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
+                        (ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0, 0, 0, 0);
+                phoneLabel.setLayoutParams(layoutParams);
+            }
+
+            if (!official.getPhoneNumber().equals("")){
+                phone.setText(official.getPhoneNumber());
+                phone.setLinkTextColor(getColor(R.color.americanWhite));
+            }
+            else {
+                hideView(phoneLabel);
+                hideView(phone);
+            }
+
+            if (!official.getEmailAddress().equals("")){
+                email.setText(official.getEmailAddress());
+                email.setLinkTextColor(getColor(R.color.americanWhite));
+            }
+            else {
+                hideView(emailLabel);
+                hideView(email);
+            }
+
+            if (!official.getUrl().equals("")){
+                website.setText(official.getUrl());
+                website.setLinkTextColor(getColor(R.color.americanWhite));
+            }
+            else {
+                hideView(websiteLabel);
+                hideView(website);
+            }
         }
     }
 
@@ -105,6 +169,39 @@ public class OfficialActivity extends AppCompatActivity {
     }
     public void youtubeClicked(View view){
 
+    }
+
+    protected void aDonkey(){
+        constraintLayout.setBackgroundResource(R.color.democraticBlue);
+        partyLogo.setImageResource(R.drawable.dem_logo);
+        information.setBackgroundResource(R.color.democraticBlue);
+        getWindow().setNavigationBarColor(getColor(R.color.democraticBlue));
+    }
+    protected void anElephant(){
+        constraintLayout.setBackgroundResource(R.color.republicanRed);
+        partyLogo.setImageResource(R.drawable.rep_logo);
+        information.setBackgroundResource(R.color.republicanRed);
+        getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
+    }
+    protected void anIndependent(){
+        constraintLayout.setBackgroundResource(R.color.colorPrimaryDark);
+        information.setBackgroundResource(R.color.colorPrimaryDark);
+        getWindow().setNavigationBarColor(getColor(R.color.colorPrimaryDark));
+    }
+    private static void hideView(View view){
+        view.setVisibility(View.GONE);
+    }
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (connectivityManager == null) {
+            return false;
+        } else if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
