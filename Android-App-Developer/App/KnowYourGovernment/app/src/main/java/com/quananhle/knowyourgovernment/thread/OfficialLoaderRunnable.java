@@ -96,7 +96,6 @@ public class OfficialLoaderRunnable implements Runnable {
     }
     private ArrayList<Officials> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
-        Officials official = new Officials();
         ArrayList<Officials> officialsArrayList = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(str);
@@ -113,8 +112,7 @@ public class OfficialLoaderRunnable implements Runnable {
             city = normalizedInput.getString("city");
             state = normalizedInput.getString("state");
             zip = normalizedInput.getString("zip");
-            String location = city + ", " + state + " " + zip;
-            mainActivity.setLocationView(location);
+
             /**
              * 2) The “offices” JSONArray contains the following:
              * "offices": [
@@ -158,52 +156,52 @@ public class OfficialLoaderRunnable implements Runnable {
                 for (int j=0; j < array.length; ++j){
                     indices[j] = Integer.parseInt(array[j]);
                 }
-            /**
-             * 3) The “officials” JSONArray contains the following:
-             * "officials": [
-             *  {
-             *  "name": "Donald J. Trump",
-             *  "address": [
-             *  {
-             *      "line1": "The White House",
-             *      "line2": "1600 Pennsylvania Avenue NW",
-             *      "city": "Washington",
-             *      "state": "DC",
-             *      "zip": "20500"
-             *  }
-             *],
-             * "party": "Republican",
-             * "phones": [
-             *      "(202) 456-1111"
-             * ],
-             * "urls": [
-             *      "http://www.whitehouse.gov/"
-             * ],
-             * "emails": [
-             *      "email@address.com"
-             * ]
-             * "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/PE%20Color.jpg",
-             * "channels": [
-             *  {
-             *      "type": "GooglePlus",
-             *      "id": "+whitehouse"
-             *  },
-             *  {
-             *      "type": "Facebook",
-             *      "id": "whitehouse"
-             *  },
-             *  {
-             *      "type": "Twitter",
-             *      "id": "whitehouse"
-             *  },
-             *  {
-             *      "type": "YouTube",
-             *      "id": "whitehouse"
-             *  }
-             * ]
-             * },
-             *]
-             */
+                /**
+                 * 3) The “officials” JSONArray contains the following:
+                 * "officials": [
+                 *  {
+                 *  "name": "Donald J. Trump",
+                 *  "address": [
+                 *  {
+                 *      "line1": "The White House",
+                 *      "line2": "1600 Pennsylvania Avenue NW",
+                 *      "city": "Washington",
+                 *      "state": "DC",
+                 *      "zip": "20500"
+                 *  }
+                 *],
+                 * "party": "Republican",
+                 * "phones": [
+                 *      "(202) 456-1111"
+                 * ],
+                 * "urls": [
+                 *      "http://www.whitehouse.gov/"
+                 * ],
+                 * "emails": [
+                 *      "email@address.com"
+                 * ]
+                 * "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/PE%20Color.jpg",
+                 * "channels": [
+                 *  {
+                 *      "type": "GooglePlus",
+                 *      "id": "+whitehouse"
+                 *  },
+                 *  {
+                 *      "type": "Facebook",
+                 *      "id": "whitehouse"
+                 *  },
+                 *  {
+                 *      "type": "Twitter",
+                 *      "id": "whitehouse"
+                 *  },
+                 *  {
+                 *      "type": "YouTube",
+                 *      "id": "whitehouse"
+                 *  }
+                 * ]
+                 * },
+                 *]
+                 */
                 JSONArray officialsArray = object.getJSONArray("officials");
                 //access the elements of officials
                 for (int j=0; j < indices.length; ++j){
@@ -214,12 +212,20 @@ public class OfficialLoaderRunnable implements Runnable {
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
                     }
-                    JSONObject jsonAddressObject = jsonOfficialsObject.getJSONArray("address").getJSONObject(0);
-                    if (jsonAddressObject.has("line1")) address += jsonAddressObject.getString("line1") +'\n';
-                    if (jsonAddressObject.has("line2")) address += jsonAddressObject.getString("line2") +'\n';
-                    if (jsonAddressObject.has("city"))  address += jsonAddressObject.getString("city")  +", ";
-                    if (jsonAddressObject.has("state")) address += jsonAddressObject.getString("state") +' ';
-                    if (jsonAddressObject.has("zip"))   address += jsonAddressObject.getString("zip");
+                    else {
+                        JSONObject jsonAddressObject = jsonOfficialsObject
+                                .getJSONArray("address").getJSONObject(0);
+                        if (jsonAddressObject.has("line1")) address += jsonAddressObject
+                                .getString("line1") +'\n';
+                        if (jsonAddressObject.has("line2")) address += jsonAddressObject
+                                .getString("line2") +'\n';
+                        if (jsonAddressObject.has("city"))  address += jsonAddressObject
+                                .getString("city")  +", ";
+                        if (jsonAddressObject.has("state")) address += jsonAddressObject
+                                .getString("state") +' ';
+                        if (jsonAddressObject.has("zip"))   address += jsonAddressObject
+                                .getString("zip");
+                    }
 
                     String party = (!jsonOfficialsObject.has("party")
                             ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
@@ -234,7 +240,7 @@ public class OfficialLoaderRunnable implements Runnable {
 
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
-                    String googleAccount = "", facebookAccount = "", twitterAccount = "", youtubeAccount = "";
+                    String facebookAccount = "", twitterAccount = "", youtubeAccount = "";
                     if (jsonArrayChannels != null){
                         for (int k=0; k < jsonArrayChannels.length(); ++k) {
                             JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
@@ -245,14 +251,14 @@ public class OfficialLoaderRunnable implements Runnable {
                             youtubeAccount = type.equals("Youtube")   ? id : "";
                         }
                         socialMedia = new SocialMedia(facebookAccount, twitterAccount, youtubeAccount);
-                        official.setSocialMedia(socialMedia);
                     }
                     else {
                         facebookAccount = DEFAULT_DISPLAY;
                         twitterAccount  = DEFAULT_DISPLAY;
                         youtubeAccount  = DEFAULT_DISPLAY;
                     }
-                    official = new Officials(officeName, officialName, party, address, phones, urls, emails, photoURL, socialMedia);
+                    Officials official = new Officials(officeName, officialName, party, address, phones, urls,
+                            emails, photoURL, socialMedia);
                     officialsArrayList.add(official);
                 }
             }
