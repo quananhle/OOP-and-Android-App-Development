@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView recyclerView;
     private List<Officials> officialsList = new ArrayList<>();
     private OfficialAdapter officialAdapter;
-    private static MainActivity mainActivity;
+    private MainActivity mainActivity = this;
     private ConnectivityManager connectivityManager;
     private TextView locationView;
     private Locator locator;
@@ -68,55 +68,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         officialAdapter = new OfficialAdapter(officialsList, this);
         recyclerView.setAdapter(officialAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationView = findViewById(R.id.location);
 
         //check if connected to the network at start
-        if (!isConnected()){
+        if (!isConnected()) {
             showMessage(ERROR_ICON,
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
         locator = new Locator(this);
         locator.shutDown();
-
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem){
-        Intent intent;
-        switch (menuItem.getItemId()){
+    public boolean onOptionsItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
             case R.id.search_button:
-                Log.d(TAG, "onOptionsItemSelected: Start searching for location");
+                Log.d(TAG, "onOptionsItemSelected: search clicked");
                 Toast.makeText(this, "NEW LOCATION", Toast.LENGTH_SHORT).show();
-                searchButtonPressed();
+                if (isConnected()) {
+                    searchButtonPressed();
+                } else {
+                    showMessage(ERROR_ICON, "NO NETWORK CONNECTION",
+                            "Data cannot be accessed/loaded without an Internet connection");
+                }
+                break;
             case R.id.about_button:
-                return true;
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                startActivity(intent);
+                break;
             default:
-                return super.onOptionsItemSelected(menuItem);
+                Toast.makeText(this, "Unknown Option", Toast.LENGTH_SHORT).show();
         }
+        return super.onOptionsItemSelected(menuItem);
     }
+
     @Override
-    public void onClick(View view){
+    public void onClick(View view) {
         int position = recyclerView.getChildAdapterPosition(view);
         Intent intent = new Intent(this, OfficialActivity.class);
         intent.putExtra("location", locationView.getText().toString());
@@ -126,17 +141,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        if (requestCode == REQUEST_CODE){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE) {
             Log.d(TAG, "onRequestPermissionResult: Permission length" + permissions.length);
-            for (int i=0; i < permissions.length; ++i){
-                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)){
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED){
+            for (int i = 0; i < permissions.length; ++i) {
+                if (permissions[i].equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         locator.setUpLocationManager();
                         locator.determineLocation();
                         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -146,62 +160,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //====================== *** HELPER•METHODS *** ======================//
-    public boolean isConnected(){
+    public boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (connectivityManager == null){
+        if (connectivityManager == null) {
             return false;
-        }
-        else if (networkInfo != null && networkInfo.isConnected()){
+        } else if (networkInfo != null && networkInfo.isConnected()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
-    public void showMessage(int icon, String title, String message){
+    public void showMessage(int icon, String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle(title);
         dialog.setMessage(message);
-        if (icon == WARNING_ICON){
+        if (icon == WARNING_ICON) {
             dialog.setIcon(R.drawable.warning);
-        }
-        else if (icon == ERROR_ICON){
+        } else if (icon == ERROR_ICON) {
             dialog.setIcon(R.drawable.error);
-        }
-        else {
+        } else {
             dialog.setIcon(null);
         }
         dialog.show();
     }
+
     //=====* OfficialAdapter *====//
-    public void setOfficialsList(Object[] list){
-        if (list == null){
+    public void setOfficialsList(Object[] list) {
+        if (list == null) {
             locationView.setText("No Data For Location");
             officialsList.clear();
-        }
-        else {
+        } else {
             locationView.setText(list[0].toString());
             officialsList.clear();
             ArrayList<Officials> officialsArrayList = (ArrayList<Officials>) list[1];
-            for (int i=0; i<officialsArrayList.size(); ++i){
+            for (int i = 0; i < officialsArrayList.size(); ++i) {
                 officialsList.add(officialsArrayList.get(i));
             }
         }
         officialAdapter.notifyDataSetChanged();
     }
+
     //=====* Menu onOptionsItemSelected *====//
-    public void searchButtonPressed(){
-        if (!isConnected()){
+    public void searchButtonPressed() {
+        if (!isConnected()) {
             showMessage(ERROR_ICON,
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
-        final MainActivity main = this;
-        editText = new EditText(this);
-        final String location = editText.getText().toString();
+        final EditText editText = new EditText(this);
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -209,17 +218,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText.setGravity(Gravity.CENTER_HORIZONTAL);
         adb.setView(editText);
 
-        Toast.makeText(this, "Entered" + location, Toast.LENGTH_SHORT).show();
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 //                doRunnable(location);
+                String location = editText.getText().toString();
                 new AsyncOfficial(mainActivity).execute(location);
             }
         });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {}
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "onClick: searching cancelled");
+            }
         });
         adb.setMessage("Enter a City, State, or Zip Code:");
         AlertDialog dialog = adb.create();
@@ -229,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setLocation(double latitude, double longtitude) {
         Log.d(TAG, "doAddress: Lat " + latitude + ", Lon " + longtitude);
         List<Address> addressList = null;
-        Geocoder geocoder = new Geocoder(this , Locale.getDefault());
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             Log.d(TAG, "doAddress: Retrieving address");
             addressList = geocoder.getFromLocation(latitude, longtitude, 1);
@@ -238,8 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "doAddress: " + addressList.get(0).getPostalCode());
 //            officialLoaderRunnable.run();
             new AsyncOfficial(mainActivity).execute(addressList.get(0).getPostalCode());
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             Log.d(TAG, "doAddress: " + ioe.getMessage());
             Toast.makeText(this, "Address Not Found", Toast.LENGTH_SHORT).show();
@@ -261,10 +271,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void downloadFailed() {
         officialsList.clear();
     }
+
     public void updateList(ArrayList<Officials> officialsArrayList) {
         officialsList.addAll(officialsArrayList);
     }
-    public void setLocationView(String location){
+
+    public void setLocationView(String location) {
         locationView.setText(location);
     }
 }
+
