@@ -37,7 +37,7 @@ import com.quananhle.knowyourgovernment.helper.Locator;
 import com.quananhle.knowyourgovernment.helper.OfficialAdapter;
 import com.quananhle.knowyourgovernment.helper.Officials;
 import com.quananhle.knowyourgovernment.thread.AsyncOfficial;
-//import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
+import com.quananhle.knowyourgovernment.thread.OfficialLoaderRunnable;
 
 /**
  * @author Quan Le
@@ -221,9 +221,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                doRunnable(location);
                 String location = editText.getText().toString();
-                new AsyncOfficial(mainActivity).execute(location);
+//                doRunnable(location);
+                 new AsyncOfficial(mainActivity).execute(location);
             }
         });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -257,17 +257,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* OfficialLoaderRunnable *====//
-//    public void doRunnable(String location){
-//        if (isConnected()){
-//            if (editText.getText().toString().isEmpty()){
-//                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            //Load the data
+    public void doRunnable(String location){
+        if (isConnected()){
+            if (editText.getText().toString().isEmpty()){
+                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //Load the data
 //            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
 //            new Thread(officialLoaderRunnable).start();
-//        }
-//    }
+        }
+    }
     public void downloadFailed() {
         officialsList.clear();
     }
