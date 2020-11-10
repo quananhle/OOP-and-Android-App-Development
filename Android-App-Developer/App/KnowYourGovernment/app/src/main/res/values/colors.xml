@@ -6,5 +6,8 @@
     <color name="noteTextMain">#FF00FF</color>
     <color name="noteTextHighlight">#2F4F4F</color>
 <!--    Color -->
-    <color name="pearl_white">#F5F7E3</color>
+    <color name="pearlWhite">#F5F7E3</color>
+    <color name="americanWhite">#FFFFFF</color>
+    <color name="americanBlue">#3C3B6E</color>
+    <color name="americanRed">#B22234</color>
 </resources>

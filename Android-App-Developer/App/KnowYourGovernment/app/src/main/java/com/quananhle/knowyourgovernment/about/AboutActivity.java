@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
     }
-    protected void apiClicked(View view){
+    public void apiClicked(View view){
         final String API_URL = "https://developers.google.com/civic-information/";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(API_URL));
         startActivity(intent);

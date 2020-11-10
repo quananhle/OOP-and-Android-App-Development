@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/americanRed"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/americanBlue"
         android:text="@string/location_id"
         android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/noteTextMain"
+        android:textAllCaps="false"
+        android:textColor="@color/americanWhite"
         android:textSize="20sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,12 +34,10 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/americanWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@id/guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
