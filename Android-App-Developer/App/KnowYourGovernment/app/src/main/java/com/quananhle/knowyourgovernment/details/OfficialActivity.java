@@ -36,22 +36,10 @@ public class OfficialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_officials);
         setupComponents();
+        setupLocations();
+        populateData();
 
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
 
-        if (intent.hasExtra("location")){
-            location.setText(getIntent().getStringExtra("location"));
-        }
-        else {
-            location.setText("");
-        }
-
-        if (intent.hasExtra("official")){
-            official = (Officials) bundle.getSerializable("official");
-            ArrayList<SocialMedia> socialMedia = new ArrayList<>();
-            
-        }
 
 
     }
@@ -62,7 +50,7 @@ public class OfficialActivity extends AppCompatActivity {
     //====================== *** HELPER•METHODS *** ======================//
 
     //=====* onCreate *====//
-    private void setupComponents(){
+    protected void setupComponents(){
         this.location       = findViewById(R.id.location);
         this.office         = findViewById(R.id.title);
         this.name           = findViewById(R.id.name);
@@ -85,6 +73,22 @@ public class OfficialActivity extends AppCompatActivity {
         this.facebookButton = findViewById(R.id.facebook);
         this.twitterButton  = findViewById(R.id.twitter);
         this.youtubeButton  = findViewById(R.id.youtube);
+    }
+    protected void setupLocations(){
+        if (this.getIntent().hasExtra("location")){
+            location.setText(getIntent().getStringExtra("location"));
+        }
+        else {
+            location.setText("");
+        }
+    }
+    protected void populateData(){
+        Bundle bundle = this.getIntent().getExtras();
+        if (this.getIntent().hasExtra("official")){
+            official = (Officials) bundle.getSerializable("official");
+            ArrayList<SocialMedia> socialMedia = new ArrayList<>();
+            if (official.getOffice().equals(DEFAULT_DISPLAY))
+        }
     }
 
     public void photoClicked(View view){
