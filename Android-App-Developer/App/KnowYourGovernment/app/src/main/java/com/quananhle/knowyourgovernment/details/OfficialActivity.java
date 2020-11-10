@@ -3,6 +3,7 @@ package com.quananhle.knowyourgovernment.details;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,8 +161,20 @@ public class OfficialActivity extends AppCompatActivity {
                 }
                 else {
                     final String photoUrl = official.getPhotoUrl();
-                    Picasso picasso = 
+                    Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
+                        @Override
+                        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                            final String secureUrl = photoUrl.replace("http:", "https:");
+                            picasso.load(secureUrl).error(R.drawable.brokenimage)
+                                    .placeholder(R.drawable.placeholder).into(profilePhoto);
+                        }
+                    }).build();
+                    picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
+                            .into(profilePhoto);
                 }
+            }
+            else {
+                profilePhoto.setImageResource(R.drawable.placeholder);
             }
         }
     }
