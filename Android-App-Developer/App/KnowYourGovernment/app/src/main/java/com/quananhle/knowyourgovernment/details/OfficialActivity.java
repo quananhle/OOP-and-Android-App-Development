@@ -154,28 +154,11 @@ public class OfficialActivity extends AppCompatActivity {
                 hideView(website);
             }
 
-            if (isConnected()){
-                profilePhoto.setImageResource(R.drawable.placeholder);
-                if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
-                    profilePhoto.setImageResource(R.drawable.missing);
-                }
-                else {
-                    final String photoUrl = official.getPhotoUrl();
-                    Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
-                        @Override
-                        public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                            final String secureUrl = photoUrl.replace("http:", "https:");
-                            picasso.load(secureUrl).error(R.drawable.brokenimage)
-                                    .placeholder(R.drawable.placeholder).into(profilePhoto);
-                        }
-                    }).build();
-                    picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
-                            .into(profilePhoto);
-                }
-            }
-            else {
-                profilePhoto.setImageResource(R.drawable.placeholder);
-            }
+            loadProfilePicture();
+            loadSocialMediaIcons(socialMedia);
+
+
+
         }
     }
 
@@ -211,6 +194,34 @@ public class OfficialActivity extends AppCompatActivity {
         constraintLayout.setBackgroundResource(R.color.colorPrimaryDark);
         information.setBackgroundResource(R.color.colorPrimaryDark);
         getWindow().setNavigationBarColor(getColor(R.color.colorPrimaryDark));
+    }
+    protected void loadProfilePicture(){
+        if (isConnected()){
+            profilePhoto.setImageResource(R.drawable.placeholder);
+            if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
+                profilePhoto.setImageResource(R.drawable.missing);
+            }
+            else {
+                final String photoUrl = official.getPhotoUrl();
+                Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
+                    @Override
+                    public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        final String secureUrl = photoUrl.replace("http:", "https:");
+                        picasso.load(secureUrl).error(R.drawable.brokenimage)
+                                .placeholder(R.drawable.placeholder).into(profilePhoto);
+                    }
+                }).build();
+                picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
+                        .into(profilePhoto);
+            }
+        }
+        else {
+            profilePhoto.setImageResource(R.drawable.placeholder);
+        }
+    }
+    protected void loadSocialMediaIcons(ArrayList<SocialMedia> channels){
+        channels = official.getSocialMedia();
+
     }
     private static void hideView(View view){
         view.setVisibility(View.GONE);
