@@ -41,18 +41,18 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPreExecute(){
+    protected void onPreExecute() {
         Log.d(TAG, "onPreExecute: in pre execute");
     }
+
     @Override
-    protected void onPostExecute(String str){
+    protected void onPostExecute(String str) {
         Log.d(TAG, "onPostExecute: in post execute");
-        if (str == null){
+        if (str == null) {
             Toast.makeText(mainActivity, "Civic Info Service API is unavailable", Toast.LENGTH_LONG).show();
             mainActivity.setOfficialsList(null);
             return;
-        }
-        else if (str.isEmpty()){
+        } else if (str.isEmpty()) {
             Toast.makeText(mainActivity, "Location not found", Toast.LENGTH_SHORT).show();
             mainActivity.setOfficialsList(null);
             return;
@@ -64,6 +64,7 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
         mainActivity.setOfficialsList(objects);
         return;
     }
+
     @Override
     protected String doInBackground(String... strings) {
         String dataURL = DATA_URL + strings[0];
@@ -86,16 +87,15 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
             mURLe.printStackTrace();
         } catch (ProtocolException pe) {
             pe.printStackTrace();
-        } catch (FileNotFoundException fnfe){
+        } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
             Log.e(TAG, "doBackground: File not found " + fnfe);
             return null;
-        } catch (IOException ioe){
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             Log.e(TAG, "doBackground: IOExecption " + ioe);
             return null;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "doInBackground: Exception", e);
             return null;
@@ -106,6 +106,7 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
 
     private ArrayList<Officials> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
+        SocialMedia socialMedia = new SocialMedia();
         ArrayList<Officials> officialsArrayList = new ArrayList<>();
         try {
             JSONObject object = new JSONObject(str);
@@ -218,7 +219,6 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
-                    SocialMedia socialMedia = new SocialMedia();
                     if (!jsonOfficialsObject.has("address")){
                         address = DEFAULT_DISPLAY;
                     }
@@ -240,11 +240,11 @@ public class AsyncOfficial extends AsyncTask<String, Void, String> {
                     String party = (!jsonOfficialsObject.has("party")
                             ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
                     String phones = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("phones"));
-                    String urls = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("urls"));
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("phones").getString(0));
+                    String urls = (!jsonOfficialsObject.has("urls")
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("urls").getString(0));
                     String emails = (!jsonOfficialsObject.has("emails")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("emails"));
+                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("emails").getString(0));
                     String photoURL = (!jsonOfficialsObject.has("photoURL")
                             ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("photoURL"));
 
