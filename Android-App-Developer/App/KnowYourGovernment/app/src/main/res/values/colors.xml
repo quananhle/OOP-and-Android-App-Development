@@ -8,6 +8,8 @@
     <color name="americanWhite">#FFFFFF</color>
     <color name="americanBlue">#041E42</color>
     <color name="americanRed">#BF0D3E</color>
+    <color name="republicanRed">#DE0100</color>
+    <color name="democraticBlue">#0015BC</color>
     <color name="noteTextMain">#FF00FF</color>
     <color name="noteTextHighlight">#2F4F4F</color>
     <color name="golden_rod">#F6D13A</color>
