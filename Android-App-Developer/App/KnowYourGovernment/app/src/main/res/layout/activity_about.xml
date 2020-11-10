@@ -36,7 +36,7 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <TextView
-        android:id="@+id/appName"
+        android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
@@ -78,7 +78,7 @@
 
 
     <TextView
-        android:id="@+id/poweredby"
+        android:id="@+id/powered_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="168dp"
@@ -106,7 +106,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/gapi"
+        android:id="@+id/google_api"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -114,7 +114,7 @@
         android:onClick="apiClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poweredby">
+        app:layout_constraintTop_toBottomOf="@+id/powered_by">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -146,7 +146,7 @@
         app:layout_constraintStart_toEndOf="@id/guideline1_ver" />
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/app_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center_horizontal"

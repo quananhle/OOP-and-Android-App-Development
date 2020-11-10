@@ -24,7 +24,7 @@
         tools:layout_constraintBottom_toTopOf="@id/recyclerView" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_top"
+        android:id="@+id/main_guideline_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -38,6 +38,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline_top" />
+        app:layout_constraintTop_toTopOf="@id/main_guideline_top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

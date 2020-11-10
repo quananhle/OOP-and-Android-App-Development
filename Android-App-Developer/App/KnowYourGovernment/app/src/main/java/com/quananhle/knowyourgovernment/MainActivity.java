@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* OfficialLoaderRunnable *====//
     public void doRunnable(String location){
         if (isConnected()){
-            if (editText.getText().toString().isEmpty()){
+            if (location.isEmpty()){
                 Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
                 return;
             }

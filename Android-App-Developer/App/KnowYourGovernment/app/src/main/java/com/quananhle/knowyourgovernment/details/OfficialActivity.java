@@ -1,7 +1,5 @@
 package com.quananhle.knowyourgovernment.details;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,9 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class OfficialActivity extends AppCompatActivity {
     private static final String TAG = "OfficialActivity";
-    private TextView office, name, party, address, email, url, phone, website, location;
-    private ImageView profilePhoto, partyLogo, facebook, twitter, youtube;
-    private SocialMedia facebookHandle, twitterHandle, youtubeHandle;
+    private TextView office, name, party, addressLine1, addressLine2, addressLine3, email, url, phone, website, location;
+    private TextView addressLabel, phoneLabel, emailLabel, websiteLabel;
+    private ImageView profilePhoto, partyLogo, facebookButton, twitterButton, youtubeButton;
+    private SocialMedia facebook, twitter, youtube;
     private Officials official;
     private ConstraintLayout constraintLayout, information;
 
@@ -33,10 +32,40 @@ public class OfficialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_officials);
-
         setupComponents();
+
     }
 
+
+
+
+    //====================== *** HELPER•METHODS *** ======================//
+
+    //=====* onCreate *====//
+    private void setupComponents(){
+        this.location       = findViewById(R.id.location);
+        this.office         = findViewById(R.id.title);
+        this.name           = findViewById(R.id.name);
+        this.party          = findViewById(R.id.party);
+        this.addressLine1   = findViewById(R.id.address_line1);
+        this.addressLine2   = findViewById(R.id.address_line2);
+        this.addressLine3   = findViewById(R.id.address_line3);
+        this.email          = findViewById(R.id.email);
+        this.url            = findViewById(R.id.url);
+        this.phone          = findViewById(R.id.phone);
+        this.website        = findViewById(R.id.website);
+
+        this.addressLabel   = findViewById(R.id.address_label);
+        this.phoneLabel     = findViewById(R.id.phone_label);
+        this.emailLabel     = findViewById(R.id.email_label);
+        this.websiteLabel   = findViewById(R.id.website_label);
+
+        this.profilePhoto   = findViewById(R.id.photo);
+        this.partyLogo      = findViewById(R.id.party_logo);
+        this.facebookButton = findViewById(R.id.facebook);
+        this.twitterButton  = findViewById(R.id.twitter);
+        this.youtubeButton  = findViewById(R.id.youtube);
+    }
 
     public void photoClicked(View view){
 
@@ -54,18 +83,5 @@ public class OfficialActivity extends AppCompatActivity {
 
     }
 
-    //====================== *** HELPER•METHODS *** ======================//
-
-    //=====* onCreate *====//
-    private void setupComponents(){
-//        private TextView location, office, name, party, addressLine1, addressLine2, addressLine3, email, url, phone, website;
-        
-
-        recyclerView = findViewById(R.id.recyclerView);
-        officialAdapter = new OfficialAdapter(officialsList, this);
-        recyclerView.setAdapter(officialAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        locationView = findViewById(R.id.location);
-    }
 
 }
