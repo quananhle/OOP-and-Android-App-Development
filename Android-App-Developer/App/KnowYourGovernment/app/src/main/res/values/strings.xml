@@ -13,4 +13,20 @@
     <string name="version">Version 1.0</string>
     <string name="powered_by">Powered by</string>
     <string name="API"><u>Google Civic Information API</u></string>
+<!--    Officials Activity -->
+    <string name="party_logo">Party Logo</string>
+    <string name="profile_picture">Profile Photo</string>
+    <string name="address">Address: </string>
+    <string name="phone">Phone: </string>
+    <string name="email">Email: </string>
+    <string name="website">Website: </string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="youtube">YouTube</string>
+    <string name="official_position">President of the United States</string>
+    <string name="official_name">Abraham Lincoln</string>
+    <string name="official_party">(Republican Party)</string>
+    <string name="official_address_line1">White House</string>
+    <string name="official_address_line2">1600 Pennsylvania Avenue NW</string>
+    <string name="official_address_line3">Washington, D.C. 20500, U.S.</string>
 </resources>

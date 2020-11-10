@@ -33,110 +33,146 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/detailsCard"
+                android:id="@+id/information"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
                 android:elevation="4dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/partyLogo">
+                app:layout_constraintTop_toBottomOf="@+id/party_logo">
 
                 <TextView
                     android:id="@+id/email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="25dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/emailLabel"
+                    app:layout_constraintBottom_toBottomOf="@+id/email_label"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/emailLabel"
-                    app:layout_constraintTop_toTopOf="@+id/emailLabel" />
+                    app:layout_constraintStart_toEndOf="@+id/email_label"
+                    app:layout_constraintTop_toTopOf="@+id/email_label" />
 
                 <TextView
-                    android:id="@+id/url"
+                    android:id="@+id/website"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="25dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/urlLabel"
+                    app:layout_constraintBottom_toBottomOf="@+id/website_label"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/urlLabel"
-                    app:layout_constraintTop_toTopOf="@+id/urlLabel" />
+                    app:layout_constraintStart_toEndOf="@+id/website_label"
+                    app:layout_constraintTop_toTopOf="@+id/website_label" />
 
                 <TextView
-                    android:id="@+id/phoneLabel"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/phone_label"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="70dp"
+                    android:text="@string/phone"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/address" />
+                    app:layout_constraintTop_toBottomOf="@+id/address_line1" />
 
                 <TextView
-                    android:id="@+id/urlLabel"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/website_label"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:text="@string/website"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/emailLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/email_label" />
 
                 <TextView
-                    android:id="@+id/address"
+                    android:id="@+id/address_line1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="25dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textIsSelectable="false"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/addrressLabel"
+                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="400 E 33rd St Apt 1603, Chicago, 60616," />
+                    tools:text="@string/official_address_line1" />
 
                 <TextView
                     android:id="@+id/phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="25dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/pearlWhite"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/phoneLabel"
+                    app:layout_constraintBottom_toBottomOf="@+id/phone_label"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/phoneLabel"
-                    app:layout_constraintTop_toTopOf="@+id/phoneLabel"/>
+                    app:layout_constraintStart_toEndOf="@+id/phone_label"
+                    app:layout_constraintTop_toTopOf="@+id/phone_label" />
 
                 <TextView
-                    android:id="@+id/emailLabel"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/email_label"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:text="@string/email"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/phone_label" />
 
                 <TextView
-                    android:id="@+id/addrressLabel"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/addrress_label"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
+                    android:text="@string/address"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/address"
+                    app:layout_constraintBottom_toBottomOf="@+id/address_line1"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/address" />
+                    app:layout_constraintTop_toTopOf="@+id/address_line1" />
+
+                <TextView
+                    android:id="@+id/address_line2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="50dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/pearlWhite"
+                    android:textIsSelectable="false"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
+                    app:layout_constraintTop_toBottomOf="@+id/address_line1"
+                    tools:text="@string/official_address_line2" />
+
+                <TextView
+                    android:id="@+id/address_line3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/pearlWhite"
+                    android:textIsSelectable="false"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/addrress_label"
+                    app:layout_constraintTop_toBottomOf="@+id/address_line2"
+                    tools:text="@string/official_address_line3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -149,11 +185,12 @@
                 android:layout_marginEnd="16dp"
                 android:textAlignment="center"
                 android:textColor="@color/pearlWhite"
-                android:textSize="18sp"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="U.S. Senator" />
+                tools:text="@string/official_position" />
 
             <TextView
                 android:id="@+id/name"
@@ -161,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:text="@string/official_name"
                 android:textAlignment="center"
                 android:textColor="@color/pearlWhite"
                 android:textSize="24sp"
@@ -179,24 +217,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name"
-                tools:text="(Democratic Party)" />
+                tools:text="@string/official_party" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/verticalLeft"
+                android:id="@+id/guideline_ver1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.15" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/verticalRight"
+                android:id="@+id/guideline_ver3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.85" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline9"
+                android:id="@+id/guideline_hor1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -212,37 +250,36 @@
                 android:contentDescription="@string/profile_picture"
                 android:cropToPadding="true"
                 android:elevation="4dp"
-                android:onClick="expandImage"
+                android:onClick="photoClicked"
                 android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@+id/guideline9"
-                app:layout_constraintEnd_toStartOf="@+id/verticalRight"
-                app:layout_constraintStart_toStartOf="@+id/verticalLeft"
+                app:layout_constraintBottom_toTopOf="@+id/guideline_hor1"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_ver3"
+                app:layout_constraintStart_toStartOf="@+id/guideline_ver1"
                 app:layout_constraintTop_toBottomOf="@+id/party"
-                app:srcCompat="@drawable/i/missing" />
+                app:srcCompat="@drawable/missing" />
 
             <ImageView
-                android:id="@+id/partyLogo"
+                android:id="@+id/party_logo"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
-                android:background="@drawable/party_bg"
                 android:contentDescription="@string/party_logo"
                 android:elevation="6dp"
-                android:onClick="partyLogoClicked"
+                android:onClick="logoClicked"
                 android:scaleType="centerInside"
-                app:layout_constraintEnd_toStartOf="@+id/verticalRight"
-                app:layout_constraintStart_toStartOf="@+id/verticalLeft"
-                app:layout_constraintTop_toTopOf="@+id/guideline7"
-                app:srcCompat="@drawable/dem_logo" />
+                app:layout_constraintEnd_toStartOf="@+id/guideline_ver3"
+                app:layout_constraintStart_toStartOf="@+id/guideline_ver1"
+                app:layout_constraintTop_toTopOf="@+id/guideline_hor2"
+                app:srcCompat="@drawable/rep_logo" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline7"
+                android:id="@+id/guideline_hor2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5294118" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline8"
+                android:id="@+id/guideline_ver2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -255,16 +292,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/social_bg"
                 android:clickable="true"
                 android:contentDescription="@string/facebook"
-                android:onClick="facebookClicked"
                 android:padding="2dp"
+                android:onClick="facebookClicked"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/twitter"
-                app:layout_constraintTop_toBottomOf="@+id/detailsCard"
-                app:srcCompat="@drawable/ic_fb" />
+                app:layout_constraintTop_toBottomOf="@+id/information"
+                app:srcCompat="@drawable/facebook"
+                tools:text="@string/facebook"/>
 
             <ImageView
                 android:id="@+id/twitter"
@@ -273,16 +310,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/social_bg"
                 android:clickable="true"
                 android:contentDescription="@string/twitter"
-                android:onClick="twitterClicked"
                 android:padding="10dp"
+                android:onClick="twitterClicked"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailsCard"
-                app:srcCompat="@drawable/ic_twitter" />
+                app:layout_constraintTop_toBottomOf="@+id/information"
+                app:srcCompat="@drawable/twitter"
+                tools:text="@string/twitter"/>
 
             <ImageView
                 android:id="@+id/youtube"
@@ -291,19 +328,17 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/social_bg"
                 android:clickable="true"
                 android:contentDescription="@string/youtube"
-                android:onClick="youTubeClicked"
                 android:padding="5dp"
+                android:onClick="youtubeClicked"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/facebook"
-                app:layout_constraintTop_toBottomOf="@+id/detailsCard"
-                app:srcCompat="@drawable/ic_youtube" />
+                app:layout_constraintTop_toBottomOf="@+id/information"
+                app:srcCompat="@drawable/youtube"
+                tools:text="@string/youtube"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
