@@ -32,4 +32,9 @@ public class AboutActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_SOURCE_URL));
         startActivity(intent);
     }
+    public void developerNameClicked(View view){
+        final String DEVELOPER_GITHUB_URL = "https://github.com/Quananhle";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(DEVELOPER_GITHUB_URL));
+        startActivity(intent);
+    }
 }

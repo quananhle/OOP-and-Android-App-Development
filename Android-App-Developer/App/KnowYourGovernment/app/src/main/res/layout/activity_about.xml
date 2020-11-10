@@ -54,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
         android:layout_marginBottom="10dp"
+        android:onClick="developerNameClicked"
         android:text="@string/developer_info"
         android:textColor="@color/pearlWhite"
         android:textSize="18sp"
