@@ -104,15 +104,22 @@ public class OfficialActivity extends AppCompatActivity {
             }
 
             if (!official.getAddress().equals(DEFAULT_DISPLAY)){
-                String[] address = official.getAddress().split("\r\n");
-                if (address.length == 3){
-                    addressLine1.setText(address[0]);
-                    addressLine1.setLinkTextColor(getColor(R.color.americanWhite));
-                    addressLine2.setText(address[1]);
-                    addressLine2.setLinkTextColor(getColor(R.color.americanWhite));
-                    addressLine3.setText(address[2]);
-                    addressLine3.setLinkTextColor(getColor(R.color.americanWhite));
+                String[] lines = official.getAddress().split("\\r?\\n");
+                if (lines.length == 3){
+                    addressLine1.setText(lines[0]);
+                    addressLine2.setText(lines[1]);
+                    addressLine3.setText(lines[2]);
                 }
+                else if (lines.length == 2){
+                    addressLine1.setText(lines[0]);
+                    addressLine2.setText(lines[1]);
+                }
+                else {
+                    addressLine1.setText(lines[0]);
+                }
+                addressLine1.setLinkTextColor(getColor(R.color.americanWhite));
+                addressLine2.setLinkTextColor(getColor(R.color.americanWhite));
+                addressLine3.setLinkTextColor(getColor(R.color.americanWhite));
             }
             else {
                 hideView(addressLabel);
@@ -157,7 +164,7 @@ public class OfficialActivity extends AppCompatActivity {
         Linkify.addLinks(email,Linkify.EMAIL_ADDRESSES);
         Linkify.addLinks(website,Linkify.WEB_URLS);
         loadProfilePhoto(official.getPhotoUrl().trim());
-//        loadSocialMediaIcons();
+        loadSocialMediaIcons();
     }
 
     //=====* onClicked Methods *====//
@@ -183,17 +190,35 @@ public class OfficialActivity extends AppCompatActivity {
         }
     }
 
-//    protected void loadSocialMediaIcons(){
-//        if (!channels.getFacebookAccount().equals(DEFAULT_DISPLAY)){
-//            facebookButton.setVisibility(View.VISIBLE);
+    protected void loadSocialMediaIcons(){
+        if (!official.getSocialMedia().getFacebookAccount().equals(DEFAULT_DISPLAY)){
+            facebookButton.setVisibility(View.VISIBLE);
+        }
+        if (!official.getSocialMedia().getTwitterAccount().equals(DEFAULT_DISPLAY)){
+            twitterButton.setVisibility(View.VISIBLE);
+        }
+        if (!official.getSocialMedia().getYouTubeChannel().equals(DEFAULT_DISPLAY)){
+            youtubeButton.setVisibility(View.VISIBLE);
+        }
+//        if(official.getSocialMedia().getYouTubeChannel().equals(DEFAULT_DISPLAY)){
+//            hideView(youtubeButton);
 //        }
-//        if (!channels.getTwitterAccount().equals(DEFAULT_DISPLAY)){
-//            twitterButton.setVisibility(View.VISIBLE);
-//        }
-//        if (!channels.getYouTubeChannel().equals(DEFAULT_DISPLAY)){
+//        else {
 //            youtubeButton.setVisibility(View.VISIBLE);
 //        }
-//    }
+//        if(official.getSocialMedia().getTwitterAccount().equals(DEFAULT_DISPLAY)){
+//            hideView(twitterButton);
+//        }
+//        else {
+//            twitterButton.setVisibility(View.VISIBLE);
+//        }
+//        if(official.getSocialMedia().getFacebookAccount().equals(DEFAULT_DISPLAY)){
+//            hideView(facebookButton);
+//        }
+//        else {
+//            facebookButton.setVisibility(View.VISIBLE);
+//        }
+    }
 
     public void photoClicked(View view){
         if (!official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
@@ -224,7 +249,7 @@ public class OfficialActivity extends AppCompatActivity {
     public void facebookClicked(View view){
         Log.d(TAG, "facebookClicked: ");
         int currFacebookAppVersion = 3002850;
-        String facebookID = channels.getFacebookAccount();
+        String facebookID = official.getSocialMedia().getFacebookAccount();
         String FACEBOOK_URL = "https://www.facebook.com/" + facebookID;
         String urlToUse;
         PackageManager packageManager = getPackageManager();
@@ -234,7 +259,7 @@ public class OfficialActivity extends AppCompatActivity {
                 urlToUse = "fb://facewebmodal/f?href=" + FACEBOOK_URL;
             }
             else {
-                urlToUse = "fb://page/" + channels.getFacebookAccount();
+                urlToUse = "fb://page/" + official.getSocialMedia().getFacebookAccount();
             }
         }
         catch (PackageManager.NameNotFoundException e) {
@@ -248,7 +273,7 @@ public class OfficialActivity extends AppCompatActivity {
     public void twitterClicked(View view){
         Log.d(TAG, "twitterClicked: ");
         Intent intent = null;
-        String twitterID = channels.getTwitterAccount();
+        String twitterID = official.getSocialMedia().getTwitterAccount();
         try {
             getPackageManager().getPackageInfo("com.twitter.android",0);
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitterID));
@@ -261,7 +286,7 @@ public class OfficialActivity extends AppCompatActivity {
 
     public void youtubeClicked(View view){
         Log.d(TAG, "youtubeClicked: ");
-        String youTubeChannel = channels.getYouTubeChannel();
+        String youTubeChannel = official.getSocialMedia().getYouTubeChannel();
         Intent intent = null;
         try {
             intent = new Intent(Intent.ACTION_VIEW);

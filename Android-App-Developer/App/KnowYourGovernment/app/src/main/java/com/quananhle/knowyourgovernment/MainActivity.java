@@ -169,10 +169,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* OfficialAdapter *====//
-    public void setOfficialList(Object[] list) {
+    public void updatedData(Object[] list) {
         if (list == null) {
+//            officialList.clear();
             locationView.setText("No Data For Location");
-            officialList.clear();
         } else {
             locationView.setText(list[0].toString());
             officialList.clear();
@@ -202,18 +202,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String location = editText.getText().toString();
-//                doRunnable(location);
-                 new OfficialLoader(mainActivity).execute(location);
+                String location = editText.getText().toString().trim();
+                if(!location.equals("")) {
+                    locationView.setText("");
+                    // doRunnable(location);
+                    new OfficialLoader(MainActivity.this).execute(location);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "Location Has Not Been Entered", Toast.LENGTH_LONG).show();
+                    searchButtonPressed();
+                }
             }
         });
         adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this, "Option Cancelled", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onClick: searching cancelled");
             }
         });
-        adb.setMessage("Enter a City, State, or Zip Code:");
+        adb.setMessage("Enter (City, State) OR (Zip Code):");
         AlertDialog dialog = adb.create();
         dialog.show();
     }

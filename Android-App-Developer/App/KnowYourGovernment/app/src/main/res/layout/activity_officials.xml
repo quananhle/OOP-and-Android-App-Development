@@ -249,7 +249,6 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/missing"
                 android:clickable="true"
                 android:contentDescription="@string/profile_picture"
                 android:cropToPadding="true"
@@ -312,16 +311,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
+                android:background="@drawable/channel"
                 android:clickable="true"
                 android:contentDescription="@string/facebook"
-                android:padding="2dp"
                 android:onClick="facebookClicked"
+                android:padding="2dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/twitter"
                 app:layout_constraintTop_toBottomOf="@+id/information"
-                app:srcCompat="@drawable/facebook"
-                tools:text="@string/facebook"/>
+                app:srcCompat="@drawable/facebook" />
 
             <ImageView
                 android:id="@+id/twitter"
@@ -330,16 +329,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
+                android:background="@drawable/channel"
                 android:clickable="true"
                 android:contentDescription="@string/twitter"
-                android:padding="10dp"
                 android:onClick="twitterClicked"
+                android:padding="10dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/information"
-                app:srcCompat="@drawable/twitter"
-                tools:text="@string/twitter"/>
+                app:srcCompat="@drawable/twitter" />
 
             <ImageView
                 android:id="@+id/youtube"
@@ -348,16 +347,70 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="32dp"
+                android:background="@drawable/channel"
                 android:clickable="true"
                 android:contentDescription="@string/youtube"
-                android:padding="5dp"
                 android:onClick="youtubeClicked"
+                android:padding="5dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/facebook"
                 app:layout_constraintTop_toBottomOf="@+id/information"
-                app:srcCompat="@drawable/youtube"
-                tools:text="@string/youtube"/>
+                app:srcCompat="@drawable/youtube" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/facebook"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                android:clickable="true"-->
+<!--                android:contentDescription="@string/facebook"-->
+<!--                android:padding="2dp"-->
+<!--                android:onClick="facebookClicked"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/twitter"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/information"-->
+<!--                app:srcCompat="@drawable/facebook"-->
+<!--                tools:text="@string/facebook"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/twitter"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                android:clickable="true"-->
+<!--                android:contentDescription="@string/twitter"-->
+<!--                android:padding="10dp"-->
+<!--                android:onClick="twitterClicked"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/information"-->
+<!--                app:srcCompat="@drawable/twitter"-->
+<!--                tools:text="@string/twitter"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/youtube"-->
+<!--                android:layout_width="48dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                android:clickable="true"-->
+<!--                android:contentDescription="@string/youtube"-->
+<!--                android:padding="5dp"-->
+<!--                android:onClick="youtubeClicked"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/facebook"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/information"-->
+<!--                app:srcCompat="@drawable/youtube"-->
+<!--                tools:text="@string/youtube"/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
