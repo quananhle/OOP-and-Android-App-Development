@@ -3,17 +3,23 @@ package com.quananhle.knowyourgovernment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -51,13 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Official> officialList = new ArrayList<>();
     private OfficialAdapter officialAdapter;
     private MainActivity mainActivity = this;
-    private ConnectivityManager connectivityManager;
+    private LocationManager locationManager;
     private TextView locationView;
     private Locator locator;
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
     final int REQUEST_CODE = 5;
+
+    private Criteria criteria;
+    private String currentLatLon = "", currentLocation = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Data cannot be accessed/loaded without an Internet connection");
             locationView.setText("No Data For Location");
         }
+
+        getCurrentLocationOnCreate();
         locator = new Locator(this);
         locator.shutDown();
     }
@@ -206,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String location = editText.getText().toString().trim();
                 if(!location.equals("")) {
                     locationView.setText("");
-                    // doRunnable(location);
-                    new OfficialLoader(MainActivity.this).execute(location);
+                    doRunnable(location);
+//                    new OfficialLoader(MainActivity.this).execute(location);
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Location Has Not Been Entered", Toast.LENGTH_LONG).show();
@@ -227,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 
+    //=====* Location Handle *====//
     public void setLocation(double latitude, double longtitude) {
         Log.d(TAG, "doAddress: Lat " + latitude + ", Lon " + longtitude);
         List<Address> addressList = null;
@@ -245,19 +257,87 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Address Not Found", Toast.LENGTH_SHORT).show();
         }
     }
+    public void getCurrentLocation() {
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        @SuppressLint("MissingPermission") Location currentLocation = locationManager.getLastKnownLocation(bestProvider);
+        if (currentLocation != null) {
+            currentLatLon = String.format(Locale.getDefault(),  "%.4f, %.4f",
+                    currentLocation.getLatitude(), currentLocation.getLongitude());
+            locationView.setText(currentLatLon);
+        }
+        else {
+            locationView.setText("Location Can't Be Found!");
+        }
+    }
+    public void setLocation() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 329);
+        }
+        else {
+            getCurrentLocation();
+        }
+    }
+    public void getLatLon() {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses;
+            if (!currentLatLon.trim().isEmpty()) {
+                String[] latLon = currentLatLon.split(",");
+                double lat = Double.parseDouble(latLon[0]);
+                double lon = Double.parseDouble(latLon[1]);
+                addresses = geocoder.getFromLocation(lat, lon, 1);
+                if(!addresses.get(0).getPostalCode().equals("")) {
+                    currentLocation = addresses.get(0).getPostalCode();
+                }
+                else if(!addresses.get(0).getLocality().equals("")) {
+                    currentLocation = addresses.get(0).getLocality();
+                }
+                Log.d(TAG, "getLatLon: addresses: " + addresses.get(0).getPostalCode());
+                Toast.makeText(this, "Location Found: " + addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch (IOException e) {
+            Log.d(TAG, "convertLatLon: " + e);
+        }
+    }
+    public void getCurrentLocationOnCreate(){
+        setLocation();
+        getLatLon();
+        getCurrentLocation();
+        if (!currentLatLon.equals("")) {
+            if(isConnected()) {
+                doRunnable(currentLocation);
+            }
+            else {
+                showMessage(ERROR_ICON,
+                        "NO NETWORK CONNECTION",
+                        "Data cannot be accessed/loaded without an Internet connection");
+            }
+        }
+    }
 
     //=====* OfficialLoaderRunnable *====//
-//    public void doRunnable(String location){
-//        if (isConnected()){
-//            if (location.isEmpty()){
-//                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            //Load the data
-//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
-//            new Thread(officialLoaderRunnable).start();
-//        }
-//    }
+    public void doRunnable(String location){
+        if (isConnected()){
+            if (location.isEmpty()){
+                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //Load the data
+            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+            new Thread(officialLoaderRunnable).start();
+        }
+    }
     public void downloadFailed() {
         officialList.clear();
     }
