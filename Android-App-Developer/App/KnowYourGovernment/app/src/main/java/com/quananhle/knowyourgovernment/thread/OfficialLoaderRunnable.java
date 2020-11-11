@@ -2,9 +2,11 @@ package com.quananhle.knowyourgovernment.thread;
 
 import android.net.Uri;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
+import com.quananhle.knowyourgovernment.R;
 import com.quananhle.knowyourgovernment.helper.Official;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
@@ -93,12 +95,11 @@ public class OfficialLoaderRunnable implements Runnable {
             }
         });
     }
-    private ArrayList<Official> parseJSON(String str){
+    private ArrayList<Official> parseJSON(String str) {
         Log.d(TAG, "parseJSON: starting parsing JSON");
-        SocialMedia socialMedia = new SocialMedia();
+        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
         ArrayList<Official> officialArrayList = new ArrayList<>();
         try {
-            JSONObject object = new JSONObject(str);
             /**
              * 1) The “normalizedInput” JSONObject contains the following:
              * "normalizedInput": {
@@ -108,6 +109,7 @@ public class OfficialLoaderRunnable implements Runnable {
              *      "zip": "60654"
              * },
              */
+            JSONObject object = new JSONObject(str);
             JSONObject normalizedInput = object.getJSONObject("normalizedInput");
             city = normalizedInput.getString("city");
             state = normalizedInput.getString("state");
@@ -146,14 +148,14 @@ public class OfficialLoaderRunnable implements Runnable {
              * ],
              */
             JSONArray officesArray = object.getJSONArray("offices");
-            for (int i=0; i < officesArray.length(); ++i){
+            for (int i = 0; i < officesArray.length(); ++i) {
                 JSONObject jsonObject = officesArray.getJSONObject(i);
                 String officeName = jsonObject.getString("name");
                 String officialIndices = jsonObject.getString("officialIndices");
-                String [] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
-                int [] indices = new int[array.length];
+                String[] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
+                int[] indices = new int[array.length];
                 //access the indices of officialIndices and store it in indices
-                for (int j=0; j < array.length; ++j){
+                for (int j = 0; j < array.length; ++j) {
                     indices[j] = Integer.parseInt(array[j]);
                 }
                 /**
@@ -204,69 +206,65 @@ public class OfficialLoaderRunnable implements Runnable {
                  */
                 JSONArray officialsArray = object.getJSONArray("officials");
                 //access the elements of officials
-                for (int j=0; j < indices.length; ++j){
+                for (int j = 0; j < indices.length; ++j) {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
-                    if (!jsonOfficialsObject.has("address")){
+                    if (!jsonOfficialsObject.has("address")) {
                         address = DEFAULT_DISPLAY;
-                    }
-                    else {
+                    } else {
                         JSONObject jsonAddressObject = jsonOfficialsObject
                                 .getJSONArray("address").getJSONObject(0);
                         if (jsonAddressObject.has("line1")) address += jsonAddressObject
-                                .getString("line1") +'\n';
+                                .getString("line1") + '\n';
                         if (jsonAddressObject.has("line2")) address += jsonAddressObject
-                                .getString("line2") +'\n';
-                        if (jsonAddressObject.has("city"))  address += jsonAddressObject
-                                .getString("city")  +", ";
+                                .getString("line2") + '\n';
+                        if (jsonAddressObject.has("city")) address += jsonAddressObject
+                                .getString("city") + ", ";
                         if (jsonAddressObject.has("state")) address += jsonAddressObject
-                                .getString("state") +' ';
-                        if (jsonAddressObject.has("zip"))   address += jsonAddressObject
+                                .getString("state") + ' ';
+                        if (jsonAddressObject.has("zip")) address += jsonAddressObject
                                 .getString("zip");
                     }
 
-                    String party = (!jsonOfficialsObject.has("party")
-                            ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
-                    String phones = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("phones").getString(0));
-                    String urls = (!jsonOfficialsObject.has("urls")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("urls").getString(0));
-                    String emails = (!jsonOfficialsObject.has("emails")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("emails").getString(0));
-                    String photoURL = (!jsonOfficialsObject.has("photoURL")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("photoURL"));
+                    String party = (jsonOfficialsObject.has("party")
+                            ? jsonOfficialsObject.getString("party") : UNKNOWN_PARTY);
+                    String photoURL = (jsonOfficialsObject.has("photoUrl")
+                            ? jsonOfficialsObject.getString("photoUrl") : DEFAULT_DISPLAY);
+                    String phones = (jsonOfficialsObject.has("phones")
+                            ? jsonOfficialsObject.getJSONArray("phones").getString(0) : DEFAULT_DISPLAY);
+                    String emails = (jsonOfficialsObject.has("emails")
+                            ? jsonOfficialsObject.getJSONArray("emails").getString(0) : DEFAULT_DISPLAY);
+                    String urls = (jsonOfficialsObject.has("urls")
+                            ? jsonOfficialsObject.getJSONArray("urls").getString(0) : DEFAULT_DISPLAY);
 
-                    JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
-                            ? null : jsonOfficialsObject.getJSONArray("channels"));
-                    String facebookAccount = "", twitterAccount = "", youtubeAccount = "";
-                    if (jsonArrayChannels != null){
-                        for (int k=0; k < jsonArrayChannels.length(); ++k) {
-                            JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
-                            String type = jsonChannelObject.getString("type");
-                            String id = jsonChannelObject.getString("id");
-                            facebookAccount = type.equals("Facebook") ? id : "";
-                            twitterAccount = type.equals("Twitter")   ? id : "";
-                            youtubeAccount = type.equals("Youtube")   ? id : "";
-                        }
-                        socialMedia = new SocialMedia(facebookAccount, twitterAccount, youtubeAccount);
-                    }
-                    else {
-                        facebookAccount = DEFAULT_DISPLAY;
-                        twitterAccount  = DEFAULT_DISPLAY;
-                        youtubeAccount  = DEFAULT_DISPLAY;
-                    }
                     Official official = new Official(officeName, officialName, party, address, phones, urls,
                             emails, photoURL, socialMedia);
+                    official.setSocialMedia(getSocialMedia(jsonOfficialsObject));
                     officialArrayList.add(official);
                 }
             }
             return officialArrayList;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "parseJSON: Exception " + e.getMessage());
             e.printStackTrace();
         }
         return null;
+    }
+    private ArrayList<SocialMedia> getSocialMedia(JSONObject jsonObject){
+        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
+        SocialMedia tmp;
+        try {
+            JSONArray channels = (JSONArray) jsonObject.get("channels");
+            for(int i = 0; i < channels.length(); i++) {
+                JSONObject channel = (JSONObject) channels.get(i);
+                tmp = new SocialMedia(channel.getString("type"), channel.getString("id"));
+                socialMedia.add(tmp);
+            }
+        }
+        catch (Exception e) {
+            Log.d(TAG, "EXCEPTION: Get Social Media: " + e);
+        }
+        return socialMedia;
     }
 }
