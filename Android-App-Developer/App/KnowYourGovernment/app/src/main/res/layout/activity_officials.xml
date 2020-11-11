@@ -14,6 +14,7 @@
         android:elevation="4dp"
         android:padding="2dp"
         android:textAlignment="center"
+        android:textSize="16sp"
         android:textColor="@color/pearlWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -204,7 +205,7 @@
                 android:text="@string/official_name"
                 android:textAlignment="center"
                 android:textColor="@color/pearlWhite"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
