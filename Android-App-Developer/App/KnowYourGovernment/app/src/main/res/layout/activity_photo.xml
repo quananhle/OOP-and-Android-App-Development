@@ -15,6 +15,7 @@
         android:padding="2dp"
         android:textAlignment="center"
         android:textColor="@color/pearlWhite"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,11 +30,11 @@
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textColor="@color/pearlWhite"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/official_position"/>
+        tools:text="@string/official_position" />
 
     <TextView
         android:id="@+id/name"
@@ -43,7 +44,8 @@
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textColor="@color/pearlWhite"
-        android:textSize="24sp"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
@@ -57,6 +59,7 @@
         android:layout_marginEnd="16dp"
         android:textAlignment="center"
         android:textColor="@color/pearlWhite"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name"
@@ -93,6 +96,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/party"
-        app:srcCompat="@drawable/placeholder" />
+        app:srcCompat="@drawable/missing" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
