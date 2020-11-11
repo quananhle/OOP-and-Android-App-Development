@@ -1,9 +1,13 @@
 package com.quananhle.knowyourgovernment.details;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +16,7 @@ import com.quananhle.knowyourgovernment.helper.Official;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
 import com.squareup.picasso.Picasso;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -21,6 +26,9 @@ public class PhotoDetailActivity extends AppCompatActivity {
     private ImageView profilePhoto, partyLogo;
     private Official official;
     private ConstraintLayout constraintLayout;
+
+    final int WARNING_ICON = 1;
+    final int ERROR_ICON = 2;
 
     public static final String DEM = "democratic";
     public static final String REP = "republican";
@@ -42,6 +50,7 @@ public class PhotoDetailActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.constraint_layout);
     }
     protected void setupLocations(){
+        location.setBackgroundResource(R.color.americanRed);
         Intent intent = this.getIntent();
         if(intent.hasExtra("location"))
             location.setText(intent.getStringExtra("location"));
@@ -85,27 +94,11 @@ public class PhotoDetailActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(getColor(R.color.midnight_black));
     }
 
-    private void loadProfilePhoto(String URL) {
+    private void loadProfilePhoto(String photoUrl) {
         if (isConnected()) {
-            Log.d(TAG, "onCreate: Loading Profile Photo");
-            final String photoUrl = this.getIntent().getStringExtra("photoUrl");
-            Log.d(TAG, "onCreate: Phot Url is " + photoUrl);
-            Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
-                @Override
-                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                    // Here we try https if the http image attempt failed
-                    final String changedUrl = photoUrl.replace("http:", "https:");
-                    Log.d(TAG, "onImageLoadFailed: AAA");
-                    picasso.get().load(changedUrl)
-                            .error(R.drawable.brokenimage)
-                            .placeholder(R.drawable.placeholder)
-                            .into(profilePhoto);
-
-                }
-            }).build();
-            Log.d(TAG, "onCreate: BBB");
-            picasso.load(photoUrl)
-                    .error(R.drawable.brokenimage)
+            Log.d(TAG, "onCreate: Loading Photo");
+            Log.d(TAG, "onCreate: Photo Url " + photoUrl);
+            Picasso.get().load(photoUrl).error(R.drawable.brokenimage)
                     .placeholder(R.drawable.placeholder)
                     .into(profilePhoto);
         }
@@ -114,15 +107,44 @@ public class PhotoDetailActivity extends AppCompatActivity {
             showMessage(ERROR_ICON, "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
         }
+    }
+    protected void logoClicked(View view) {
+        Log.d(TAG, "logoClicked: ");
+        String GOP_URL = "https://www.gop.com";
+        String DEM_URL = "https://democrats.org";
+        if(official.getParty().toLowerCase().trim().contains(DEM)) {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(DEM_URL));
+            startActivity(i);
+        }
+        else if(official.getParty().toLowerCase().trim().contains(REP)) {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(GOP_URL));
+            startActivity(i);
+        }
+    }
 
-
-
-
-
-        Picasso.get()
-                .load(URL)
-                .error(R.drawable.brokenimage)
-                .placeholder(R.drawable.placeholder)
-                .into(profilePhoto);
+    public void showMessage(int icon, String title, String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON) {
+            dialog.setIcon(R.drawable.warning);
+        } else if (icon == ERROR_ICON) {
+            dialog.setIcon(R.drawable.error);
+        } else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
+    }
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (connectivityManager == null) {
+            return false;
+        } else if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
