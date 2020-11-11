@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         getCurrentLocationOnCreate();
+        
         locator = new Locator(this);
         locator.shutDown();
     }
