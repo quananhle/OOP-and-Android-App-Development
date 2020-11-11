@@ -13,4 +13,5 @@
     <color name="noteTextMain">#FF00FF</color>
     <color name="noteTextHighlight">#2F4F4F</color>
     <color name="golden_rod">#F6D13A</color>
+    <color name="midnight_black">#1B1E23</color>
 </resources>

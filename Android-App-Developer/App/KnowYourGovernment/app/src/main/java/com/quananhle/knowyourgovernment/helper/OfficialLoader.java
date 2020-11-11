@@ -216,6 +216,75 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                  */
                 JSONArray officialsArray = object.getJSONArray("officials");
                 //access the elements of officials
+
+//                for (int j = 0; j < indices.length; j++) {
+//                    JSONObject innerObj = officialsArray.getJSONObject(indices[j]);
+//                    String name = innerObj.getString("name");
+//
+//                    String address = "";
+//                    if (!innerObj.has("address")) {
+//                        address = DEFAULT_DISPLAY;
+//                    } else {
+//                        JSONArray addressArray = innerObj.getJSONArray("address");
+//                        JSONObject addressObject = addressArray.getJSONObject(0);
+//
+//                        if (addressObject.has("line1")) {
+//                            address += addressObject.getString("line1") + "\n";
+//                        }
+//                        if (addressObject.has("line2")) {
+//                            address += addressObject.getString("line2") + "\n";
+//                        }
+//                        if (addressObject.has("city")) {
+//                            address += addressObject.getString("city") + " ";
+//                        }
+//                        if (addressObject.has("state")) {
+//                            address += addressObject.getString("state") + ", ";
+//                        }
+//                        if (addressObject.has("zip")) {
+//                            address += addressObject.getString("zip");
+//                        }
+//                    }
+//                    String party = (innerObj.has("party") ? innerObj.getString("party") : UNKNOWN_PARTY);
+//                    String phones = (innerObj.has("phones") ? innerObj.getJSONArray("phones").getString(0) : DEFAULT_DISPLAY);
+//                    String urls = (innerObj.has("urls") ? innerObj.getJSONArray("urls").getString(0) : DEFAULT_DISPLAY);
+//                    String emails = (innerObj.has("emails") ? innerObj.getJSONArray("emails").getString(0) : DEFAULT_DISPLAY);
+//                    String photoURL = (innerObj.has("photoUrl") ? innerObj.getString("photoUrl") : DEFAULT_DISPLAY);
+//
+//                    JSONArray channels = (innerObj.has("channels") ? innerObj.getJSONArray("channels") : null);
+//                    String facebook = "";
+//                    String twitter = "";
+//                    String youtube = "";
+//
+//                    if (channels != null) {
+//                        for (int k = 0; k < channels.length(); k++) {
+//                            String type = channels.getJSONObject(k).getString("type");
+//                            switch (type) {
+//                                case "Facebook":
+//                                    facebook = channels.getJSONObject(k).getString("id");
+//                                    break;
+//                                case "Twitter":
+//                                    twitter = channels.getJSONObject(k).getString("id");
+//                                    break;
+//                                case "YouTube":
+//                                    youtube = channels.getJSONObject(k).getString("id");
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                            socialMedia = new SocialMedia(facebook, twitter, youtube);
+//                        }
+//                    } else { // is null
+//                        facebook = DEFAULT_DISPLAY;
+//                        twitter = DEFAULT_DISPLAY;
+//                        youtube = DEFAULT_DISPLAY;
+//                    }
+//                    Official o = new Official(name, officeName, party,
+//                            address, phones, urls, emails, photoURL,
+//                            socialMedia);
+//                    officialArrayList.add(o);
+//                }
+
+
                 for (int j = 0; j < indices.length; ++j) {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
@@ -237,16 +306,16 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                                 .getString("zip");
                     }
 
-                    String party = (!jsonOfficialsObject.has("party")
-                            ? UNKNOWN_PARTY : jsonOfficialsObject.getString("party"));
-                    String phones = (!jsonOfficialsObject.has("phones")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("phones").getString(0));
-                    String urls = (!jsonOfficialsObject.has("urls")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("urls").getString(0));
-                    String emails = (!jsonOfficialsObject.has("emails")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getJSONArray("emails").getString(0));
-                    String photoURL = (!jsonOfficialsObject.has("photoURL")
-                            ? DEFAULT_DISPLAY : jsonOfficialsObject.getString("photoURL"));
+                    String party = (jsonOfficialsObject.has("party")
+                            ? jsonOfficialsObject.getString("party") : UNKNOWN_PARTY);
+                    String photoURL = (jsonOfficialsObject.has("photoUrl")
+                            ? jsonOfficialsObject.getString("photoUrl") : DEFAULT_DISPLAY);
+                    String phones = (jsonOfficialsObject.has("phones")
+                            ? jsonOfficialsObject.getJSONArray("phones").getString(0) : DEFAULT_DISPLAY);
+                    String emails = (jsonOfficialsObject.has("emails")
+                            ? jsonOfficialsObject.getJSONArray("emails").getString(0) : DEFAULT_DISPLAY);
+                    String urls = (jsonOfficialsObject.has("urls")
+                            ? jsonOfficialsObject.getJSONArray("urls").getString(0) : DEFAULT_DISPLAY);
 
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));

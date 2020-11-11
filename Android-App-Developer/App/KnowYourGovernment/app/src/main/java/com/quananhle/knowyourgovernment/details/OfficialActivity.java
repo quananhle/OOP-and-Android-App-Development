@@ -36,8 +36,8 @@ public class OfficialActivity extends AppCompatActivity {
 
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
     private static final String UNKNOWN_PARTY = "Unknown";
-    public static final String DEM = "Democratic";
-    public static final String REP = "Republican";
+    public static final String DEM = "democratic";
+    public static final String REP = "republican";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -99,7 +99,7 @@ public class OfficialActivity extends AppCompatActivity {
             else if(official.getParty().trim().toLowerCase().contains(REP)){
                 anElephant();
             }
-            else{
+            else {
                 anIndependent();
             }
 
@@ -156,23 +156,23 @@ public class OfficialActivity extends AppCompatActivity {
         Linkify.addLinks(phone,Linkify.PHONE_NUMBERS);
         Linkify.addLinks(email,Linkify.EMAIL_ADDRESSES);
         Linkify.addLinks(website,Linkify.WEB_URLS);
-        loadProfilePhoto();
-        loadSocialMediaIcons();
+        loadProfilePhoto(official.getPhotoUrl().trim());
+//        loadSocialMediaIcons();
     }
 
     //=====* onClicked Methods *====//
-    protected void loadProfilePhoto(){
+    public void loadProfilePhoto(String photoUrl){
         if (isConnected()){
             profilePhoto.setImageResource(R.drawable.placeholder);
-            if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
+            if (photoUrl.equals(DEFAULT_DISPLAY)){
                 profilePhoto.setImageResource(R.drawable.missing);
             }
             else {
-                final String photoUrl = official.getPhotoUrl();
+                final String url = photoUrl;
                 Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                        final String secureUrl = photoUrl.replace("http:", "https:");
+                        final String secureUrl = url.replace("http:", "https:");
                         picasso.load(secureUrl).error(R.drawable.brokenimage)
                                 .placeholder(R.drawable.placeholder).into(profilePhoto);
                     }
@@ -180,35 +180,22 @@ public class OfficialActivity extends AppCompatActivity {
                 picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
                         .into(profilePhoto);
             }
-//            if(official.getPhotoUrl().equals("")){
-//                profilePhoto.setImageResource(R.drawable.missing);
-//            }
-//            else {
-//                Picasso.get()
-//                        .load(official.getPhotoUrl())
-//                        .placeholder(R.drawable.placeholder)
-//                        .error(R.drawable.brokenimage)
-//                        .into(profilePhoto);
-//            }
+        }
+    }
+
+//    protected void loadSocialMediaIcons(){
+//        if (!channels.getFacebookAccount().equals(DEFAULT_DISPLAY)){
+//            facebookButton.setVisibility(View.VISIBLE);
 //        }
-//        else {
-//            profilePhoto.setImageResource(R.drawable.placeholder);
-        }
-    }
+//        if (!channels.getTwitterAccount().equals(DEFAULT_DISPLAY)){
+//            twitterButton.setVisibility(View.VISIBLE);
+//        }
+//        if (!channels.getYouTubeChannel().equals(DEFAULT_DISPLAY)){
+//            youtubeButton.setVisibility(View.VISIBLE);
+//        }
+//    }
 
-    protected void loadSocialMediaIcons(){
-        if (!channels.getFacebookAccount().equals(DEFAULT_DISPLAY)){
-            facebookButton.setVisibility(View.VISIBLE);
-        }
-        if (!channels.getTwitterAccount().equals(DEFAULT_DISPLAY)){
-            twitterButton.setVisibility(View.VISIBLE);
-        }
-        if (!channels.getYouTubeChannel().equals(DEFAULT_DISPLAY)){
-            youtubeButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-    protected void photoClicked(){
+    public void photoClicked(View view){
         if (!official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
             Intent intent = new Intent(this, PhotoDetailActivity.class);
             intent.putExtra("location", location.getText());
@@ -220,8 +207,8 @@ public class OfficialActivity extends AppCompatActivity {
         }
     }
 
-    protected void logoClicked(){
-        Log.d(TAG, "facebookClicked: ");
+    public void logoClicked(View view){
+        Log.d(TAG, "logoClicked: ");
         final String GOP_URL = "https://www.gop.com/";
         final String DEM_URL = "https://democrats.org/";
         if (official.getParty().toLowerCase().trim().contains(DEM)){
@@ -234,7 +221,7 @@ public class OfficialActivity extends AppCompatActivity {
         }
     }
 
-    protected void facebookClicked(View view){
+    public void facebookClicked(View view){
         Log.d(TAG, "facebookClicked: ");
         int currFacebookAppVersion = 3002850;
         String facebookID = channels.getFacebookAccount();
@@ -258,7 +245,7 @@ public class OfficialActivity extends AppCompatActivity {
         startActivity(facebookIntent);
     }
 
-    protected void twitterClicked(View view){
+    public void twitterClicked(View view){
         Log.d(TAG, "twitterClicked: ");
         Intent intent = null;
         String twitterID = channels.getTwitterAccount();
@@ -272,7 +259,7 @@ public class OfficialActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void youtubeClicked(View view){
+    public void youtubeClicked(View view){
         Log.d(TAG, "youtubeClicked: ");
         String youTubeChannel = channels.getYouTubeChannel();
         Intent intent = null;
@@ -316,8 +303,9 @@ public class OfficialActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
     }
     protected void anIndependent(){
-        constraintLayout.setBackgroundResource(R.color.colorPrimaryDark);
-        information.setBackgroundResource(R.color.colorPrimaryDark);
-        getWindow().setNavigationBarColor(getColor(R.color.colorPrimaryDark));
+        constraintLayout.setBackgroundResource(R.color.midnight_black);
+        partyLogo.setImageResource(R.drawable.no_party_logo);
+        information.setBackgroundResource(R.color.midnight_black);
+        getWindow().setNavigationBarColor(getColor(R.color.midnight_black));
     }
 }
