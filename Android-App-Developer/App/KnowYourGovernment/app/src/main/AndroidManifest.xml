@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".about.AboutActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".about.AboutActivity"/>
+<!--            android:parentActivityName=".MainActivity"/>-->
         <activity
             android:name=".details.OfficialActivity"/>
 <!--            android:parentActivityName=".MainActivity"/>-->
         <activity
-            android:name=".details.PhotoDetailActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".details.PhotoDetailActivity"/>
+<!--            android:parentActivityName=".MainActivity"/>-->
     </application>
 </manifest>

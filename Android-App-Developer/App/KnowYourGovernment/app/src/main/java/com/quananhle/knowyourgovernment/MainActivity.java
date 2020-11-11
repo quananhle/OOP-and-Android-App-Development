@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* OfficialAdapter *====//
     public void updatedData(Object[] list) {
         if (list == null) {
-//            officialList.clear();
+            officialList.clear();
             locationView.setText("No Data For Location");
         } else {
             locationView.setText(list[0].toString());
