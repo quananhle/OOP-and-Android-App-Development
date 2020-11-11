@@ -84,6 +84,7 @@ public class OfficialActivity extends AppCompatActivity {
         information = findViewById(R.id.information);
     }
     protected void setupLocations(){
+        location.setBackgroundResource(R.color.americanRed);
         if (this.getIntent().hasExtra("location")){
             location.setText(getIntent().getStringExtra("location"));
         }
@@ -178,7 +179,7 @@ public class OfficialActivity extends AppCompatActivity {
     public void loadProfilePhoto(String photoUrl){
         if (isConnected()){
             profilePhoto.setImageResource(R.drawable.placeholder);
-            if (photoUrl.equals(DEFAULT_DISPLAY)){
+            if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)) {
                 profilePhoto.setImageResource(R.drawable.missing);
             }
             else {
@@ -186,19 +187,24 @@ public class OfficialActivity extends AppCompatActivity {
                 Picasso picasso = new Picasso.Builder(this).listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        // Here we try https if the http image attempt failed
                         final String secureUrl = url.replace("http:", "https:");
-                        picasso.get().load(secureUrl).error(R.drawable.brokenimage)
-                                .placeholder(R.drawable.placeholder).into(profilePhoto);
+                        picasso.get().load(secureUrl)
+                                .error(R.drawable.brokenimage)
+                                .placeholder(R.drawable.placeholder)
+                                .into(profilePhoto);
                     }
                 }).build();
-                picasso.get().load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
+                picasso.get().load(photoUrl)
+                        .error(R.drawable.brokenimage)
+                        .placeholder(R.drawable.placeholder)
                         .into(profilePhoto);
             }
         }
         else {
-            profilePhoto.setImageResource(R.drawable.placeholder);
             showMessage(ERROR_ICON, "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
+            profilePhoto.setImageResource(R.drawable.placeholder);
         }
     }
 
