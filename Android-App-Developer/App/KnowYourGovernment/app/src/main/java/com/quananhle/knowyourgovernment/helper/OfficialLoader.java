@@ -90,24 +90,20 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
             pe.printStackTrace();
         } catch (FileNotFoundException fnfe) {
             fnfe.printStackTrace();
-//            Log.e(TAG, "doBackground: File not found " + fnfe);
             return null;
         } catch (IOException ioe) {
             ioe.printStackTrace();
-//            Log.e(TAG, "doBackground: IOExecption " + ioe);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-//            Log.e(TAG, "doInBackground: Exception", e);
             return null;
         }
-//        Log.d(TAG, "doInBackground: returning");
         return stringBuilder.toString();
     }
 
     private ArrayList<Official> parseJSON(String str) {
         Log.d(TAG, "parseJSON: starting parsing JSON");
-        SocialMedia socialMedia = new SocialMedia();
+        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
         ArrayList<Official> officialArrayList = new ArrayList<>();
         try {
             /**
@@ -248,30 +244,9 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                     String urls = (jsonOfficialsObject.has("urls")
                             ? jsonOfficialsObject.getJSONArray("urls").getString(0) : DEFAULT_DISPLAY);
 
-                    JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
-                            ? null : jsonOfficialsObject.getJSONArray("channels"));
-                    String facebookAccount = "", twitterAccount = "", youtubeAccount = "";
-                    if(jsonArrayChannels != null){
-                        for(int k=0; k < jsonArrayChannels.length(); ++k){
-                            String channel = jsonArrayChannels.getJSONObject(k).getString("type");
-                            if (channel.equals("Facebook")){
-                                facebookAccount = jsonArrayChannels.getJSONObject(k).getString("id");
-                            }
-                            if (channel == "Twitter"){
-                                twitterAccount = jsonArrayChannels.getJSONObject(k).getString("id");
-                            }
-                            if (channel == "YouTube"){
-                                youtubeAccount = jsonArrayChannels.getJSONObject(k).getString("id");
-                            }
-                        }
-                    } else {
-                        facebookAccount = DEFAULT_DISPLAY;
-                        twitterAccount = DEFAULT_DISPLAY;
-                        youtubeAccount = DEFAULT_DISPLAY;
-                    }
-                    socialMedia = new SocialMedia(facebookAccount, twitterAccount, youtubeAccount);
                     Official official = new Official(officeName, officialName, party, address, phones, urls,
                             emails, photoURL, socialMedia);
+                    official.setSocialMedia(getSocialMedia(jsonOfficialsObject));
                     officialArrayList.add(official);
                 }
             }
@@ -282,21 +257,20 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
         }
         return null;
     }
-    private void setUpLocation(String data){
-        TextView location = mainActivity.findViewById(R.id.location);
+    private ArrayList<SocialMedia> getSocialMedia(JSONObject jsonObject){
+        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
+        SocialMedia tmp;
         try {
-            JSONObject normalizedInput = new JSONObject(data);
-            normalizedInput = normalizedInput.getJSONObject("normalizedInput");
-            String city = normalizedInput.getString("city");
-            String state = normalizedInput.getString("state");
-            String zip = normalizedInput.getString("zip");
-
-            String locationText = (city.equals("")?"":city+", ") + (zip.equals("")?state:state+", ") + (zip.equals("")?"":zip);
-            location.setText(locationText);
+            JSONArray channels = (JSONArray) jsonObject.get("channels");
+            for(int i = 0; i < channels.length(); i++) {
+                JSONObject channel = (JSONObject) channels.get(i);
+                tmp = new SocialMedia(channel.getString("type"), channel.getString("id"));
+                socialMedia.add(tmp);
+            }
         }
-        catch (Exception e)
-        {
-            Log.d(TAG, "EXCEPTION | parseJSON: " + e);
+        catch (Exception e) {
+            Log.d(TAG, "EXCEPTION: Get Social Media: " + e);
         }
+        return socialMedia;
     }
 }
