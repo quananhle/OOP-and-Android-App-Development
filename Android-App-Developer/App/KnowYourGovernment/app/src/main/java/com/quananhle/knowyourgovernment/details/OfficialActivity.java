@@ -1,5 +1,6 @@
 package com.quananhle.knowyourgovernment.details;
 
+import android.app.ActionBar;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -47,6 +49,7 @@ public class OfficialActivity extends AppCompatActivity {
         setupLocations();
         populateData();
     }
+
     //====================== *** HELPER•METHODS *** ======================//
 
     //=====* onCreate *====//
