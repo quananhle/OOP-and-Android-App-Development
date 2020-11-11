@@ -1,20 +1,24 @@
 package com.quananhle.knowyourgovernment.details;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.util.Linkify;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.R;
 import com.quananhle.knowyourgovernment.helper.Official;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
-
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,7 +30,7 @@ public class OfficialActivity extends AppCompatActivity {
     private TextView location, office, name, party, addressLine1, addressLine2, addressLine3, phone, email, website;
     private TextView addressLabel, phoneLabel, emailLabel, websiteLabel;
     private ImageView profilePhoto, partyLogo, facebookButton, twitterButton, youtubeButton;
-    private SocialMedia facebook, twitter, youtube;
+    private SocialMedia channels;
     private Official official;
     private ConstraintLayout constraintLayout, information;
 
@@ -42,15 +46,7 @@ public class OfficialActivity extends AppCompatActivity {
         setupComponents();
         setupLocations();
         populateData();
-
-
-
-
     }
-
-
-
-
     //====================== *** HELPER•METHODS *** ======================//
 
     //=====* onCreate *====//
@@ -76,6 +72,9 @@ public class OfficialActivity extends AppCompatActivity {
         this.facebookButton = findViewById(R.id.facebook);
         this.twitterButton  = findViewById(R.id.twitter);
         this.youtubeButton  = findViewById(R.id.youtube);
+
+        constraintLayout = findViewById(R.id.constraint_layout);
+        information = findViewById(R.id.information);
     }
     protected void setupLocations(){
         if (this.getIntent().hasExtra("location")){
@@ -89,7 +88,6 @@ public class OfficialActivity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         if (this.getIntent().hasExtra("official")){
             official = (Official) bundle.getSerializable("official");
-            ArrayList<SocialMedia> socialMedia = new ArrayList<>();
 
             if (!official.getOffice().equals(DEFAULT_DISPLAY)){office.setText(official.getOffice());}
             if (!official.getName().equals(DEFAULT_DISPLAY)){name.setText(official.getName());}
@@ -153,49 +151,17 @@ public class OfficialActivity extends AppCompatActivity {
                 hideView(websiteLabel);
                 hideView(website);
             }
-
-            loadProfilePicture();
-            loadSocialMediaIcons(socialMedia);
-
-
-
         }
+        Linkify.addLinks(addressLine1,Linkify.MAP_ADDRESSES);
+        Linkify.addLinks(phone,Linkify.PHONE_NUMBERS);
+        Linkify.addLinks(email,Linkify.EMAIL_ADDRESSES);
+        Linkify.addLinks(website,Linkify.WEB_URLS);
+        loadProfilePhoto();
+        loadSocialMediaIcons();
     }
 
-    public void photoClicked(View view){
-
-    }
-    public void logoClicked(View view){
-
-    }
-    public void facebookClicked(View view){
-
-    }
-    public void twitterClicked(View view){
-
-    }
-    public void youtubeClicked(View view){
-
-    }
-
-    protected void aDonkey(){
-        constraintLayout.setBackgroundResource(R.color.democraticBlue);
-        partyLogo.setImageResource(R.drawable.dem_logo);
-        information.setBackgroundResource(R.color.democraticBlue);
-        getWindow().setNavigationBarColor(getColor(R.color.democraticBlue));
-    }
-    protected void anElephant(){
-        constraintLayout.setBackgroundResource(R.color.republicanRed);
-        partyLogo.setImageResource(R.drawable.rep_logo);
-        information.setBackgroundResource(R.color.republicanRed);
-        getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
-    }
-    protected void anIndependent(){
-        constraintLayout.setBackgroundResource(R.color.colorPrimaryDark);
-        information.setBackgroundResource(R.color.colorPrimaryDark);
-        getWindow().setNavigationBarColor(getColor(R.color.colorPrimaryDark));
-    }
-    protected void loadProfilePicture(){
+    //=====* onClicked Methods *====//
+    protected void loadProfilePhoto(){
         if (isConnected()){
             profilePhoto.setImageResource(R.drawable.placeholder);
             if (official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
@@ -214,15 +180,114 @@ public class OfficialActivity extends AppCompatActivity {
                 picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
                         .into(profilePhoto);
             }
+//            if(official.getPhotoUrl().equals("")){
+//                profilePhoto.setImageResource(R.drawable.missing);
+//            }
+//            else {
+//                Picasso.get()
+//                        .load(official.getPhotoUrl())
+//                        .placeholder(R.drawable.placeholder)
+//                        .error(R.drawable.brokenimage)
+//                        .into(profilePhoto);
+//            }
+//        }
+//        else {
+//            profilePhoto.setImageResource(R.drawable.placeholder);
+        }
+    }
+
+    protected void loadSocialMediaIcons(){
+        if (!channels.getFacebookAccount().equals(DEFAULT_DISPLAY)){
+            facebookButton.setVisibility(View.VISIBLE);
+        }
+        if (!channels.getTwitterAccount().equals(DEFAULT_DISPLAY)){
+            twitterButton.setVisibility(View.VISIBLE);
+        }
+        if (!channels.getYouTubeChannel().equals(DEFAULT_DISPLAY)){
+            youtubeButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void photoClicked(){
+        if (!official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
+            Intent intent = new Intent(this, PhotoDetailActivity.class);
+            intent.putExtra("location", location.getText());
+            intent.putExtra("official", official);
+            startActivity(intent);
         }
         else {
-            profilePhoto.setImageResource(R.drawable.placeholder);
+            Toast.makeText(this, "No Profile Photo", Toast.LENGTH_SHORT).show();
         }
     }
-    protected void loadSocialMediaIcons(ArrayList<SocialMedia> channels){
-        channels = official.getSocialMedia();
 
+    protected void logoClicked(){
+        Log.d(TAG, "facebookClicked: ");
+        final String GOP_URL = "https://www.gop.com/";
+        final String DEM_URL = "https://democrats.org/";
+        if (official.getParty().toLowerCase().trim().contains(DEM)){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(DEM_URL));
+            startActivity(intent);
+        }
+        else if (official.getParty().toLowerCase().trim().contains(REP)){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(GOP_URL));
+            startActivity(intent);
+        }
     }
+
+    protected void facebookClicked(View view){
+        Log.d(TAG, "facebookClicked: ");
+        int currFacebookAppVersion = 3002850;
+        String facebookID = channels.getFacebookAccount();
+        String FACEBOOK_URL = "https://www.facebook.com/" + facebookID;
+        String urlToUse;
+        PackageManager packageManager = getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= currFacebookAppVersion){
+                urlToUse = "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            }
+            else {
+                urlToUse = "fb://page/" + channels.getFacebookAccount();
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            urlToUse = FACEBOOK_URL;
+        }
+        Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+        facebookIntent.setData(Uri.parse(urlToUse));
+        startActivity(facebookIntent);
+    }
+
+    protected void twitterClicked(View view){
+        Log.d(TAG, "twitterClicked: ");
+        Intent intent = null;
+        String twitterID = channels.getTwitterAccount();
+        try {
+            getPackageManager().getPackageInfo("com.twitter.android",0);
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitterID));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }catch (Exception e){
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://twitter.com/" + twitterID));
+        }
+        startActivity(intent);
+    }
+
+    protected void youtubeClicked(View view){
+        Log.d(TAG, "youtubeClicked: ");
+        String youTubeChannel = channels.getYouTubeChannel();
+        Intent intent = null;
+        try {
+            intent = new Intent(Intent.ACTION_VIEW);
+            intent.setPackage("com.google.android.youtube");
+            intent.setData(Uri.parse("https://www.youtube.com/" + youTubeChannel));
+            startActivity(intent);
+        }
+        catch (ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/" + youTubeChannel)));
+        }
+    }
+
+    //=====* Logistic Methods *====//
     private static void hideView(View view){
         view.setVisibility(View.GONE);
     }
@@ -238,6 +303,21 @@ public class OfficialActivity extends AppCompatActivity {
             return false;
         }
     }
-
-
+    protected void aDonkey(){
+        constraintLayout.setBackgroundResource(R.color.democraticBlue);
+        partyLogo.setImageResource(R.drawable.dem_logo);
+        information.setBackgroundResource(R.color.democraticBlue);
+        getWindow().setNavigationBarColor(getColor(R.color.democraticBlue));
+    }
+    protected void anElephant(){
+        constraintLayout.setBackgroundResource(R.color.republicanRed);
+        partyLogo.setImageResource(R.drawable.rep_logo);
+        information.setBackgroundResource(R.color.republicanRed);
+        getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
+    }
+    protected void anIndependent(){
+        constraintLayout.setBackgroundResource(R.color.colorPrimaryDark);
+        information.setBackgroundResource(R.color.colorPrimaryDark);
+        getWindow().setNavigationBarColor(getColor(R.color.colorPrimaryDark));
+    }
 }

@@ -1,7 +1,6 @@
 package com.quananhle.knowyourgovernment.helper;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Official implements Serializable {
     private String office;
@@ -12,7 +11,7 @@ public class Official implements Serializable {
     private String url;
     private String emailAddress;
     private String photoUrl;
-    private ArrayList<SocialMedia> socialMedia;
+    private SocialMedia socialMedia;
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
 
     //default constructor
@@ -25,12 +24,12 @@ public class Official implements Serializable {
         this.url = DEFAULT_DISPLAY;
         this.emailAddress = DEFAULT_DISPLAY;
         this.photoUrl = DEFAULT_DISPLAY;
-        this.socialMedia = new ArrayList<>();
+        this.socialMedia = new SocialMedia();
     }
 
     //non-default constructor
     public Official(String office, String name, String party, String address, String phoneNumber,
-                    String url, String emailAddress, String photoUrl, ArrayList<SocialMedia> socialMedia) {
+                    String url, String emailAddress, String photoUrl, SocialMedia socialMedia) {
         this.office = office;
         this.name = name;
         this.party = party;
@@ -106,11 +105,11 @@ public class Official implements Serializable {
         this.photoUrl = photoUrl;
     }
 
-    public ArrayList<SocialMedia> getSocialMedia() {
+    public SocialMedia getSocialMedia() {
         return socialMedia;
     }
 
-    public void setSocialMedia(ArrayList<SocialMedia> socialMedia) {
+    public void setSocialMedia(SocialMedia socialMedia) {
         this.socialMedia = socialMedia;
     }
 

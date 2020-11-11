@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             showMessage(ERROR_ICON,
                     "NO NETWORK CONNECTION",
                     "Data cannot be accessed/loaded without an Internet connection");
+            locationView.setText("No Data For Location");
         }
         locator = new Locator(this);
         locator.shutDown();
@@ -127,11 +128,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, OfficialActivity.class);
         int position = recyclerView.getChildAdapterPosition(view);
-        Intent intent = new Intent(this, OfficialActivity.class);
+        Official official = officialList.get(position);
         intent.putExtra("location", locationView.getText().toString());
         Bundle bundle = new Bundle();
-        bundle.putSerializable("official", officialList.get(position));
+        bundle.putSerializable("official", official);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
@@ -286,4 +289,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 }
-

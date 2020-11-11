@@ -1,11 +1,14 @@
 package com.quananhle.knowyourgovernment.helper;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
+import com.quananhle.knowyourgovernment.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class OfficialLoader extends AsyncTask<String, Void, String> {
+    @SuppressLint("StaticFieldLeak")
     private MainActivity mainActivity;
     private static final String TAG = "OfficialLoader";
     private static final String API_KEY = "AIzaSyDBDktFKTYIN3gfxkLWzdhkafxtRVM6W0w";
@@ -60,7 +64,6 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
         objects[0] = city + ", " + state + " " + zip;
         objects[1] = officialArrayList;
         mainActivity.setOfficialList(objects);
-        return;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
         return stringBuilder.toString();
     }
 
-    private ArrayList<Official> parseJSON(String str){
+    private ArrayList<Official> parseJSON(String str) {
         Log.d(TAG, "parseJSON: starting parsing JSON");
         SocialMedia socialMedia = new SocialMedia();
         ArrayList<Official> officialArrayList = new ArrayList<>();
@@ -155,14 +158,14 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
              * ],
              */
             JSONArray officesArray = object.getJSONArray("offices");
-            for (int i=0; i < officesArray.length(); ++i){
+            for (int i = 0; i < officesArray.length(); ++i) {
                 JSONObject jsonObject = officesArray.getJSONObject(i);
                 String officeName = jsonObject.getString("name");
                 String officialIndices = jsonObject.getString("officialIndices");
-                String [] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
-                int [] indices = new int[array.length];
+                String[] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
+                int[] indices = new int[array.length];
                 //access the indices of officialIndices and store it in indices
-                for (int j=0; j < array.length; ++j){
+                for (int j = 0; j < array.length; ++j) {
                     indices[j] = Integer.parseInt(array[j]);
                 }
                 /**
@@ -213,25 +216,24 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                  */
                 JSONArray officialsArray = object.getJSONArray("officials");
                 //access the elements of officials
-                for (int j=0; j < indices.length; ++j){
+                for (int j = 0; j < indices.length; ++j) {
                     JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
                     String officialName = jsonOfficialsObject.getString("name");
                     String address = "";
-                    if (!jsonOfficialsObject.has("address")){
+                    if (!jsonOfficialsObject.has("address")) {
                         address = DEFAULT_DISPLAY;
-                    }
-                    else {
+                    } else {
                         JSONObject jsonAddressObject = jsonOfficialsObject
                                 .getJSONArray("address").getJSONObject(0);
                         if (jsonAddressObject.has("line1")) address += jsonAddressObject
-                                .getString("line1") +'\n';
+                                .getString("line1") + '\n';
                         if (jsonAddressObject.has("line2")) address += jsonAddressObject
-                                .getString("line2") +'\n';
-                        if (jsonAddressObject.has("city"))  address += jsonAddressObject
-                                .getString("city")  +", ";
+                                .getString("line2") + '\n';
+                        if (jsonAddressObject.has("city")) address += jsonAddressObject
+                                .getString("city") + ", ";
                         if (jsonAddressObject.has("state")) address += jsonAddressObject
-                                .getString("state") +' ';
-                        if (jsonAddressObject.has("zip"))   address += jsonAddressObject
+                                .getString("state") + ' ';
+                        if (jsonAddressObject.has("zip")) address += jsonAddressObject
                                 .getString("zip");
                     }
 
@@ -249,21 +251,20 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                     JSONArray jsonArrayChannels = (!jsonOfficialsObject.has("channels")
                             ? null : jsonOfficialsObject.getJSONArray("channels"));
                     String facebookAccount = "", twitterAccount = "", youtubeAccount = "";
-                    if (jsonArrayChannels != null){
-                        for (int k=0; k < jsonArrayChannels.length(); ++k) {
+                    if (jsonArrayChannels != null) {
+                        for (int k = 0; k < jsonArrayChannels.length(); ++k) {
                             JSONObject jsonChannelObject = jsonArrayChannels.getJSONObject(k);
                             String type = jsonChannelObject.getString("type");
                             String id = jsonChannelObject.getString("id");
-                            facebookAccount = type.equals("Facebook") ? id : "";
-                            twitterAccount = type.equals("Twitter")   ? id : "";
-                            youtubeAccount = type.equals("Youtube")   ? id : "";
+                            facebookAccount = type.equals("Facebook") ? id : DEFAULT_DISPLAY;
+                            twitterAccount = type.equals("Twitter") ? id : DEFAULT_DISPLAY;
+                            youtubeAccount = type.equals("YouTube") ? id : DEFAULT_DISPLAY;
                         }
                         socialMedia = new SocialMedia(facebookAccount, twitterAccount, youtubeAccount);
-                    }
-                    else {
+                    } else {
                         facebookAccount = DEFAULT_DISPLAY;
-                        twitterAccount  = DEFAULT_DISPLAY;
-                        youtubeAccount  = DEFAULT_DISPLAY;
+                        twitterAccount = DEFAULT_DISPLAY;
+                        youtubeAccount = DEFAULT_DISPLAY;
                     }
                     Official official = new Official(officeName, officialName, party, address, phones, urls,
                             emails, photoURL, socialMedia);
@@ -271,8 +272,7 @@ public class OfficialLoader extends AsyncTask<String, Void, String> {
                 }
             }
             return officialArrayList;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "parseJSON: Exception " + e.getMessage());
             e.printStackTrace();
         }

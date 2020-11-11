@@ -31,10 +31,10 @@ public class SocialMedia implements Serializable {
     public void setTwitterAccount(String twitterAccount) {
         this.twitterAccount = twitterAccount;
     }
-    public String getYoutubeChannel() {
+    public String getYouTubeChannel() {
         return youtubeChannel;
     }
-    public void setYoutubeChannel(String youtubeChannel) {
+    public void setYouTubeChannel(String youtubeChannel) {
         this.youtubeChannel = youtubeChannel;
     }
 }
