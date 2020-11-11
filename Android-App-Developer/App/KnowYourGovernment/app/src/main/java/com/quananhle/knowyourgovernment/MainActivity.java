@@ -247,17 +247,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* OfficialLoaderRunnable *====//
-    public void doRunnable(String location){
-        if (isConnected()){
-            if (location.isEmpty()){
-                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            //Load the data
-            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
-            new Thread(officialLoaderRunnable).start();
-        }
-    }
+//    public void doRunnable(String location){
+//        if (isConnected()){
+//            if (location.isEmpty()){
+//                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            //Load the data
+//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+//            new Thread(officialLoaderRunnable).start();
+//        }
+//    }
     public void downloadFailed() {
         officialList.clear();
     }
