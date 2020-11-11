@@ -1,6 +1,5 @@
 package com.quananhle.knowyourgovernment.details;
 
-import android.app.ActionBar;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,19 +20,25 @@ import com.quananhle.knowyourgovernment.R;
 import com.quananhle.knowyourgovernment.helper.Official;
 import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class OfficialActivity extends AppCompatActivity {
     private static final String TAG = "OfficialActivity";
     private TextView location, office, name, party, addressLine1, addressLine2, addressLine3, phone, email, website;
     private TextView addressLabel, phoneLabel, emailLabel, websiteLabel;
     private ImageView profilePhoto, partyLogo, facebookButton, twitterButton, youtubeButton;
-    private SocialMedia channels;
     private Official official;
     private ConstraintLayout constraintLayout, information;
+    private SocialMedia fbChannel, twChannel, ytChannel;
+
+    final int WARNING_ICON = 1;
+    final int ERROR_ICON = 2;
 
     private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
     private static final String UNKNOWN_PARTY = "Unknown";
@@ -167,7 +171,7 @@ public class OfficialActivity extends AppCompatActivity {
         Linkify.addLinks(email,Linkify.EMAIL_ADDRESSES);
         Linkify.addLinks(website,Linkify.WEB_URLS);
         loadProfilePhoto(official.getPhotoUrl().trim());
-        loadSocialMediaIcons();
+        loadSocialMediaIcons(official.getSocialMedia());
     }
 
     //=====* onClicked Methods *====//
@@ -183,55 +187,55 @@ public class OfficialActivity extends AppCompatActivity {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
                         final String secureUrl = url.replace("http:", "https:");
-                        picasso.load(secureUrl).error(R.drawable.brokenimage)
+                        picasso.get().load(secureUrl).error(R.drawable.brokenimage)
                                 .placeholder(R.drawable.placeholder).into(profilePhoto);
                     }
                 }).build();
-                picasso.load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
+                picasso.get().load(photoUrl).error(R.drawable.brokenimage).placeholder(R.drawable.placeholder)
                         .into(profilePhoto);
+            }
+        }
+        else {
+            profilePhoto.setImageResource(R.drawable.placeholder);
+            showMessage(ERROR_ICON, "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
+        }
+    }
+
+    protected void loadSocialMediaIcons(ArrayList<SocialMedia> channels){
+        if( channels.size() > 0 ) {
+            for(SocialMedia channel : channels ) {
+                if(channel.getType().equals("Facebook")) {
+                    fbChannel = channel;
+                    facebookButton.setVisibility(View.VISIBLE);
+                }
+                if(channel.getType().equals("Twitter")) {
+                    twChannel = channel;
+                    twitterButton.setVisibility(View.VISIBLE);
+                }
+                if(channel.getType().equals("YouTube")) {
+                    ytChannel = channel;
+                    youtubeButton.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
 
-    protected void loadSocialMediaIcons(){
-        if (!official.getSocialMedia().getFacebookAccount().equals(DEFAULT_DISPLAY)){
-            facebookButton.setVisibility(View.VISIBLE);
-        }
-        if (!official.getSocialMedia().getTwitterAccount().equals(DEFAULT_DISPLAY)){
-            twitterButton.setVisibility(View.VISIBLE);
-        }
-        if (!official.getSocialMedia().getYouTubeChannel().equals(DEFAULT_DISPLAY)){
-            youtubeButton.setVisibility(View.VISIBLE);
-        }
-//        if(official.getSocialMedia().getYouTubeChannel().equals(DEFAULT_DISPLAY)){
-//            hideView(youtubeButton);
-//        }
-//        else {
-//            youtubeButton.setVisibility(View.VISIBLE);
-//        }
-//        if(official.getSocialMedia().getTwitterAccount().equals(DEFAULT_DISPLAY)){
-//            hideView(twitterButton);
-//        }
-//        else {
-//            twitterButton.setVisibility(View.VISIBLE);
-//        }
-//        if(official.getSocialMedia().getFacebookAccount().equals(DEFAULT_DISPLAY)){
-//            hideView(facebookButton);
-//        }
-//        else {
-//            facebookButton.setVisibility(View.VISIBLE);
-//        }
-    }
-
     public void photoClicked(View view){
-        if (!official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
-            Intent intent = new Intent(this, PhotoDetailActivity.class);
-            intent.putExtra("location", location.getText());
-            intent.putExtra("official", official);
-            startActivity(intent);
+        if (isConnected()){
+            if (!official.getPhotoUrl().equals(DEFAULT_DISPLAY)){
+                Intent intent = new Intent(this, PhotoDetailActivity.class);
+                intent.putExtra("location", location.getText());
+                intent.putExtra("official", official);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this, "No Profile Photo", Toast.LENGTH_SHORT).show();
+            }
         }
         else {
-            Toast.makeText(this, "No Profile Photo", Toast.LENGTH_SHORT).show();
+            showMessage(ERROR_ICON, "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
         }
     }
 
@@ -252,7 +256,7 @@ public class OfficialActivity extends AppCompatActivity {
     public void facebookClicked(View view){
         Log.d(TAG, "facebookClicked: ");
         int currFacebookAppVersion = 3002850;
-        String facebookID = official.getSocialMedia().getFacebookAccount();
+        String facebookID = fbChannel.getAccount();
         String FACEBOOK_URL = "https://www.facebook.com/" + facebookID;
         String urlToUse;
         PackageManager packageManager = getPackageManager();
@@ -262,7 +266,7 @@ public class OfficialActivity extends AppCompatActivity {
                 urlToUse = "fb://facewebmodal/f?href=" + FACEBOOK_URL;
             }
             else {
-                urlToUse = "fb://page/" + official.getSocialMedia().getFacebookAccount();
+                urlToUse = "fb://page/" + fbChannel.getAccount();
             }
         }
         catch (PackageManager.NameNotFoundException e) {
@@ -276,7 +280,7 @@ public class OfficialActivity extends AppCompatActivity {
     public void twitterClicked(View view){
         Log.d(TAG, "twitterClicked: ");
         Intent intent = null;
-        String twitterID = official.getSocialMedia().getTwitterAccount();
+        String twitterID = twChannel.getAccount();
         try {
             getPackageManager().getPackageInfo("com.twitter.android",0);
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitterID));
@@ -289,7 +293,7 @@ public class OfficialActivity extends AppCompatActivity {
 
     public void youtubeClicked(View view){
         Log.d(TAG, "youtubeClicked: ");
-        String youTubeChannel = official.getSocialMedia().getYouTubeChannel();
+        String youTubeChannel = ytChannel.getAccount();
         Intent intent = null;
         try {
             intent = new Intent(Intent.ACTION_VIEW);
@@ -335,5 +339,18 @@ public class OfficialActivity extends AppCompatActivity {
         partyLogo.setImageResource(R.drawable.no_party_logo);
         information.setBackgroundResource(R.color.midnight_black);
         getWindow().setNavigationBarColor(getColor(R.color.midnight_black));
+    }
+    public void showMessage(int icon, String title, String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON) {
+            dialog.setIcon(R.drawable.warning);
+        } else if (icon == ERROR_ICON) {
+            dialog.setIcon(R.drawable.error);
+        } else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
     }
 }
