@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.quananhle.knowyourgovernment.R;
 import com.quananhle.knowyourgovernment.helper.Official;
-import com.quananhle.knowyourgovernment.helper.SocialMedia;
 import com.squareup.picasso.Picasso;
 
 import androidx.appcompat.app.AlertDialog;
@@ -46,7 +45,7 @@ public class PhotoDetailActivity extends AppCompatActivity {
         name             = findViewById(R.id.name);
         party            = findViewById(R.id.party);
         profilePhoto     = findViewById(R.id.photo);
-        partyLogo        = findViewById(R.id.logo);
+        partyLogo        = findViewById(R.id.party_logo);
         constraintLayout = findViewById(R.id.constraint_layout);
     }
     protected void setupLocations(){
@@ -81,17 +80,17 @@ public class PhotoDetailActivity extends AppCompatActivity {
     protected void aDonkey(){
         constraintLayout.setBackgroundResource(R.color.democraticBlue);
         partyLogo.setImageResource(R.drawable.dem_logo);
-        getWindow().setNavigationBarColor(getColor(R.color.democraticBlue));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
     protected void anElephant(){
         constraintLayout.setBackgroundResource(R.color.republicanRed);
         partyLogo.setImageResource(R.drawable.rep_logo);
-        getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
     protected void anIndependent(){
         constraintLayout.setBackgroundResource(R.color.midnight_black);
         partyLogo.setImageResource(R.drawable.no_party_logo);
-        getWindow().setNavigationBarColor(getColor(R.color.midnight_black));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
 
     private void loadProfilePhoto(String photoUrl) {
