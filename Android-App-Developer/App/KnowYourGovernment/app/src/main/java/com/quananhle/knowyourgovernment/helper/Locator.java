@@ -1,8 +1,12 @@
 package com.quananhle.knowyourgovernment.helper;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,6 +15,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.quananhle.knowyourgovernment.MainActivity;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +30,9 @@ public class Locator {
     private LocationManager locationManager;
     private LocationListener locationListener;
     private final int REQUEST_CODE = 5;
+    private Criteria criteria;
+    private String currentLatLon = "", currentLocation = "";
+
     //default constructor
     public Locator(MainActivity mainActivity) {
         this.owner = mainActivity;
@@ -101,5 +112,74 @@ public class Locator {
         locationManager.removeUpdates(locationListener);
         locationListener = null;
     }
+
+//    public void getCurrentLocation() {
+//        String bestProvider = locationManager.getBestProvider(criteria, true);
+//        @SuppressLint("MissingPermission") Location currentLocation = locationManager.getLastKnownLocation(bestProvider);
+//        if (currentLocation != null) {
+//            currentLatLon = String.format(Locale.getDefault(),  "%.4f, %.4f",
+//                    currentLocation.getLatitude(), currentLocation.getLongitude());
+//            locationView.setText(currentLatLon);
+//        }
+//        else {
+//            locationView.setText("Location Can't Be Found!");
+//        }
+//    }
+//    public void setLocation() {
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        criteria = new Criteria();
+//        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+//        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+//        criteria.setAltitudeRequired(false);
+//        criteria.setBearingRequired(false);
+//        criteria.setSpeedRequired(false);
+//        if(ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 329);
+//        }
+//        else {
+//            getCurrentLocation();
+//        }
+//    }
+//    public void getLatLon() {
+//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+//        try {
+//            List<Address> addresses;
+//            if (!currentLatLon.trim().isEmpty()) {
+//                String[] latLon = currentLatLon.split(",");
+//                double lat = Double.parseDouble(latLon[0]);
+//                double lon = Double.parseDouble(latLon[1]);
+//                addresses = geocoder.getFromLocation(lat, lon, 1);
+//                if(!addresses.get(0).getPostalCode().equals("")) {
+//                    currentLocation = addresses.get(0).getPostalCode();
+//                }
+//                else if(!addresses.get(0).getLocality().equals("")) {
+//                    currentLocation = addresses.get(0).getLocality();
+//                }
+//                Log.d(TAG, "getLatLon: addresses: " + addresses.get(0).getPostalCode());
+//                Toast.makeText(this, "Location Found: " + addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
+//        catch (IOException e) {
+//            Log.d(TAG, "convertLatLon: " + e);
+//        }
+//    }
+//    public void getCurrentLocationOnCreate(){
+//        setLocation();
+//        getLatLon();
+//        getCurrentLocation();
+//        if (!currentLatLon.equals("")) {
+//            if(isConnected()) {
+//                doRunnable(currentLocation);
+//            }
+//            else {
+//                showMessage(ERROR_ICON,
+//                        "NO NETWORK CONNECTION",
+//                        "Data cannot be accessed/loaded without an Internet connection");
+//            }
+//        }
+//    }
 
 }
