@@ -208,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!location.equals("")) {
                     locationView.setText("");
                     doRunnable(location);
-//                    new OfficialLoader(MainActivity.this).execute(location);
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Location Has Not Been Entered", Toast.LENGTH_LONG).show();
@@ -236,10 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             Log.d(TAG, "doAddress: Retrieving address");
             addressList = geocoder.getFromLocation(latitude, longtitude, 1);
-//            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this,
-//                    addressList.get(0).getPostalCode());
             Log.d(TAG, "doAddress: " + addressList.get(0).getPostalCode());
-//            officialLoaderRunnable.run();
             new OfficialLoader(mainActivity).execute(addressList.get(0).getPostalCode());
         } catch (IOException ioe) {
             ioe.printStackTrace();
