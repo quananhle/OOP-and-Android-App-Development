@@ -332,19 +332,19 @@ public class OfficialActivity extends AppCompatActivity {
         constraintLayout.setBackgroundResource(R.color.democraticBlue);
         partyLogo.setImageResource(R.drawable.dem_logo);
         information.setBackgroundResource(R.color.democraticBlue);
-        getWindow().setNavigationBarColor(getColor(R.color.democraticBlue));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
     protected void anElephant(){
         constraintLayout.setBackgroundResource(R.color.republicanRed);
         partyLogo.setImageResource(R.drawable.rep_logo);
         information.setBackgroundResource(R.color.republicanRed);
-        getWindow().setNavigationBarColor(getColor(R.color.republicanRed));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
     protected void anIndependent(){
         constraintLayout.setBackgroundResource(R.color.midnight_black);
         partyLogo.setImageResource(R.drawable.no_party_logo);
         information.setBackgroundResource(R.color.midnight_black);
-        getWindow().setNavigationBarColor(getColor(R.color.midnight_black));
+        getWindow().setNavigationBarColor(getColor(R.color.americanBlue));
     }
     public void showMessage(int icon, String title, String message) {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
