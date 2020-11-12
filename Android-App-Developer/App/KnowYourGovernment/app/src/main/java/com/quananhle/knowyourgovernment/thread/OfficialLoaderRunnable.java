@@ -90,7 +90,10 @@ public class OfficialLoaderRunnable implements Runnable {
                 if (officialArrayList != null){
                     Toast.makeText(mainActivity, "Loaded " + officialArrayList.size()
                             + " officials.", Toast.LENGTH_SHORT).show();
-                    mainActivity.updateList(officialArrayList);
+                    Object[] objects = new Object[2];
+                    objects[0] = city + ", " + state + " " + zip;
+                    objects[1] = officialArrayList;
+                    mainActivity.updatedData(objects);
                 }
             }
         });
