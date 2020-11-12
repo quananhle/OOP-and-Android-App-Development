@@ -260,7 +260,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline_ver3"
                 app:layout_constraintStart_toStartOf="@+id/guideline_ver1"
                 app:layout_constraintTop_toBottomOf="@+id/party"
-                app:srcCompat="@drawable/missing" />
+                app:srcCompat="@drawable/abraham_lincoln" />
 
 <!--            <androidx.core.widget.ContentLoadingProgressBar-->
 <!--                android:id="@+id/progress_bar"-->
