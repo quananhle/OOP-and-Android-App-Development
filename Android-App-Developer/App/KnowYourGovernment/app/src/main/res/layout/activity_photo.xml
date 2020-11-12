@@ -67,7 +67,7 @@
 
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/party_logo"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_marginBottom="8dp"
@@ -91,11 +91,11 @@
         android:clickable="true"
         android:contentDescription="@string/profile_picture"
         android:elevation="4dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/party"
-        app:srcCompat="@drawable/missing" />
+        app:srcCompat="@drawable/abraham_lincoln" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
