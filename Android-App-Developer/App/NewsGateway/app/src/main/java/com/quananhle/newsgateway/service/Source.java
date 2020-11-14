@@ -22,7 +22,7 @@ public class Source {
         this.ranking = ranking;
         this.isGovernmentFunded = isGovernmentFunded;
     }
-    
+
     public String getId() {
         return id;
     }
