@@ -1,8 +1,8 @@
-package com.quananhle.newsgateway;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.quananhle.newsgateway.R;
 
 public class MainActivity extends AppCompatActivity {
 
