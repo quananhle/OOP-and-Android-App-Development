@@ -6,4 +6,7 @@
     <string name="categories">Category</string>
     <string name="options">Options</string>
     <string name="sources">Sources</string>
+<!--    fragment -->
+    <string name="share">Share</string>
+    <string name="image">Image</string>
 </resources>
