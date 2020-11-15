@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/tiffanyBlue"
+    android:fontFamily="sans-serif-medium"
+    android:padding="12dp"
+    android:paddingStart="35dp"
+    android:paddingEnd="35dp"
+    android:textAlignment="viewStart"
+    android:textAllCaps="true"
+    android:textColor="@color/pearlWhite"
+    android:textSize="16sp"
+    tools:text="@string/sources" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
