@@ -17,21 +17,21 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/light_grey"
+            android:background="@color/tiffanyBlue"
             android:elevation="4dp"
             tools:context=".MainActivity">
 
             <TextView
-                android:id="@+id/topHeadlines"
+                android:id="@+id/headline_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/headlines_btn"
-                android:fontFamily="@font/product_sans_regular"
+                android:background="@drawable/headline_button"
+                android:fontFamily="sans-serif-medium"
                 android:padding="5dp"
-                android:text="@string/top_headlines"
+                android:text="@string/headline_button"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
@@ -49,21 +49,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/topHeadlines" />
+                app:layout_constraintTop_toBottomOf="@+id/headline_button" />
 
             <ImageButton
                 android:id="@+id/home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/card_btns"
-                android:contentDescription="@string/home"
+                android:background="@drawable/fragment_button"
+                android:contentDescription="@string/home_button"
                 android:elevation="4dp"
                 android:padding="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/home" />
+                app:srcCompat="@drawable/home"/>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
@@ -77,12 +77,12 @@
             </androidx.viewpager.widget.ViewPager>
 
             <TextView
-                android:id="@+id/nonetworkIcon"
+                android:id="@+id/network_off_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/no_network_icon"
-                android:fontFamily="@font/product_sans_regular"
-                android:text="@string/nn_msg1"
+                android:drawableTop="@drawable/network_off"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/network_off_title"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
@@ -92,17 +92,17 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <TextView
-                android:id="@+id/nonetworkMsg2"
+                android:id="@+id/network_off_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/product_sans_regular"
-                android:text="@string/nn_msg2"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/network_off_message"
                 android:textColor="@color/colorPrimary"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/nonetworkIcon"
-                app:layout_constraintStart_toStartOf="@+id/nonetworkIcon"
-                app:layout_constraintTop_toBottomOf="@+id/nonetworkIcon" />
+                app:layout_constraintEnd_toEndOf="@+id/network_off_title"
+                app:layout_constraintStart_toStartOf="@+id/network_off_title"
+                app:layout_constraintTop_toBottomOf="@+id/network_off_title" />
 
             <Button
                 android:id="@+id/tryAgain"
@@ -118,9 +118,9 @@
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/nonetworkIcon"
-                app:layout_constraintStart_toStartOf="@+id/nonetworkIcon"
-                app:layout_constraintTop_toBottomOf="@+id/nonetworkMsg2" />
+                app:layout_constraintEnd_toEndOf="@+id/network_off_title"
+                app:layout_constraintStart_toStartOf="@+id/network_off_title"
+                app:layout_constraintTop_toBottomOf="@+id/network_off_message" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
