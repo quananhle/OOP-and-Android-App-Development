@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,12 +45,13 @@
                         app:layout_constraintBottom_toBottomOf="@+id/page_number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/page_number"
-                        app:srcCompat="@android:drawable/ic_menu_share" />
+                        app:srcCompat="@android:drawable/ic_menu_share"
+                        tools:targetApi="29"/>
 
                     <ImageView
                         android:id="@+id/image"
                         android:layout_width="0dp"
-                        android:layout_height="168dp"
+                        android:layout_height="200dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:contentDescription="@string/image"
@@ -57,24 +59,24 @@
                         app:layout_constraintBottom_toTopOf="@+id/content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/author"
+                        app:layout_constraintTop_toBottomOf="@+id/published_date"
                         app:srcCompat="@drawable/placeholder"/>
 
                     <TextView
-                        android:id="@+id/author"
+                        android:id="@+id/published_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="24dp"
-                        android:fontFamily="@font/product_sans_regular"
+                        android:fontFamily="sans-serif-medium"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/yellow"
+                        android:textColor="@color/navyBlue"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/guideline_center"
-                        app:layout_constraintTop_toBottomOf="@+id/title"
-                        tools:text="author" />
+                        app:layout_constraintTop_toBottomOf="@+id/headline"
+                        tools:text="@string/published"/>
 
                     <TextView
                         android:id="@+id/page_number"
@@ -82,59 +84,64 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="24dp"
-                        android:textColor="@color/blue"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="@color/midnightBlack"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:text="# of #" />
+                        tools:text="@string/page_num"/>
 
                     <TextView
                         android:id="@+id/content"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        android:fontFamily="@font/product_sans_regular"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="sans-serif-medium"
                         android:justificationMode="inter_word"
                         android:textAlignment="inherit"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/midnightBlack"
                         app:layout_constraintBottom_toTopOf="@+id/page_number"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:text="hello" />
+                        app:layout_constraintTop_toBottomOf="@id/image"
+                        tools:targetApi="29"
+                        tools:text="@string/content" />
 
                     <TextView
-                        android:id="@+id/title"
+                        android:id="@+id/headline"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginEnd="24dp"
+                        android:fontFamily="sans-serif-medium"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="22sp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="title" />
+                        tools:text="@string/headline" />
 
                     <TextView
-                        android:id="@+id/published_date"
+                        android:id="@+id/author"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:fontFamily="@font/product_sans_regular"
-                        android:textColor="@color/red"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/navyBlue"
                         android:visibility="visible"
                         app:layout_constraintEnd_toStartOf="@+id/guideline_center"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/title"
-                        tools:text="publishedAt" />
+                        app:layout_constraintTop_toBottomOf="@+id/headline"
+                        tools:text="@string/author" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline_center"

@@ -7,6 +7,11 @@
     <string name="options">Options</string>
     <string name="sources">Sources</string>
 <!--    fragment -->
+    <string name="headline">Headline</string>
     <string name="share">Share</string>
     <string name="image">Image</string>
+    <string name="author">Author</string>
+    <string name="published">Published Date</string>
+    <string name="content">Content</string>
+    <string name="page_num">Page Number</string>
 </resources>
