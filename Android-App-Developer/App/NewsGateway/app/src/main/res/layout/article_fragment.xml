@@ -44,7 +44,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/page_number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/page_number"
-                        app:srcCompat="@android:drawable/ic_menu_share" />
+                        app:srcCompat="@android:drawable/ic_menu_share"/>
 
                     <ImageView
                         android:id="@+id/image"
@@ -58,7 +58,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/author"
-                        app:srcCompat="@drawable/placeholder" />
+                        app:srcCompat="@drawable/placeholder"/>
 
                     <TextView
                         android:id="@+id/author"
