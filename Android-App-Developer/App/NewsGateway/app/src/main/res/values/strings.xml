@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">News Gateway</string>
+
+
+<!--    option -->
+    <string name="categories">Category</string>
+    <string name="options">Options</string>
+    <string name="sources">Sources</string>
 </resources>
