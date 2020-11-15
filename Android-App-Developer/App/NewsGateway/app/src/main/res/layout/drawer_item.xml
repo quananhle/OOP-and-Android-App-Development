@@ -4,14 +4,14 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/tiffanyBlue"
+    android:background="@color/colorPrimaryDark"
     android:fontFamily="sans-serif-medium"
     android:padding="12dp"
     android:paddingStart="35dp"
     android:paddingEnd="35dp"
     android:textAlignment="viewStart"
     android:textAllCaps="true"
-    android:textColor="@color/pearlWhite"
+    android:textColor="@color/gold"
     android:textSize="16sp"
     tools:text="@string/sources" />
 
