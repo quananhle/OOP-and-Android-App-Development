@@ -4,23 +4,17 @@ public class Source {
     private String id;
     private String company;
     private String category;
-    private String ranking;
-    private Boolean isGovernmentFunded = true;
     //default constructor
     public Source() {
         id                 = null;
         company            = null;
         category           = null;
-        ranking            = null;
-        isGovernmentFunded = true;
     }
     //non-default constructor
-    public Source(String id, String company, String category, String ranking, Boolean isGovernmentFunded) {
+    public Source(String id, String company, String category) {
         this.id = id;
         this.company = company;
         this.category = category;
-        this.ranking = ranking;
-        this.isGovernmentFunded = isGovernmentFunded;
     }
 
     public String getId() {
@@ -46,21 +40,4 @@ public class Source {
     public void setCategory(String category) {
         this.category = category;
     }
-
-    public String getRanking() {
-        return ranking;
-    }
-
-    public void setRanking(String ranking) {
-        this.ranking = ranking;
-    }
-
-    public Boolean getGovernmentFunded() {
-        return isGovernmentFunded;
-    }
-
-    public void setGovernmentFunded(Boolean governmentFunded) {
-        isGovernmentFunded = governmentFunded;
-    }
-
 }

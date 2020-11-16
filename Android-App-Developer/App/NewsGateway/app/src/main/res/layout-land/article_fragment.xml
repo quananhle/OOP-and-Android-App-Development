@@ -85,11 +85,11 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/center_guideline"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/content"
+                        app:layout_constraintTop_toBottomOf="@+id/description"
                         tools:text="@string/page_num" />
 
                     <TextView
-                        android:id="@+id/content"
+                        android:id="@+id/description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -103,7 +103,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/author"
                         tools:targetApi="29"
-                        tools:text="@string/content" />
+                        tools:text="@string/description" />
 
                     <TextView
                         android:id="@+id/headline"

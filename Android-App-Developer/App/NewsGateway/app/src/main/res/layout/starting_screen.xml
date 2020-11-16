@@ -8,28 +8,28 @@
     tools:context=".StartingScreen">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1_hor"
+        android:id="@+id/horizontal_guideline_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="402dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1_ver"
+            android:id="@+id/vertical_guideline_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.25" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2_ver"
+            android:id="@+id/vertical_guideline_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2_hor"
+            android:id="@+id/horizontal_guideline_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -44,7 +44,7 @@
         android:text="@string/app_name"
         android:textColor="@color/gold"
         android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1_hor"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -60,9 +60,9 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/version"
-        app:layout_constraintEnd_toEndOf="@+id/guideline2_ver"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_guideline_2"
         app:layout_constraintStart_toEndOf="@+id/year"
-        app:layout_constraintStart_toStartOf="@+id/guideline1_ver" />
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_1" />
 
     <TextView
         android:id="@+id/version"
@@ -98,10 +98,10 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
-            app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
-            app:layout_constraintTop_toTopOf="@+id/guideline1_hor">
+            app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_2"
+            app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_2"
+            app:layout_constraintStart_toStartOf="@+id/vertical_guideline_1"
+            app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_1">
 
         </androidx.cardview.widget.CardView>
 
@@ -127,9 +127,9 @@
         android:textColor="@color/magenta"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/dev_info"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
-        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
-        app:layout_constraintTop_toTopOf="@+id/guideline2_hor" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_2"
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_1"
+        app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_2" />
 
     <TextView
         android:id="@+id/year"
@@ -143,7 +143,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/version"
         app:layout_constraintEnd_toStartOf="@id/dev_info"
-        app:layout_constraintStart_toEndOf="@id/guideline1_ver" />
+        app:layout_constraintStart_toEndOf="@id/vertical_guideline_1" />
 
     <ImageView
         android:id="@+id/app_logo"
@@ -153,10 +153,10 @@
         android:contentDescription="@string/app_name"
         android:cropToPadding="false"
         android:onClick="iconClicked"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
-        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
-        app:layout_constraintTop_toTopOf="@+id/guideline1_hor"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_guideline_2"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline_2"
+        app:layout_constraintStart_toStartOf="@+id/vertical_guideline_1"
+        app:layout_constraintTop_toTopOf="@+id/horizontal_guideline_1"
         app:srcCompat="@drawable/app_icon_1" />
 
     <TextView

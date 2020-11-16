@@ -56,14 +56,14 @@
                         android:layout_marginBottom="8dp"
                         android:contentDescription="@string/image"
                         android:scaleType="center"
-                        app:layout_constraintBottom_toTopOf="@+id/content"
+                        app:layout_constraintBottom_toTopOf="@+id/description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/author"
                         app:srcCompat="@drawable/placeholder"/>
 
                     <TextView
-                        android:id="@+id/author"
+                        android:id="@+id/published_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -92,7 +92,7 @@
                         tools:text="@string/page_num"/>
 
                     <TextView
-                        android:id="@+id/content"
+                        android:id="@+id/description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -109,7 +109,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/image"
                         tools:targetApi="29"
-                        tools:text="@string/content" />
+                        tools:text="@string/description" />
 
                     <TextView
                         android:id="@+id/headline"
