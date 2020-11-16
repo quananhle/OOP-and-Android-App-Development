@@ -2,16 +2,27 @@ package com.quananhle.newsgateway;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class StartingScreen extends AppCompatActivity{
-    private static final String TAG = "AboutActivity";
+    private static final String TAG = "StartingScreen";
+    private static final int STARTING_WAIT_TIME = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.starting_screen);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(StartingScreen.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        }, STARTING_WAIT_TIME);
     }
     public void apiClicked(View view){
         final String API_URL = "https://developers.google.com/civic-information/";
