@@ -30,4 +30,4 @@ __Note__: The app is completely developed on 2020 after the Election Day 11/03/2
 
 Uses: ```Service```, ```Broadcasts & Receivers```, ```Drawer Layout```, ```Fragments```, ```ViewPager```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```Internet API```, ```NEWS API```, ```JSON Data```
 
-This app will acquire and display an interactive list of political officials that representthe current location (or aspecified location)at each level of government. 
+This app displays current news articles from a wide variety of news sources covering a range of news categories.
