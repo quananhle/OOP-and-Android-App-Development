@@ -145,19 +145,19 @@
         app:layout_constraintEnd_toStartOf="@id/dev_info"
         app:layout_constraintStart_toEndOf="@id/guideline1_ver" />
 
-        <ImageView
-            android:id="@+id/app_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/app_name"
-            android:cropToPadding="false"
-            android:onClick="iconClicked"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
-            app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
-            app:layout_constraintTop_toTopOf="@+id/guideline1_hor"
-            app:srcCompat="@drawable/app_icon" />
+    <ImageView
+        android:id="@+id/app_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/app_name"
+        android:cropToPadding="false"
+        android:onClick="iconClicked"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2_hor"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2_ver"
+        app:layout_constraintStart_toStartOf="@+id/guideline1_ver"
+        app:layout_constraintTop_toTopOf="@+id/guideline1_hor"
+        app:srcCompat="@drawable/app_icon_1" />
 
     <TextView
         android:id="@+id/google"

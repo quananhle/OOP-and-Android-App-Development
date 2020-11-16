@@ -55,7 +55,7 @@
                         android:scaleType="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
+                        app:layout_constraintStart_toStartOf="@+id/center_guideline"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/placeholder" />
 
@@ -69,7 +69,7 @@
                         android:textAlignment="textEnd"
                         android:textColor="@color/navyBlue"
                         android:visibility="visible"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
                         app:layout_constraintStart_toStartOf="@id/vert25"
                         app:layout_constraintTop_toBottomOf="@+id/headline"
                         tools:text="@string/published" />
@@ -83,7 +83,7 @@
                         android:layout_marginBottom="24dp"
                         android:textColor="@color/midnightBlack"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/content"
                         tools:text="@string/page_num" />
@@ -99,7 +99,7 @@
                         android:justificationMode="inter_word"
                         android:textAlignment="inherit"
                         android:textColor="@color/midnightBlack"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/author"
                         tools:targetApi="29"
@@ -116,7 +116,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="22sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@+id/center_guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/headline" />
@@ -137,7 +137,7 @@
                         tools:text="@string/author" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline2"
+                        android:id="@+id/center_guideline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
