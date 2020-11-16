@@ -28,6 +28,6 @@ __Note__: The app is completely developed on 2020 after the Election Day 11/03/2
 
 5. [News Gateway](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/NewsGateway)   
 
-Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```JSON Data```
+Uses: ```Service```, ```Broadcasts & Receivers```, ```Drawer Layout```, ```Fragments```, ```ViewPager```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```Internet API```, ```NEWS API```, ```JSON Data```
 
 This app will acquire and display an interactive list of political officials that representthe current location (or aspecified location)at each level of government. 
