@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.quananhle.newsgateway.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,17 +25,19 @@ import java.util.TreeMap;
 
 public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> {
     private static final String TAG = "SourcesDownloader";
-    private final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
-    private String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&category=&apiKey=";
+    private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
+    private static final String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&apiKey=";
+    private static final String URL_GET_CATEGORY = "https://newsapi.org/v2/sources?language=en&country=us&category=";
+    private static final String URL_CATEGORY_END = "&apiKey=";
     @SuppressLint("StaticFieldLeak")
     private MainActivity mainActivity;
+    private ArrayList<Source> sourceArrayList;
     private Map<String, ArrayList<Source>> hashMap = new TreeMap<>();
     public SourcesDownloader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
     @Override
     protected ArrayList<Source> doInBackground(Void... voids) {
-        ArrayList<Source> sourceArrayList;
         String dataURL = DATA_URL + API_KEY;
         String urlToUse = Uri.parse(dataURL).toString();
         StringBuilder stringBuilder = new StringBuilder();
@@ -70,9 +75,16 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     private ArrayList<Source> parseJSON(String str){
         Log.d(TAG, "parseJSON: starting parsing JSON");
         ArrayList<Source>  sourceArrayList = new ArrayList<>();
-        Source source;
+        Source source = new Source();
         try {
-            
+            JSONObject jsonObject = new JSONObject(str);
+            JSONArray jsonArray = sourceArrayList.get("sources");
+            Log.d(TAG, "parseJSON: total sources available: " + jsonArray.length());
+            for (int i=0; i < jsonArray.length(); ++i){
+                source = new Source();
+                JSONObject sourceObject = (JSONObject) jsonArray.get(i);
+                source.setId(ge);
+            }
         }
     }
 }
