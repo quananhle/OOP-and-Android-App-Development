@@ -156,7 +156,6 @@ public class ArticleFragment extends Fragment {
                 articleDescription.setText(getString(R.string.no_description));
             }
             if (article.getImageUrl() != null || article.getImageUrl().equals("null")) {
-                articleImage.setImageResource(R.drawable.placeholder);
                 if (isConnected()) {
                     final String imageUrl = article.getImageUrl().trim();
                     Picasso picasso = new Picasso.Builder(mainActivity).listener(new Picasso.Listener() {
@@ -200,7 +199,7 @@ public class ArticleFragment extends Fragment {
             }
             else {
                 Log.d(TAG, "onCreateView: null image url");
-                articleImage.setVisibility(View.GONE);
+                articleImage.setImageResource(R.drawable.placeholder);
             }
             int index = getArguments().getInt("INDEX");
             int total   = getArguments().getInt("TOTAL");
@@ -221,7 +220,7 @@ public class ArticleFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String shareMessage = getString(R.string.share_message) + URL;
+                String shareMessage = getString(R.string.share_message) + "\n" + URL;
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
                 intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(intent, "Share via "));
