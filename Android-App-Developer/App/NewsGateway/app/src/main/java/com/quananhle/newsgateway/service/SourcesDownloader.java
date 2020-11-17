@@ -39,15 +39,15 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     }
     @Override
     protected void onPreExecute(){
-        Log.d(TAG, "onPreExecute: ");
+        Log.d(TAG, "onPreExecute: (SourcesDownloader) ");
     }
     @Override
-    protected void onPostExecute(ArrayList<Source> sourceArrayList) {
-        Log.d(TAG, "onPostExecute: (sourceArrayList) " + sourceArrayList);
+    protected void onPostExecute(ArrayList<Source> sources) {
+        Log.d(TAG, "onPostExecute: (SourcesDownloader) | (sources) " + sources);
         ArrayList<Source> arrayList = new ArrayList<>();
         ArrayList<Source> list;
-        hashMap.put("all", sourceArrayList);
-        for (Source source : sourceArrayList){
+        hashMap.put("all", sources);
+        for (Source source : sources){
             arrayList.clear();
             Source s = new Source();
             s.setId(source.getId());
@@ -66,12 +66,12 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             }
         }
         try {
-            super.onPostExecute(sourceArrayList);
-            Log.d(TAG, "onPostExecute: (hashMap) " + hashMap);
+            super.onPostExecute(sources);
+            Log.d(TAG, "onPostExecute: (SourcesDownloader) | (hashMap) " + hashMap);
             mainActivity.setSources(hashMap);
         }
         catch (Exception e){
-            Log.d(TAG, "onPostExecute: " + e.getMessage());
+            Log.d(TAG, "onPostExecute: (SourcesDownloader) " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -79,9 +79,9 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     @Override
     protected ArrayList<Source> doInBackground(Void... voids) {
         String dataURL = DATA_URL + API_KEY;
-        Log.d(TAG, "doInBackground: URL is " + dataURL);
+        Log.d(TAG, "doInBackground: (SourcesDownloader) URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
-        Log.d(TAG, "doInBackground: " + urlToUse);
+        Log.d(TAG, "doInBackground: (SourcesDownloader) " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
@@ -92,37 +92,38 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             String line;
             while ((line = reader.readLine()) != null)
                 stringBuilder.append(line).append('\n');
-            Log.d(TAG, "doInBackground: " + stringBuilder.toString());
+            Log.d(TAG, "doInBackground: (SourcesDownloader) " + stringBuilder.toString());
         } catch (MalformedURLException mURLe) {
-            Log.e(TAG, "doInBackground: MalformedURLException ", mURLe);
+            Log.e(TAG, "doInBackground: (SourcesDownloader) MalformedURLException ", mURLe);
             mURLe.printStackTrace();
         } catch (ProtocolException pe) {
-            Log.e(TAG, "doInBackground: ProtocolException ", pe);
+            Log.e(TAG, "doInBackground: (SourcesDownloader) ProtocolException ", pe);
             pe.printStackTrace();
         } catch (FileNotFoundException fnfe) {
-            Log.e(TAG, "doInBackground: FileNotFoundException ", fnfe);
+            Log.e(TAG, "doInBackground: (SourcesDownloader) FileNotFoundException ", fnfe);
             fnfe.printStackTrace();
             return null;
         } catch (IOException ioe) {
-            Log.e(TAG, "doInBackground: IOException ", ioe);
+            Log.e(TAG, "doInBackground: (SourcesDownloader) IOException ", ioe);
             ioe.printStackTrace();
             return null;
         } catch (Exception e) {
-            Log.e(TAG, "doInBackground: Exception ", e);
+            Log.e(TAG, "doInBackground: (SourcesDownloader) Exception ", e);
             e.printStackTrace();
         }
         sourceArrayList = parseJSON(stringBuilder.toString());
+        Log.d(TAG, "doInBackground: (sourceArrayList) " + sourceArrayList);
         return sourceArrayList;
     }
     private ArrayList<Source> parseJSON(String str){
-        Log.d(TAG, "parseJSON: String is " + str);
+        Log.d(TAG, "parseJSON: (SourcesDownloader) String is " + str);
         ArrayList<Source>  sourceArrayList = new ArrayList<>();
         Source source = new Source();
-        Log.d(TAG, "parseJSON: starting parsing JSON");
+        Log.d(TAG, "parseJSON: (SourcesDownloader) starting parsing JSON");
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray sources = (JSONArray) jsonObject.get("sources");
-            Log.d(TAG, "parseJSON: total sources available: " + sources.length());
+            Log.d(TAG, "parseJSON: (SourcesDownloader) total sources available: " + sources.length());
             for (int i=0; i < sources.length(); ++i){
                 source = new Source();
                 JSONObject jsonObj = (JSONObject) sources.getJSONObject(i);
@@ -133,7 +134,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             }
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: Exception " + e);
+            Log.d(TAG, "parseJSON: (SourcesDownloader) | Exception " + e);
         }
         return sourceArrayList;
     }
@@ -142,7 +143,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             id = object.getString("id");
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: (getID) " + e);
+            Log.d(TAG, "parseJSON: (SourcesDownloader) | (getID) " + e);
         }
         return id;
     }
@@ -151,7 +152,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             name = object.getString("name");
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: (getName) " + e);
+            Log.d(TAG, "parseJSON: (SourcesDownloader) | (getName) " + e);
         }
         return name;
     }
@@ -160,7 +161,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             category = object.getString("category");
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: (getCategory) " + e);
+            Log.d(TAG, "parseJSON: (SourcesDownloader) | (getCategory) " + e);
         }
         return category;
     }
