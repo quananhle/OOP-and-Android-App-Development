@@ -1,4 +1,12 @@
 package com.quananhle.newsgateway.service;
 
-public class HeadlinesViewHolder {
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class HeadlinesViewHolder extends RecyclerView.ViewHolder {
+    public HeadlinesViewHolder(@NonNull View itemView) {
+        super(itemView);
+    }
 }
