@@ -47,20 +47,32 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
                 stringBuilder.append(line).append('\n');
             Log.d(TAG, "doInBackground: " + stringBuilder.toString());
         } catch (MalformedURLException mURLe) {
+            Log.e(TAG, "doInBackground: MalformedURLException ", mURLe);
             mURLe.printStackTrace();
         } catch (ProtocolException pe) {
+            Log.e(TAG, "doInBackground: ProtocolException ", pe);
             pe.printStackTrace();
         } catch (FileNotFoundException fnfe) {
+            Log.e(TAG, "doInBackground: FileNotFoundException ", fnfe);
             fnfe.printStackTrace();
             return null;
         } catch (IOException ioe) {
+            Log.e(TAG, "doInBackground: IOException ", ioe);
             ioe.printStackTrace();
             return null;
         } catch (Exception e) {
+            Log.e(TAG, "doInBackground: Exception ", e);
             e.printStackTrace();
-            return null;
         }
+        sourceArrayList = parseJSON(stringBuilder.toString());
         return sourceArrayList;
-
+    }
+    private ArrayList<Source> parseJSON(String str){
+        Log.d(TAG, "parseJSON: starting parsing JSON");
+        ArrayList<Source>  sourceArrayList = new ArrayList<>();
+        Source source;
+        try {
+            
+        }
     }
 }
