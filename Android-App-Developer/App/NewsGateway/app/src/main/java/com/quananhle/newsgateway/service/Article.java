@@ -3,38 +3,39 @@ package com.quananhle.newsgateway.service;
 import java.io.Serializable;
 
 public class Article implements Serializable {
-    private String headline;
+    private String title;
     private String author;
     private String publishingDate;
     private String url;
     private String imageUrl;
-    private String content;
+    private String description;
     //default constructor
     public Article() {
         //News Article Headline (can be null/blank)
-        this.headline       = "";
+        this.title          = "";
         this.author         = "";
         this.publishingDate = "";
         this.url            = "";
         this.imageUrl       = "";
-        this.content        = "";
+        this.description    = "";
     }
     //non-default constructor
-    public Article(String headline, String author, String publishingDate, String url, String imageUrl, String content) {
-        this.headline = headline;
+    public Article(String title, String author, String publishingDate,
+                   String url, String imageUrl, String description) {
+        this.title = title;
         this.author = author;
         this.publishingDate = publishingDate;
         this.url = url;
         this.imageUrl = imageUrl;
-        this.content = content;
+        this.description = description;
     }
 
-    public String getHeadline() {
-        return headline;
+    public String getTitle() {
+        return title;
     }
 
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -69,12 +70,12 @@ public class Article implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
