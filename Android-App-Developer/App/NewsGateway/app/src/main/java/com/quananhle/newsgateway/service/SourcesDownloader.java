@@ -33,7 +33,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     private MainActivity mainActivity;
     private ArrayList<Source> sourceArrayList;
     private Map<String, ArrayList<Source>> hashMap = new TreeMap<>();
-    String id, name, category;
+    String id = "", name = "", category = "";
     public SourcesDownloader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
@@ -120,6 +120,62 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
         ArrayList<Source>  sourceArrayList = new ArrayList<>();
         Source source = new Source();
         Log.d(TAG, "parseJSON: (SourcesDownloader) starting parsing JSON");
+        /*
+        {
+        "status": "ok",
+        "sources": [
+        {
+            "id": "al-jazeera-english",
+            "name": "Al Jazeera English",
+            "description": "News, analysis from the Middle East and worldwide, multimedia and interactives, opinions, documentaries, podcasts, long reads and broadcast schedule.",
+            "url": "http://www.aljazeera.com",
+            "category": "general",
+            "language": "en",
+            "country": "us",
+            "urlsToLogos": {
+                "small": "",
+                "medium": "",
+                "large": ""
+            },
+            "sortBysAvailable": [
+                "top"
+            ]
+        },
+        {
+            "id": "ars-technica",
+            "name": "Ars Technica",
+            "description": "The PC enthusiast's resource. Power users and the tools they love, without computing religion.",
+            "url": "http://arstechnica.com",
+            "category": "technology",
+            "language": "en",
+            "country": "us",
+            "urlsToLogos": {
+                "small": "",
+                "medium": "",
+                "large": ""
+            },
+            "sortBysAvailable": [
+                "top"
+            ]
+        },
+        {
+            "id": "associated-press",
+            "name": "Associated Press",
+            "description": "The AP delivers in-depth coverage on the international, politics, lifestyle, business, and entertainment news.",
+            "url": "https://apnews.com/",
+            "category": "general",
+            "language": "en",
+            "country": "us",
+            "urlsToLogos": {
+                "small": "",
+                "medium": "",
+                "large": ""
+            },
+            "sortBysAvailable": [
+                "top"
+            ]
+        },
+         */
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray sources = (JSONArray) jsonObject.get("sources");
@@ -138,6 +194,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
         }
         return sourceArrayList;
     }
+    //====================== *** HELPER•METHODS *** ======================//
     private String getID(JSONObject object){
         try {
             id = object.getString("id");
