@@ -43,7 +43,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     }
     @Override
     protected void onPostExecute(ArrayList<Source> sources) {
-        Log.d(TAG, "onPostExecute: (SourcesDownloader) | (sources) " + sources);
+        Log.d(TAG, "onPostExecute: (SourcesDownloader) | Total sources: " + sources.size());
         ArrayList<Source> arrayList = new ArrayList<>();
         ArrayList<Source> list;
         hashMap.put("all", sources);
