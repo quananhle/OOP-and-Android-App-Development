@@ -17,11 +17,12 @@
     <string name="options">Options</string>
     <string name="sources">Sources</string>
 <!-- Fragment -->
-    <string name="headline">Headline</string>
+    <string name="title">Title</string>
     <string name="share">Share</string>
     <string name="image">Image</string>
     <string name="author">Author</string>
     <string name="published">Published Date</string>
     <string name="description">Description</string>
     <string name="page_num">Page Number</string>
+    <string name="no_description">No Summary Avaialble</string>
 </resources>

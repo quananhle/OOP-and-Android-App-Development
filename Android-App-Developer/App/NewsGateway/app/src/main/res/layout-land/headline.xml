@@ -52,7 +52,7 @@
                 app:srcCompat="@drawable/placeholder" />
 
             <TextView
-                android:id="@+id/headline"
+                android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -75,9 +75,9 @@
                 android:textAlignment="center"
                 android:textColor="@color/navyBlue"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="@+id/headline"
-                app:layout_constraintStart_toStartOf="@+id/headline"
-                app:layout_constraintTop_toBottomOf="@+id/headline"
+                app:layout_constraintEnd_toEndOf="@+id/title"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="@string/published" />
 
             <androidx.constraintlayout.widget.Guideline
