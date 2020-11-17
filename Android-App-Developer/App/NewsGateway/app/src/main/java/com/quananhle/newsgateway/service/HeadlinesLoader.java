@@ -119,12 +119,12 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
             JSONArray articles = (JSONArray) jsonObject.get("articles");
             for (int i=0; i < articles.length(); ++i){
                 JSONObject jsonObj = (JSONObject) articles.get(i);
-                article.setTitle(getTitle(article));
-                article.setAuthor(getAuthor(article));
-                article.setDescription(getDescription(article));
-                article.setUrl(getUrl(article));
-                article.setImageUrl(getImage(article));
-                article.setPublishingDate(getDate(article));
+                article.setAuthor(getAuthor(jsonObj));
+                article.setTitle(getTitle(jsonObj));
+                article.setDescription(getDescription(jsonObj));
+                article.setUrl(getUrl(jsonObj));
+                article.setImageUrl(getImage(jsonObj));
+                article.setPublishingDate(getDate(jsonObj));
                 articleArrayList.add(article);
             }
         }
@@ -134,9 +134,31 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
         return articleArrayList;
     }
     //====================== *** HELPER•METHODS *** ======================//
+    private String getAuthor(JSONObject object){
+        try {
+            author = !object.has("author") ? "" : object.getString("author");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getAuthor) " + e);
+        }
+        return author;
+    }
     private String getTitle(JSONObject object){
         try {
-            author = object.has("author")
+            title = !object.has("title") ? "" : object.getString("title"));
         }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getTitle) " + e);
+        }
+        return title;
+    }
+    private String getTitle(JSONObject object){
+        try {
+            title = !object.has("title") ? "" : object.getString("title"));
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getTitle) " + e);
+        }
+        return title;
     }
 }
