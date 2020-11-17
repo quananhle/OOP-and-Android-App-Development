@@ -24,22 +24,64 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> {
+    @SuppressLint("StaticFieldLeak")
     private static final String TAG = "SourcesDownloader";
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
     private static final String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&apiKey=";
     private static final String URL_GET_CATEGORY = "https://newsapi.org/v2/sources?language=en&country=us&category=";
     private static final String URL_CATEGORY_END = "&apiKey=";
-    @SuppressLint("StaticFieldLeak")
     private MainActivity mainActivity;
     private ArrayList<Source> sourceArrayList;
     private Map<String, ArrayList<Source>> hashMap = new TreeMap<>();
+    String id, name, category;
     public SourcesDownloader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
     @Override
+    protected void onPreExecute(){
+        Log.d(TAG, "onPreExecute: ");
+    }
+    @Override
+    protected void onPostExecute(ArrayList<Source> sourceArrayList) {
+        Log.d(TAG, "onPostExecute: (sourceArrayList) " + sourceArrayList);
+        ArrayList<Source> arrayList = new ArrayList<>();
+        ArrayList<Source> list;
+        hashMap.put("all", sourceArrayList);
+        for (Source source : sourceArrayList){
+            arrayList.clear();
+            Source s = new Source();
+            s.setId(source.getId());
+            s.setCompany(source.getCompany());
+            s.setCategory(source.getCategory());
+            if (!hashMap.containsKey(source.getCategory().toLowerCase().trim())){
+                hashMap.put(source.getCategory(), new ArrayList<Source>());
+                list = hashMap.get(source.getCategory());
+                list.add(s);
+                hashMap.put(source.getCategory(), list);
+            }
+            else {
+                list = hashMap.get(source.getCategory());
+                list.add(s);
+                hashMap.put(source.getCategory(), list);
+            }
+        }
+        try {
+            super.onPostExecute(sourceArrayList);
+            Log.d(TAG, "onPostExecute: (hashMap) " + hashMap);
+            mainActivity.setSources(hashMap);
+        }
+        catch (Exception e){
+            Log.d(TAG, "onPostExecute: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    @Override
     protected ArrayList<Source> doInBackground(Void... voids) {
         String dataURL = DATA_URL + API_KEY;
+        Log.d(TAG, "doInBackground: URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
+        Log.d(TAG, "doInBackground: " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
@@ -73,18 +115,53 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
         return sourceArrayList;
     }
     private ArrayList<Source> parseJSON(String str){
-        Log.d(TAG, "parseJSON: starting parsing JSON");
+        Log.d(TAG, "parseJSON: String is " + str);
         ArrayList<Source>  sourceArrayList = new ArrayList<>();
         Source source = new Source();
+        Log.d(TAG, "parseJSON: starting parsing JSON");
         try {
             JSONObject jsonObject = new JSONObject(str);
-            JSONArray jsonArray = sourceArrayList.get("sources");
-            Log.d(TAG, "parseJSON: total sources available: " + jsonArray.length());
-            for (int i=0; i < jsonArray.length(); ++i){
+            JSONArray sources = (JSONArray) jsonObject.get("sources");
+            Log.d(TAG, "parseJSON: total sources available: " + sources.length());
+            for (int i=0; i < sources.length(); ++i){
                 source = new Source();
-                JSONObject sourceObject = (JSONObject) jsonArray.get(i);
-                source.setId(ge);
+                JSONObject jsonObj = (JSONObject) sources.getJSONObject(i);
+                source.setId(getID(jsonObj));
+                source.setCompany(getName(jsonObj));
+                source.setCategory(getCategory(jsonObject));
+                sourceArrayList.add(source);
             }
         }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: Exception " + e);
+        }
+        return sourceArrayList;
+    }
+    private String getID(JSONObject object){
+        try {
+            id = object.getString("id");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (getID) " + e);
+        }
+        return id;
+    }
+    private String getName(JSONObject object){
+        try {
+            name = object.getString("name");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (getName) " + e);
+        }
+        return name;
+    }
+    private String getCategory(JSONObject object){
+        try {
+            category = object.getString("category");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (getCategory) " + e);
+        }
+        return category;
     }
 }
