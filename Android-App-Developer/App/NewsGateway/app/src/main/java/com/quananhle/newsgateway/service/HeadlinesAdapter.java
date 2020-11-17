@@ -47,6 +47,7 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<HeadlinesViewHolder> 
         photo = holder.image;
         share = holder.share;
         if (article.getImageUrl() != null || !article.getImageUrl().equals("null")){
+            Log.d(TAG, "onBindViewHolder: (image url) " + article.getImageUrl());
             final String imageUrl = article.getImageUrl().trim();
             Picasso picasso = new Picasso.Builder(mainActivity).listener(new Picasso.Listener() {
                 @Override
@@ -71,6 +72,8 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<HeadlinesViewHolder> 
             @Override
             public void onClick(View v) {
                 if (article.getUrl() != null || !article.getUrl().equals("null")){
+                    Toast.makeText(mainActivity, "SHARE THE NEWS", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onBindViewHolder: (share) " + article.getUrl());
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
                     String shareMessage = (R.string.share_message) + article.getUrl();
