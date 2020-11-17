@@ -7,8 +7,6 @@ import android.widget.TextView;
 
 import com.quananhle.newsgateway.R;
 
-import java.text.BreakIterator;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
