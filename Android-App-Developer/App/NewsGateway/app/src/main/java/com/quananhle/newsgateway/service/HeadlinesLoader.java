@@ -34,8 +34,10 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Article> articleArrayList){
-
+    protected void onPostExecute(ArrayList<Article> articles){
+        Log.d(TAG, "onPostExecute: (HeadlinesLoader) | Total articles: " + articles.size());
+        mainActivity.updateHeadlines(articles);
+        super.onPostExecute(articles);
     }
 
     @Override
@@ -145,20 +147,45 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     }
     private String getTitle(JSONObject object){
         try {
-            title = !object.has("title") ? "" : object.getString("title"));
+            title = !object.has("title") ? "" : object.getString("title");
         }
         catch (Exception e){
             Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getTitle) " + e);
         }
         return title;
     }
-    private String getTitle(JSONObject object){
+    private String getDescription(JSONObject object){
         try {
-            title = !object.has("title") ? "" : object.getString("title"));
+            description = !object.has("description") ? "" : object.getString("description");
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getTitle) " + e);
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getDescription) " + e);
         }
         return title;
+    }
+    private String getUrl(JSONObject object){
+        try{
+            url = !object.has("url") ? "" : object.getString("url");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getUrl) " + e);
+        }
+        return url;
+    }
+    private String getImage(JSONObject object) {
+        try {
+            urlToImage = !object.has("urlToImage") ? "" : object.getString("urlToImage");
+        } catch (Exception e) {
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getImage) " + e);
+        }
+        return urlToImage;
+    }
+    private String getDate(JSONObject object){
+        try {
+            publishedAt = !object.has("publishedAt") ? "" : object.getString("publishedAt");
+        } catch (Exception e) {
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getDate) " + e);
+        }
+        return urlToImage;
     }
 }
