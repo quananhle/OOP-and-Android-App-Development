@@ -62,7 +62,7 @@ public class ArticleFragment extends Fragment {
         articleTitle       = view.findViewById(R.id.title);
         articleDate        = view.findViewById(R.id.published_date);
         articleAuthor      = view.findViewById(R.id.author);
-        articleImage       = view.findViewById(R.id.fragement_image);
+        articleImage       = view.findViewById(R.id.image);
         articleDescription = view.findViewById(R.id.description);
         articlePageCount   = view.findViewById(R.id.page_number);
 
