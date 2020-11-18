@@ -19,7 +19,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     private static final String TAG = "HeadlinesLoader";
@@ -160,7 +163,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
         catch (Exception e){
             Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getDescription) " + e);
         }
-        return title;
+        return description;
     }
     private String getUrl(JSONObject object){
         try{
@@ -180,11 +183,20 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
         return urlToImage;
     }
     private String getDate(JSONObject object){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm");
         try {
             publishedAt = !object.has("publishedAt") ? "" : object.getString("publishedAt");
-        } catch (Exception e) {
-            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (getDate) " + e);
+            if (publishedAt != null || !publishedAt.isEmpty()){
+                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(publishedAt);
+            }
+            publishedAt = simpleDateFormat.format(date);
+        } catch (ParseException pe){
+            pe.printStackTrace();
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (ParseException) " + pe);
+        } catch (Exception e){
+            Log.d(TAG, "parseJSON: (HeadlinesLoader) | (Exception) " + e);
         }
-        return urlToImage;
+        return publishedAt;
     }
 }

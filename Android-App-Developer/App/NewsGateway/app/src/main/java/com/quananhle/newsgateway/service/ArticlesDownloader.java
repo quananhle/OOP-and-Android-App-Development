@@ -1,15 +1,10 @@
 package com.quananhle.newsgateway.service;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.quananhle.newsgateway.MainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,9 +14,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
+public class ArticlesDownloader extends AsyncTask<String, Void, ArrayList<Article>> {
     private static final String TAG = "ArticlesDownloader";
     private NewsService newsService;
     private ArrayList<Article> articleArrayList = new ArrayList<>();
@@ -34,13 +32,6 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
 
     public ArticlesDownloader(NewsService newsService) {
         this.newsService = newsService;
-    }
-
-    @Override
-    protected void onPostExecute(ArrayList<Article> articles){
-        Log.d(TAG, "onPostExecute: (ArticlesDownloader) | Total articles: " + articles.size());
-        newsService.setNews(articles);
-        super.onPostExecute(articles);
     }
 
     @Override
@@ -83,6 +74,14 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
         Log.d(TAG, "doInBackground: (ArticlesDownloader) | articleArrayList: " + articleArrayList);
         return articleArrayList;
     }
+
+    @Override
+    protected void onPostExecute(ArrayList<Article> articles){
+        Log.d(TAG, "onPostExecute: (ArticlesDownloader) | Total articles: " + articles.size());
+        newsService.setNews(articles);
+        super.onPostExecute(articles);
+    }
+
     private ArrayList<Article> parseJSON(String str){
         Log.d(TAG, "parseJSON: (ArticlesDownloader) String is " + str);
         ArrayList<Article> articleList = new ArrayList<>();
@@ -200,11 +199,19 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
         return urlToImage;
     }
     private String getDate(JSONObject object){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm");
         try {
             publishedAt = !object.has("publishedAt") ? "" : object.getString("publishedAt");
-        }
-        catch (Exception e){
-            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getDate) " + e);
+            if (publishedAt != null || !publishedAt.isEmpty()){
+                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(publishedAt);
+            }
+            publishedAt = simpleDateFormat.format(date);
+        } catch (ParseException pe){
+            pe.printStackTrace();
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (ParseException) " + pe);
+        } catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (Exception) " + e);
         }
         return publishedAt;
     }
