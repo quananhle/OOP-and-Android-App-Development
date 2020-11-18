@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.quananhle.newsgateway.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 
 public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
     private static final String TAG = "ArticlesDownloader";
-    private NewsService
+    private NewsService newsService;
     private ArrayList<Article> articleArrayList = new ArrayList<>();
 
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
@@ -28,11 +31,14 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
 
     String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
 
+    public ArticlesDownloader(NewsService newsService) {
+        this.newsService = newsService;
+    }
 
     @Override
     protected void onPostExecute(ArrayList<Article> articles){
-        Log.d(TAG, "onPostExecute: (HeadlinesLoader) | Total articles: " + articles.size());
-        mainActivity.updateHeadlines(articles);
+        Log.d(TAG, "onPostExecute: (ArticlesDownloader) | Total articles: " + articles.size());
+        newsService.setNews(articles);
         super.onPostExecute(articles);
     }
 
@@ -77,15 +83,62 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
         return articleArrayList;
     }
     private ArrayList<Article> parseJSON(String str){
-        Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
-        articleArrayList = new ArrayList<>();
+        Log.d(TAG, "parseJSON: (ArticlesDownloader) String is " + str);
+        ArrayList<Article> articleList = new ArrayList<>();
         Article article = new Article();
-        Log.d(TAG, "parseJSON: (HeadlinesLoader) starting parsing JSON");
+        Log.d(TAG, "parseJSON: (ArticlesDownloader) starting parsing JSON");
         /*
-    @Override
-    protected Void doInBackground(String... strings) {
-        return null;
-
+        {
+        "status": "ok",
+        "totalResults": 4612,
+        "articles": [
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Michelle Toh, CNN Business",
+            "title": "Beyond Meat launches plant-based minced pork in China",
+            "description": "Beyond Meat is launching a plant-based version of China's favorite meat.",
+            "url": "https://www.cnn.com/2020/11/18/business/beyond-meat-china-intl-hnk/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/201118123254-beyond-pork-biscuits-gravy-super-tease.jpg",
+            "publishedAt": "2020-11-18T06:30:47Z",
+            "content": null
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Madeline Holcombe and Raja Razek, CNN",
+            "title": "Father sues the city of Fort Worth and former police officer for shooting death of Atatiana Jefferson",
+            "description": "The family of Atatiana Jefferson, who was fatally shot through the window of her home, has filed a lawsuit against the city of Fort Worth and Aaron Dean, the former Fort Worth police officer who shot her.",
+            "url": "https://www.cnn.com/2020/11/18/us/atatiana-jefferson-fort-worth-father-lawsuit/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/191013161737-atatiana-koquice-jefferson-fort-worth-police-shooting-super-tease.jpg",
+            "publishedAt": "2020-11-18T06:26:09Z",
+            "content": "(CNN)The family of Atatiana Jefferson, who was fatally shot through the window of her home, has filed a lawsuit against the city of Fort Worth and Aaron Dean, the former Fort Worth police officer who… [+2002 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Shelby Lin Erdman, CNN",
+            "title": "FDA authorizes first rapid Covid-19 self-testing kit for at-home diagnosis",
+            "description": "The US Food and Drug Administration has issued an emergency use authorization for the first self-test for Covid-19 that can provide rapid results at home.",
+            "url": "https://www.cnn.com/2020/11/18/health/covid-home-self-test/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/200811105852-fda-super-tease.jpg",
+            "publishedAt": "2020-11-18T05:52:18Z",
+            "content": null
+        },
          */
+        try {
+            JSONObject jsonObject = new JSONObject(str);
+            JSONArray articles = (JSONArray) jsonObject.get("articles");
+            for (int i=0; i < articles.length(); ++i){
+                
+            }
+        }
+        return
     }
 }

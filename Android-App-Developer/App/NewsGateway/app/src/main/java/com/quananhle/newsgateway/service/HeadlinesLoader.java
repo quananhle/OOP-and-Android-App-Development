@@ -81,7 +81,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     }
     private ArrayList<Article> parseJSON(String str){
         Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
-        articleArrayList = new ArrayList<>();
+        ArrayList<Article> headlineList = new ArrayList<>();
         Article article = new Article();
         Log.d(TAG, "parseJSON: (HeadlinesLoader) starting parsing JSON");
         /*
@@ -127,13 +127,13 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
                 article.setUrl(getUrl(jsonObj));
                 article.setImageUrl(getImage(jsonObj));
                 article.setPublishingDate(getDate(jsonObj));
-                articleArrayList.add(article);
+                headlineList.add(article);
             }
         }
         catch (Exception e){
             Log.d(TAG, "parseJSON: (HeadlinesDownloader) | Exception " + e);
         }
-        return articleArrayList;
+        return headlineList;
     }
     //====================== *** HELPER•METHODS *** ======================//
     private String getAuthor(JSONObject object){

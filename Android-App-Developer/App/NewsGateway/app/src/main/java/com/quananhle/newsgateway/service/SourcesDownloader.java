@@ -117,7 +117,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     }
     private ArrayList<Source> parseJSON(String str){
         Log.d(TAG, "parseJSON: (SourcesDownloader) String is " + str);
-        ArrayList<Source>  sourceArrayList = new ArrayList<>();
+        ArrayList<Source>  sourceList = new ArrayList<>();
         Source source = new Source();
         Log.d(TAG, "parseJSON: (SourcesDownloader) starting parsing JSON");
         /*
@@ -186,13 +186,13 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
                 source.setId(getID(jsonObj));
                 source.setCompany(getName(jsonObj));
                 source.setCategory(getCategory(jsonObject));
-                sourceArrayList.add(source);
+                sourceList.add(source);
             }
         }
         catch (Exception e){
             Log.d(TAG, "parseJSON: (SourcesDownloader) | Exception " + e);
         }
-        return sourceArrayList;
+        return sourceList;
     }
     //====================== *** HELPER•METHODS *** ======================//
     private String getID(JSONObject object){
