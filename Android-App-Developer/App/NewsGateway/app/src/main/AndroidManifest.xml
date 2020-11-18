@@ -13,13 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".StartingScreen"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".service.NewsService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
