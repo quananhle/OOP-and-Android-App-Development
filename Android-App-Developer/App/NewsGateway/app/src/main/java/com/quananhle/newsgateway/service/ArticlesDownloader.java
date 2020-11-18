@@ -143,8 +143,8 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
                 article.setTitle(getTitle(jsonObj));
                 article.setDescription(getDescription(jsonObj));
                 article.setUrl(getUrl(jsonObj));
-                article.setImage(getImage(jsonObj));
-                article.setDate(getDate(jsonObj));
+                article.setImageUrl(getImage(jsonObj));
+                article.setPublishingDate(getDate(jsonObj));
                 articleList.add(article);
             }
         }
@@ -153,6 +153,7 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
         }
         return articleList;
     }
+    //====================== *** HELPER•METHODS *** ======================//
     private String getAuthor(JSONObject object){
         try {
             author = !object.has("author") ? "" : object.getString("author");
@@ -179,5 +180,32 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
             Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getDescription) " + e);
         }
         return description;
+    }
+    private String getUrl(JSONObject object){
+        try {
+            url = !object.has("url") ? "" : object.getString("url");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getUrl) " + e);
+        }
+        return url;
+    }
+    private String getImage(JSONObject object){
+        try {
+            urlToImage = !object.has("urlToImage") ? "" : object.getString("urlToImage");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getImage) " + e);
+        }
+        return urlToImage;
+    }
+    private String getDate(JSONObject object){
+        try {
+            publishedAt = !object.has("publishedAt") ? "" : object.getString("publishedAt");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getDate) " + e);
+        }
+        return publishedAt;
     }
 }
