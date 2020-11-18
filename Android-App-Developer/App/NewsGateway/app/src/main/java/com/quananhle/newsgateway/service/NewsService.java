@@ -22,4 +22,8 @@ public class NewsService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    class ServiceReceiver {
+
+    }
 }
