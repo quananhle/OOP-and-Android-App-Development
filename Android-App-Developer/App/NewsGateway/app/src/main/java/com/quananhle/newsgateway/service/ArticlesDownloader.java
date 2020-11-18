@@ -1,5 +1,6 @@
 package com.quananhle.newsgateway.service;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -136,9 +137,47 @@ public class ArticlesDownloader extends AsyncTask<String, Void, Void> {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray articles = (JSONArray) jsonObject.get("articles");
             for (int i=0; i < articles.length(); ++i){
-                
+                JSONObject jsonObj = (JSONObject) articles.get(i);
+                article = new Article();
+                article.setAuthor(getAuthor(jsonObj));
+                article.setTitle(getTitle(jsonObj));
+                article.setDescription(getDescription(jsonObj));
+                article.setUrl(getUrl(jsonObj));
+                article.setImage(getImage(jsonObj));
+                article.setDate(getDate(jsonObj));
+                articleList.add(article);
             }
         }
-        return
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | Exception " + e);
+        }
+        return articleList;
+    }
+    private String getAuthor(JSONObject object){
+        try {
+            author = !object.has("author") ? "" : object.getString("author");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getAuthor) " + e);
+        }
+        return author;
+    }
+    private String getTitle(JSONObject object){
+        try {
+            title = !object.has("title") ? "" : object.getString("title");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getTitle) " + e);
+        }
+        return title;
+    }
+    private String getDescription(JSONObject object){
+        try {
+            description = !object.has("description") ? "" : object.getString("description");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getDescription) " + e);
+        }
+        return description;
     }
 }

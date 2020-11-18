@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> {
-    @SuppressLint("StaticFieldLeak")
     private static final String TAG = "SourcesDownloader";
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
     private static final String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&apiKey=";

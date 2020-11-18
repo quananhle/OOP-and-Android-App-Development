@@ -22,7 +22,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
-//    @SuppressLint("StaticFieldLeak");
     private static final String TAG = "HeadlinesLoader";
     private MainActivity mainActivity;
     private ArrayList<Article> articleArrayList = new ArrayList<>();
