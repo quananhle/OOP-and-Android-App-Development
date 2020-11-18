@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.Source;
 
 import java.util.ArrayList;
@@ -33,4 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setSources(Map<String, ArrayList<Source>> hashMap){
 
     }
+    public void updateHeadlines(ArrayList<Article> headlines){
+
+    }
+
 }

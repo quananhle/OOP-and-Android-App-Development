@@ -31,7 +31,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     private static final String URL_GET_CATEGORY = "https://newsapi.org/v2/sources?language=en&country=us&category=";
     private static final String URL_CATEGORY_END = "&apiKey=";
     private MainActivity mainActivity;
-    private ArrayList<Source> sourceArrayList;
+    private ArrayList<Source> sourceArrayList = new ArrayList<>();
     private Map<String, ArrayList<Source>> hashMap = new TreeMap<>();
     String id = "", name = "", category = "";
     public SourcesDownloader(MainActivity mainActivity) {

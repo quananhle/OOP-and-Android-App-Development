@@ -25,7 +25,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
 //    @SuppressLint("StaticFieldLeak");
     private static final String TAG = "HeadlinesLoader";
     private MainActivity mainActivity;
-    private ArrayList<Article> articleArrayList;
+    private ArrayList<Article> articleArrayList = new ArrayList<>();
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
     private static final String DATA_URL = "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
     String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
