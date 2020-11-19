@@ -1,6 +1,7 @@
 package com.quananhle.newsgateway;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -58,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String ACTION_NEWS_STORY = "ANS";
     private static final String ACTION_MSG_TO_SERVICE = "AMTS";
 
+    final int WARNING_ICON = 1;
+    final int ERROR_ICON = 2;
+    final int REQUEST_CODE = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public void setSources(Map<String, ArrayList<Source>> hashMap){
 
-    }
-    public void updateHeadlines(ArrayList<Article> headlines){
-
-    }
 
     private class MyPageAdapter extends FragmentPagerAdapter {
 
@@ -112,4 +114,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //====================== *** HELPER•METHODS *** ======================//
+
+    //=====* onCreate *====//
+    private void setupComponents(){
+        recyclerView = findViewById(R.id.recyclerView);
+        officialAdapter = new OfficialAdapter(officialList, this);
+        recyclerView.setAdapter(officialAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        locationView = findViewById(R.id.location);
+    }
+
+    public void setSources(Map<String, ArrayList<Source>> hashMap){
+
+    }
+    public void updateHeadlines(ArrayList<Article> headlines){
+
+    }
+
+    //=====* Logistic methods *====//
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (connectivityManager == null) {
+            return false;
+        } else if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void showMessage(int icon, String title, String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON) {
+            dialog.setIcon(R.drawable.warning);
+        } else if (icon == ERROR_ICON) {
+            dialog.setIcon(R.drawable.error);
+        } else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
+    }
 }
