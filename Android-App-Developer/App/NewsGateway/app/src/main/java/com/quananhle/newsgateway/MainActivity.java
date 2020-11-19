@@ -1,6 +1,8 @@
 package com.quananhle.newsgateway;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +17,7 @@ import com.quananhle.newsgateway.service.Source;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
@@ -24,7 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
-    
+
+    List<Fragment> fragments;
+    MyPageAdapter myPageAdapter;
+
 
 
     private static final String ACTION_NEWS_STORY = "ANS";
@@ -55,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private class MyPageAdapter extends FragmentPagerAdapter {
 
+    }
+    
     public class NewsReceiver extends BroadcastReceiver {
         private static final String TAG = "NewsReceiver";
         @Override
