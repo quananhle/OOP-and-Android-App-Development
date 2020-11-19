@@ -20,6 +20,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
+    final int NO_NETWORK   = 3;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             retry.setVisibility            (View.VISIBLE);
             home.setVisibility             (View.GONE);
             topHeadLines.setVisibility     (View.GONE);
+            showMessage(NO_NETWORK, "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
         }
         else {
             new SourcesDownloader(this).execute();
@@ -152,7 +156,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        IntentFilter intentFilter = n
+        IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
+        registerReceiver(newsReceiver, intentFilter);
         super.onResume();
     }
 
@@ -163,20 +168,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (drawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        setTitle(item.getTitle().toString().trim());
+        sourceArrayList.clear();
+        ArrayList<Source> sources = sourceHashMap.get(item.getTitle().toString().trim());
+        if (sources != null){
+            sourceArrayList.addAll(sources);
+        }
+        ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+        Toast.makeText(this, "Total Sources Loaded: " + sources.size(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View view) {
+        int position = recyclerView.getChildAdapterPosition(view);
+        Article article = headlineArrayList.get(position);
+        if (article.getUrl() != null){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getUrl()));
+            startActivity(intent);
+        }
     }
 
     @Override
-    public boolean onLongClick(View v) {
+    public boolean onLongClick(View view) {
+        int position = recyclerView.getChildAdapterPosition(view);
+        Article article = headlineArrayList.get(position);
+        if (article.getUrl() != null){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getUrl()));
+            startActivity(intent);
+        }
         return false;
     }
-
-
 
     //====================== *** CLASS•INSIDE•MAIN•ACTIVITY *** ======================//
     // Page Adapter
@@ -239,6 +264,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             retry.setVisibility            (View.VISIBLE);
             home.setVisibility             (View.GONE);
             topHeadLines.setVisibility     (View.GONE);
+            Log.d(TAG, "onCreateView: network off");
+            showMessage(NO_NETWORK, "NO NETWORK CONNECTION",
+                    "Data cannot be accessed/loaded without an Internet connection");
         }
         else {
             new SourcesDownloader(this).execute();
@@ -329,6 +357,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             dialog.setIcon(R.drawable.warning);
         } else if (icon == ERROR_ICON) {
             dialog.setIcon(R.drawable.error);
+        } else if (icon == NO_NETWORK) {
+            dialog.setIcon(R.drawable.network_off);
         } else {
             dialog.setIcon(null);
         }
