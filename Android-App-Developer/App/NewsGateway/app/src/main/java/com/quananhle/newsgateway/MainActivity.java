@@ -355,11 +355,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //=====* SourcesDownloader.class *====//
     public void setSources(Map<String, ArrayList<Source>> hashMap){
-
+        String formatter = new String();
+        try {
+            menu.clear();
+            sourceHashMap = hashMap;
+            for (String category : hashMap.keySet()){
+                String[] strings = category.split("_");
+                for (String string : strings){
+                    String s = string.toLowerCase();
+                    int size = s.length();
+                    formatter = String.format("%s%s%s", "",
+                            s.substring(0, 1).toUpperCase(),
+                            s.substring(1, size));
+                }
+                menu.add(formatter);
+            }
+            if (getSupportActionBar() != null){
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            }
+        }
+        catch (Exception e){
+            Log.d(TAG, "setSources: Exception" + e);
+            new SourcesDownloader(this).execute();
+        }
     }
     //=====* HeadlinesLoader.class *====//
     public void updateHeadlines(ArrayList<Article> headlines){
-
+        headlineArrayList.clear();
+        if (headlines.size() != 0 || !headlines.isEmpty()){
+            headlineArrayList.addAll(headlines);
+        }
+        headlinesAdapter.notifyDataSetChanged();
     }
     //=====* Logistic methods *====//
     public boolean isConnected() {
