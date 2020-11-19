@@ -35,13 +35,17 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
+    private static final String ARTICLE_LIST = "AL";
+    private static final String SOURCE = "Source";
+    private static final String ACTION_NEWS_STORY = "ANS";
+    private static final String ACTION_MSG_TO_SERVICE = "AMTS";
     private ArrayList<Article> articleArrayList  = new ArrayList<>();
     private ArrayList<Article> headlineArrayList = new ArrayList<>();
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
+
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
     NewsReceiver newsReceiver;
-
     Menu menu;
     RecyclerView recyclerView;
     ListView listView;
@@ -52,18 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MyPageAdapter myPageAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     ViewPager viewPager;
-
     TextView networkOffTitle, networkOffMessage, topHeadLines;
     Button retry;
 
-    private static final String ARTICLE_LIST = "AL";
-    private static final String SOURCE = "Source";
-    private static final String ACTION_NEWS_STORY = "ANS";
-    private static final String ACTION_MSG_TO_SERVICE = "AMTS";
-
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
-    final int REQUEST_CODE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
