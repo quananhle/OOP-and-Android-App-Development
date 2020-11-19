@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
@@ -69,6 +71,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupComponents();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                drawyerLayout.closeDrawer(drawyerList);
+                recyclerView.setAdapter(headlinesAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                Toast.makeText(MainActivity.this, "MOST RECENT NEWS UPDATED", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
+        
     }
 
     @Override
@@ -88,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private class MyPageAdapter extends FragmentPagerAdapter {
 
     }
-    // News Receiver 
+    // News Receiver
     public class NewsReceiver extends BroadcastReceiver {
         private static final String TAG = "NewsReceiver";
         @Override
