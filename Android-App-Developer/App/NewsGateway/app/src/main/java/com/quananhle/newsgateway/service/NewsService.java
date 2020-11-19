@@ -10,9 +10,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.quananhle.newsgateway.MainActivity;
-
 import java.util.ArrayList;
-
 import androidx.annotation.Nullable;
 
 public class NewsService extends Service {
@@ -29,7 +27,7 @@ public class NewsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        IntentFilter intentFilter = new IntentFilter(ACTION_MSG_TO_SERVICE);
+        IntentFilter intentFilter = new IntentFilter(MainActivity.ACTION_MSG_TO_SERVICE);
         serviceReceiver = new ServiceReceiver();
         registerReceiver(serviceReceiver, intentFilter);
         new Thread(new Runnable() {
@@ -79,7 +77,7 @@ public class NewsService extends Service {
             switch (intent.getAction()){
                 case MainActivity.ACTION_MSG_TO_SERVICE:
                     Source source = intent.hasExtra(MainActivity.SOURCE)
-                            ? intent.getSerializableExtra(MainActivity.SOURCE) : null;
+                            ? (Source) intent.getSerializableExtra(MainActivity.SOURCE) : null;
                     assert source != null;
                     new ArticlesDownloader(NewsService.this).execute(source.getId());
                     break;

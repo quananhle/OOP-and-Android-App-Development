@@ -50,10 +50,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
-    private static final String ARTICLE_LIST = "AL";
-    private static final String SOURCE = "Source";
-    private static final String ACTION_NEWS_STORY = "ANS";
-    private static final String ACTION_MSG_TO_SERVICE = "AMTS";
+    public static final String ARTICLE_LIST = "AL";
+    public static final String SOURCE = "Source";
+    public static final String ACTION_NEWS_STORY = "ANS";
+    public static final String ACTION_MSG_TO_SERVICE = "AMTS";
     private ArrayList<Article> articleArrayList  = new ArrayList<>();
     private ArrayList<Article> headlineArrayList = new ArrayList<>();
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Source source = sourceArrayList.get(position);
                 Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
-                intent.putExtra(SOURCE, (Serializable) source);
+                intent.putExtra(SOURCE, source);
                 sendBroadcast(intent);
                 setTitle(source.getCompany());
                 viewPager.setVisibility(View.VISIBLE);
