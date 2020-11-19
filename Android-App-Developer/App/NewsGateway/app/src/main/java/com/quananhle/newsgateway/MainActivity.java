@@ -14,24 +14,30 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
 import com.quananhle.newsgateway.service.HeadlinesLoader;
+import com.quananhle.newsgateway.service.NewsService;
 import com.quananhle.newsgateway.service.Source;
 import com.quananhle.newsgateway.service.SourcesDownloader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
     NewsReceiver newsReceiver;
     Menu menu;
-    ListView drawyerList;
-    DrawerLayout drawyerLayout;
+    ListView drawerList;
+    DrawerLayout drawerLayout;
     ImageButton home;
     ActionBarDrawerToggle drawerToggle;
     List<Fragment> fragments;
@@ -67,14 +73,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final int ERROR_ICON = 2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupComponents();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                drawyerLayout.closeDrawer(drawyerList);
+                drawerLayout.closeDrawer(drawerList);
                 recyclerView.setAdapter(headlinesAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 Toast.makeText(MainActivity.this, "MOST RECENT NEWS UPDATED", Toast.LENGTH_SHORT).show();
@@ -82,7 +88,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
-        
+        recyclerView.setAdapter(headlinesAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Intent intent = new Intent(this, NewsService.class);
+        startService(intent);
+
+        drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Source source = sourceArrayList.get(position);
+                Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
+                intent.putExtra(SOURCE, (Serializable) source);
+                sendBroadcast(intent);
+                setTitle(source.getCompany());
+                viewPager.setVisibility(View.VISIBLE);
+                viewPager.setBackgroundResource(R.color.darkSlateGray);
+                Snackbar.make(view, source.getCompany() + " SELECTED", Snackbar.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(drawerList);
+                swipeRefreshLayout.setEnabled(false);
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new HeadlinesLoader(MainActivity.this).execute();
+                topHeadLines.setVisibility(View.VISIBLE);
+                setTitle(R.string.app_name);
+                viewPager.setVisibility(View.GONE);
+                recyclerView.scrollToPosition(0);
+                swipeRefreshLayout.setEnabled(true);
+                sourceArrayList.clear();
+                sourceArrayList.addAll(sourceHashMap.get("all"));
+                ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+            }
+        });
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.open_drawer, R.string.close_drawer);
+        if (!isConnected()){
+            networkOffTitle.setVisibility  (View.VISIBLE);
+            networkOffMessage.setVisibility(View.VISIBLE);
+            retry.setVisibility            (View.VISIBLE);
+            home.setVisibility             (View.GONE);
+            topHeadLines.setVisibility     (View.GONE);
+        }
+        else {
+            new SourcesDownloader(this).execute();
+            new HeadlinesLoader(this).execute();
+            networkOffTitle.setVisibility  (View.GONE);
+            networkOffMessage.setVisibility(View.GONE);
+            retry.setVisibility            (View.GONE);
+            home.setVisibility             (View.VISIBLE);
+            topHeadLines.setVisibility     (View.VISIBLE);
+        }
+        IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
+        registerReceiver(newsReceiver, intentFilter);
     }
 
     @Override
@@ -133,8 +192,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* onCreate *====//
     private void setupComponents(){
         recyclerView       = findViewById(R.id.recycler_view);
-        drawyerLayout      = findViewById(R.id.drawer_layout);
-        drawyerList        = findViewById(R.id.drawer_list);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerList = findViewById(R.id.drawer_list);
         topHeadLines       = findViewById(R.id.topHeadlines);
         home               = findViewById(R.id.home);
         retry              = findViewById(R.id.try_again);

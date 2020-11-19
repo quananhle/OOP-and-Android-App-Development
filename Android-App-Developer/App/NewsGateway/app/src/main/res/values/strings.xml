@@ -6,6 +6,8 @@
     <string name="network_off_title">Uh-Oh!</string>
     <string name="network_off_message"> You are not connected</string>
     <string name="try_again">Try Again!</string>
+    <string name="open_drawer">Open Source Selections</string>
+    <string name="close_drawer">Close Source Selections</string>
 <!-- FragmentArticle -->
     <string name="share_message">Check this out: </string>
     <string name="null_title">Preview title is unavailable!</string>
