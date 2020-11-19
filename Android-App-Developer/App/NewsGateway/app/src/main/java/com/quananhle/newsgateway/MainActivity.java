@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Article> headlineArrayList = new ArrayList<>();
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
 
+    RecyclerView recyclerView;
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
     NewsReceiver newsReceiver;
     Menu menu;
-    RecyclerView recyclerView;
-    ListView listView;
+    ListView drawyerList;
     DrawerLayout drawyerLayout;
     ImageButton home;
     ActionBarDrawerToggle drawerToggle;
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupComponents();
     }
 
     @Override
@@ -115,11 +116,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //=====* onCreate *====//
     private void setupComponents(){
-        recyclerView = findViewById(R.id.recyclerView);
-        officialAdapter = new OfficialAdapter(officialList, this);
-        recyclerView.setAdapter(officialAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        locationView = findViewById(R.id.location);
+        recyclerView    = findViewById(R.id.recycler_view);
+        drawyerLayout   = findViewById(R.id.drawer_layout);
+        drawyerList     = findViewById(R.id.drawer_list);
+        topHeadLines    = findViewById(R.id.topHeadlines);
+        home            = findViewById(R.id.home);
+        retry           = findViewById(R.id.try_again);
+        networkOffTitle =
+
+        fragments        = new ArrayList<>();
+        sourceArrayList  = new ArrayList<>();
+        articleArrayList = new ArrayList<>();
+        newsReceiver     = new NewsReceiver();
+
+        myPageAdapter    = new MyPageAdapter(getSupportFragmentManager());
+        viewPager = findViewById(R.id.viewpager);
+        viewPager.setAdapter(myPageAdapter);
+
     }
 
     public void setSources(Map<String, ArrayList<Source>> hashMap){

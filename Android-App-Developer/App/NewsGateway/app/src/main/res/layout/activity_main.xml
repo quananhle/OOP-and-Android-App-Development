@@ -111,7 +111,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/try_again_button"
                 android:fontFamily="sans-serif-medium"
-                android:onClick="setUp_Categories"
+                android:onClick="setupCategories"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:text="@string/try_again"
