@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,13 +37,13 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.quananhle.newsgateway.service.Article;
+import com.quananhle.newsgateway.service.ArticleFragment;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
 import com.quananhle.newsgateway.service.HeadlinesLoader;
 import com.quananhle.newsgateway.service.NewsService;
 import com.quananhle.newsgateway.service.Source;
 import com.quananhle.newsgateway.service.SourcesDownloader;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -206,31 +207,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //====================== *** CLASS•INSIDE•MAIN•ACTIVITY *** ======================//
     // Page Adapter
     private class MyPageAdapter extends FragmentPagerAdapter {
-
+        private long baseId = 0;
+        public MyPageAdapter(FragmentManager fragmentManager){
+            super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        }
+        @Override
+        public int getItemPosition(@NonNull Object object){
+            return POSITION_NONE;
+        }
+        @NonNull
+        @Override
+        public Fragment getItem(int position){
+            return fragments.get(position);
+        }
+        @Override
+        public int getCount(){
+            return fragments.size();
+        }
+        @Override
+        public long getItemId(int position){
+            return baseId + position;
+        }
+        public void notifyChangeInPosition(int n){
+            baseId += getCount() + n;
+        }
     }
     // News Receiver
     public class NewsReceiver extends BroadcastReceiver {
         private static final String TAG = "NewsReceiver";
         @Override
         public void onReceive(Context context, Intent intent){
-            switch (intent.getAction()){
-                case ACTION_NEWS_STORY:
-                    try {
-                        Bundle bundle = intent.getExtras();
-                        ArrayList<Article> articles = (ArrayList<Article>)
-                                bundle.getSerializable("articleArrayList");
-                        Log.d(TAG, "onReceive: " + TAG + " | Articles received by onReceive");
-                        for (int i=0; i < articles.size(); ++i){
-                            Log.d(TAG, "onReceive: title: " + articles.get(i).getTitle());
-                        }
-                        reDoFragment(articles);
-                    }
-                    catch (Exception e){
-                        Log.d(TAG, "onReceive: " + e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
-            }
+            articleArrayList.clear();
+            articleArrayList = intent.hasExtra(ARTICLE_LIST)
+                    ? (ArrayList<Article>) intent.getSerializableExtra(ARTICLE_LIST) : new ArrayList<Article>();
+            reDoFragment();
         }
     }
 
@@ -333,6 +343,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void updateHeadlines(ArrayList<Article> headlines){
 
+    }
+
+    //=====* NewsReceiver.class *====//
+    private void reDoFragment(){
+        for (int i=0; i < myPageAdapter.getCount(); ++i){
+            myPageAdapter.notifyChangeInPosition(i);
+        }
+        fragments.clear();
+        for (int i=0; i < articleArrayList.size(); ++i){
+            fragments.add(ArticleFragment.newInstance(articleArrayList.get(i), 1+i, articleArrayList.size()));
+        }
     }
 
     //=====* Logistic methods *====//
