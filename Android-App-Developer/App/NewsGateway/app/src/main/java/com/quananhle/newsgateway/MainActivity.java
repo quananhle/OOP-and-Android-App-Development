@@ -3,13 +3,16 @@ package com.quananhle.newsgateway;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
+import android.widget.ListView;
 
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
@@ -28,8 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
 
+    Menu menu;
+    RecyclerView recyclerView;
+    ListView listView;
+    DrawyerLayout drawyerLayout;
+    NewsReceiver newsReceiver;
+
     List<Fragment> fragments;
     MyPageAdapter myPageAdapter;
+
 
 
 
@@ -64,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private class MyPageAdapter extends FragmentPagerAdapter {
 
     }
-    
+
     public class NewsReceiver extends BroadcastReceiver {
         private static final String TAG = "NewsReceiver";
         @Override
