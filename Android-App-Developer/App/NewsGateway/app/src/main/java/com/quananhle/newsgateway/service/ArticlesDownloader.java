@@ -78,7 +78,7 @@ public class ArticlesDownloader extends AsyncTask<String, Void, ArrayList<Articl
     @Override
     protected void onPostExecute(ArrayList<Article> articles){
         Log.d(TAG, "onPostExecute: (ArticlesDownloader) | Total articles: " + articles.size());
-        newsService.setNews(articles);
+        newsService.setArticles(articles);
         super.onPostExecute(articles);
     }
 

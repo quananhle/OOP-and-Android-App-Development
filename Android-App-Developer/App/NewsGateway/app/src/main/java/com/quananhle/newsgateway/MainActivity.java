@@ -2,7 +2,11 @@ package com.quananhle.newsgateway;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.quananhle.newsgateway.service.Article;
@@ -12,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+    private static final String TAG = "MainActivity";
+    private static final String ACTION_NEWS_STORY = "ANS";
+    private static final String ACTION_MSG_TO_SERVICE = "AMTS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void updateHeadlines(ArrayList<Article> headlines){
 
+    }
+
+
+    public class NewsReceiver extends BroadcastReceiver {
+        private static final String TAG = "NewsReceiver";
+        @Override
+        public void onReceive(Context context, Intent intent){
+            switch (intent.getAction()){
+                case ACTION_NEWS_STORY:
+                    try {
+                        Bundle bundle = intent.getExtras();
+                        ArrayList<Article> articles = (ArrayList<Article>)
+                                bundle.getSerializable("articleArrayList");
+                        Log.d(TAG, "onReceive: " + TAG + " | Articles received by onReceive");
+                        for (int i=0; i < articles.size(); ++i){
+                            Log.d(TAG, )
+                        }
+                    }
+            }
+        }
     }
 
 }
