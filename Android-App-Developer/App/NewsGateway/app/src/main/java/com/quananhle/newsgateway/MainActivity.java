@@ -1,5 +1,7 @@
 package com.quananhle.newsgateway;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +17,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,53 +81,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupComponents();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                drawerLayout.closeDrawer(drawerList);
-                recyclerView.setAdapter(headlinesAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                Toast.makeText(MainActivity.this, "MOST RECENT NEWS UPDATED", Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        setSwipeRefreshLayout();
+
         headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
         recyclerView.setAdapter(headlinesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Intent intent = new Intent(this, NewsService.class);
         startService(intent);
 
-        drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Source source = sourceArrayList.get(position);
-                Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
-                intent.putExtra(SOURCE, (Serializable) source);
-                sendBroadcast(intent);
-                setTitle(source.getCompany());
-                viewPager.setVisibility(View.VISIBLE);
-                viewPager.setBackgroundResource(R.color.darkSlateGray);
-                Snackbar.make(view, source.getCompany() + " SELECTED", Snackbar.LENGTH_SHORT).show();
-                drawerLayout.closeDrawer(drawerList);
-                swipeRefreshLayout.setEnabled(false);
-            }
-        });
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new HeadlinesLoader(MainActivity.this).execute();
-                topHeadLines.setVisibility(View.VISIBLE);
-                setTitle(R.string.app_name);
-                viewPager.setVisibility(View.GONE);
-                recyclerView.scrollToPosition(0);
-                swipeRefreshLayout.setEnabled(true);
-                sourceArrayList.clear();
-                sourceArrayList.addAll(sourceHashMap.get("all"));
-                ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
-            }
-        });
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                R.string.open_drawer, R.string.close_drawer);
+        setDrawerList();
+        setHomeButton();
+        setDrawerToggle();
+
         if (!isConnected()){
             networkOffTitle.setVisibility  (View.VISIBLE);
             networkOffMessage.setVisibility(View.VISIBLE);
@@ -140,8 +109,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             home.setVisibility             (View.VISIBLE);
             topHeadLines.setVisibility     (View.VISIBLE);
         }
+
         IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
         registerReceiver(newsReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig){
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(newsReceiver);
+        Intent intent = new Intent(this, NewsService.class);
+        stopService(intent);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -227,6 +245,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             home.setVisibility             (View.VISIBLE);
             topHeadLines.setVisibility     (View.VISIBLE);
         }
+    }
+    private void setSwipeRefreshLayout(){
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                drawerLayout.closeDrawer(drawerList);
+                recyclerView.setAdapter(headlinesAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                Toast.makeText(MainActivity.this, "MOST RECENT NEWS UPDATED", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+    private void setDrawerToggle(){
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.open_drawer, R.string.close_drawer);
+    }
+    private void setDrawerList(){
+        drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Source source = sourceArrayList.get(position);
+                Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
+                intent.putExtra(SOURCE, (Serializable) source);
+                sendBroadcast(intent);
+                setTitle(source.getCompany());
+                viewPager.setVisibility(View.VISIBLE);
+                viewPager.setBackgroundResource(R.color.darkSlateGray);
+                Snackbar.make(view, source.getCompany() + " SELECTED", Snackbar.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(drawerList);
+                swipeRefreshLayout.setEnabled(false);
+            }
+        });
+    }
+    private void setHomeButton(){
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new HeadlinesLoader(MainActivity.this).execute();
+                topHeadLines.setVisibility(View.VISIBLE);
+                setTitle(R.string.app_name);
+                viewPager.setVisibility(View.GONE);
+                recyclerView.scrollToPosition(0);
+                swipeRefreshLayout.setEnabled(true);
+                sourceArrayList.clear();
+                sourceArrayList.addAll(sourceHashMap.get("all"));
+                ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+            }
+        });
     }
 
     public void setSources(Map<String, ArrayList<Source>> hashMap){
