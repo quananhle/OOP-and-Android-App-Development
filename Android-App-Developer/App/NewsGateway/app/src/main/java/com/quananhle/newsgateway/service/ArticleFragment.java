@@ -45,7 +45,7 @@ public class ArticleFragment extends Fragment {
     //default constructor
     public ArticleFragment() {
     }
-    private static final ArticleFragment newInstance(Article article, int index, int total){
+    public static final ArticleFragment newInstance(Article article, int index, int total){
         ArticleFragment articleFragment = new ArticleFragment();
         Bundle bundle = new Bundle(1);
         bundle.putSerializable("ARTICLE", article);
