@@ -195,11 +195,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onLongClick(View view) {
+        Log.d(TAG, "onCreateView: Share news ");
         int position = recyclerView.getChildAdapterPosition(view);
         Article article = headlineArrayList.get(position);
         if (article.getUrl() != null){
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getUrl()));
-            startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            String shareMessage = getString(R.string.share_message) + "\n" + Uri.parse(article.getUrl());
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(intent, "Share via "));
         }
         return false;
     }
@@ -337,14 +342,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
-    public void setSources(Map<String, ArrayList<Source>> hashMap){
-
-    }
-    public void updateHeadlines(ArrayList<Article> headlines){
-
-    }
-
     //=====* NewsReceiver.class *====//
     private void reDoFragment(){
         for (int i=0; i < myPageAdapter.getCount(); ++i){
@@ -352,10 +349,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         fragments.clear();
         for (int i=0; i < articleArrayList.size(); ++i){
-            fragments.add(ArticleFragment.newInstance(articleArrayList.get(i), 1+i, articleArrayList.size()));
+            fragments.add(ArticleFragment.newInstance
+                    (articleArrayList.get(i), 1+i, articleArrayList.size()));
         }
     }
+    //=====* SourcesDownloader.class *====//
+    public void setSources(Map<String, ArrayList<Source>> hashMap){
 
+    }
+    //=====* HeadlinesLoader.class *====//
+    public void updateHeadlines(ArrayList<Article> headlines){
+
+    }
     //=====* Logistic methods *====//
     public boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager)
