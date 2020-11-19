@@ -26,7 +26,9 @@ import android.widget.TextView;
 
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
+import com.quananhle.newsgateway.service.HeadlinesLoader;
 import com.quananhle.newsgateway.service.Source;
+import com.quananhle.newsgateway.service.SourcesDownloader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,12 +83,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-
+    //====================== *** CLASS•INSIDE•MAIN•ACTIVITY *** ======================//
+    // Page Adapter
     private class MyPageAdapter extends FragmentPagerAdapter {
 
     }
-
+    // News Receiver 
     public class NewsReceiver extends BroadcastReceiver {
         private static final String TAG = "NewsReceiver";
         @Override
@@ -116,13 +118,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //=====* onCreate *====//
     private void setupComponents(){
-        recyclerView    = findViewById(R.id.recycler_view);
-        drawyerLayout   = findViewById(R.id.drawer_layout);
-        drawyerList     = findViewById(R.id.drawer_list);
-        topHeadLines    = findViewById(R.id.topHeadlines);
-        home            = findViewById(R.id.home);
-        retry           = findViewById(R.id.try_again);
-        networkOffTitle =
+        recyclerView       = findViewById(R.id.recycler_view);
+        drawyerLayout      = findViewById(R.id.drawer_layout);
+        drawyerList        = findViewById(R.id.drawer_list);
+        topHeadLines       = findViewById(R.id.topHeadlines);
+        home               = findViewById(R.id.home);
+        retry              = findViewById(R.id.try_again);
+        networkOffTitle    = findViewById(R.id.network_off_title);
+        networkOffMessage  = findViewById(R.id.network_off_message);
+        swipeRefreshLayout = findViewById(R.id.swiper);
 
         fragments        = new ArrayList<>();
         sourceArrayList  = new ArrayList<>();
@@ -132,7 +136,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         myPageAdapter    = new MyPageAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(myPageAdapter);
-
+    }
+    private void setupCategories(View view){
+        if (!isConnected()){
+            networkOffTitle.setVisibility  (View.VISIBLE);
+            networkOffMessage.setVisibility(View.VISIBLE);
+            retry.setVisibility            (View.VISIBLE);
+            home.setVisibility             (View.GONE);
+            topHeadLines.setVisibility     (View.GONE);
+        }
+        else {
+            new SourcesDownloader(this).execute();
+            new HeadlinesLoader(this).execute();
+            networkOffTitle.setVisibility  (View.GONE);
+            networkOffMessage.setVisibility(View.GONE);
+            retry.setVisibility            (View.GONE);
+            home.setVisibility             (View.VISIBLE);
+            topHeadLines.setVisibility     (View.VISIBLE);
+        }
     }
 
     public void setSources(Map<String, ArrayList<Source>> hashMap){
