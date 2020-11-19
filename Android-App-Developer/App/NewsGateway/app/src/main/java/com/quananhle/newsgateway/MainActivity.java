@@ -1,9 +1,13 @@
 package com.quananhle.newsgateway;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +16,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
@@ -30,19 +37,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
+    NewsReceiver newsReceiver;
 
     Menu menu;
     RecyclerView recyclerView;
     ListView listView;
-    DrawyerLayout drawyerLayout;
-    NewsReceiver newsReceiver;
-
+    DrawerLayout drawyerLayout;
+    ImageButton home;
+    ActionBarDrawerToggle drawerToggle;
     List<Fragment> fragments;
     MyPageAdapter myPageAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    ViewPager viewPager;
 
+    TextView networkOffTitle, networkOffMessage, topHeadLines;
+    Button retry;
 
-
-
+    private static final String ARTICLE_LIST = "AL";
+    private static final String SOURCE = "Source";
     private static final String ACTION_NEWS_STORY = "ANS";
     private static final String ACTION_MSG_TO_SERVICE = "AMTS";
 
