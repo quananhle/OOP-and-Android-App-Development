@@ -17,8 +17,6 @@ import androidx.annotation.Nullable;
 
 public class NewsService extends Service {
     private static final String TAG = "NewsService";
-    private static final String ACTION_MSG_TO_SERVICE = "AMTS";
-    private static final String ACTION_NEWS_STORY = "ANS";
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private ServiceReceiver serviceReceiver;
     private boolean isRunning = true;
@@ -48,10 +46,8 @@ public class NewsService extends Service {
                         }
                     }
                     Intent intent = new Intent();
-                    intent.setAction(ACTION_NEWS_STORY);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("articleArrayList", articleArrayList);
-                    intent.putExtra(bundle);
+                    intent.setAction(MainActivity.ACTION_NEWS_STORY);
+                    intent.putExtra(MainActivity.ARTICLE_LIST, articleArrayList);
                     sendBroadcast(intent);
                     articleArrayList.clear();
                 }
@@ -81,7 +77,7 @@ public class NewsService extends Service {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "onReceive: " + TAG + ": intent's action is " + intent.getAction());
             switch (intent.getAction()){
-                case ACTION_MSG_TO_SERVICE:
+                case MainActivity.ACTION_MSG_TO_SERVICE:
                     Source source = intent.hasExtra(MainActivity.SOURCE)
                             ? intent.getSerializableExtra(MainActivity.SOURCE) : null;
                     assert source != null;

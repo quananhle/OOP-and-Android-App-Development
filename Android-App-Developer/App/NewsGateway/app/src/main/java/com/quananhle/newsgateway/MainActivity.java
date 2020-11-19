@@ -10,13 +10,23 @@ import android.util.Log;
 import android.view.View;
 
 import com.quananhle.newsgateway.service.Article;
+import com.quananhle.newsgateway.service.HeadlinesAdapter;
 import com.quananhle.newsgateway.service.Source;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
+    private ArrayList<Article> articleArrayList  = new ArrayList<>();
+    private ArrayList<Article> headlineArrayList = new ArrayList<>();
+    private ArrayList<Source> sourceArrayList    = new ArrayList<>();
+    HeadlinesAdapter headlinesAdapter;
+    Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
+    
+
+
     private static final String ACTION_NEWS_STORY = "ANS";
     private static final String ACTION_MSG_TO_SERVICE = "AMTS";
 
@@ -58,9 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 bundle.getSerializable("articleArrayList");
                         Log.d(TAG, "onReceive: " + TAG + " | Articles received by onReceive");
                         for (int i=0; i < articles.size(); ++i){
-                            Log.d(TAG, )
+                            Log.d(TAG, "onReceive: title: " + articles.get(i).getTitle());
                         }
+                        reDoFragment(articles);
                     }
+                    catch (Exception e){
+                        Log.d(TAG, "onReceive: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                    break;
             }
         }
     }
