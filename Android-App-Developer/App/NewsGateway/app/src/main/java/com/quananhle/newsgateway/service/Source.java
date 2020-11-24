@@ -6,9 +6,9 @@ public class Source {
     private String category;
     //default constructor
     public Source() {
-        id                 = null;
-        company            = null;
-        category           = null;
+        id                 = "";
+        company            = "";
+        category           = "";
     }
     //non-default constructor
     public Source(String id, String company, String category) {
