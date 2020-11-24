@@ -68,4 +68,9 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="1100" ></div>
 </a>
 
+4. Network error
+<a href="pic/stock-error.png">
+<div align="center"><img src="pic/stock-error.png" height="750" width="400" ></div>
+</a>
+
 
