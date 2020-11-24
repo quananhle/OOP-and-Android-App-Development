@@ -23,7 +23,6 @@ public class ArticlesDownloader extends AsyncTask<String, Void, ArrayList<Articl
     private static final String TAG = "ArticlesDownloader";
     private NewsService newsService;
     private ArrayList<Article> articleArrayList = new ArrayList<>();
-
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
     private static final String DATA_URL_BEGIN = "https://newsapi.org/v2/everything?sources=";
     private static final String DATA_URL_END   = "&language=en&pageSize=20&apiKey=";
