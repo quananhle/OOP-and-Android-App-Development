@@ -26,9 +26,7 @@ import java.util.TreeMap;
 public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> {
     private static final String TAG = "SourcesDownloader";
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
-    private static final String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&apiKey=";
-    private static final String URL_GET_CATEGORY = "https://newsapi.org/v2/sources?language=en&country=us&category=";
-    private static final String URL_CATEGORY_END = "&apiKey=";
+    private static final String DATA_URL = "https://newsapi.org/v2/sources?language=en&country=us&category=&apiKey=";
     private MainActivity mainActivity;
     private ArrayList<Source> sourceArrayList = new ArrayList<>();
     private Map<String, ArrayList<Source>> hashMap = new TreeMap<>();
@@ -73,10 +71,11 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             Log.d(TAG, "onPostExecute: (SourcesDownloader) " + e.getMessage());
             e.printStackTrace();
         }
-
     }
+
     @Override
     protected ArrayList<Source> doInBackground(Void... voids) {
+        ArrayList<Source> sources;
         String dataURL = DATA_URL + API_KEY;
         Log.d(TAG, "doInBackground: (SourcesDownloader) URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
@@ -101,19 +100,18 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
         } catch (FileNotFoundException fnfe) {
             Log.e(TAG, "doInBackground: (SourcesDownloader) FileNotFoundException ", fnfe);
             fnfe.printStackTrace();
-            return null;
         } catch (IOException ioe) {
             Log.e(TAG, "doInBackground: (SourcesDownloader) IOException ", ioe);
             ioe.printStackTrace();
-            return null;
         } catch (Exception e) {
             Log.e(TAG, "doInBackground: (SourcesDownloader) Exception ", e);
             e.printStackTrace();
         }
-        sourceArrayList = parseJSON(stringBuilder.toString());
-        Log.d(TAG, "doInBackground: (sourceArrayList) " + sourceArrayList);
-        return sourceArrayList;
+        sources = parseJSON(stringBuilder.toString());
+        Log.d(TAG, "doInBackground: (sources) " + sources);
+        return sources;
     }
+
     private ArrayList<Source> parseJSON(String str){
         Log.d(TAG, "parseJSON: (SourcesDownloader) String is " + str);
         ArrayList<Source>  sourceList = new ArrayList<>();
