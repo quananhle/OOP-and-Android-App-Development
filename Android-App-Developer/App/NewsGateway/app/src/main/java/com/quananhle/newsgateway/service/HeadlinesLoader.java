@@ -31,6 +31,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
     private static final String DATA_URL = "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
     String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
+
     public HeadlinesLoader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
@@ -44,10 +45,11 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
 
     @Override
     protected ArrayList<Article> doInBackground(Void... voids) {
+        ArrayList<Article> articles;
         String dataURL = DATA_URL + API_KEY;
-        Log.d(TAG, "doInBackground: (HeadlinesLoader) URL is " + dataURL);
+        Log.d(TAG, "doInBackground: URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
-        Log.d(TAG, "doInBackground: (HeadlinesLoader) " + urlToUse);
+        Log.d(TAG, "doInBackground: URL to use is " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
@@ -58,28 +60,26 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
             String line;
             while ((line = reader.readLine()) != null)
                 stringBuilder.append(line).append('\n');
-            Log.d(TAG, "doInBackground: (HeadlinesLoader) " + stringBuilder.toString());
+            Log.d(TAG, "doInBackground: " + stringBuilder.toString());
         } catch (MalformedURLException mURLe) {
-            Log.e(TAG, "doInBackground: (HeadlinesLoader) MalformedURLException ", mURLe);
+            Log.e(TAG, "doInBackground: MalformedURLException ", mURLe);
             mURLe.printStackTrace();
         } catch (ProtocolException pe) {
-            Log.e(TAG, "doInBackground: (HeadlinesLoader) ProtocolException ", pe);
+            Log.e(TAG, "doInBackground: ProtocolException ", pe);
             pe.printStackTrace();
         } catch (FileNotFoundException fnfe) {
-            Log.e(TAG, "doInBackground: (HeadlinesLoader) FileNotFoundException ", fnfe);
+            Log.e(TAG, "doInBackground: FileNotFoundException ", fnfe);
             fnfe.printStackTrace();
-            return null;
         } catch (IOException ioe) {
-            Log.e(TAG, "doInBackground: (HeadlinesLoader) IOException ", ioe);
+            Log.e(TAG, "doInBackground: IOException ", ioe);
             ioe.printStackTrace();
-            return null;
         } catch (Exception e) {
-            Log.e(TAG, "doInBackground: (HeadlinesLoader) Exception ", e);
+            Log.e(TAG, "doInBackground: Exception ", e);
             e.printStackTrace();
         }
-        articleArrayList = parseJSON(stringBuilder.toString());
-        Log.d(TAG, "doInBackground: (HeadlinesLoader) | articleArrayList: " + articleArrayList);
-        return articleArrayList;
+        articles = parseJSON(stringBuilder.toString());
+        Log.d(TAG, "doInBackground: articleArrayList: " + articles);
+        return articles;
     }
     private ArrayList<Article> parseJSON(String str){
         Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
@@ -137,6 +137,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
         }
         return headlineList;
     }
+
     //====================== *** HELPER•METHODS *** ======================//
     private String getAuthor(JSONObject object){
         try {
