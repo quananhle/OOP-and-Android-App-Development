@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,7 +28,6 @@ public class NewsService extends Service {
 
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
-    final int REQUEST_CODE = 5;
 
     @Nullable
     @Override
@@ -91,7 +89,8 @@ public class NewsService extends Service {
                     Source source = intent.hasExtra(MainActivity.SOURCE)
                             ? (Source) intent.getSerializableExtra(MainActivity.SOURCE) : null;
                     assert source != null;
-                    new ArticlesDownloader(NewsService.this).execute(source.getId());
+//                    new ArticlesDownloader(NewsService.this).execute(source.getId());
+                    doRunnable(source.getId());
                     break;
             }
         }
@@ -101,14 +100,14 @@ public class NewsService extends Service {
     //====================== *** HELPER•METHODS *** ======================//
 
     //=====* ArticlesLoaderRunnable *====//
-    public void doRunnable(String location){
+    public void doRunnable(String source){
         if (isConnected()){
-            if (location.isEmpty()){
+            if (source.isEmpty()){
                 Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
                 return;
             }
             //Load the data
-            ArticlesLoaderRunnable officialLoaderRunnable = new ArticlesLoaderRunnable(this, location);
+            ArticlesLoaderRunnable officialLoaderRunnable = new ArticlesLoaderRunnable(this, source);
             new Thread(officialLoaderRunnable).start();
         }
     }

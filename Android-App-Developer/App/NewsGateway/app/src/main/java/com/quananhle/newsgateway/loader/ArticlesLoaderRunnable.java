@@ -83,7 +83,7 @@ public class ArticlesLoaderRunnable implements Runnable {
     public void handleResults(String str){
         if (str == null){
             Log.d(TAG, "handleResults: Failure in data downloading");
-            newsService.runOnUiThread(new Runnable() {
+            mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     newsService.downloadFailed();
@@ -98,10 +98,7 @@ public class ArticlesLoaderRunnable implements Runnable {
                 if (articles != null){
                     Toast.makeText(mainActivity, "Loaded " + articles.size()
                             + " articles.", Toast.LENGTH_SHORT).show();
-                    Object[] objects = new Object[2];
-                    objects[0] = city + ", " + state + " " + zip;
-                    objects[1] = officialArrayList;
-                    mainActivity.updatedData(objects);
+                    mainActivity.updateHeadlines(articles);
                 }
             }
         });
