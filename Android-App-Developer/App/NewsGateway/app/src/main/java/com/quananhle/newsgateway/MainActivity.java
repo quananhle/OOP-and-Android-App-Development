@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Article> headlineArrayList = new ArrayList<>();
     private ArrayList<Source> sourceArrayList    = new ArrayList<>();
 
+    ArrayAdapter arrayAdapter;
     RecyclerView recyclerView;
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
@@ -235,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sourceArrayList.addAll(sources);
         }
         ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+        arrayAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Total Sources Loaded: " + sources.size(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
@@ -395,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sourceArrayList.clear();
                 sourceArrayList.addAll(sourceHashMap.get("ALL"));
                 ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+                arrayAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -446,26 +449,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* SourcesLoaderRunnable.class *====//
     public void updateData(ArrayList<Source> listIn) {
         for (Source source : listIn) {
-            if (!sourceHashMap.containsKey(source.ge())) {
-                sourceHashMap.put(article.getTitle(), new ArrayList<Source>());
+            if (!sourceHashMap.containsKey(source.getCompany())) {
+                sourceHashMap.put(source.getCompany(), new ArrayList<Source>());
             }
-            ArrayList<Source> clist = countryData.get(c.getSubRegion());
-            if (clist != null) {
-                clist.add(c);
+            ArrayList<Source> sourceList = sourceHashMap.get(source.getCompany());
+            if (sourceList != null) {
+                sourceList.add(source);
             }
         }
-
-        countryData.put("All", listIn);
-
-        ArrayList<String> tempList = new ArrayList<>(countryData.keySet());
+        sourceHashMap.put("all", listIn);
+        ArrayList<String> tempList = new ArrayList<>(sourceHashMap.keySet());
         Collections.sort(tempList);
         for (String s : tempList)
-            opt_menu.add(s);
-
-
-        countryList.addAll(listIn);
-        arrayAdapter = new ArrayAdapter<>(this, R.layout.drawer_item, countryList);
-        mDrawerList.setAdapter(arrayAdapter);
+            menu.add(s);
+        sourceArrayList.addAll(listIn);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList);
+        drawerList.setAdapter(arrayAdapter);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
