@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import androidx.annotation.Nullable;
 
 import com.quananhle.newsgateway.MainActivity;
+import com.quananhle.newsgateway.R;
+import com.quananhle.newsgateway.loader.ArticlesLoaderRunnable;
 
 
 public class NewsService extends Service {
@@ -106,14 +108,14 @@ public class NewsService extends Service {
                 return;
             }
             //Load the data
-            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+            ArticlesLoaderRunnable officialLoaderRunnable = new ArticlesLoaderRunnable(this, location);
             new Thread(officialLoaderRunnable).start();
         }
     }
 
     //=====* ArticleLoaderRunnable.class *====//
     public void downloadFailed() {
-        sourceArrayList.clear();
+        articleArrayList.clear();
     }
 
     //=====* Logistic methods *====//
