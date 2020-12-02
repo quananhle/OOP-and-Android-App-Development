@@ -20,7 +20,6 @@ import com.quananhle.newsgateway.MainActivity;
 import com.quananhle.newsgateway.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
