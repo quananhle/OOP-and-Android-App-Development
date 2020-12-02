@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter filter1 = new IntentFilter(ACTION_NEWS_STORY);
         registerReceiver(newsReceiver, filter1);
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -413,64 +413,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //=====* SourcesDownloader.class *====//
-//    public void setSources(Map<String, ArrayList<Source>> hashMap){
-//        String formatter = new String();
-//        try {
-//            menu.clear();
-//            sourceHashMap = hashMap;
-//            for (String category : hashMap.keySet()){
-//                String[] strings = category.split("_");
-//                for (String string : strings){
-//                    String s = string.toLowerCase();
-//                    int size = s.length();
-//                    formatter = String.format("%s%s%s", "",
-//                            s.substring(0, 1).toUpperCase(),
-//                            s.substring(1, size));
-//                }
-//                menu.add(formatter);
-//            }
-//            sourceArrayList.addAll(Objects.requireNonNull(sourceHashMap.get("ALL")));
-//            drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList));
-//            if (getSupportActionBar() != null){
-//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                getSupportActionBar().setHomeButtonEnabled(true);
-//            }
-//        }
-//        catch (Exception e){
-//            Log.d(TAG, "setSources: Exception" + e);
-//            new SourcesDownloader(this).execute();
-//        }
-//    }
-
-    public void setSources(Map<String, ArrayList<Source>> hashMap) {
+    public void setSources(Map<String, ArrayList<Source>> hashMap){
         try {
             menu.clear();
             sourceHashMap = hashMap;
-
-            for(String category: hashMap.keySet()) {
-                String CamelCase = "";
-                String[] parts = category.split("_");
-                for(String part:parts) {
-                    String as = part.toLowerCase();
-                    int a = as.length();
-                    CamelCase = String.format("%s%s%s", CamelCase,
-                            as.substring(0, 1).toUpperCase(),
-                            as.substring(1, a));
+            for (String category : hashMap.keySet()){
+                String formatter = "";
+                String[] strings = category.split("_");
+                for (String string : strings){
+                    String s = string.toLowerCase();
+                    int size = s.length();
+                    formatter = String.format("%s%s%s", formatter,
+                            s.substring(0, 1).toUpperCase(),
+                            s.substring(1, size));
                 }
-                menu.add(CamelCase);
+                menu.add(formatter);
             }
             sourceArrayList.addAll(Objects.requireNonNull(sourceHashMap.get("all")));
-            drawerList.setAdapter(new ArrayAdapter<>(this,
-                    R.layout.drawer_item,
-                    sourceArrayList));
-
-            if (getSupportActionBar() != null) {
+            drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList));
+            if (getSupportActionBar() != null){
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setHomeButtonEnabled(true);
             }
         }
-        catch (Exception e) {
-            Log.d(TAG, "bp: setSources: Menu object did not inflate");
+        catch (Exception e){
+            Log.d(TAG, "setSources: Exception" + e);
             new SourcesDownloader(this).execute();
         }
     }
