@@ -173,49 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter filter1 = new IntentFilter(ACTION_NEWS_STORY);
         registerReceiver(newsReceiver, filter1);
     }
-
-
-
-//    @Override
-//    protected void onCreate(final Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        setupComponents();
-//        setSwipeRefreshLayout();
-//
-//        headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
-//        recyclerView.setAdapter(headlinesAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        Intent intent = new Intent(this, NewsService.class);
-//        startService(intent);
-//
-//        setDrawerList();
-//        setHomeButton();
-//        setDrawerToggle();
-//
-//        if (!isConnected()){
-//            networkOffTitle.setVisibility  (View.VISIBLE);
-//            networkOffMessage.setVisibility(View.VISIBLE);
-//            retry.setVisibility            (View.VISIBLE);
-//            home.setVisibility             (View.GONE);
-//            topHeadLines.setVisibility     (View.GONE);
-//            showMessage(NO_NETWORK, "NO NETWORK CONNECTION",
-//                    "Data cannot be accessed/loaded without an Internet connection");
-//        }
-//        else {
-//            new SourcesDownloader(this).execute();
-//            new HeadlinesLoader(this).execute();
-//            networkOffTitle.setVisibility  (View.GONE);
-//            networkOffMessage.setVisibility(View.GONE);
-//            retry.setVisibility            (View.GONE);
-//            home.setVisibility             (View.VISIBLE);
-//            topHeadLines.setVisibility     (View.VISIBLE);
-//        }
-//
-//        IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
-//        registerReceiver(newsReceiver, intentFilter);
-//    }
-
+    
     @Override
     protected void onPause() {
         super.onPause();
@@ -279,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, "Total Sources Loaded: " + sources.size(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
-    
+
     @Override
     public void onClick(View view) {
         int position = recyclerView.getChildAdapterPosition(view);
