@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.quananhle.newsgateway.MainActivity;
+import com.quananhle.newsgateway.service.Article;
+import com.quananhle.newsgateway.service.NewsService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,24 +19,22 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ArticlesLoaderRunnable implements Runnable {
-    private static final String TAG = "OfficialLoaderRunnable";
+    private static final String TAG = "ArticlesDownloader";
     private static final String REQUEST_METHOD = "GET";
     private MainActivity mainActivity;
+    private NewsService newsService;
 
-    private static final String API_KEY = "AIzaSyDBDktFKTYIN3gfxkLWzdhkafxtRVM6W0w";
-    private static String DATA_URL = "https://www.googleapis.com/civicinfo/v2/representatives?key="
-            + API_KEY + "&address=";
-    private static final String DEFAULT_DISPLAY = "DATA NOT FOUND";
-    private static final String UNKNOWN_PARTY = "Unknown";
+    private ArrayList<Article> articleArrayList = new ArrayList<>();
+    private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
+    private static final String DATA_URL_BEGIN = "https://newsapi.org/v2/everything?sources=";
+    private static final String DATA_URL_END   = "&language=en&pageSize=20&apiKey=";
 
-    private String city;
-    private String state;
-    private String zip;
+    String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
 
-    public OfficialLoaderRunnable(MainActivity mainActivity, String zipCode){
-        this.mainActivity = mainActivity;
-        this.zip = zipCode;
+    public ArticlesLoaderRunnable(NewsService newsService) {
+        this.newsService = newsService;
     }
+
     @Override
     public void run(){
         String dataURL = DATA_URL + zip;
