@@ -83,10 +83,10 @@ public class ArticlesLoaderRunnable implements Runnable {
     public void handleResults(String str){
         if (str == null){
             Log.d(TAG, "handleResults: Failure in data downloading");
-            mainActivity.runOnUiThread(new Runnable() {
+            newsService.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mainActivity.downloadFailed();
+                    newsService.downloadFailed();
                 }
             });
             return;

@@ -1,13 +1,17 @@
 package com.quananhle.newsgateway.service;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import androidx.annotation.Nullable;
@@ -20,6 +24,10 @@ public class NewsService extends Service {
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private ServiceReceiver serviceReceiver;
     private boolean isRunning = true;
+
+    final int WARNING_ICON = 1;
+    final int ERROR_ICON = 2;
+    final int REQUEST_CODE = 5;
 
     @Nullable
     @Override
@@ -85,5 +93,54 @@ public class NewsService extends Service {
                     break;
             }
         }
+    }
+
+
+    //====================== *** HELPER•METHODS *** ======================//
+
+    //=====* ArticlesLoaderRunnable *====//
+    public void doRunnable(String location){
+        if (isConnected()){
+            if (location.isEmpty()){
+                Toast.makeText(this, "Location is missing", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //Load the data
+            OfficialLoaderRunnable officialLoaderRunnable = new OfficialLoaderRunnable(this, location);
+            new Thread(officialLoaderRunnable).start();
+        }
+    }
+
+    //=====* ArticleLoaderRunnable.class *====//
+    public void downloadFailed() {
+        sourceArrayList.clear();
+    }
+
+    //=====* Logistic methods *====//
+    public boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (connectivityManager == null) {
+            return false;
+        } else if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void showMessage(int icon, String title, String message) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (icon == WARNING_ICON) {
+            dialog.setIcon(R.drawable.warning);
+        } else if (icon == ERROR_ICON) {
+            dialog.setIcon(R.drawable.error);
+        } else {
+            dialog.setIcon(null);
+        }
+        dialog.show();
     }
 }
