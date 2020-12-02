@@ -46,6 +46,7 @@ import com.quananhle.newsgateway.service.SourcesDownloader;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -442,13 +443,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //=====* HeadlinesLoaderRunnable.class *====//
-    public void updateHeadlines(ArrayList<Article> headlines){
-        headlineArrayList.clear();
-        if (headlines.size() != 0 || !headlines.isEmpty()){
-            headlineArrayList.addAll(headlines);
+    //=====* SourcesLoaderRunnable.class *====//
+    public void updateData(ArrayList<Source> listIn) {
+        for (Source source : listIn) {
+            if (!sourceHashMap.containsKey(source.ge())) {
+                sourceHashMap.put(article.getTitle(), new ArrayList<Source>());
+            }
+            ArrayList<Source> clist = countryData.get(c.getSubRegion());
+            if (clist != null) {
+                clist.add(c);
+            }
         }
-        headlinesAdapter.notifyDataSetChanged();
+
+        countryData.put("All", listIn);
+
+        ArrayList<String> tempList = new ArrayList<>(countryData.keySet());
+        Collections.sort(tempList);
+        for (String s : tempList)
+            opt_menu.add(s);
+
+
+        countryList.addAll(listIn);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.drawer_item, countryList);
+        mDrawerList.setAdapter(arrayAdapter);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
     }
     public void downloadFailed() {
         articleArrayList.clear();

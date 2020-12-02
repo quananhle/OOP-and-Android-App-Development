@@ -42,7 +42,7 @@ public class HeadlinesLoaderRunnable implements Runnable{
 
     @Override
     public void run(){
-        ArrayList<Article> headlines;
+        final ArrayList<Article> articles;
         String dataURL = DATA_URL + API_KEY;
         Log.d(TAG, "doInBackground: URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
@@ -74,10 +74,33 @@ public class HeadlinesLoaderRunnable implements Runnable{
             Log.e(TAG, "doInBackground: Exception ", e);
             e.printStackTrace();
         }
-        headlines = parseJSON(stringBuilder.toString());
+        articles = parseJSON(stringBuilder.toString());
     }
 
     //====================== *** HELPER•METHODS *** ======================//
+
+//    private void processResults(String str) {
+//        if (str == null){
+//            Log.d(TAG, "handleResults: Failure in data downloading");
+//            mainActivity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mainActivity.downloadFailed();
+//                }
+//            });
+//            return;
+//        }
+//        final ArrayList<Article> articles = parseJSON(str);
+//        if (articles != null)  {
+//            mainActivity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mainActivity.updateData(articles);
+//                }
+//            });
+//        }
+//    }
+
     private ArrayList<Article> parseJSON(String str){
         Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
         ArrayList<Article> headlineList = new ArrayList<>();
