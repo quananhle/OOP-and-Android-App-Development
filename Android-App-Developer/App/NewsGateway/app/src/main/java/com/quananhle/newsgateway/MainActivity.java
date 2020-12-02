@@ -44,10 +44,12 @@ import com.quananhle.newsgateway.service.NewsService;
 import com.quananhle.newsgateway.service.Source;
 import com.quananhle.newsgateway.service.SourcesDownloader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
@@ -80,44 +82,139 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final int NO_NETWORK   = 3;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupComponents();
-        setSwipeRefreshLayout();
 
-        headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                drawerLayout.closeDrawer(drawerList);
+                recyclerView.setAdapter(headlinesAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                new HeadlinesLoader(MainActivity.this).execute();
+                Toast.makeText(MainActivity.this, "Most Recent Headlines loaded", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        headlinesAdapter = new HeadlinesAdapter(headlineArrayList,this);
         recyclerView.setAdapter(headlinesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Intent intent = new Intent(this, NewsService.class);
-        startService(intent);
 
-        setDrawerList();
-        setHomeButton();
-        setDrawerToggle();
+        Intent serviceIntent = new Intent(this, NewsService.class);
+        startService(serviceIntent);
 
-        if (!isConnected()){
-            networkOffTitle.setVisibility  (View.VISIBLE);
-            networkOffMessage.setVisibility(View.VISIBLE);
-            retry.setVisibility            (View.VISIBLE);
-            home.setVisibility             (View.GONE);
-            topHeadLines.setVisibility     (View.GONE);
-            showMessage(NO_NETWORK, "NO NETWORK CONNECTION",
-                    "Data cannot be accessed/loaded without an Internet connection");
-        }
-        else {
+        drawerList.setOnItemClickListener(
+                new ListView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        Source temp = sourceArrayList.get(position);
+                        Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
+                        intent.putExtra(SOURCE, (Serializable) temp);
+                        sendBroadcast(intent);
+                        setTitle(temp.getCompany());
+                        viewPager.setVisibility(View.VISIBLE);
+                        viewPager.setBackgroundResource(R.color.midnightBlack);
+                        Snackbar.make(view,temp.getCompany() + " Selected", Snackbar.LENGTH_SHORT).show();
+                        drawerLayout.closeDrawer(drawerList);
+                        swipeRefreshLayout.setEnabled(false);
+
+                    }
+                }
+        );
+
+        home.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                new HeadlinesLoader(MainActivity.this).execute();
+                topHeadLines.setVisibility(View.VISIBLE);
+                setTitle(R.string.app_name);
+                viewPager.setVisibility(View.GONE);
+                recyclerView.scrollToPosition(0);
+                swipeRefreshLayout.setEnabled(true);
+                sourceArrayList.clear();
+                sourceArrayList.addAll(sourceHashMap.get("all"));
+                ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
+            }
+        });
+
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+
+        if(isConnected())
+        {
             new SourcesDownloader(this).execute();
             new HeadlinesLoader(this).execute();
-            networkOffTitle.setVisibility  (View.GONE);
+            networkOffTitle.setVisibility(View.GONE);
             networkOffMessage.setVisibility(View.GONE);
-            retry.setVisibility            (View.GONE);
-            home.setVisibility             (View.VISIBLE);
-            topHeadLines.setVisibility     (View.VISIBLE);
+            retry.setVisibility(View.GONE);
+            home.setVisibility(View.VISIBLE);
+            topHeadLines.setVisibility(View.VISIBLE);
+
+        }
+        else
+        {
+            networkOffTitle.setVisibility(View.VISIBLE);
+            networkOffMessage.setVisibility(View.VISIBLE);
+            retry.setVisibility(View.VISIBLE);
+            home.setVisibility(View.GONE);
+            topHeadLines.setVisibility(View.GONE);
         }
 
-        IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
-        registerReceiver(newsReceiver, intentFilter);
+        IntentFilter filter1 = new IntentFilter(ACTION_NEWS_STORY);
+        registerReceiver(newsReceiver, filter1);
     }
+
+
+
+//    @Override
+//    protected void onCreate(final Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        setupComponents();
+//        setSwipeRefreshLayout();
+//
+//        headlinesAdapter = new HeadlinesAdapter(headlineArrayList, this);
+//        recyclerView.setAdapter(headlinesAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        Intent intent = new Intent(this, NewsService.class);
+//        startService(intent);
+//
+//        setDrawerList();
+//        setHomeButton();
+//        setDrawerToggle();
+//
+//        if (!isConnected()){
+//            networkOffTitle.setVisibility  (View.VISIBLE);
+//            networkOffMessage.setVisibility(View.VISIBLE);
+//            retry.setVisibility            (View.VISIBLE);
+//            home.setVisibility             (View.GONE);
+//            topHeadLines.setVisibility     (View.GONE);
+//            showMessage(NO_NETWORK, "NO NETWORK CONNECTION",
+//                    "Data cannot be accessed/loaded without an Internet connection");
+//        }
+//        else {
+//            new SourcesDownloader(this).execute();
+//            new HeadlinesLoader(this).execute();
+//            networkOffTitle.setVisibility  (View.GONE);
+//            networkOffMessage.setVisibility(View.GONE);
+//            retry.setVisibility            (View.GONE);
+//            home.setVisibility             (View.VISIBLE);
+//            topHeadLines.setVisibility     (View.VISIBLE);
+//        }
+//
+//        IntentFilter intentFilter = new IntentFilter(ACTION_NEWS_STORY);
+//        registerReceiver(newsReceiver, intentFilter);
+//    }
 
     @Override
     protected void onPause() {
@@ -174,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         setTitle(item.getTitle().toString().trim());
         sourceArrayList.clear();
-        ArrayList<Source> sources = sourceHashMap.get(item.getTitle().toString().trim());
+        ArrayList<Source> sources = sourceHashMap.get(item.getTitle().toString().toLowerCase());
         if (sources != null){
             sourceArrayList.addAll(sources);
         }
@@ -182,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(this, "Total Sources Loaded: " + sources.size(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
-
+    
     @Override
     public void onClick(View view) {
         int position = recyclerView.getChildAdapterPosition(view);
@@ -254,9 +351,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //=====* onCreate *====//
     private void setupComponents(){
         recyclerView       = findViewById(R.id.recycler_view);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerList = findViewById(R.id.drawer_list);
-        topHeadLines       = findViewById(R.id.topHeadlines);
+        drawerLayout       = findViewById(R.id.drawer_layout);
+        drawerList         = findViewById(R.id.drawer_list);
+        topHeadLines       = findViewById(R.id.headline_button);
         home               = findViewById(R.id.home);
         retry              = findViewById(R.id.try_again);
         networkOffTitle    = findViewById(R.id.network_off_title);
@@ -315,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Source source = sourceArrayList.get(position);
                 Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
-                intent.putExtra(SOURCE, source);
+                intent.putExtra(SOURCE, (Serializable) source);
                 sendBroadcast(intent);
                 setTitle(source.getCompany());
                 viewPager.setVisibility(View.VISIBLE);
@@ -337,11 +434,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.scrollToPosition(0);
                 swipeRefreshLayout.setEnabled(true);
                 sourceArrayList.clear();
-                sourceArrayList.addAll(sourceHashMap.get("all"));
+                sourceArrayList.addAll(sourceHashMap.get("ALL"));
                 ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
             }
         });
     }
+
     //=====* NewsReceiver.class *====//
     private void reDoFragment(){
         for (int i=0; i < myPageAdapter.getCount(); ++i){
@@ -352,34 +450,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             fragments.add(ArticleFragment.newInstance
                     (articleArrayList.get(i), 1+i, articleArrayList.size()));
         }
+        myPageAdapter.notifyDataSetChanged();
+        viewPager.setCurrentItem(0);
     }
+
     //=====* SourcesDownloader.class *====//
-    public void setSources(Map<String, ArrayList<Source>> hashMap){
-        String formatter = new String();
+//    public void setSources(Map<String, ArrayList<Source>> hashMap){
+//        String formatter = new String();
+//        try {
+//            menu.clear();
+//            sourceHashMap = hashMap;
+//            for (String category : hashMap.keySet()){
+//                String[] strings = category.split("_");
+//                for (String string : strings){
+//                    String s = string.toLowerCase();
+//                    int size = s.length();
+//                    formatter = String.format("%s%s%s", "",
+//                            s.substring(0, 1).toUpperCase(),
+//                            s.substring(1, size));
+//                }
+//                menu.add(formatter);
+//            }
+//            sourceArrayList.addAll(Objects.requireNonNull(sourceHashMap.get("ALL")));
+//            drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList));
+//            if (getSupportActionBar() != null){
+//                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                getSupportActionBar().setHomeButtonEnabled(true);
+//            }
+//        }
+//        catch (Exception e){
+//            Log.d(TAG, "setSources: Exception" + e);
+//            new SourcesDownloader(this).execute();
+//        }
+//    }
+
+    public void setSources(Map<String, ArrayList<Source>> hashMap) {
         try {
             menu.clear();
             sourceHashMap = hashMap;
-            for (String category : hashMap.keySet()){
-                String[] strings = category.split("_");
-                for (String string : strings){
-                    String s = string.toLowerCase();
-                    int size = s.length();
-                    formatter = String.format("%s%s%s", "",
-                            s.substring(0, 1).toUpperCase(),
-                            s.substring(1, size));
+
+            for(String category: hashMap.keySet()) {
+                String CamelCase = "";
+                String[] parts = category.split("_");
+                for(String part:parts) {
+                    String as = part.toLowerCase();
+                    int a = as.length();
+                    CamelCase = String.format("%s%s%s", CamelCase,
+                            as.substring(0, 1).toUpperCase(),
+                            as.substring(1, a));
                 }
-                menu.add(formatter);
+                menu.add(CamelCase);
             }
-            if (getSupportActionBar() != null){
+            sourceArrayList.addAll(Objects.requireNonNull(sourceHashMap.get("all")));
+            drawerList.setAdapter(new ArrayAdapter<>(this,
+                    R.layout.drawer_item,
+                    sourceArrayList));
+
+            if (getSupportActionBar() != null) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setHomeButtonEnabled(true);
             }
         }
-        catch (Exception e){
-            Log.d(TAG, "setSources: Exception" + e);
+        catch (Exception e) {
+            Log.d(TAG, "bp: setSources: Menu object did not inflate");
             new SourcesDownloader(this).execute();
         }
     }
+
     //=====* HeadlinesLoader.class *====//
     public void updateHeadlines(ArrayList<Article> headlines){
         headlineArrayList.clear();
