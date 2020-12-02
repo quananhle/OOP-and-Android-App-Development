@@ -442,13 +442,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //=====* HeadlinesLoader.class *====//
+    //=====* HeadlinesLoaderRunnable.class *====//
     public void updateHeadlines(ArrayList<Article> headlines){
         headlineArrayList.clear();
         if (headlines.size() != 0 || !headlines.isEmpty()){
             headlineArrayList.addAll(headlines);
         }
         headlinesAdapter.notifyDataSetChanged();
+    }
+    public void downloadFailed() {
+        articleArrayList.clear();
     }
     //=====* Logistic methods *====//
     public boolean isConnected() {
