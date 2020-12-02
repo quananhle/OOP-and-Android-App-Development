@@ -1,14 +1,10 @@
-package com.quananhle.knowyourgovernment.thread;
+package com.quananhle.newsgateway.loader;
 
 import android.net.Uri;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quananhle.newsgateway.MainActivity;
-import com.quananhle.knowyourgovernment.R;
-import com.quananhle.knowyourgovernment.helper.Official;
-import com.quananhle.knowyourgovernment.helper.SocialMedia;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
