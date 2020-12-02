@@ -84,6 +84,7 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             URL url = new URL(urlToUse);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.addRequestProperty("User-Agent","");
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
@@ -112,9 +113,9 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
     }
 
     private ArrayList<Source> parseJSON(String str){
-        Log.d(TAG, "parseJSON: (SourcesDownloader) String is " + str);
+        Log.d(TAG, "parseJSON: String is " + str);
         ArrayList<Source>  sourceList = new ArrayList<>();
-        Source source = new Source();
+        Source source;
         Log.d(TAG, "parseJSON: (SourcesDownloader) starting parsing JSON");
         /*
         {
@@ -178,15 +179,15 @@ public class SourcesDownloader extends AsyncTask<Void, Void, ArrayList<Source>> 
             Log.d(TAG, "parseJSON: (SourcesDownloader) total sources available: " + sources.length());
             for (int i=0; i < sources.length(); ++i){
                 source = new Source();
-                JSONObject jsonObj = (JSONObject) sources.getJSONObject(i);
+                JSONObject jsonObj = (JSONObject) sources.get(i);
                 source.setId(getID(jsonObj));
                 source.setCompany(getName(jsonObj));
-                source.setCategory(getCategory(jsonObject));
+                source.setCategory(getCategory(jsonObj));
                 sourceList.add(source);
             }
         }
         catch (Exception e){
-            Log.d(TAG, "parseJSON: (SourcesDownloader) | Exception " + e);
+            Log.d(TAG, "parseJSON: Exception " + e);
         }
         return sourceList;
     }
