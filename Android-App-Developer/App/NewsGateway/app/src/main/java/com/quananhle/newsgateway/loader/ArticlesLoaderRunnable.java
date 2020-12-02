@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class OfficialLoaderRunnable implements Runnable {
+public class ArticlesLoaderRunnable implements Runnable {
     private static final String TAG = "OfficialLoaderRunnable";
     private static final String REQUEST_METHOD = "GET";
     private MainActivity mainActivity;
