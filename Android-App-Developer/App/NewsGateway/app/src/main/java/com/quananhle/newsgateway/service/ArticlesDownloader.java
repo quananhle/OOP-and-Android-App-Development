@@ -60,11 +60,9 @@ public class ArticlesDownloader extends AsyncTask<String, Void, ArrayList<Articl
         } catch (FileNotFoundException fnfe) {
             Log.e(TAG, "doInBackground: (ArticlesDownloader) FileNotFoundException ", fnfe);
             fnfe.printStackTrace();
-            return null;
         } catch (IOException ioe) {
             Log.e(TAG, "doInBackground: (ArticlesDownloader) IOException ", ioe);
             ioe.printStackTrace();
-            return null;
         } catch (Exception e) {
             Log.e(TAG, "doInBackground: (ArticlesDownloader) Exception ", e);
             e.printStackTrace();

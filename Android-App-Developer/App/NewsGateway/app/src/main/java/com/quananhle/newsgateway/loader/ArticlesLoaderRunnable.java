@@ -12,11 +12,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ArticlesLoaderRunnable implements Runnable {
     private static final String TAG = "ArticlesDownloader";
@@ -30,40 +37,45 @@ public class ArticlesLoaderRunnable implements Runnable {
     private static final String DATA_URL_END   = "&language=en&pageSize=20&apiKey=";
 
     String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
+    private String source;
 
-    public ArticlesLoaderRunnable(NewsService newsService) {
+    public ArticlesLoaderRunnable(NewsService newsService, String source) {
         this.newsService = newsService;
+        this.source = source;
     }
 
     @Override
     public void run(){
-        String dataURL = DATA_URL + zip;
+        String dataURL = DATA_URL_BEGIN + source + DATA_URL_END + API_KEY;
+        Log.d(TAG, "doInBackground: (ArticlesDownloader) URL is " + dataURL);
         String urlToUse = Uri.parse(dataURL).toString();
-        Log.d(TAG, "run: " + urlToUse);
+        Log.d(TAG, "doInBackground: (ArticlesDownloader) " + urlToUse);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             URL url = new URL(urlToUse);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.connect();
-
-            if (httpURLConnection.getResponseCode() != HttpURLConnection.HTTP_OK){
-                Log.d(TAG, "run: HTTP ResponseCode NOT OK: " + httpURLConnection.getResponseCode());
-                handleResults(null);
-                return;
-            }
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader((new InputStreamReader(inputStream)));
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            InputStream is = conn.getInputStream();
+            BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = reader.readLine()) != null)
                 stringBuilder.append(line).append('\n');
-            }
-            Log.d(TAG, "run: " + stringBuilder.toString());
-        }
-        catch (Exception e){
-            Log.e(TAG, "run: " + e);
-            handleResults(null);
-            return;
+            Log.d(TAG, "doInBackground: (ArticlesDownloader) " + stringBuilder.toString());
+        } catch (MalformedURLException mURLe) {
+            Log.e(TAG, "doInBackground: (ArticlesDownloader) MalformedURLException ", mURLe);
+            mURLe.printStackTrace();
+        } catch (ProtocolException pe) {
+            Log.e(TAG, "doInBackground: (ArticlesDownloader) ProtocolException ", pe);
+            pe.printStackTrace();
+        } catch (FileNotFoundException fnfe) {
+            Log.e(TAG, "doInBackground: (ArticlesDownloader) FileNotFoundException ", fnfe);
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            Log.e(TAG, "doInBackground: (ArticlesDownloader) IOException ", ioe);
+            ioe.printStackTrace();
+        } catch (Exception e) {
+            Log.e(TAG, "doInBackground: (ArticlesDownloader) Exception ", e);
+            e.printStackTrace();
         }
         handleResults(stringBuilder.toString());
     }
@@ -79,13 +91,13 @@ public class ArticlesLoaderRunnable implements Runnable {
             });
             return;
         }
-        final ArrayList<Official> officialArrayList = parseJSON(str);
+        final ArrayList<Article> articles = parseJSON(str);
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (officialArrayList != null){
-                    Toast.makeText(mainActivity, "Loaded " + officialArrayList.size()
-                            + " officials.", Toast.LENGTH_SHORT).show();
+                if (articles != null){
+                    Toast.makeText(mainActivity, "Loaded " + articles.size()
+                            + " articles.", Toast.LENGTH_SHORT).show();
                     Object[] objects = new Object[2];
                     objects[0] = city + ", " + state + " " + zip;
                     objects[1] = officialArrayList;
@@ -94,176 +106,137 @@ public class ArticlesLoaderRunnable implements Runnable {
             }
         });
     }
-    private ArrayList<Official> parseJSON(String str) {
-        Log.d(TAG, "parseJSON: starting parsing JSON");
-        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
-        ArrayList<Official> officialArrayList = new ArrayList<>();
+    private ArrayList<Article> parseJSON(String str){
+        Log.d(TAG, "parseJSON: (ArticlesDownloader) String is " + str);
+        ArrayList<Article> articleList = new ArrayList<>();
+        Article article = new Article();
+        Log.d(TAG, "parseJSON: (ArticlesDownloader) starting parsing JSON");
+        /*
+        {
+        "status": "ok",
+        "totalResults": 4612,
+        "articles": [
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Michelle Toh, CNN Business",
+            "title": "Beyond Meat launches plant-based minced pork in China",
+            "description": "Beyond Meat is launching a plant-based version of China's favorite meat.",
+            "url": "https://www.cnn.com/2020/11/18/business/beyond-meat-china-intl-hnk/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/201118123254-beyond-pork-biscuits-gravy-super-tease.jpg",
+            "publishedAt": "2020-11-18T06:30:47Z",
+            "content": null
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Madeline Holcombe and Raja Razek, CNN",
+            "title": "Father sues the city of Fort Worth and former police officer for shooting death of Atatiana Jefferson",
+            "description": "The family of Atatiana Jefferson, who was fatally shot through the window of her home, has filed a lawsuit against the city of Fort Worth and Aaron Dean, the former Fort Worth police officer who shot her.",
+            "url": "https://www.cnn.com/2020/11/18/us/atatiana-jefferson-fort-worth-father-lawsuit/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/191013161737-atatiana-koquice-jefferson-fort-worth-police-shooting-super-tease.jpg",
+            "publishedAt": "2020-11-18T06:26:09Z",
+            "content": "(CNN)The family of Atatiana Jefferson, who was fatally shot through the window of her home, has filed a lawsuit against the city of Fort Worth and Aaron Dean, the former Fort Worth police officer who… [+2002 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Shelby Lin Erdman, CNN",
+            "title": "FDA authorizes first rapid Covid-19 self-testing kit for at-home diagnosis",
+            "description": "The US Food and Drug Administration has issued an emergency use authorization for the first self-test for Covid-19 that can provide rapid results at home.",
+            "url": "https://www.cnn.com/2020/11/18/health/covid-home-self-test/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/200811105852-fda-super-tease.jpg",
+            "publishedAt": "2020-11-18T05:52:18Z",
+            "content": null
+        },
+         */
         try {
-            /**
-             * 1) The “normalizedInput” JSONObject contains the following:
-             * "normalizedInput": {
-             *      "line1": "",
-             *      "city": "Chicago",
-             *      "state": "IL",
-             *      "zip": "60654"
-             * },
-             */
-            JSONObject object = new JSONObject(str);
-            JSONObject normalizedInput = object.getJSONObject("normalizedInput");
-            city = normalizedInput.getString("city");
-            state = normalizedInput.getString("state");
-            zip = normalizedInput.getString("zip");
-
-            /**
-             * 2) The “offices” JSONArray contains the following:
-             * "offices": [
-             *  {
-             *      "name": "President of the United States",
-             *      "divisionId": "ocd-division/country:us",
-             *      "levels": [
-             *          "country"
-             *      ],
-             *      "roles": [
-             *          "headOfState","headOfGovernment"
-             *      ],
-             *      "officialIndices": [
-             *           0
-             *      ]
-             *  },
-             *  {
-             *      "name": "United States Senate",
-             *      "divisionId": "ocd-division/country:us/state:il",
-             *      "levels": [
-             *          "country"
-             *      ],
-             *      "roles": [
-             *          "legislatorUpperBody"
-             *      ],
-             *      "officialIndices": [
-             *          2,
-             *          3
-             *      ]
-             *  },
-             * ],
-             */
-            JSONArray officesArray = object.getJSONArray("offices");
-            for (int i = 0; i < officesArray.length(); ++i) {
-                JSONObject jsonObject = officesArray.getJSONObject(i);
-                String officeName = jsonObject.getString("name");
-                String officialIndices = jsonObject.getString("officialIndices");
-                String[] array = officialIndices.substring(1, officialIndices.length() - 1).split(",");
-                int[] indices = new int[array.length];
-                //access the indices of officialIndices and store it in indices
-                for (int j = 0; j < array.length; ++j) {
-                    indices[j] = Integer.parseInt(array[j]);
-                }
-                /**
-                 * 3) The “officials” JSONArray contains the following:
-                 * "officials": [
-                 *  {
-                 *  "name": "Donald J. Trump",
-                 *  "address": [
-                 *  {
-                 *      "line1": "The White House",
-                 *      "line2": "1600 Pennsylvania Avenue NW",
-                 *      "city": "Washington",
-                 *      "state": "DC",
-                 *      "zip": "20500"
-                 *  }
-                 *],
-                 * "party": "Republican",
-                 * "phones": [
-                 *      "(202) 456-1111"
-                 * ],
-                 * "urls": [
-                 *      "http://www.whitehouse.gov/"
-                 * ],
-                 * "emails": [
-                 *      "email@address.com"
-                 * ]
-                 * "photoUrl": "https://www.whitehouse.gov/sites/whitehouse.gov/files/images/45/PE%20Color.jpg",
-                 * "channels": [
-                 *  {
-                 *      "type": "GooglePlus",
-                 *      "id": "+whitehouse"
-                 *  },
-                 *  {
-                 *      "type": "Facebook",
-                 *      "id": "whitehouse"
-                 *  },
-                 *  {
-                 *      "type": "Twitter",
-                 *      "id": "whitehouse"
-                 *  },
-                 *  {
-                 *      "type": "YouTube",
-                 *      "id": "whitehouse"
-                 *  }
-                 * ]
-                 * },
-                 *]
-                 */
-                JSONArray officialsArray = object.getJSONArray("officials");
-                //access the elements of officials
-                for (int j = 0; j < indices.length; ++j) {
-                    JSONObject jsonOfficialsObject = officialsArray.getJSONObject(indices[j]);
-                    String officialName = jsonOfficialsObject.getString("name");
-                    String address = "";
-                    if (!jsonOfficialsObject.has("address")) {
-                        address = DEFAULT_DISPLAY;
-                    } else {
-                        JSONObject jsonAddressObject = jsonOfficialsObject
-                                .getJSONArray("address").getJSONObject(0);
-                        if (jsonAddressObject.has("line1")) address += jsonAddressObject
-                                .getString("line1") + '\n';
-                        if (jsonAddressObject.has("line2")) address += jsonAddressObject
-                                .getString("line2") + '\n';
-                        if (jsonAddressObject.has("city")) address += jsonAddressObject
-                                .getString("city") + ", ";
-                        if (jsonAddressObject.has("state")) address += jsonAddressObject
-                                .getString("state") + ' ';
-                        if (jsonAddressObject.has("zip")) address += jsonAddressObject
-                                .getString("zip");
-                    }
-
-                    String party = (jsonOfficialsObject.has("party")
-                            ? jsonOfficialsObject.getString("party") : UNKNOWN_PARTY);
-                    String photoURL = (jsonOfficialsObject.has("photoUrl")
-                            ? jsonOfficialsObject.getString("photoUrl") : DEFAULT_DISPLAY);
-                    String phones = (jsonOfficialsObject.has("phones")
-                            ? jsonOfficialsObject.getJSONArray("phones").getString(0) : DEFAULT_DISPLAY);
-                    String emails = (jsonOfficialsObject.has("emails")
-                            ? jsonOfficialsObject.getJSONArray("emails").getString(0) : DEFAULT_DISPLAY);
-                    String urls = (jsonOfficialsObject.has("urls")
-                            ? jsonOfficialsObject.getJSONArray("urls").getString(0) : DEFAULT_DISPLAY);
-
-                    Official official = new Official(officeName, officialName, party, address, phones, urls,
-                            emails, photoURL, socialMedia);
-                    official.setSocialMedia(getSocialMedia(jsonOfficialsObject));
-                    officialArrayList.add(official);
-                }
+            JSONObject jsonObject = new JSONObject(str);
+            JSONArray articles = (JSONArray) jsonObject.get("articles");
+            for (int i=0; i < articles.length(); ++i){
+                JSONObject jsonObj = (JSONObject) articles.get(i);
+                article = new Article();
+                article.setAuthor(getAuthor(jsonObj));
+                article.setTitle(getTitle(jsonObj));
+                article.setDescription(getDescription(jsonObj));
+                article.setUrl(getUrl(jsonObj));
+                article.setImageUrl(getImage(jsonObj));
+                article.setPublishingDate(getDate(jsonObj));
+                articleList.add(article);
             }
-            return officialArrayList;
-        } catch (Exception e) {
-            Log.d(TAG, "parseJSON: Exception " + e.getMessage());
-            e.printStackTrace();
         }
-        return null;
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | Exception " + e);
+        }
+        return articleList;
     }
-    private ArrayList<SocialMedia> getSocialMedia(JSONObject jsonObject){
-        ArrayList<SocialMedia> socialMedia = new ArrayList<>();
-        SocialMedia tmp;
+    //====================== *** HELPER•METHODS *** ======================//
+    private String getAuthor(JSONObject object){
         try {
-            JSONArray channels = (JSONArray) jsonObject.get("channels");
-            for(int i = 0; i < channels.length(); i++) {
-                JSONObject channel = (JSONObject) channels.get(i);
-                tmp = new SocialMedia(channel.getString("type"), channel.getString("id"));
-                socialMedia.add(tmp);
+            author = !object.has("author") ? "" : object.getString("author");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getAuthor) " + e);
+        }
+        return author;
+    }
+    private String getTitle(JSONObject object){
+        try {
+            title = !object.has("title") ? "" : object.getString("title");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getTitle) " + e);
+        }
+        return title;
+    }
+    private String getDescription(JSONObject object){
+        try {
+            description = !object.has("description") ? "" : object.getString("description");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getDescription) " + e);
+        }
+        return description;
+    }
+    private String getUrl(JSONObject object){
+        try {
+            url = !object.has("url") ? "" : object.getString("url");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getUrl) " + e);
+        }
+        return url;
+    }
+    private String getImage(JSONObject object){
+        try {
+            urlToImage = !object.has("urlToImage") ? "" : object.getString("urlToImage");
+        }
+        catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (getImage) " + e);
+        }
+        return urlToImage;
+    }
+    private String getDate(JSONObject object){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm");
+        try {
+            publishedAt = !object.has("publishedAt") ? "" : object.getString("publishedAt");
+            if (publishedAt != null || !publishedAt.isEmpty()){
+                date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(publishedAt);
             }
+            publishedAt = simpleDateFormat.format(date);
+        } catch (ParseException pe){
+            pe.printStackTrace();
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (ParseException) " + pe);
+        } catch (Exception e){
+            Log.d(TAG, "parseJSON: (ArticlesDownloader) | (Exception) " + e);
         }
-        catch (Exception e) {
-            Log.d(TAG, "EXCEPTION: Get Social Media: " + e);
-        }
-        return socialMedia;
+        return publishedAt;
     }
 }
