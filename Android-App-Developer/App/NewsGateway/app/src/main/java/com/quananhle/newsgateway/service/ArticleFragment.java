@@ -94,7 +94,7 @@ public class ArticleFragment extends Fragment {
 
             if(isNull(article.getImageUrl())) {
                 ImageView photo = fragment_layout.findViewById(R.id.image);
-                photo.setBackgroundResource(R.drawable.placeholder);
+                photo.setBackgroundResource(R.drawable.brokenimage);
                 photo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -107,7 +107,7 @@ public class ArticleFragment extends Fragment {
                 ImageView picture = fragment_layout.findViewById(R.id.image);
                 Glide.with(this)
                         .load(article.getImageUrl())
-                        .placeholder(R.drawable.brokenimage)
+                        .placeholder(R.drawable.placeholder)
                         .error(R.drawable.error)
                         .into(picture);
                 picture.setOnClickListener(new View.OnClickListener() {
