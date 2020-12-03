@@ -28,7 +28,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
     private static final String TAG = "HeadlinesLoader";
     private MainActivity mainActivity;
     private ArrayList<Article> articleArrayList = new ArrayList<>();
-    private static final String API_KEY = "d86d5dc5ffaa4f0fa9036ad5c35fb4a1";
+    private static final String API_KEY = "d0d921c5fe9446198c1482a381020216";
     private static final String DATA_URL = "http://newsapi.org/v2/top-headlines?country=us&apiKey=";
     String author = "", title = "", description = "", url = "", urlToImage = "", publishedAt = "";
 
@@ -55,6 +55,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
             URL url = new URL(urlToUse);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.addRequestProperty("User-Agent","");
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
@@ -82,9 +83,9 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
         return articles;
     }
     private ArrayList<Article> parseJSON(String str){
-        Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
+        Log.d(TAG, "parseJSON: String is " + str);
         ArrayList<Article> headlineList = new ArrayList<>();
-        Article article = new Article();
+        Article article;
         Log.d(TAG, "parseJSON: (HeadlinesLoader) starting parsing JSON");
         /*
         {
@@ -123,6 +124,7 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
             JSONArray articles = (JSONArray) jsonObject.get("articles");
             for (int i=0; i < articles.length(); ++i){
                 JSONObject jsonObj = (JSONObject) articles.get(i);
+                article = new Article();
                 article.setAuthor(getAuthor(jsonObj));
                 article.setTitle(getTitle(jsonObj));
                 article.setDescription(getDescription(jsonObj));
@@ -192,12 +194,14 @@ public class HeadlinesLoader extends AsyncTask<Void, Void, ArrayList<Article>> {
                 date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(publishedAt);
             }
             publishedAt = simpleDateFormat.format(date);
+            return publishedAt;
         } catch (ParseException pe){
             pe.printStackTrace();
             Log.d(TAG, "parseJSON: (HeadlinesLoader) | (ParseException) " + pe);
         } catch (Exception e){
             Log.d(TAG, "parseJSON: (HeadlinesLoader) | (Exception) " + e);
+            e.printStackTrace();
         }
-        return publishedAt;
+        return null;
     }
 }
