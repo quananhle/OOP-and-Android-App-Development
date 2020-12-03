@@ -22,4 +22,15 @@ public class HeadlinesViewHolder extends RecyclerView.ViewHolder {
         share = itemView.findViewById(R.id.share);
         image = itemView.findViewById(R.id.image);
     }
+//ImageButton share;
+//    TextView title, publishedAt;
+//    ImageView image;
+//    HeadlinesViewHolder(@NonNull View itemView)
+//    {
+//        super(itemView);
+//        title = itemView.findViewById(R.id.title);
+//        publishedAt = itemView.findViewById(R.id.published_date);
+//        image = itemView.findViewById(R.id.image);
+//        share = itemView.findViewById(R.id.share);
+//    }
 }
