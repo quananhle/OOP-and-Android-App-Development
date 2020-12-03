@@ -18,17 +18,15 @@ import androidx.annotation.Nullable;
 import com.quananhle.newsgateway.MainActivity;
 import com.quananhle.newsgateway.R;
 import com.quananhle.newsgateway.loader.ArticlesLoaderRunnable;
-
+//import com.quananhle.newsgateway.loader.ArticlesLoaderRunnable;
 
 public class NewsService extends Service {
     private static final String TAG = "NewsService";
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private ServiceReceiver serviceReceiver;
     private boolean isRunning = true;
-
     final int WARNING_ICON = 1;
     final int ERROR_ICON = 2;
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,21 +34,23 @@ public class NewsService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
-        IntentFilter intentFilter = new IntentFilter(MainActivity.ACTION_MSG_TO_SERVICE);
+    public int onStartCommand(Intent intent, int flags, int startId) {
         serviceReceiver = new ServiceReceiver();
+        IntentFilter intentFilter = new IntentFilter(MainActivity.ACTION_MSG_TO_SERVICE);
         registerReceiver(serviceReceiver, intentFilter);
+
         new Thread(new Runnable() {
             @Override
-            public void run() {
-                while (isRunning){
-                    while (articleArrayList.isEmpty()){
+            public void run()
+            {
+                while (isRunning) {
+                    while(articleArrayList.isEmpty()) {
                         try {
                             Thread.sleep(250);
                         }
                         catch (InterruptedException ie){
                             ie.printStackTrace();
-                            Log.d(TAG, "NewsService: " + TAG + " | InterruptedException: " + ie);
+                            Log.d(TAG, "onStartCommand: InterruptedException: " + ie);
                         }
                     }
                     Intent intent = new Intent();
@@ -59,46 +59,41 @@ public class NewsService extends Service {
                     sendBroadcast(intent);
                     articleArrayList.clear();
                 }
-                Log.i(TAG, "NewsService: accomplished");
+                Log.i(TAG, "NewsService: Accomplished");
             }
         }).start();
         return Service.START_STICKY;
     }
 
-    public void setArticles(ArrayList<Article> articles){
-        articleArrayList.clear();
-        for (int i=0; i < articles.size(); ++i){
-            articleArrayList.add(articles.get(i));
-        }
-    }
-
     @Override
-    public void onDestroy(){
-        unregisterReceiver(serviceReceiver);
+    public void onDestroy() {
         isRunning = false;
+        unregisterReceiver(serviceReceiver);
         super.onDestroy();
     }
 
+    public void setArticles(ArrayList<Article> articles) {
+        articleArrayList.clear();
+        Log.d(TAG, "setArticles: Number of Articles: " + articles.size());
+        articleArrayList.addAll(articles);
+    }
+
     class ServiceReceiver extends BroadcastReceiver {
-        private static final String TAG = "ServiceReceiver";
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "onReceive: " + TAG + ": intent's action is " + intent.getAction());
-            switch (intent.getAction()){
+            switch (intent.getAction()) {
                 case MainActivity.ACTION_MSG_TO_SERVICE:
-                    Source source = intent.hasExtra(MainActivity.SOURCE)
-                            ? (Source) intent.getSerializableExtra(MainActivity.SOURCE) : null;
-                    assert source != null;
-//                    new ArticlesDownloader(NewsService.this).execute(source.getId());
-                    doRunnable(source.getId());
+                    Source temp = null;
+                    if (intent.hasExtra(MainActivity.SOURCE)) {
+                        temp = (Source) intent.getSerializableExtra(MainActivity.SOURCE);
+                    }
+                    assert temp != null;
+                    new ArticlesDownloader(NewsService.this).execute(temp.getId());
                     break;
             }
         }
     }
-
-
     //====================== *** HELPER•METHODS *** ======================//
-
     //=====* ArticlesLoaderRunnable *====//
     public void doRunnable(String source){
         if (isConnected()){
