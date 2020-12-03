@@ -55,6 +55,7 @@ public class ArticlesLoaderRunnable implements Runnable {
             URL url = new URL(urlToUse);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.addRequestProperty("User-Agent","");
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
@@ -98,7 +99,7 @@ public class ArticlesLoaderRunnable implements Runnable {
                 if (articles != null){
                     Toast.makeText(mainActivity, "Loaded " + articles.size()
                             + " articles.", Toast.LENGTH_SHORT).show();
-                    mainActivity.updateHeadlines(articles);
+                    mainActivity.updateArticle(articles);
                 }
             }
         });
