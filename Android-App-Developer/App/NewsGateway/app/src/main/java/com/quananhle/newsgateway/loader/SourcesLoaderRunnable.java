@@ -36,17 +36,17 @@ public class SourcesLoaderRunnable implements Runnable{
         this.mainActivity = mainActivity;
     }
 
-    private void processResults(String str) {
-        final ArrayList<Source> sources = parseJSON(str);
-        if (sources != null)  {
-            mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mainActivity.updateData(sources);
-                }
-            });
-        }
-    }
+//    private void processResults(String str) {
+//        final ArrayList<Source> sources = parseJSON(str);
+//        if (sources != null)  {
+//            mainActivity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mainActivity.updateSource(sources);
+//                }
+//            });
+//        }
+//    }
 
     @Override
     public void run(){
@@ -60,6 +60,7 @@ public class SourcesLoaderRunnable implements Runnable{
             URL url = new URL(urlToUse);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.addRequestProperty("User-Agent","");
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
@@ -82,7 +83,7 @@ public class SourcesLoaderRunnable implements Runnable{
             Log.e(TAG, "doInBackground: (SourcesDownloader) Exception ", e);
             e.printStackTrace();
         }
-        processResults(stringBuilder.toString());
+//        processResults(stringBuilder.toString());
     }
 
     //====================== *** HELPER•METHODS *** ======================//
@@ -156,7 +157,7 @@ public class SourcesLoaderRunnable implements Runnable{
                 JSONObject jsonObj = (JSONObject) sources.getJSONObject(i);
                 source.setId(getID(jsonObj));
                 source.setCompany(getName(jsonObj));
-                source.setCategory(getCategory(jsonObject));
+                source.setCategory(getCategory(jsonObj));
                 sourceList.add(source);
             }
         }
