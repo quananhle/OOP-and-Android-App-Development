@@ -52,6 +52,7 @@ public class HeadlinesLoaderRunnable implements Runnable{
             URL url = new URL(urlToUse);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.addRequestProperty("User-Agent","");
             InputStream is = conn.getInputStream();
             BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
             String line;
@@ -79,27 +80,27 @@ public class HeadlinesLoaderRunnable implements Runnable{
 
     //====================== *** HELPER•METHODS *** ======================//
 
-//    private void processResults(String str) {
-//        if (str == null){
-//            Log.d(TAG, "handleResults: Failure in data downloading");
-//            mainActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mainActivity.downloadFailed();
-//                }
-//            });
-//            return;
-//        }
-//        final ArrayList<Article> articles = parseJSON(str);
-//        if (articles != null)  {
-//            mainActivity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mainActivity.updateData(articles);
-//                }
-//            });
-//        }
-//    }
+    private void processResults(String str) {
+        if (str == null){
+            Log.d(TAG, "handleResults: Failure in data downloading");
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mainActivity.downloadFailed();
+                }
+            });
+            return;
+        }
+        final ArrayList<Article> articles = parseJSON(str);
+        if (articles != null)  {
+            mainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mainActivity.updateHeadlines(articles);
+                }
+            });
+        }
+    }
 
     private ArrayList<Article> parseJSON(String str){
         Log.d(TAG, "parseJSON: (HeadlinesLoader) String is " + str);
