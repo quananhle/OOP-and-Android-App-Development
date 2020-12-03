@@ -3,7 +3,6 @@ package com.quananhle.newsgateway;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -14,17 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.quananhle.newsgateway.loader.SourcesLoaderRunnable;
 import com.quananhle.newsgateway.service.Article;
 import com.quananhle.newsgateway.service.ArticleFragment;
 import com.quananhle.newsgateway.service.HeadlinesAdapter;
@@ -51,8 +58,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.zip.Inflater;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+/**
+ * @author Quan Le
+ */
+
+public class MainActivity extends AppCompatActivity implements
+        View.OnClickListener, View.OnLongClickListener {
     private static final String TAG = "MainActivity";
     public static final String ARTICLE_LIST = "AL";
     public static final String SOURCE = "Source";
@@ -66,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView recyclerView;
     HeadlinesAdapter headlinesAdapter;
     Map<String, ArrayList<Source>> sourceHashMap = new HashMap<>();
+    Map<String, ArrayList<Article>> articleHashMap = new HashMap<>();
     NewsReceiver newsReceiver;
     Menu menu;
     ListView drawerList;
@@ -96,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recyclerView.setAdapter(headlinesAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 new HeadlinesLoader(MainActivity.this).execute();
-                Toast.makeText(MainActivity.this, "Most Recent Headlines loaded", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Your Dashboard is Up-to-Date", Toast.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -111,28 +125,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerList.setOnItemClickListener(
                 new ListView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                    {
-                        Source temp = sourceArrayList.get(position);
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Source source = sourceArrayList.get(position);
                         Intent intent = new Intent(MainActivity.ACTION_MSG_TO_SERVICE);
-                        intent.putExtra(SOURCE, (Serializable) temp);
+                        intent.putExtra(SOURCE, source);
                         sendBroadcast(intent);
-                        setTitle(temp.getCompany());
+                        setTitle(source.getCompany());
                         viewPager.setVisibility(View.VISIBLE);
                         viewPager.setBackgroundResource(R.color.midnightBlack);
-                        Snackbar.make(view,temp.getCompany() + " Selected", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(view,source.getCompany() + " Selected", Snackbar.LENGTH_SHORT).show();
                         drawerLayout.closeDrawer(drawerList);
                         swipeRefreshLayout.setEnabled(false);
-
                     }
                 }
         );
 
-        home.setOnClickListener(new View.OnClickListener()
-        {
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        );
+
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 new HeadlinesLoader(MainActivity.this).execute();
                 topHeadLines.setVisibility(View.VISIBLE);
                 setTitle(R.string.app_name);
@@ -145,15 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.string.open_drawer,
-                R.string.close_drawer
-        );
-
-        if(isConnected())
-        {
+        if(isConnected()) {
             new SourcesDownloader(this).execute();
             new HeadlinesLoader(this).execute();
             networkOffTitle.setVisibility(View.GONE);
@@ -163,15 +170,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             topHeadLines.setVisibility(View.VISIBLE);
 
         }
-        else
-        {
+        else {
             networkOffTitle.setVisibility(View.VISIBLE);
             networkOffMessage.setVisibility(View.VISIBLE);
             retry.setVisibility(View.VISIBLE);
             home.setVisibility(View.GONE);
             topHeadLines.setVisibility(View.GONE);
         }
-
         IntentFilter filter1 = new IntentFilter(ACTION_NEWS_STORY);
         registerReceiver(newsReceiver, filter1);
     }
@@ -226,17 +231,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)){
+        if(drawerToggle.onOptionsItemSelected(item)){
             return true;
         }
-        setTitle(item.getTitle().toString().trim());
+        setTitle(item.getTitle().toString());
         sourceArrayList.clear();
         ArrayList<Source> sources = sourceHashMap.get(item.getTitle().toString().toLowerCase());
-        if (sources != null){
+        if(sources != null) {
             sourceArrayList.addAll(sources);
         }
         ((ArrayAdapter) drawerList.getAdapter()).notifyDataSetChanged();
-        arrayAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Total Sources Loaded: " + sources.size(), Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
@@ -342,7 +346,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "Data cannot be accessed/loaded without an Internet connection");
         }
         else {
-            new SourcesDownloader(this).execute();
+//            new SourcesDownloader(this).execute();
+            SourcesLoaderRunnable clr = new SourcesLoaderRunnable(this);
+            new Thread(clr).start();
             new HeadlinesLoader(this).execute();
             networkOffTitle.setVisibility  (View.GONE);
             networkOffMessage.setVisibility(View.GONE);
@@ -432,6 +438,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             s.substring(1, size));
                 }
                 menu.add(formatter);
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.option, menu);
+                SpannableString s;
+//                int positionOfMenuItem = 0;
+                for (int i = 0; i < menu.size(); ++i) {
+                    MenuItem item = menu.getItem(i);
+                    if (i == 1){
+                        s = new SpannableString("Business");
+                        s.setSpan(new ForegroundColorSpan(Color.YELLOW), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 2){
+                        s = new SpannableString("Entertainment");
+                        s.setSpan(new ForegroundColorSpan(Color.BLUE), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 3){
+                        s = new SpannableString("General");
+                        s.setSpan(new ForegroundColorSpan(Color.CYAN), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 4){
+                        s = new SpannableString("Health");
+                        s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 5){
+                        s = new SpannableString("Science");
+                        s.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 6){
+                        s = new SpannableString("Sports");
+                        s.setSpan(new ForegroundColorSpan(Color.GRAY), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else if (i == 7){
+                        s = new SpannableString("Technology");
+                        s.setSpan(new ForegroundColorSpan(Color.GREEN), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                    else {
+                        s = new SpannableString("All");
+                        s.setSpan(new ForegroundColorSpan(Color.BLACK), 0, s.length(), 0);
+                        item.setTitle(s);
+                    }
+                }
             }
             sourceArrayList.addAll(Objects.requireNonNull(sourceHashMap.get("all")));
             drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList));
@@ -442,12 +495,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         catch (Exception e){
             Log.d(TAG, "setSources: Exception" + e);
-            new SourcesDownloader(this).execute();
+//            new SourcesDownloader(this).execute();
+            SourcesLoaderRunnable clr = new SourcesLoaderRunnable(this);
+            new Thread(clr).start();
         }
     }
 
     //=====* SourcesLoaderRunnable.class *====//
-    public void updateData(ArrayList<Source> listIn) {
+    public void updateSource(ArrayList<Source> listIn) {
         for (Source source : listIn) {
             if (!sourceHashMap.containsKey(source.getCompany())) {
                 sourceHashMap.put(source.getCompany(), new ArrayList<Source>());
@@ -460,8 +515,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sourceHashMap.put("all", listIn);
         ArrayList<String> tempList = new ArrayList<>(sourceHashMap.keySet());
         Collections.sort(tempList);
-        for (String s : tempList)
+        for (String s : tempList){
             menu.add(s);
+        }
         sourceArrayList.addAll(listIn);
         arrayAdapter = new ArrayAdapter<>(this, R.layout.drawer_item, sourceArrayList);
         drawerList.setAdapter(arrayAdapter);
@@ -473,6 +529,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void downloadFailed() {
         articleArrayList.clear();
+    }
+
+    //=====* ArticlesLoaderRunnable.class *====//
+    public void updateArticle(ArrayList<Article> listIn) {
+        for (Article article : listIn) {
+            if (!articleHashMap.containsKey(article.getTitle())) {
+                articleHashMap.put(article.getTitle(), new ArrayList<Article>());
+            }
+            ArrayList<Article> articles = articleHashMap.get(article.getTitle());
+            if (articles != null) {
+                articles.add(article);
+            }
+        }
+        articleHashMap.put("all", listIn);
+        ArrayList<String> tempList = new ArrayList<>(sourceHashMap.keySet());
+        Collections.sort(tempList);
+        for (String s : tempList) {
+            menu.add(s);
+        }
+        articleArrayList.addAll(listIn);
+        arrayAdapter = new ArrayAdapter<>(this, R.layout.drawer_item, articleArrayList);
+        drawerList.setAdapter(arrayAdapter);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
+    }
+
+    //=====* HeadlinesLoader.class *====//
+    public void updateHeadlines(ArrayList<Article> headlines) {
+        headlineArrayList.clear();
+        if(headlines.size()!=0)
+        {
+            headlineArrayList.addAll(headlines);
+        }
+        headlinesAdapter.notifyDataSetChanged();
     }
     //=====* Logistic methods *====//
     public boolean isConnected() {
