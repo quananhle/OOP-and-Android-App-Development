@@ -1,6 +1,8 @@
 package com.quananhle.newsgateway.service;
+import androidx.annotation.NonNull;
+import java.io.Serializable;
 
-public class Source {
+public class Source implements Serializable{
     private String id;
     private String company;
     private String category;
@@ -40,4 +42,9 @@ public class Source {
     public void setCategory(String category) {
         this.category = category;
     }
+    @NonNull
+    public String toString() {
+        return company;
+    }
 }
+
