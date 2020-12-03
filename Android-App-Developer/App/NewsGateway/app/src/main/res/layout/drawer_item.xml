@@ -11,7 +11,7 @@
     android:paddingEnd="35dp"
     android:textAlignment="viewStart"
     android:textAllCaps="true"
-    android:textColor="@color/gold"
+    android:textColor="@color/goldenRod"
     android:textSize="16sp"
     tools:text="@string/sources" />
 
