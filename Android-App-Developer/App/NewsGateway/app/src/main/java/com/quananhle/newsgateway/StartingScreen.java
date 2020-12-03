@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StartingScreen extends AppCompatActivity{
     private static final String TAG = "StartingScreen";
     private static final int STARTING_WAIT_TIME = 2000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
