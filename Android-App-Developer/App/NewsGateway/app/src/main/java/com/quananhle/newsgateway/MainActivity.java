@@ -408,7 +408,7 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-    //=====* NewsReceiver.class *====//
+    //=====* NewsService.class *====//
     private void reDoFragment(){
         for (int i=0; i < myPageAdapter.getCount(); ++i){
             myPageAdapter.notifyChangeInPosition(i);
@@ -438,10 +438,10 @@ public class MainActivity extends AppCompatActivity implements
                             s.substring(1, size));
                 }
                 menu.add(formatter);
+                //Colorizing menu options
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.option, menu);
                 SpannableString s;
-//                int positionOfMenuItem = 0;
                 for (int i = 0; i < menu.size(); ++i) {
                     MenuItem item = menu.getItem(i);
                     if (i == 1){
