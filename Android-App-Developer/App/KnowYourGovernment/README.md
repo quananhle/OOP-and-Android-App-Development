@@ -1,10 +1,12 @@
-## Stock Watch
+## Know Your Government
+
+##### Published Date: 11/11/2020
 
 ### Application Flow Diagrams
 
-![Alt text](pic/Screenshot_1.png?raw=true "main")
+![Alt text](pic/main-page.png?raw=true "main-page")
 
-<a href="pic/main.png"><img src="pic/main.png" align="left" height="750" width="400" ></a>  
+<a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
 
 * This app allows the user to display a sorted list of selected stocks. List entries include the stock ```symbol``` (and ```company name```), the ```current price```, the ```daily price change amount``` and ```price percent change```.
 
