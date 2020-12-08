@@ -96,3 +96,11 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <a href="pic/photo_details_1.png">
 <div align="center"><img src="pic/photo_details_1.png" height="500" width="1100" ></div>
 </a>
+
+> 7. Exceptions: broken images, no Internet connection:
+
+![Alt text](pic/photo_activity_2.png?raw=true "broken")
+
+<a href="pic/broken.png">
+<div align="center"><img src="pic/broken.png" height="750" width="400" ></div>
+</a>
