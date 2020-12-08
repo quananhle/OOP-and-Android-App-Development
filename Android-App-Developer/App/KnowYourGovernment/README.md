@@ -61,6 +61,8 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/info.png" height="750" width="400" ></div>
 </a>
 
+Clicking on [Google Civic Information API](https://developers.google.com/civic-information/) shall navigate the user to the API website. Clicking on developer's name shall direct the user to the Github page [Quananhle](https://github.com/Quananhle) or the Version shall direct the user to the Github page [KnowYourGovernment](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/KnowYourGovernment) where the source code of the application is published.
+
 
 3. Adding a stock with no Network Connection – test using “Airplane Mode”(No buttons on the error dialog):
 <a href="pic/Screenshot_airplane_1.png">
