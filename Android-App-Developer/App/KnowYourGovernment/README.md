@@ -52,7 +52,7 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <p float="center">
  <img src="pic/dialog.png" height="600" width="300" />
  <img src="pic/atherton_dialog.png" height="600" width="300" />
- <img src="pic/Atherton.png" height="600" width="300" />
+ <img src="pic/Atherton.png" height="600" width="330" />
 </p>
 
 2. Adding a stock – when multiple stocks matched the search string:
