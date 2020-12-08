@@ -43,7 +43,7 @@
 
 #### 1) Main Activity
 
-<a href="url"><img src="pic/application_behavior_main.png" align="left" height="750" width="1100" ></a>  
+<a href="url"><img src="pic/application_behavior_main.png" align="left" height="850" width="800" ></a>  
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
