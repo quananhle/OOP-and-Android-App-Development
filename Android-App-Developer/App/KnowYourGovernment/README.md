@@ -49,9 +49,11 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 1. Manually setting the location - Enter City, State (E.g.: Chicago, IL; Las Vegas, NV) or Zip Code (E.g.: 94027, 33480, 60043)
 
-<a href="pic/dialog.png"><div align="left"><img src="pic/dialog.png" height="750" width="400" ></div></a><a href="pic/Atherton.png"><div align="right"><img src="pic/Atherton.png" height="750" width="400" ></div></a>
-
-
+<p float="center">
+ <img src="pic/dialog.png" height="600" width="300" />
+ <img src="pic/atherton_dialog.png" height="600" width="300" />
+ <img src="pic/Atherton.png" height="600" width="300" />
+</p>
 
 2. Adding a stock – when multiple stocks matched the search string:
 <a href="pic/stockSelectionDialog.png">
