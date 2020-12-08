@@ -43,7 +43,7 @@
 
 #### 1) Main Activity
 
-<a href="url"><img src="pic/application_behavior_main.png" align="left" height="850" width="800" ></a>  
+<a href="url"><img src="pic/application_behavior_main.png" align="center" height="850" width="800" ></a>  
 
 <br>
 <br>
