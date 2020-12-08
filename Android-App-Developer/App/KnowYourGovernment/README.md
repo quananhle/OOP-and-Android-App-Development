@@ -8,11 +8,12 @@
 
 <a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
 
-* This app allows the user to display a sorted list of selected stocks. List entries include the stock ```symbol``` (and ```company name```), the ```current price```, the ```daily price change amount``` and ```price percent change```.
+* This app will acquire and display an interactive list of political officials that represent the current location (or a specified location) at each level of government.
 
-* There is no need to use a different layout for landscape orientation in this application as the same layout should work in any orientation.
+* Android location services will be used to determine the user’s location.
 
-* Selected stock symbols and the related names should be stored in the device’s ```SQLite Database```.
+* The [Google Civic Information API](https://developers.google.com/civic-information/) will be used to acquire the government official data (via ```REST``` service and
+```JSON``` results). .
 
 * A ```Stock``` class should be created to represent each individual stock in the application. Required data includes: ```Stock Symbol``` (String), ```Company Name``` (String), ```Price``` (double), ```Price Change``` (double), and ```Change Percentage``` (double). 
 
