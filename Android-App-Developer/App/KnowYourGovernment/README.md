@@ -68,9 +68,13 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 > 3. Opening the view of an individual official for details:
 
+![Alt text](pic/official_activity_1.png?raw=true "official_activity_page1")
+
+![Alt text](pic/official_activity_2.png?raw=true "official_activity_page2")
+
 <p float="center">
- <img src="pic/official_details.png" height="600" width="300" />
- <img src="pic/official_details_1.png" height="600" width="300" />
+ <img src="pic/official_details.png" height="750" width="400" />
+ <img src="pic/official_details_1.png" height="750" width="400" />
 </p>
 
 >> Landscape view:
@@ -79,5 +83,16 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/official_details_2.png" height="500" width="1100" ></div>
 </a>
 
+> 6. Maximizing the view of the photo:
 
+![Alt text](pic/photo_activity_1.png?raw=true "photo_activity_page1")
 
+<a href="pic/photo_details.png">
+<div align="center"><img src="pic/photo_details.png" height="750" width="400" ></div>
+</a>
+
+>> Landscape view:
+
+<a href="pic/photo_details_1.png">
+<div align="center"><img src="pic/photo_details_1.png" height="500" width="1100" ></div>
+</a>
