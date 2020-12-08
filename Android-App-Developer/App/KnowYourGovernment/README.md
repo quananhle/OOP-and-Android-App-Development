@@ -47,7 +47,7 @@
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
-1. Manually setting the location - Enter City, State (E.g.: Chicago, IL; Las Vegas, NV) or Zip Code (E.g.: 94027, 33480, 60043)
+> 1. Manually setting the location - Enter City, State (E.g.: Chicago, IL; Las Vegas, NV) or Zip Code (E.g.: 94027, 33480, 60043)
 
 <p float="center">
  <img src="pic/dialog.png" height="600" width="300" />
@@ -55,7 +55,8 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
  <img src="pic/Atherton.png" height="600" width="330" />
 </p>
 
-2. Adding a stock – when multiple stocks matched the search string:
+> 2. Opening the info page:
+
 <a href="pic/stockSelectionDialog.png">
 <div align="center"><img src="pic/stockSelectionDialog.png" height="750" width="400" ></div>
 </a>
