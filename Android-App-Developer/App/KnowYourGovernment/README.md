@@ -70,14 +70,13 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 <p float="center">
  <img src="pic/official_details.png" height="600" width="300" />
- <img src="pic/official_details_2.png" height="600" width="300" />
  <img src="pic/official_details_1.png" height="600" width="300" />
 </p>
 
+>> Landscape view:
 
-
-<a href="pic/Screenshot_airplane_1.png">
-<div align="center"><img src="pic/Screenshot_airplane_1.png" height="750" width="1100" ></div>
+<a href="pic/official_details_2.png">
+<div align="center"><img src="pic/official_details_2.png" height="500" width="1100" ></div>
 </a>
 
 
