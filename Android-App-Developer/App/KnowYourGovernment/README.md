@@ -65,6 +65,7 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 >> Clicking on [Google Civic Information API](https://developers.google.com/civic-information/) shall navigate the user to the API website. Clicking on developer's name shall direct the user to the Github page [Quananhle](https://github.com/Quananhle) or the all logo shall direct the user to the Github page [KnowYourGovernment](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/KnowYourGovernment) where the source code of the application is published.
 
+<br>
 
 > 3. Opening the view of an individual official for details:
 
@@ -83,6 +84,8 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/official_details_2.png" height="500" width="1100" ></div>
 </a>
 
+<br>
+
 > 6. Maximizing the view of the photo:
 
 ![Alt text](pic/photo_activity_1.png?raw=true "photo_activity_page1")
@@ -97,10 +100,12 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="pic/photo_details_1.png" height="500" width="1100" ></div>
 </a>
 
+<br>
+
 > 7. Exceptions: broken images, no Internet connection:
 
 ![Alt text](pic/photo_activity_2.png?raw=true "broken")
 
-<a href="pic/broken.png">
-<div align="center"><img src="pic/broken.png" height="750" width="400" ></div>
+<a href="pic/broken_image.png">
+<div align="center"><img src="pic/broken_image.png" height="750" width="400" ></div>
 </a>
