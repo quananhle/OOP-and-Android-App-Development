@@ -57,8 +57,8 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 > 2. Opening the info page:
 
-<a href="pic/stockSelectionDialog.png">
-<div align="center"><img src="pic/stockSelectionDialog.png" height="750" width="400" ></div>
+<a href="pic/info.png">
+<div align="center"><img src="pic/info.png" height="750" width="400" ></div>
 </a>
 
 
