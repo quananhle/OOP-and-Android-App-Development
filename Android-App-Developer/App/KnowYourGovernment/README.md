@@ -15,11 +15,13 @@
 * The [Google Civic Information API](https://developers.google.com/civic-information/) will be used to acquire the government official data (via ```REST``` service and
 ```JSON``` results). .
 
-* A ```Stock``` class should be created to represent each individual stock in the application. Required data includes: ```Stock Symbol``` (String), ```Company Name``` (String), ```Price``` (double), ```Price Change``` (double), and ```Change Percentage``` (double). 
+* Clicking on an official’s list entry opens a detailed view of that individual government representative.
 
-* Clicking on a stock opens a browser displaying the Marketwatch webpage for that stock
+* An ```About``` activity will show application information (Author, Copyright data & Version)
 
-* ```Swipe-Refresh``` (pull-down) refreshes stock data.
+* Clicking on the photo of an official will display a ```Photo Activity```, showing a larger version of the photo.
+
+* Permissions for `ACCESS_FINE_LOCATION` and `INTERNET`
 
 <br>
 <br>
