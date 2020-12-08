@@ -47,9 +47,9 @@
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
-1. Manually setting the location (__NOTE__: Enter City, State):
-<a href="pic/addStockDialog.png">
-<div align="center"><img src="pic/addStockDialog.png" height="750" width="400" ></div>
+1. Manually setting the location - Enter City, State (E.g.: Chicago, IL; Las Vegas, NV) or Zip Code (E.g.: 94027, 33480, 60043)
+<a href="pic/dialog.png">
+<div align="center"><img src="pic/dialog.png" height="750" width="400" ></div>
 </a>
 
 
