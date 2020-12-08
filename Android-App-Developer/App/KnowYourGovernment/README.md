@@ -43,20 +43,11 @@
 
 #### 1) Main Activity
 
-* Each stock entry contains the Stock Symbol (i.e., AAPL), the company name (i.e., Apple Inc.), the Last Trade Price (135.72), the price change direction (▲for positivePrice Change Amount, ▼for negativePrice Change Amount), the Price Change Amount (0.38), and the Price Change Percentage (0.28%) in parentheses.
-
-      If the stock’s Price Change Amount is a positive value, then entire entry should use a green font. 
-      If the Price Change Amount is a negative value, then entire entry should use a red font.
-
-* Long-Click on a Stock entry to delete (with delete confirmation)
-
-* Clicking on a Stock entry opens a web browser to the Marketwatch website site for the selected stock
-
-<a href="url"><img src="pic/Screenshot_marketwatch.png" align="left" height="750" width="1100" ></a>  
+<a href="url"><img src="pic/application_behavior_main.png" align="left" height="750" width="1100" ></a>  
 
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
-1. Adding a stock – when only one stock matches the search symbol/name search string (__NOTE__: The Stock Selection dialog only allow capital letters):
+1. Manually setting the location (__NOTE__: Enter City, State):
 <a href="pic/addStockDialog.png">
 <div align="center"><img src="pic/addStockDialog.png" height="750" width="400" ></div>
 </a>
