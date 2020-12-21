@@ -4,7 +4,7 @@
 
 <p float="left">
 <a href="pictures/converter_vertical.gif"><img src="pictures/converter_vertical.gif" height="750" width="350"></a>
-<a href="pictures/converter_horizontal.gif"><img src="pictures/converter_horizontal.gif" height="380" width="720"></a>
+<a href="pictures/converter_horizontal.gif"><img src="pictures/converter_horizontal.gif" height="330" width="590"></a>
 </p>
 
 The app that allows the user to select either ```Miles-to-Kilometers``` or ```Kilometers-to-Miles``` conversions.
