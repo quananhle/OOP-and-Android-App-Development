@@ -1,6 +1,12 @@
 ## Android Applications
 
-1. [Distance Converter](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/DistanceConverter)
+1. [Popular Movie Finder](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/Popular-Movies)
+
+<a href="Popular-Movies/Pictures/movies.gif"><img src="Popular-Movies/Pictures/movies.gif" height="750" width="350"></a>
+
+Using the ```themoviedb API```
+
+2. [Distance Converter](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/DistanceConverter)
 
 <p float="left">
 <a href="App/pictures/converter_vertical.gif"><img src="App/pictures/converter_vertical.gif" height="750" width="350"></a>
@@ -8,13 +14,7 @@
 </p>
 
 The app that allows the user to select either ```Miles-to-Kilometers``` or ```Kilometers-to-Miles``` conversions.
-          
-2. [Popular Movie Finder](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/Popular-Movies)
-
-<a href="Popular-Movies/Pictures/movies.gif"><img src="Popular-Movies/Pictures/movies.gif" height="750" width="350"></a>
-
-Using the ```themoviedb API```
-        
+  
 3. [Multi-Note Pad](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/MultiNotesApp)        
 
 <a href="App/pictures/multi_notes.gif"><img src="App/pictures/multi_notes.gif" height="750" width="350"></a>
