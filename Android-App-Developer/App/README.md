@@ -11,7 +11,7 @@ The app that allows the user to select either ```Miles-to-Kilometers``` or ```Ki
         
 2. [Multi-Note Pad](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/MultiNotesApp)        
 
-
+<a href="pictures/multi_notes.gif"><img src="pictures/multi_notes.gif" height="750" width="350"></a>
 
 Uses: ```RecyclerView```, ```Multi-Activity```, ```JSON File```, ```Option-Menus```
 
