@@ -30,7 +30,7 @@ This app allows the user to display a sorted list of selected stocks. List entri
 <p float="left">
 <a href="pictures/government_vertical.gif"><img src="pictures/government_vertical.gif" height="750" width="350"></a>
 <a href="pictures/government_vertical_1.gif"><img src="pictures/government_vertical_1.gif" height="750" width="350"></a>
-<a href="pictures/government_horizontal.gif"><img src="pictures/government_horizontal.gif" height="350" width="750"></a>
+<a href="pictures/government_horizontal.gif"><img src="pictures/government_horizontal.gif" height="360" width="730"></a>
 </p>
 
 Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```JSON Data```
