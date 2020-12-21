@@ -3,8 +3,8 @@
 1. [Distance Converter](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/DistanceConverter)
 
 <p float="center">
-<kbd><a href="pictures/converter_vertical.png"><img src="Pictures/converter_vertical.png" height="750" width="350"></a></kbd>
-<kbd><a href="pictures/converter_horizontal.png"><img src="Pictures/converter_horizontal.png" height="750" width="350"></a></kbd>
+<kbd><a href="pictures/converter_vertical.png"><img src="pictures/converter_vertical.png" height="750" width="350"></a></kbd>
+<kbd><a href="pictures/converter_horizontal.png"><img src="pictures/converter_horizontal.png" height="750" width="350"></a></kbd>
 </p>
 
 The app that allows the user to select either ```Miles-to-Kilometers``` or ```Kilometers-to-Miles``` conversions.
