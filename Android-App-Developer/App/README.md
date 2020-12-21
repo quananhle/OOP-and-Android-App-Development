@@ -39,8 +39,9 @@ This app will acquire and display an interactive list of political officials tha
 
 __Note__: The app is completely developed on 2020 after the Election Day 11/03/2020
 
-
 5. [News Gateway](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/NewsGateway)   
+
+<a href="pictures/news.gif"><img src="pictures/news.gif" height="750" width="350"></a>
 
 Uses: ```Service```, ```Broadcasts & Receivers```, ```Drawer Layout```, ```Fragments```, ```ViewPager```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```Internet API```, ```NEWS API```, ```JSON Data```
 
