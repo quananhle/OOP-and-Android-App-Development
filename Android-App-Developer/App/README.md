@@ -2,14 +2,16 @@
 
 1. [Distance Converter](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/DistanceConverter)
 
-<p float="center">
-<kbd><a href="pictures/converter_vertical.gif"><img src="pictures/converter_vertical.gif" height="750" width="350"></a></kbd>
-<kbd><a href="pictures/converter_horizontal.gif"><img src="pictures/converter_horizontal.gif" height="380" width="720"></a></kbd>
+<p float="left">
+<a href="pictures/converter_vertical.gif"><img src="pictures/converter_vertical.gif" height="750" width="350"></a>
+<a href="pictures/converter_horizontal.gif"><img src="pictures/converter_horizontal.gif" height="380" width="720"></a>
 </p>
 
 The app that allows the user to select either ```Miles-to-Kilometers``` or ```Kilometers-to-Miles``` conversions.
         
 2. [Multi-Note Pad](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Developer/tree/master/Android-App-Developer/App/MultiNotesApp)        
+
+
 
 Uses: ```RecyclerView```, ```Multi-Activity```, ```JSON File```, ```Option-Menus```
 
