@@ -19,6 +19,8 @@ This app allows the creation and maintenance of multiple notes. Any number of no
 
 3. [Stock Watch](https://github.com/Quananhle/OOP-JAVA-and-Android-App-Development/tree/master/Android-App-Developer/App/StockWatch)   
 
+<a href="pictures/stock_watch.gif"><img src="pictures/stock_watch.gif" height="750" width="350"></a>
+
 Uses: ```Internet API```, ```RecyclerView```, ```Option-Menus```, ```Multi-threads```, ```JSON Data```, ```Swipe-Refresh```, ```Dialogs```, ```SQLite Database```
 
 This app allows the user to display a sorted list of selected stocks. List entries include the stock symbol (and company name), the current price, the daily price change amount and price percent change.
