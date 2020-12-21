@@ -25,8 +25,13 @@ Uses: ```Internet API```, ```RecyclerView```, ```Option-Menus```, ```Multi-threa
 
 This app allows the user to display a sorted list of selected stocks. List entries include the stock symbol (and company name), the current price, the daily price change amount and price percent change.
 
-
 4. [Know Your Government](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/knowyourgovernment)   
+
+<p float="left">
+<a href="pictures/government_vertical.gif"><img src="pictures/government_vertical.gif" height="750" width="350"></a>
+<a href="pictures/government_vertical_1.gif"><img src="pictures/government_vertical_1.gif" height="750" width="350"></a>
+<a href="pictures/government_horizontal.gif"><img src="pictures/government_horizontal.gif" height="350" width="750"></a>
+</p>
 
 Uses: ```Location Services```, ```Internet API```, ```Google APIs```, ```Images```, ```Picasso Library```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```JSON Data```
 
