@@ -4,7 +4,7 @@
 
 ### Application Flow Diagrams
 
-![Alt text](photo/application_architecture.png?raw=true "main-page")
+![Alt text](photo/application_architecture.png?raw=true "application-architecture")
 
 <a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
 
@@ -42,6 +42,8 @@
 ### Application Behavior Diagrams:
 
 #### 1) Main Activity
+
+![Alt text](photo/overview.png?raw=true "main-page")
 
 <a href="pic/application_behavior_main.png"><img src="pic/application_behavior_main.png" align="center" height="850" width="800" ></a>  
 
