@@ -6,7 +6,7 @@
 
 ![Alt text](photo/application_architecture.png?raw=true "application-architecture")
 
-<kbd><a href="photo/main_page.png"><img src="photo/main_page.png" align="left" height="750" width="400" ></a></kbd>
+<a href="photo/main_page.png"><img src="photo/main_page.png" align="left" height="750" width="400" ></a>
 
 * This app displays current news articles from a wide variety of news sources covering a range of news categories.
 
@@ -18,8 +18,7 @@
 
 * The user can go to the complete extended article on the news source’s website by clicking on the article title, text, or image content.
 
-* Permissions for `INTERNET`
-
+* Clicking on the Home button will navigate to main page
 <br>
 <br>
 <br>
