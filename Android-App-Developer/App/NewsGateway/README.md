@@ -40,22 +40,9 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 <div align="center"><img src="photo/AP_news.png" height="750" width="400" ></div>
 </a>
 
-<br>
+>> Click on article content (title/image/text) to go to extended article on the news source web site
 
->> Clicking on [Google Civic Information API](https://developers.google.com/civic-information/) shall navigate the user to the API website. Clicking on developer's name shall direct the user to the Github page [Quananhle](https://github.com/Quananhle) or the all logo shall direct the user to the Github page [KnowYourGovernment](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/KnowYourGovernment) where the source code of the application is published.
-
-<br>
-
-> 3. Opening the view of an individual official for details:
-
-![Alt text](pic/official_activity_1.png?raw=true "official_activity_page1")
-
-![Alt text](pic/official_activity_2.png?raw=true "official_activity_page2")
-
-<p float="center">
- <img src="pic/official_details.png" height="750" width="400" />
- <img src="pic/official_details_1.png" height="750" width="400" />
-</p>
+![Alt text](photo/open_source.png?raw=true "open-article")
 
 >> Landscape view:
 
