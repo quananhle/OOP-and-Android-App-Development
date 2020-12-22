@@ -8,20 +8,17 @@
 
 <a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
 
-* This app will acquire and display an interactive list of political officials that represent the current location (or a specified location) at each level of government.
+* This app displays current news articles from a wide variety of news sources covering a range of news categories.
 
-* Android location services will be used to determine the user’s location.
+* NewsAPI.org will be used to acquire the news sources and news articles.
 
-* The [Google Civic Information API](https://developers.google.com/civic-information/) will be used to acquire the government official data (via ```REST``` service and
-```JSON``` results). .
+* Selecting a news source will display up to 10 top stories from that news source
 
-* Clicking on an official’s list entry opens a detailed view of that individual government representative.
+* News articles are viewed by swiping right to read the next article, and left to go back to the previous article.
 
-* An ```About``` activity will show application information (Author, Copyright data & Version)
+* The user can go to the complete extended article on the news source’s website by clicking on the article title, text, or image content.
 
-* Clicking on the photo of an official will display a ```Photo Activity```, showing a larger version of the photo.
-
-* Permissions for `ACCESS_FINE_LOCATION` and `INTERNET`
+* Permissions for `INTERNET`
 
 <br>
 <br>
