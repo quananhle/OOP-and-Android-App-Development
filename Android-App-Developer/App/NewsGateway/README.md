@@ -9,31 +9,22 @@
 <a href="photo/main_page.png"><img src="photo/main_page.png" align="left" height="750" width="400" ></a>
 
 * This app displays current news articles from a wide variety of news sources covering a range of news categories.
-
+<br>
 * NewsAPI.org will be used to acquire the news sources and news articles.
-
+<br>
 * Selecting a news source will display up to 10 top stories from that news source
-
+<br>
 * News articles are viewed by swiping right to read the next article, and left to go back to the previous article.
-
+<br>
 * The user can go to the complete extended article on the news source’s website by clicking on the article title, text, or image content.
-
+<br>
 * Clicking on the Home button will navigate to main page
+
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
  
 ### Application Behavior Diagrams:
 
