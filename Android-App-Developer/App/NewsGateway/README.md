@@ -44,11 +44,8 @@ __Note__: Icons for the all menu and edit items are from Google’s Material Des
 
 ![Alt text](photo/open_source.png?raw=true "open-article")
 
->> Landscape view:
+> Landscape view:
 
-<a href="pic/official_details_2.png">
-<div align="center"><img src="pic/official_details_2.png" height="500" width="1100" ></div>
+<a href="photo/land_scape.png">
+<div align="center"><img src="photo/land_scape.png" height="500" width="1100" ></div>
 </a>
-
-<br>
-
