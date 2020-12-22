@@ -6,8 +6,6 @@
 
 ![Alt text](photo/application_architecture.png?raw=true "application-architecture")
 
-<a href="photo/main_page.png"><img src="photo/main_page.png" align="left" height="750" width="400" ></a>
-
 * This app displays current news articles from a wide variety of news sources covering a range of news categories.
 
 * NewsAPI.org will be used to acquire the news sources and news articles.
@@ -20,21 +18,6 @@
 
 * Clicking on the Home button will navigate to main page.
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
- 
 ### Application Behavior Diagrams:
 
 #### 1) Main Activity
