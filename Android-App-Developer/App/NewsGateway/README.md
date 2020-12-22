@@ -24,22 +24,20 @@
 
 ![Alt text](photo/overview.png?raw=true "main-page")
 
-<a href="pic/application_behavior_main.png"><img src="pic/application_behavior_main.png" align="center" height="850" width="800" ></a>  
-
 __Note__: Icons for the all menu and edit items are from Google’s Material Design icon set (https://material.io/icons/)
 
-> 1. Manually setting the location - Enter City, State (E.g.: Chicago, IL; Las Vegas, NV) or Zip Code (E.g.: 94027, 33480, 60043)
+> Selecting a new source
 
-<p float="center">
- <img src="pic/dialog.png" height="600" width="300" />
- <img src="pic/atherton_dialog.png" height="600" width="300" />
- <img src="pic/Atherton.png" height="600" width="330" />
-</p>
+![Alt text](photo/new_source.png?raw=true "new-source")
 
-> 2. Opening the info page:
+<a href="photo/all_sources.png"><div align="center"><img src="photo/all_sources.png" height="750" width="400" ></div></a>
 
-<a href="pic/info.png">
-<div align="center"><img src="pic/info.png" height="750" width="400" ></div>
+>> Select a news category from the options menu to limit the news source choices to only those offering that category of news
+
+> Swipe Right (or Left) to scroll through articles from the selected new source:
+
+<a href="photo/AP_news.png">
+<div align="center"><img src="photo/AP_news.png" height="750" width="400" ></div>
 </a>
 
 <br>
