@@ -4,7 +4,7 @@
 
 ### Application Flow Diagrams
 
-![Alt text](pic/main-page.png?raw=true "main-page")
+![Alt text](photo/application_architecture.png?raw=true "main-page")
 
 <a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
 
