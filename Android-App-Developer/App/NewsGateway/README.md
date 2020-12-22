@@ -6,7 +6,7 @@
 
 ![Alt text](photo/application_architecture.png?raw=true "application-architecture")
 
-<a href="pic/main_page.png"><img src="pic/main_page.png" align="left" height="750" width="400" ></a>  
+<a href="photo/main_page.png"><img src="photo/main_page.png" align="left" height="750" width="400" ></a>  
 
 * This app displays current news articles from a wide variety of news sources covering a range of news categories.
 
