@@ -10,7 +10,7 @@ Using the ```themoviedb API```
 
 <p float="left">
 <a href="App/pictures/converter_vertical.gif"><img src="App/pictures/converter_vertical.gif" height="750" width="350"></a>
-<a href="App/pictures/converter_horizontal.gif"><img src="App/pictures/converter_horizontal.gif" height="330" width="680"></a>
+<a href="App/pictures/converter_horizontal.gif"><img src="App/pictures/converter_horizontal.gif" height="330" width="670"></a>
 </p>
 
 The app that allows the user to select either ```Miles-to-Kilometers``` or ```Kilometers-to-Miles``` conversions.
