@@ -70,6 +70,8 @@ This app displays current news articles from a wide variety of news sources cove
 
 ### License
 ```
+Copyright 2021 Quan Le
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
