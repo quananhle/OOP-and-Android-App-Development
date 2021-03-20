@@ -47,12 +47,14 @@ __Note__: The app is completely developed on 2020 after the Election Day 11/03/2
 
 6. [News Gateway](https://github.com/Quananhle/OOP-and-Android-App-Development/tree/master/Android-App-Developer/App/NewsGateway)   
 
+<p float="left">
 <a href="App/pictures/news.gif"><img src="App/pictures/news.gif" height="750" width="350"></a>
+<a href="App/pictures/news_horizontal.gif"><img src="App/pictures/news_horizontal.gif" height="330" width="650"></a>
+</p>
 
 Uses: ```Service```, ```Broadcasts & Receivers```, ```Drawer Layout```, ```Fragments```, ```ViewPager```, ```Implicit Intents```, ```TextView Links```, ```RecyclerView```, ```Internet API```, ```NEWS API```, ```JSON Data```
 
 This app displays current news articles from a wide variety of news sources covering a range of news categories.
-
 
 ⭐️ From [Quan](https://github.com/Quananhle) with :sparkling_heart: 
 <img align="right" width="75" height="20" src="https://visitor-badge.glitch.me/badge?page_id=quananhle.OOP-and-Android-App-Development.Android-App-Developer">
