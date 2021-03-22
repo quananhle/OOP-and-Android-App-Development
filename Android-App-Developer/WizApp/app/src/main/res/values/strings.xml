@@ -4,6 +4,7 @@
     <string name="eset_customers">Customers</string>
     <string name="eset_customers_single">Customer</string>
     <string name="eset_productcategories">ProductCategories</string>
+    <string name="product_categories_title">Product Categories</string>
     <string name="eset_productcategories_single">ProductCategory</string>
     <string name="eset_producttexts">ProductTexts</string>
     <string name="eset_producttexts_single">ProductText</string>
