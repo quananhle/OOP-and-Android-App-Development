@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DiffUtil;
@@ -126,7 +128,12 @@ public class ProductsListFragment extends InterfacedFragment<Product> {
         super.onViewStateRestored(savedInstanceState);
         currentActivity.setTitle(activityTitle);
         RecyclerView recyclerView = currentActivity.findViewById(R.id.item_list);
-        if (recyclerView == null) throw new AssertionError();
+        if (recyclerView == null) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(currentActivity);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
+            recyclerView.addItemDecoration(dividerItemDecoration);
+            recyclerView.setLayoutManager(linearLayoutManager);
+        }
         this.adapter = new ProductListAdapter(currentActivity);
         recyclerView.setAdapter(adapter);
 
@@ -659,7 +666,7 @@ public class ProductsListFragment extends InterfacedFragment<Product> {
 
         private void populateObjectCell(@NonNull ViewHolder viewHolder, @NonNull Product productEntity) {
 
-            DataValue dataValue = productEntity.getDataValue(Product.category);
+            DataValue dataValue = productEntity.getDataValue(Product.name);
             String masterPropertyValue = null;
             if (dataValue != null) {
                 masterPropertyValue = dataValue.toString();
@@ -668,15 +675,21 @@ public class ProductsListFragment extends InterfacedFragment<Product> {
             viewHolder.objectCell.setDetailImage(null);
             setDetailImage(viewHolder, productEntity);
 
-            viewHolder.objectCell.setSubheadline("Subheadline goes here");
-            viewHolder.objectCell.setFootnote("Footnote goes here");
-            if (masterPropertyValue == null || masterPropertyValue.isEmpty()) {
-                viewHolder.objectCell.setIcon("?", 0);
-            } else {
-                viewHolder.objectCell.setIcon(masterPropertyValue.substring(0, 1), 0);
+            dataValue = productEntity.getDataValue(Product.category);
+
+            if (dataValue != null) {
+                viewHolder.objectCell.setSubheadline(dataValue.toString());
             }
-            viewHolder.objectCell.setIcon(R.drawable.default_dot, 1, R.string.attachment_item_content_desc);
-            viewHolder.objectCell.setIcon("!", 2);
+            dataValue = productEntity.getDataValue(Product.shortDescription);
+            if (dataValue != null) {
+                viewHolder.objectCell.setFootnote(dataValue.toString());
+            }
+
+            dataValue = productEntity.getDataValue(Product.price);
+            if (dataValue != null) {
+                viewHolder.objectCell.setStatusWidth(200);
+                viewHolder.objectCell.setStatus("$ " + dataValue.toString(), 1);
+            }
         }
 
         /**
