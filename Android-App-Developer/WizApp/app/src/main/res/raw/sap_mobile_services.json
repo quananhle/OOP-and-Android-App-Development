@@ -1,0 +1,9 @@
+{
+  "__comment": "When modifying this file, you need to reset or reinstall all current client installations",
+  "auth": [{
+        "type": "basic.default",
+        "requireOtp": false
+  }],
+  "ServiceUrl" : "https://2da56171trial-dev-com-sap-wizapp.cfapps.us10.hana.ondemand.com/",
+  "appID": "com.sap.wizapp"
+}

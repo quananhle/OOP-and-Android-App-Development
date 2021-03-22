@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".mdui.producttexts.ProductTextsActivity">
+    <data>
+        <import type = "com.sap.cloud.android.odata.espmcontainer.ProductText" />
+        <variable name="productText" type="ProductText"/>
+        <variable name="handler" type="com.company.wizapp.mdui.producttexts.ProductTextsDetailFragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="Id"
+            app:valueText="@{productText.getOptionalValue(ProductText.id).toString()}" />
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="Language"
+            app:valueText="@{productText.getOptionalValue(ProductText.language).toString()}" />
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="LongDescription"
+            app:valueText="@{productText.getOptionalValue(ProductText.longDescription).toString()}" />
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="Name"
+            app:valueText="@{productText.getOptionalValue(ProductText.name).toString()}" />
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="ProductID"
+            app:valueText="@{productText.getOptionalValue(ProductText.productID).toString()}" />
+
+        <com.sap.cloud.mobile.fiori.misc.KeyValueCell
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:keyText="ShortDescription"
+            app:valueText="@{productText.getOptionalValue(ProductText.shortDescription).toString()}" />
+
+    </LinearLayout>
+</layout>

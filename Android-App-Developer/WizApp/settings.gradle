@@ -1,0 +1,2 @@
+rootProject.name = "Wiz App"
+include ':app'

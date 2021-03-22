@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+    <!-- XTIT: The title of the create Activity, will appear at the top of the screen -->
+    <string name="title_create_fragment">"Δημιουργία %1$s στοιχείου"</string>
+
+    <!-- XTIT: The title of the update Activity, will appear at the top of the screen -->
+    <string name="title_update_fragment">"Ενημέρωση"</string>
+
+    <!-- XMSG: Error message for the mandatory input fields, will appear in the edit field left empty -->
+    <string name="mandatory_warning">"Είναι υποχρεωτικό πεδίο"</string>
+
+    <!-- XTIT: The title of the welcome screen, will appear at the top of the screen -->
+    <string name="welcome_screen_headline_label">"Καλωσήρθατε"</string>
+
+    <!-- YINS: Short description on the welcome screen -->
+    <string name="welcome_screen_detail_label">"Γνωρίστε το SAP BTP SDK για Android με αυτήν τη δημιουργημένη εφαρμογή"</string>
+
+    <!-- XFLD: label at the bottom of the welcome screen -->
+    <string name="welcome_screen_footnote_label">"Μπορείτε να δοκιμάσετε τα χαρακτηριστικά SDK στη λειτουργία demo."</string>
+
+    <!-- XFLD: label of the primary button on the welcome screen -->
+    <string name="welcome_screen_primary_button_label">"Εισαγωγή"</string>
+
+    <!-- XBUT: Text of the Save button -->
+    <string name="save">"Αποθήκευση"</string>
+
+    <!-- XBUT: Text of the Update button -->
+    <string name="update">"Ενημέρωση"</string>
+
+    <!-- XBUT: Text of the Delete button -->
+    <string name="delete">"Διαγραφή"</string>
+
+    <!-- XBUT: Text of the Cancel button -->
+    <string name="cancel">"Ακύρωση"</string>
+
+    <!-- XBUT: Text of the OK button -->
+    <string name="ok">"ΟΚ"</string>
+
+    <!-- XBUT: Text of the Delete button -->
+    <string name="yes">"Ναι"</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="delete_dialog_title">"ΔΙΑΓΡΑΦΗ"</string>
+
+    <!-- XMSG: The message of the delete dialog -->
+    <string name="delete_one_item">"Θέλετε να διαγράψετε το επιλεγμένο στοιχείο;"</string>
+
+    <!-- XMSG: The message of the delete dialog in case of multiple selection -->
+    <string name="delete_more_items">"Θέλετε να διαγράψετε τις επιλεγμένες αναλυτικές γραμμές;"</string>
+
+    <!-- XMSG: Error message, can be presented in a Toast or Dialog -->
+    <string name="entity_download_error">"Σφάλμα κατά την λειτουργία παρασκηνίου"</string>
+
+    <!-- XMIT: Refresh menu item -->
+    <string name="menu_refresh">"Ανανέωση"</string>
+
+    <!-- XMIT: Refresh menu item -->
+    <string name="menu_home">"Αρχική Σελίδα"</string>
+
+    <!-- XMIT: Update menu item -->
+    <string name="menu_update">"Ενημέρωση"</string>
+
+    <!-- XMIT: Delete menu item -->
+    <string name="menu_delete">"Διαγραφή"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_headline">"Headline"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_subheadline">"Subheadline"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_body">"Body text"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_footnote">"Footnote"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_tag1">"TAG1"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_tag2">"TAG2"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_tag3">"TAG3"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_description">"Item description"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="object_header_status">"Status"</string>
+
+    <!-- NOTR: No translation needed, just placeholder text -->
+    <string name="error">"Error"</string>
+
+    <!-- error messages -->
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="read_failed">"Λήψη απέτυχε"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="format_error">"Η εισαγωγή δεν είναι κατάλληλη γαι τον τύπο δεδομένων"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="read_failed_detail">"Λειτουργία λήψης απέτυχε, προσπαθήστε να επανεκκινήσετε την εφαρμογή."</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="create_failed">"Δημιουργία απέτυχε"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="create_failed_detail">"Λειτουργία δημιουργίας απέτυχε, δοκιμάστε ξανά αργότερα."</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="update_failed">"Ενημέρωση απέτυχε"</string>
+    <string name="update_failed_detail">"Λειτουργία ενημέρωσης απέτυχε, ανανεώστε τα τοπικά δεδομένα και δοκιμάστε ξανά αργότερα."</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="delete_failed">"Διαγραφή απέτυχε"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="delete_failed_detail">"Λειτουργία διαγραφής απέτυχε, ανανεώστε τα τοπικά δεδομένα και δοκιμάστε ξανά αργότερα."</string>
+
+    <!-- XTIT: The message of the upload toast in case of success -->
+    <string name="log_upload_ok">"Το ημερολόγιο φορτώθηκε στον διακομιστή."</string>
+
+    <!-- XTIT: The message of the upload toast in case of failing -->
+    <string name="log_upload_failed">"Φόρτωση ημερολογίου απέτυχε"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="log_upload_failed_detail">"Λανθασμένο URL λήφθηκε για την φόρτωση ημερολογίου. Η εφαρμογή ενδέχεται να λειτουργεί ακόμα, αλλά τα ημερολόγια δεν θα φορτωθούν στον διακομιστή."</string>
+
+    <!-- XTIT: The message of the upload toast in case of success -->
+    <string name="usage_upload_ok">"Η χρήση φορτώθηκε στον διακομιστή"</string>
+
+    <!-- XTIT: The message of the upload toast in case of failing -->
+    <string name="usage_upload_failed">"Η φόρτωση χρήσης απέτυχε"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="usage_init_failed">"Αδύνατη έναρξη χρήσης"</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="push_error">"Σφάλμα προώθησης"</string>
+
+    <!-- XTIT: The title of the delete dialog -->
+    <string name="push_message">"Μήνυμα προώθησης λήφθηκε"</string>
+
+    <!-- XTIT: The Notification Text -->
+    <string name="push_text">"Γνωστοποίηση"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="push_token_upload_failed_detail">"Αδύνατη φόρτωση συμβόλου προώθησης στον διακομιστή SAP, το χαρακτηριστικό προώθησης δεν θα λειτουργεί. Δεν θα λάβετε μηνύματα προώθησης."</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="push_invalid_push_format">"Μήνυμα προώθησης λήφθηκε, αλλά η μορφοποίησή του ήταν άκυρη, και δεν μπόρεσε να υποβληθεί σε επεξεργασία."</string>
+
+    <!-- XMSG: AlertDialog before navigation - Title -->
+    <string name="before_navigation_dialog_title">"Ενδεχόμενη απώλεια δεδομένων"</string>
+
+    <!-- XMSG: AlertDialog before navigation - Message -->
+    <string name="before_navigation_dialog_message">"Εάν κλείσετε την σελίδα, δεν θα αποθηκευτούν τα δεδομένα."</string>
+
+    <!-- XMSG: AlertDialog before navigation - Positive button (navigation occurs) -->
+    <string name="before_navigation_dialog_positive_button">"Έξοδος"</string>
+
+    <!-- XMSG: AlertDialog before navigation - Negative button (cancelled navigation) -->
+    <string name="before_navigation_dialog_negative_button">"Παραμονή"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="config_loader_complete_error_description">"Φορτωτής διαμόρφωσης απέτυχε να λάβε τα δεδομένα διαμόρφωσης."</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="config_loader_on_error_description">"Πάροχος διαμόρφωσης, «%1$s» αντιμετώπισε σφάλμα. %2$s"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="config_data_build_json_description">"Αποτυχία δημιουργίας του αντικειμένου JSON"</string>
+    <string name="error_unknown_app_config">"Αποτυχία προετοιμασίας διαμόρφωσης εφαρμογής με άγνωστο σφάλμα."</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="server_auth_not_supported_saml">"Σφάλμα: Αυτή η εφαρμογή δεν υποστηρίζει ταυτοποίηση SAML."</string>
+
+	<!-- XTIT: The title of the error dialog -->
+	<string name="bind_error">"Σφάλμα σύνδεσης"</string>
+	
+	<!-- XMSG: Detailed error description -->
+    <string name="bind_error_detail">"Αδύνατη σύνδεση με Offline OData Sync Service."</string>
+    
+	<!-- XTIT: The title of the error dialog -->
+	<string name="offline_provider_error">"Σφάλμα Offline έναρξης"</string>
+	
+ 	<!-- XMSG: Detailed error description -->   
+	<string name="offline_provider_error_detail">"Αδύνατη έναρξη offline OData provider."</string>
+
+    <!-- XTIT: The title of the error dialog -->
+    <string name="offline_initial_open_error">"Σφάλμα στο αρχικό offline άνοιγμα"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="offline_initial_open_error_detail">"Αδύνατη ολοκλήρωση αρχικού ανοίγματος Offline αποθήκευσης."</string>
+
+    <!-- XTIT: The title of the network error dialog -->
+    <string name="initializing_offline_store_network_error">"Δεν Υπάρχει Σύνδεση στο Ίντερνετ"</string>
+
+    <!-- XMSG: Detailed network error description -->
+    <string name="initializing_offline_store_network_error_description">"Συνδεθείτε με το δίκτυο WiFi ή το δίκτυο δεδομένων κινητού."</string>
+
+    <!-- XMSG: Try to open offline store again button -->
+    <string name="initializing_offline_store_no_internet_button">"ΠΡΟΣΠΑΘΗΣΤΕ ΞΑΝΑ"</string>
+
+    <!-- XTIT: The title of the transaction issue dialog -->
+    <string name="initializing_offline_store_transaction_issue">"Πρόβλημα Κίνησης"</string>
+
+    <!-- XMSG: Detailed transaction issue description_1 -->
+    <string name="initializing_offline_store_transaction_issue_description1">"Πριν αποκτήσετε πρόσβαση στον λογαριασμό σας σε αυτήν την συσκευή, παρασχέστε τη συσκευή σε:"</string>
+
+    <!-- XMSG: Detailed transaction issue description_2 -->
+    <string name="initializing_offline_store_transaction_issue_description2">"Θα πρέπει να συνδεθούν με τον λογαριασμό τους και να επιλύσουν το πρόβλημα κίνησης."</string>
+
+    <!-- XMSG: Return to login page button -->
+    <string name="initializing_offline_store_transaction_issue_button">"ΕΠΙΣΤΡΟΦΗ ΣΤΗΝ ΟΘΟΝΗ ΣΥΝΔΕΣΗΣ"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="offline_backend_big_data_error_detail">"Το Ωφέλιμο Φορτίο από το back-end ήταν πολύ μεγάλο, το προεπιλεγμένο μέγεθος του περιορισμού ωφέλιμου φορτίου του SAP Mobile Services είναι 64M. Μπορείτε να το διορθώσετε με μία από τις παρακάτω λύσεις:\n\t1) Αύξηση ορίου μεγέθους σε offline.ini,\n\t2) Εφαρμογή σελιδοποίησης διακομιστή για ενεργοποίηση συγχρονισμού μεγάλων ομάδων δεδομένων σε τμήματα,\n\t3) Χρήση αιτήσεων $top για τον καθορισμό ερωτημάτων ή φίλτρων για τον περιορισμό συνολικού όγκου δεδομένων στις λήψεις εντολέα."</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="offline_backend_time_out_error_detail">"Αύξηση της λήξης χρόνου αναμονής της back-end σύνδεσης για αυτήν την εφαρμογή στο SAP Mobile Services και δοκιμάστε ξανά."</string>
+
+    <!-- XTIT: The title of the error dialog -->
+	<string name="synchronize_failure">"Αποτυχία Συγχρονισμού"</string>
+	
+	<!-- XMSG: Detailed error description -->    
+	<string name="synchronize_failure_detail">"Συγχρονισμός με Υπηρεσίες Κινητών απέτυχε"</string>
+
+    <!-- XTIT: The title of the error dialog -->
+    <string name="offline_reset_store_error">"Αδυναμία επαναφοράς offline αποθήκευσης"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="offline_reset_store_error_detail">"Αδύνατη επαναφορά/διαγραφή offiline αποθήκευσης δεδομένων"</string>
+    <!-- error messages -->
+
+    <!-- offline -->
+
+    <!-- XTIT: The title of performing initial opening of offline store -->
+    <string name="initializing_offline_store">"Συγχρονισμός σε Εξέλιξη"</string>
+
+    <!-- XMSG: Advise user of delay when performing initial opening of offline store -->
+    <string name="initializing_offline_store_description">"Περιμένετε να ολοκληρωθεί ο συγχρονισμός προκειμένου να συνεχίσετε στην εφαρμογή. Αυτό μπορεί να χρειαστεί λίγα λεπτά."</string>
+
+    <!-- XTIT: The title of initial opening of offline store failed -->
+    <string name="initializing_offline_store_failed">"Συγχρονισμός Απέτυχε"</string>
+	
+    <!-- NOTR: No translation needed, Label for entity state in offline -->	
+	<string name="local_state">"Local"</string>
+	
+    <!-- NOTR: No translation needed, Label for entity state in offline -->	
+	<string name="error_state">"Error"</string>
+    
+	<!-- NOTR: No translation needed, Label for entity state in offline -->	
+	<string name="updated_state">"Updated"</string>
+    
+	<!-- NOTR: No translation needed, Label for entity state in offline -->	
+	<string name="download_state">"Download"</string>
+    
+    <!-- XMIT: Menu item to trigger synchronization -->
+	<string name="synchronize_action">"Συγχρονισμ."</string>
+	
+    <!-- offline -->
+	
+    <!-- XTIT: The title of the settings dialog -->
+    <string name="settings_activity_name">"Ρυθμίσεις"</string>
+    <!-- XTIT: The title of the settings menu -->
+    <string name="menu_item_settings">"Ρυθμίσεις"</string>
+
+    <!-- XTIT: The title of the passcode group -->
+    <string name="passcode">"Κωδικός πρόσβασης"</string>
+    <!-- XTIT: The title of the change passcode menu item -->
+    <string name="manage_passcode">"Αλλαγή Κωδικού Πρόσβασης"</string>
+    <!-- XTIT: The title of the reset group -->
+    <string name="reset">"Επανακαθ.Εφαρμογής"</string>
+    <!-- XTIT: The title of the reset app menu item -->
+    <string name="reset_app">"Εκκαθάριση Ρυθμίσεων Εφαρμογής"</string>
+    <!-- XTIT: The title of a confirmation dialog -->
+    <string name="reset_app_confirmation">"Όλες οι πληροφορίες που αφορούν αυτή την εφαρμογή θα διαγραφούν. Θέλετε να συνεχίσετε;"</string>
+    <!-- XMSG: The message of reset client -->
+    <string name="reset_client">"Επαναφορά Εντολέα"</string>
+
+    <!-- XTIT: The title of a menu item -->
+    <string name="upload_usage">"Φόρτωση Δεδομένων Χρήσης"</string>
+    <!-- XTIT: The title of a menu item -->
+    <string name="set_usage_consent">"Συναίνεση στην Συλλογή Χρήσης"</string>
+
+    <!-- XTIT: The title of a menu group -->
+    <string name="usage">"Χρήση"</string>
+    <!-- XTIT: The title of a menu group -->
+    <string name="logging">"Σύνδεση"</string>
+    <!-- XTIT: The title of a menu item -->
+    <string name="upload_log">"Φόρτωση Ημερολογίου"</string>
+    <!-- XTIT: The description of a menu item -->
+    <string name="upload_log_summary">"Φόρτωση ημερολογίου στον διακομιστή."</string>
+    <!-- XMSG: The message of a log level toast -->
+    <string name="log_level_changed">"Προεπιλεγμένο επίπεδο ημερολογίου άλλαξε από την πολιτική διακομιστή σε: %s"</string>
+    <!-- XMSG: The message of a log level toast -->
+    <string name="log_level_default">"Πολιτική ημερολογίου δεν καθορίστηκε στον διακομιστή, προεπιλεγμένο επίπεδο ημερολογίου καθορίστηκε σε: %s"</string>
+    <!-- XTIT: The title of a menu item -->
+    <string name="log_level">"Επίπεδο Ημερολογίου"</string>
+    <!-- XTIT: The title of a menu item -->
+    <string name="dialog_title_choose_log_level">"Επιλογή Επιπέδου Ημερολογίου"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_none">"Κανένα"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_fatal">"Σοβαρό"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_error">"Σφάλμα"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_warning">"Προειδοποίηση"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_info">"Πληροφορίες"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_debug">"Διόρθωση"</string>
+    <!-- XTIT: Log level title -->
+    <string name="log_level_path">"Διαδρομή"</string>
+    <!-- XMSG: Authentication error message -->
+    <string name="authentication_failed">"Η Ταυτοποίηση απέτυχε"</string>
+
+    <!-- restrictions -->
+
+    <!-- XTIT: The title of the error dialog -->
+    <string name="restriction_service_url_title">"URL Υπηρεσίας"</string>
+
+    <!-- XMSG: Detailed error description -->
+    <string name="restriction_service_url_description">"Το URL της υπηρεσίας OData."</string>
+    <!-- restrictions -->
+
+    <!-- XMSG: Detailed error description -->
+    <string name="error_back_navigation">"Η εφαρμογή έχει προστατευμένο κωδικό πρόσβασης, δεν ανοίγει εάν δεν εισάγετε τον σωστό κωδικό."</string>
+
+</resources>
