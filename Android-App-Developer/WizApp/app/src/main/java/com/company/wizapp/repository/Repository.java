@@ -12,6 +12,8 @@ import com.company.wizapp.repository.OperationResult.Operation;
 
 import com.sap.cloud.android.odata.espmcontainer.ESPMContainer;
 
+import com.sap.cloud.android.odata.espmcontainer.ESPMContainerMetadata;
+import com.sap.cloud.android.odata.espmcontainer.Product;
 import com.sap.cloud.mobile.odata.ChangeSet;
 import com.sap.cloud.mobile.odata.DataQuery;
 import com.sap.cloud.mobile.odata.DataType;
@@ -367,6 +369,9 @@ public class Repository<T extends EntityValue> {
         DataQuery dataQuery = new DataQuery().from(entitySet);
         if (orderByProperty != null) {
             dataQuery = dataQuery.orderBy(orderByProperty, SortOrder.ASCENDING);
+            if (entitySet.getEntityType() == ESPMContainerMetadata.EntityTypes.product) {
+                dataQuery.thenBy(Product.name, SortOrder.ASCENDING);
+            }
         }
         eSPMContainer.executeQueryAsync(dataQuery,
             result -> {
