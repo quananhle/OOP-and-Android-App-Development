@@ -55,6 +55,7 @@ import java.util.List;
 
 
 public class ProductCategoriesListFragment extends InterfacedFragment<ProductCategory> {
+    private List<ProductCategory> allProductCategories;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoriesActivity.class);
 
