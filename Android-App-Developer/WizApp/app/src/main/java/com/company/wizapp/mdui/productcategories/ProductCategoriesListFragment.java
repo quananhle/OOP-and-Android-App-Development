@@ -393,6 +393,9 @@ public class ProductCategoriesListFragment extends InterfacedFragment<ProductCat
          */
         @WorkerThread
         public void setItems(@NonNull List<ProductCategory> currentProductCategories) {
+            if (allProductCategories == null) {
+                allProductCategories = new ArrayList<>(currentProductCategories);
+            }
             if (productCategories == null) {
                 productCategories = new ArrayList<>(currentProductCategories);
                 notifyItemRangeInserted(0, currentProductCategories.size());
