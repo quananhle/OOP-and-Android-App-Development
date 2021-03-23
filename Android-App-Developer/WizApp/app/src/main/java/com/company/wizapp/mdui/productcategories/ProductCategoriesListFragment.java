@@ -1,5 +1,6 @@
 package com.company.wizapp.mdui.productcategories;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,6 +45,7 @@ import com.company.wizapp.viewmodel.productcategory.ProductCategoryViewModel;
 import com.sap.cloud.android.odata.espmcontainer.ESPMContainerMetadata.EntitySets;
 import com.sap.cloud.android.odata.espmcontainer.ProductCategory;
 import com.sap.cloud.mobile.fiori.object.ObjectCell;
+import com.sap.cloud.mobile.fiori.search.FioriSearchView;
 import com.sap.cloud.mobile.odata.DataValue;
 import com.sap.cloud.mobile.odata.EntityValue;
 
@@ -55,8 +57,6 @@ import java.util.List;
 
 
 public class ProductCategoriesListFragment extends InterfacedFragment<ProductCategory> {
-    private List<ProductCategory> allProductCategories;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoriesActivity.class);
 
     /**
@@ -120,7 +120,38 @@ public class ProductCategoriesListFragment extends InterfacedFragment<ProductCat
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(this.menu, menu);
+        inflater.inflate(R.menu.product_categories_menu, menu);
+        FioriSearchView searchView = (FioriSearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setBackgroundResource(R.color.transparent);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (adapter == null) {
+                    return false;
+                }
+
+                List filteredCategoriesList = new ArrayList();
+                if (newText != null && newText.trim().length() > 0) {
+                    for (int i = 0; i < adapter.allProductCategories.size(); i++) {
+                        ProductCategory pc = adapter.allProductCategories.get(i);
+                        if (pc.getCategoryName().toLowerCase().contains(newText.toLowerCase())) {
+                            filteredCategoriesList.add(pc);
+                        }
+                    }
+                }
+                else {
+                    filteredCategoriesList = adapter.allProductCategories;
+                }
+
+                adapter.productCategories = filteredCategoriesList;
+                return false;
+            }
+        });
     }
 
     @Override
@@ -368,7 +399,7 @@ public class ProductCategoriesListFragment extends InterfacedFragment<ProductCat
      * List adapter to be used with RecyclerView. It contains the set of productCategories.
      */
     public class ProductCategoryListAdapter extends RecyclerView.Adapter<ProductCategoryListAdapter.ViewHolder> {
-
+        List<ProductCategory> allProductCategories;
         private Context context;
 
         /** Entire list of ProductCategory collection */
